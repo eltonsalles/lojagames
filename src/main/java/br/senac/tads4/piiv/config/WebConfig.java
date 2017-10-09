@@ -25,13 +25,18 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
-import br.senac.tads4.piiv.controller.CervejasController;
-import br.senac.tads4.piiv.controller.converter.EstiloConverter;
-import br.senac.tads4.piiv.thymeleaf.BrewerDialect;
+import br.senac.tads4.piiv.controller.ClienteController;
+import br.senac.tads4.piiv.thymeleaf.TheCodeDialect;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
+/**
+ * Classe de configuração do pacote controller
+ * 
+ * @author Elton
+ *
+ */
 @Configuration
-@ComponentScan(basePackageClasses = {CervejasController.class})
+@ComponentScan(basePackageClasses = {ClienteController.class})
 @EnableWebMvc
 public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 	
@@ -57,7 +62,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		engine.setTemplateResolver(templateResolver());
 		
 		engine.addDialect(new LayoutDialect());
-		engine.addDialect(new BrewerDialect());
+		engine.addDialect(new TheCodeDialect());
 		return engine;
 	}
 	
@@ -78,7 +83,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 	@Bean
 	public FormattingConversionService mvcConversionService() {
 		DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService();
-		conversionService.addConverter(new EstiloConverter());
+		//conversionService.addConverter(new EstiloConverter());
 		
 		NumberStyleFormatter bigDecimalFomatter = new NumberStyleFormatter("#,##0.00");
 		conversionService.addFormatterForFieldType(BigDecimal.class, bigDecimalFomatter);

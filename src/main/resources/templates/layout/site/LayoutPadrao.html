@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="utf-8">
+<title>The Code</title>
+<!--Let browser know website is optimized for mobile-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Icon -->
+<link rel="shortcut icon" th:href="@{/images/icon.png}" />
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" type="text/css" th:href="@{/layout/site/vendors/materialize/css/materialize.min.css}" />
+<!-- Style da parte do site -->
+<link rel="stylesheet" type="text/css" th:href="@{/layout/site/stylesheets/thecode-site.css}" />
+</head>
+<body>
+	<div th:replace="layout/site/fragments/BarraSuperior :: layout-site-barra-superior"></div>
+	<div th:replace="layout/site/fragments/Menu :: layout-site-menu"></div>
+	<div th:replace="layout/site/fragments/BarraSuperiorMobile :: layout-site-barra-superior-mobile"></div>
+	<div layout:fragment="banner"></div>
+	<main layout:fragment="conteudo"></main>
+	<div th:replace="layout/site/fragments/Footer :: layout-site-footer"></div>
+	
+	<!-- Import jQuery before materialize.js -->
+	<script th:src="@{/layout/site/vendors/jquery/jquery-3.2.1.min.js}"></script>
+	<!-- Compiled and minified JavaScript -->
+	<script th:src="@{/layout/site/vendors/materialize/js/materialize.min.js}"></script>
+	<!-- Js da parte do site -->
+	<script th:src="@{/layout/site/javascripts/thecode-site.js}"></script>
+	
+	<th:block layout:fragment="javascript-extra"></th:block>
+</body>
+</html>

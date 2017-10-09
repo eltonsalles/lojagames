@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<body>
+	<header class="navbar-fixed black" th:fragment="layout-site-barra-superior">
+		<nav class="black ocultar-navbar">
+			<div class="row">
+				<div class="col s8 m10 l9">
+					<div class="nav-wrapper">
+						<a href="#" class="brand-logo">Logo</a>
+						<a href="#" data-activates="mobile-demo" class="button-collapse">
+							<i class="material-icons">menu</i>
+						</a>
+						<nav class="col offset-m2 m7 offset-l2 l7 black z-depth-0 hide-on-med-and-down ocultar-navbar">
+							<div class="nav-wrapper">
+								<form>
+									<div class="input-field div-search">
+										<input id="search" type="search" name="search" required>
+										<label class="label-icon" for="search">
+											<i class="material-icons">search</i>
+										</label>
+										<i class="material-icons">close</i>
+									</div>
+								</form>
+							</div>
+						</nav>
+					</div>
+				</div>
+				<div class="col s2 m1 l2">
+					<a href="#" class="white-text">
+						<i class="large material-icons left">account_box</i>
+						<span class="text-account-box hide-on-med-and-down">Login/Cadastro</span>
+					</a>
+				</div>
+				<div class="col s2 m1 l1">
+					<a href="#">
+						<i class="large material-icons">shopping_cart</i>
+					</a>
+				</div>
+				<div class="col m12 black hide-on-med-and-down menu-desktop">
+					<div class="nav-content">
+						<ul class="tabs tabs-transparent remove-indicator">
+							<li class="tab">
+								<a target="_self" href="#">PS4</a>
+							</li>
+							<li class="tab">
+								<a target="_self" href="#">PS3</a>
+							</li>
+							<li class="tab">
+								<a target="_self" href="#">XBOX ONE</a>
+							</li>
+							<li class="tab">
+								<a target="_self" href="#">XBOX360</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+</body>
+</html>

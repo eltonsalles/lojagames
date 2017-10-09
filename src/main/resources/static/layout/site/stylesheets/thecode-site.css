@@ -1,0 +1,295 @@
+/* Index */
+
+/* Tira a borda de active na página index */
+.remove-indicator .indicator {
+  background-color: #000 !important;
+}
+
+/* Altera a cor da fonte do breadcrumb */
+.breadcrumb-site a,
+.breadcrumb-site a:before {
+  color: #000 !important;
+}
+
+/* Margem para a página de detalhes de produto */
+.breadcrumb-site-detalhes-produto {
+
+}
+
+/* Margem no topo dos containers */
+main[class="container"] {
+  margin-top: 1%;
+}
+
+/* Margem nas divs de produto */
+.produto {
+  margin-bottom: 2%;
+}
+
+/* Muda a cor do icone de carrinho no produto */
+.produto:hover i {
+  color: #e65100;
+}
+
+/* Da um espaço em baixo no título do jogo */
+.produto h6 {
+  padding-bottom: 5%;
+}
+
+/* Tira a margem e deixa em negrito o preço */
+.preco {
+  margin: 0;
+  font-weight: bold;
+}
+
+/* Tira o padding da div que recebe os preços, os dizeres á vista e o carrinho */
+.col-content > .col:nth-child(3) {
+  padding: 0;
+}
+
+/* Muda o tamanho da font do preço */
+.preco {
+  font-size: 0.8rem;
+}
+
+/* Colocar a linha no meio do preço antigo e deixa ele um rem menor */
+.preco span:first-child {
+  text-decoration: line-through;
+  font-size: 0.8rem;
+}
+
+/* Muda o tamanho e a cor do icone de carrinho no produto  */
+.add-carrinho a i {
+  font-size: 3rem;
+  color: #009688;
+}
+
+/* Posiciona o botão voltar ao topo */
+.btn-voltar-topo {
+  position: fixed;
+  top: 80%;
+  left: 90%;
+}
+
+/* Footer */
+.footer-copyright p {
+  width: 100%;
+  text-align: center;
+}
+
+/* Borda da div que contém o form do search para dar mais destaque */
+.div-search {
+  border: 2px solid transparent;
+  -moz-border-image: -moz-linear-gradient(top right, black 60%, #e65100 100%);
+  -webkit-border-image: -webkit-linear-gradient(top right, black 60%, #e65100 100%);
+  border-image: linear-gradient(to bottom left, black 60%, #e65100 100%);
+  border-image-slice: 1;
+}
+
+/* Altura mínima para o header */
+header {
+  min-height: 112px;
+}
+
+@media (max-width: 768px) {
+  /* Altura mínima para o header */
+  header {
+    min-height: 57px;
+  }
+
+  /* Diminui o tamanho da fonto do breadcrumb */
+  .breadcrumb-site a,
+  .breadcrumb-site a:before {
+    font-size: 1rem;
+  }
+
+  /* Tira o padding da div que recebe o preço */
+  .produto article div:nth-child(3) div:first-child {
+    padding: 0;
+  }
+
+  .produto h6 {
+    height: 35px;
+  }
+
+  /* Muda o tamanho do preço atual */
+  .preco {
+    font-size: 0.8rem;
+  }
+
+  /* Muda o tamanho do preço antigo */
+  .preco span {
+    font-size: 0.7rem;
+  }
+
+  /* Muda o tamanho e a cor do icone de carrinho no produto  */
+  .add-carrinho a i {
+    font-size: 2.2rem;
+  }
+
+  /* Posiciona o botão voltar ao topo */
+  .btn-voltar-topo {
+    top: 85%;
+    left: 80%;
+  }
+}
+
+/****************************************************************************************************************/
+/* Detalhes de Produto */
+
+/* Aumenta o tamanho da fonte do preço */
+.detalhes-produto {
+  font-size: 2.5rem;
+}
+
+/* Formatação para os dizeres à vista */
+.a-vista:after {
+  content: " à vista ";
+  color: #fb8c00;
+}
+
+/* Alterar o tamanho da fonte dos dizeres de boleto bancário */
+.boleto-bancario {
+  font-size: 0.9rem;
+}
+
+/* Garante que no botão comprar as letras sempre serão maiúsculas */
+.btn-comprar {
+  text-transform: uppercase;
+}
+
+/* Form para calcular o frete */
+#form-frete {
+  margin-top: 3%;
+  border: 1px solid #e0e0e0;
+}
+
+/* Altera o tamanho da fonte do texto para o frete */
+.texto-frete {
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+/* Coloca margem no topo para ficar visualmente melhor */
+label[for="calcular-frete"],
+input[name="calcular-frete"] {
+  margin-top: 13% !important;
+}
+
+/* Deixa a font da collections em negrito */
+.valores-parcela * {
+  color: black !important;
+}
+
+/* Deixa a font das lis menores */
+.valores-parcela li {
+  font-size: 0.8rem;
+}
+
+/* Forma e tamanho para a drase meramente ilustrativa */
+.ilustrativa {
+  font-style: italic;
+  font-size: 0.7rem;
+  color: #9e9e9e;
+}
+
+/* Alura para o parallax */
+.parallax-container {
+  height: 300px;
+}
+
+/***********************************************************************************************************************/
+/* Lista de Produtos */
+
+/* Altera a cor e o tamanho dos span usados ne select do materialize */
+.ordenar ul li span {
+  color: #000;
+  font-size: 0.9rem
+}
+
+/* Altera o tamanho da fonte dos filtros */
+.filtro, 
+#dropdown-ps3 a, 
+#dropdown-ps4 a,
+#dropdown-xbox-one a {
+  font-size: 0.9rem;
+}
+
+/* Tira o padding do div que recebe o nome do produto na página lista-produto */
+.lista-produto-nome {
+  padding: 0
+}
+
+/* Mantém a altura em 35px como padrão e diminui o tamanho da font */
+.lista-produto-nome h6 {
+  height: 35px;
+  font-size: 0.9rem;
+}
+
+/* Tira o padding da primeira div que contém as informações de preço */
+.col-content > .col:nth-child(3) div:first-child {
+  padding: 0;
+}
+
+.lista-produto-add-carrinho a i {
+  font-size: 2rem;
+}
+
+/***********************************************************************************************************************/
+/* Carrinho de compras */
+
+/* Tira o padding da col que tem o botão de finalizar a compra para alinhar com as outras colunas */
+.finalizar-compra {
+  padding: 0 !important;
+  padding-top: 1% !important;
+}
+
+/* Muda a cor das lebels do formulário de carrinho de compra */
+#carrinho-compra label {
+  color: #000;
+}
+
+/* Aumenta um pouco as linhas subtotal, calcular frete e total no carrinho de compras */
+#carrinho-compra .grey {
+  padding: 1% 0;
+}
+
+/* Altera o tamanho do texto das linhas subtotal e total no carrinho de comprass */
+#carrinho-compra .valign-wrapper p {
+  font-size: 1.3rem;
+}
+
+/* Altera o tamanho do botão de finalizar da navbar de carrinho de compras */
+.btn-nav-finalizar-compra,
+.btn-nav-finalizar-compra i {
+  font-size: 0.9rem !important;
+}
+
+/* Pra esse tamanho de tela é necessário da margem em baixo */
+@media (max-width: 500px) {
+  .btn-excluir-produto {
+    margin-bottom: 5%;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Muda o tamanho da font para o botão comprar mais */
+  .btn-escolher-mais-produtos * {
+    font-size: 0.8rem;
+  }
+
+  /* Muda o tamanho da font do texto carrinho de compras */
+  .titulo-carrinho-compras * {
+    font-size: 1.5rem;
+  }
+
+  /* Tira o padding para esse tamanho de tela do botão remover produto */
+  .btn-excluir-produto {
+    padding: 0 !important;
+  }
+
+  /* Altera o tamanho da font dos campos do formulário para esse tamanho de tela */
+  form input {
+    font-size: 0.9rem !important;
+  }
+}

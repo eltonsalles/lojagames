@@ -14,11 +14,17 @@ import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import br.senac.tads4.piiv.model.Cerveja;
-import br.senac.tads4.piiv.repository.Cervejas;
+import br.senac.tads4.piiv.model.Cliente;
+import br.senac.tads4.piiv.repository.ClienteRepository;
 
+/**
+ * Classe de configuração do pacote repository
+ * 
+ * @author Elton
+ *
+ */
 @Configuration
-@EnableJpaRepositories(basePackageClasses = Cervejas.class)
+@EnableJpaRepositories(basePackageClasses = ClienteRepository.class)
 public class JpaConfig {
 	
 	@Bean
@@ -43,7 +49,7 @@ public class JpaConfig {
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 		factory.setDataSource(dataSource);
 		factory.setJpaVendorAdapter(jpaVendorAdapter);
-		factory.setPackagesToScan(Cerveja.class.getPackage().getName());
+		factory.setPackagesToScan(Cliente.class.getPackage().getName());
 		factory.afterPropertiesSet();
 		return factory.getObject();
 	}
