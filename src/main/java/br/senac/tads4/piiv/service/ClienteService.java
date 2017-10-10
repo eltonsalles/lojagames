@@ -7,7 +7,7 @@ import br.senac.tads4.piiv.model.Cliente;
 import br.senac.tads4.piiv.repository.ClienteRepository;
 
 /**
- * Classe responsável por persiste no banco de dados na tabela cliente
+ * Classe responsável por persistir os dados no banco de dados na tabela cliente
  * 
  * @author Elton
  *

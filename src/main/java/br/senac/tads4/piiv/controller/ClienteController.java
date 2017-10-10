@@ -23,7 +23,6 @@ public class ClienteController {
 	@RequestMapping(value = "/novo")
 	public ModelAndView novo(Cliente cliente) {
 		ModelAndView mv = new ModelAndView("site/cliente/NovoCliente");
-		//ModelAndView mv = new ModelAndView("backoffice/produto/CadastroProduto");
 		return mv;
 	}
 	
