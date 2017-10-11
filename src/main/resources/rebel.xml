@@ -13,11 +13,6 @@
 
 	<web>
 		<link target="/">
-			<dir name="C:/sandbox/javadev/4º TADS/PI/lojagames/target/m2e-wtp/web-resources">
-				<exclude name="/"/>
-			</dir>
-		</link>
-		<link target="/">
 			<dir name="C:/sandbox/javadev/4º TADS/PI/lojagames/src/main/webapp">
 			</dir>
 		</link>

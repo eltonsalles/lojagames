@@ -46,6 +46,9 @@
   	
   	<!-- Jackson - JSON -->
   	<jackson-core.version>2.7.9</jackson-core.version>
+  	
+  	<!-- Stella -->
+  	<stella.version>2.1.2</stella.version>
   </properties>
   
   <build>
@@ -197,5 +200,26 @@
 	    <version>${jackson-core.version}</version>
   		<scope>compile</scope>
   	</dependency>
+  	
+  	<!-- Stella Core -->
+  	<dependency>
+	    <groupId>br.com.caelum.stella</groupId>
+	    <artifactId>caelum-stella-core</artifactId>
+	    <version>${stella.version}</version>
+	</dependency>
+	
+	<!-- Stella Bean Validation -->
+	<dependency>
+	    <groupId>br.com.caelum.stella</groupId>
+	    <artifactId>caelum-stella-bean-validation</artifactId>
+	    <version>${stella.version}</version>
+	</dependency>
+	
+	<!-- Stella Boleto -->
+	<dependency>
+	    <groupId>br.com.caelum.stella</groupId>
+	    <artifactId>caelum-stella-boleto</artifactId>
+	    <version>${stella.version}</version>
+	</dependency>
   </dependencies>
 </project>
