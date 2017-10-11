@@ -10,36 +10,36 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.senac.tads4.piiv.model.Produto;
-import br.senac.tads4.piiv.service.ProdutoService;
+import br.senac.tads4.piiv.model.Jogo;
+import br.senac.tads4.piiv.service.JogoService;
 
 @Controller
-@RequestMapping(value = "/produtos")
-public class ProdutoController {
+@RequestMapping(value = "/produtos/jogos")
+public class JogoController {
 
 	@Autowired
-	private ProdutoService produtos;
+	private JogoService jogos;
 	
 	@RequestMapping(value = "/novo")
-	public ModelAndView novo(Produto produto) {
-		ModelAndView mv = new ModelAndView("backoffice/produto/CadastroProduto");
+	public ModelAndView novo(Jogo jogo) {
+		ModelAndView mv = new ModelAndView("backoffice/produto/CadastroJogo");
 		return mv;
 	}
 	
 	@RequestMapping(value = "/novo", method = RequestMethod.POST)
-	public ModelAndView novo(@Valid Produto produto, BindingResult result, RedirectAttributes attributes) {
+	public ModelAndView novo(@Valid Jogo jogo, BindingResult result, RedirectAttributes attributes) {
 		if (result.hasErrors()) {
-			return novo(produto);
+			return novo(jogo);
 		}
 		
 		try {
-			produtos.salvar(produto);
+			jogos.salvar(jogo);
 		} catch (Exception e) { // Trocar por uma exceção mais especifica
 			// result.rejectValue();
-			return novo(produto);
+			return novo(jogo);
 		}
 		
-		attributes.addFlashAttribute("message", "Produto cadastrado com sucesso!");
-		return new ModelAndView("redirect:/produtos/novo");
+		attributes.addFlashAttribute("message", "Jogo cadastrado com sucesso!");
+		return new ModelAndView("redirect:/produtos/jogos/novo");
 	}
 }
