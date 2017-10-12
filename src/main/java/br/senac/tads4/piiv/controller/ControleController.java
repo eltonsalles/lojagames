@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.senac.tads4.piiv.model.Alimentacao;
+import br.senac.tads4.piiv.model.Conexao;
 import br.senac.tads4.piiv.model.Controle;
+import br.senac.tads4.piiv.model.Cor;
 import br.senac.tads4.piiv.service.ControleService;
 
 @Controller
@@ -23,6 +26,9 @@ public class ControleController {
 	@RequestMapping(value = "/novo")
 	public ModelAndView novo(Controle controle) {
 		ModelAndView mv = new ModelAndView("backoffice/produto/CadastroControle");
+		mv.addObject("conexoes", Conexao.values());
+		mv.addObject("alimentacoes", Alimentacao.values());
+		mv.addObject("cores", Cor.values());
 		return mv;
 	}
 	
