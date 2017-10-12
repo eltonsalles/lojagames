@@ -1,16 +1,13 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="layout/site/LayoutPadrao"
-	xlmns:thecode="http://thecode.com.br">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/site/LayoutPadrao" xlmns:thecode="http://thecode.com.br">
 <head>
 <title>Cadastro de cliente</title>
 </head>
 <body>
 	<main class="container" layout:fragment="conteudo">
 	<div class="row">
-		<div
-			th:replace="layout/site/fragments/MenuCliente :: layout-site-menu-cliente"></div>
+		<div th:replace="layout/site/fragments/MenuCliente :: layout-site-menu-cliente"></div>
 		<div class="col s9">
 			<div class="row">
 				<nav class="top-nav amber darken-2">
@@ -21,65 +18,82 @@
 					</div>
 				</nav>
 			</div>
-
-			<form class="col s12">
-				<div class="row">
-					<div class="input-field col s12">
-						<i class="material-icons prefix">account_circle</i> <input
-							id="full_name" type="text" class="validate"> <label
-							for="full_name">Nome completo</label>
-					</div>
-				</div>
-				<div class="row">
-					<div class="input-field col s4">
-						<i class="material-icons prefix">account_box</i> <input id="cpf"
-							type="text" class="validate"> <label for="cpf">CPF</label>
-					</div>
-					<div class="input-field col s4">
-						<i class="material-icons prefix">date_range</i> <input
-							id="dataNascimento" type="text" class="datepicker"> <label
-							for="dataNascimento">Data de Nascimento</label>
-					</div>
-					<div class="input-field col s4">
-						<i class="material-icons prefix">phone</i> <input id="cpf"
-							type="text" class="validate"> <label for="cpf">Celular</label>
-					</div>
-					<div class="input-field col s12">
-						<i class="material-icons prefix">email</i> <input id="email"
-							type="text" class="validate"> <label for="email">E-mail</label>
-					</div>
-					<div class="row">
-						<div class="input-field col s6">
-							<i class="material-icons prefix">vpn_key</i> <input id="senha"
-								type="password" class="validate"> <label for="senha">Senha</label>
-						</div>
-						<div class="input-field col s6">
-							<i class="material-icons prefix">vpn_key</i> <input
-								id="repitir-senha" type="password" class="validate"> <label
-								for="repitir-senha">Repita senha</label>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col s12">
-							<div class="col s3 right">
-								<button class="amber darken-2 btn waves-effect waves-light"
-									type="submit" name="action">
-									Salvar<i class="material-icons left">send</i>
-								</button>
-							</div>
-							<div class="col s3 right">
-								<button class="right red darken-2 btn waves-effect waves-light"
-									type="reset" name="action">
-									Cancelar<i class="material-icons left">clear_all</i>
-								</button>
-							</div>
-						</div>
-
-					</div>
-				</div>
-			</form>
 		</div>
-	</div>
+		<form method="post" th:object="${cliente}">
+			<div th:if="${#fields.hasAnyErrors()}"></div>
+			<thecode:message />
+			<div class="row">
+				<div class="input-field col s8">
+					<i class="material-icons prefix">account_circle</i>
+							<input id="nome" type="text" class="validate" th:field="*{nome}" />
+						<label for="nome">Nome completo</label>
+				</div>
+				<div class="col s3">
+					<a>
+						<input value="" name="sexo" type="radio" id="masculino" th:field="*{sexo}" //>
+						<label for="masculino">Masculino</label>
+					</a>
+					<a>
+						<input value="" name="sexo" type="radio" id="feminino" th:field="*{sexo}" //>
+						<label for="feminino">Feminino</label>
+					</a>
+				</div>
+				<div class="input-field col s6">
+					<i class="material-icons prefix">account_box</i>
+					<input id="cpf" type="text" class="validate" th:field="*{cpf}" />
+					<label for="cpf">CPF</label>
+				</div>
+
+				<div class="input-field col s6">
+					<i class="material-icons prefix">date_range</i>
+					<input id="dataNascimento" type="text" class="datepicker" th:field="*{dataNascimento}" />
+					<label for="dataNascimento">Data de Nascimento</label>
+				</div>
+
+				<div class="input-field col s6">
+					<i class="material-icons prefix">phone</i>
+					<input id="telefone" type="text" class="validate" th:field="*{telefone}" />
+					<label for="telefone">Telefone</label>
+				</div>
+				<div class="input-field col s6">
+					<i class="material-icons prefix">smartphone</i>
+					<input id="celular" type="text" class="validate" th:field="*{celular}" />
+					<label for="celular">Celular</label>
+				</div>
+				<div class="input-field col s12">
+					<i class="material-icons prefix">email</i>
+					<input id="email" type="text" class="validate" th:field="*{email}" />
+					<label for="email">E-mail</label>
+				</div>
+				<div class="input-field col s6">
+					<i class="material-icons prefix">vpn_key</i>
+					<input id="senha" type="password" class="validate" th:field="*{senha}" />
+					<label for="senha">Senha</label>
+				</div>
+				<div class="input-field col s6">
+					<i class="material-icons prefix">vpn_key</i>
+					<input id="repitir-senha" type="password" class="validate" th:field="*{senha}" />
+					<label for="repitir-senha">Repita senha</label>
+				</div>
+			</div>
+			<div class="row">
+					<div class="col s3 right">
+						<button class="amber darken-2 btn waves-effect waves-light" type="submit" name="action">
+							Salvar
+							<i class="material-icons left">send</i>
+						</button>
+					</div>
+					<div class="col s3 right">
+						<button class="right red darken-2 btn waves-effect waves-light" type="reset" name="action">
+							Cancelar
+							<i class="material-icons left">clear_all</i>
+						</button>
+					</div>
+				</div>
+				</div>
+		</form>
+
+
 	</main>
 	<th:block layout:fragment="javascript-extra">
 		<script th:src="@{/javascripts/site-novo-cliente.js}"></script>
