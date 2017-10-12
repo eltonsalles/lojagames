@@ -8,25 +8,69 @@
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" layout:fragment="conteudo">
 		<h1 class="page-header">Cadastro de jogo</h1>
 		<div class="row">
-		
+
 			<form method="post" th:object="${jogo}">
 				<thecode:message />
-				
+
 				<div class="row">
-					<div class="col-sm-6 form-group" thecode:classforerror="nome">
-						<label for="nome" class="control-label">Nome</label>
-						<input id="nome" type="text" class="form-control" th:field="*{nome}" />
+					<div class="col-sm-4 form-group" thecode:classforerror="produtora">
+						<label for="produtora" class="control-label">Produtora</label>
+						<input id="produtora" type="text" class="form-control" th:field="*{produtora}" />
 					</div>
-					<div class="col-sm-6 form-group" thecode:classforerror="edicao">
+					<div class="col-sm-3 form-group" thecode:classforerror="edicao">
 						<label for="edicao" class="control-label">Edição</label>
 						<input id="edicao" type="text" class="form-control" th:field="*{edicao}" />
 					</div>
+					<div class="col-sm-1 form-group" thecode:classforerror="idade">
+						<label for="idade" class="control-label">Idade</label>
+						<input id="idade" type="text" class="form-control" th:field="*{idade}" />
+					</div>
 				</div>
+
+				<div class="row">
+					<div class="col-sm-2 form-group" thecode:classforerror="idioma">
+						<label for="idioma" class="control-label">Idioma</label>
+						<select class="col-sm-3 form-control" id="idioma" th:field="*{idioma}">
+							<option value="">Selecione o Idioma</option>
+							<option th:each="idioma : ${idiomas}" th:value="${idioma}" th:text="${idioma.descricao}"></option>
+						</select>
+					</div>
+					<div class="col-sm-2 form-group" thecode:classforerror="legenda">
+						<label for="legenda" class="control-label">Legenda</label>
+						<select class="col-sm-3 form-control" id="legenda" th:field="*{legenda}">
+							<option value="">Selecione a Legenda</option>
+							<option th:each="legenda : ${legendas}" th:value="${legenda}" th:text="${legenda.descricao}"></option>
+						</select>
+					</div>
+
+					<div class="col-sm-2 form-group" thecode:classforerror="resolucao">
+						<label for="resolucao" class="control-label">Resolução</label>
+						<br>
+						<select class="col-sm-3 form-control" id="legenda" th:field="*{resolucao}">
+							<option value="">Selecione a Resolução</option>
+							<option th:each="resolucao : ${Resolucoes}" th:value="${resolucao}" th:text="${resolucao.descricao}"></option>
+						</select>
+					</div>
+					<div class="col-sm-2 form-group" thecode:classforerror="lancamento">
+						<label for="lancamento" class="control-label">Lançamento</label>
+						<input id="lancamento" type="date" class="form-control" th:field="*{lancamento}" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-1 form-group" thecode:classforerror="qtdeJogadoresOff">
+						<label for="qtdeJogadoresOff" class="control-label">Jogadores OFFLINE</label>
+						<input id="qtdeJogadoresOff" type="text" class="form-control" th:field="*{qtdeJogadoresOff}" />
+					</div>
+					<div class="col-sm-1 form-group" thecode:classforerror="qtdeJogadoresOn">
+						<label for="qtdeJogadoresOn" class="control-label">Jogadores ONLINE</label>
+						<input id="qtdeJogadoresOn" type="text" class="form-control" th:field="*{qtdeJogadoresOn}" />
+					</div>
+
+				</div>
+
 				<div class="form-group">
 					<button class="btn  btn-primary" type="submit">Salvar</button>
 				</div>
-			</form>
 		</div>
-	</div>
 </body>
 </html>
