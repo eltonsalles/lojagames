@@ -7,12 +7,12 @@
 		<div class="col-lg-3 col-sm-6 form-group" thecode:classforerror="status">
 			<label for="status" class="control-label">Status</label>
 			<div>
-				<div class="radio radio-inline">
-					<input id="ativo" type="radio" value="true" checked="checked" th:field="*{status}"> <label for="ativo">Ativo</label>
-				</div>
-				<div class="radio radio-inline">
-					<input id="inativo" type="radio" value="false" th:field="*{status}"> <label for="inativo">Inativo</label>
-				</div>
+				<label class="tc-radio radio-inline">
+					<input id="ativo" type="radio" value="true" th:field="*{status}"> Ativo
+				</label>
+				<label class="tc-radio radio-inline">
+					<input id="inativo" type="radio" value="false" th:field="*{status}"> Inativo
+				</label>
 			</div>
 		</div>
 		<div class="col-sm-3 form-group" thecode:classforerror="tipoConsole">
