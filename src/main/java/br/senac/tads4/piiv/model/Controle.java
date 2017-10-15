@@ -17,7 +17,7 @@ public class Controle extends Produto {
 	private static final long serialVersionUID = 1L;
 	
 	@NotBlank(message = "Fabricante é obrigatório")
-	@Size(max = 25, message = "O campo fabricante deve ter no máximo 50 caracteres")
+	@Size(max = 50, message = "O campo fabricante deve ter no máximo 50 caracteres")
 	private String fabricante;
 	
 	@NotNull(message = "Conexão é obrigatório")
