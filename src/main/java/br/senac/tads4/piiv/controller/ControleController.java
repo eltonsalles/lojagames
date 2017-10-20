@@ -53,7 +53,7 @@ public class ControleController {
 			return novo(controle);
 		}
 		
-		attributes.addFlashAttribute("message", "Controle cadastrado com sucesso!");
+		attributes.addFlashAttribute("mensagem", "Controle cadastrado com sucesso!");
 		return new ModelAndView("redirect:/produtos/controles/novo");
 	}
 }

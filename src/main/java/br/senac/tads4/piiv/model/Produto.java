@@ -30,6 +30,9 @@ public class Produto implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_produto")
 	private Long idProduto;
+	
+	@Column(name = "tipo_produto")
+	private String tipoProduto;
 
 	@NotNull(message = "O status é obrigatório")
 	private Boolean status;
@@ -75,6 +78,14 @@ public class Produto implements Serializable {
 
 	public void setIdProduto(Long idProduto) {
 		this.idProduto = idProduto;
+	}
+
+	public String getTipoProduto() {
+		return tipoProduto;
+	}
+
+	public void setTipoProduto(String tipoProduto) {
+		this.tipoProduto = tipoProduto;
 	}
 
 	public Boolean getStatus() {

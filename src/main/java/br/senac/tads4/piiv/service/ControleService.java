@@ -19,6 +19,7 @@ public class ControleService {
 	private ControleRepository controles;
 	
 	public void salvar(Controle controle) {
+		controle.setTipoProduto("CONTROLE");
 		controles.save(controle);
 	}
 }

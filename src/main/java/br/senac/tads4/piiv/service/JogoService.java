@@ -19,6 +19,7 @@ public class JogoService {
 	private JogoRepository jogos;
 	
 	public void salvar(Jogo jogo) {
+		jogo.setTipoProduto("JOGO");
 		jogos.save(jogo);
 	}
 }

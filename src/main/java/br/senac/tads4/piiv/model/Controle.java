@@ -15,7 +15,7 @@ import br.senac.tads4.piiv.model.enumerated.Cor;
 
 @Entity
 @Table(name = "controle")
-@PrimaryKeyJoinColumn(name = "idProduto")
+@PrimaryKeyJoinColumn(name = "id_produto")
 public class Controle extends Produto {
 
 	private static final long serialVersionUID = 1L;
@@ -33,7 +33,7 @@ public class Controle extends Produto {
 	private Alimentacao alimentacao;
 	
 	@NotBlank(message = "Alcance é obrigatório")
-	@Size(max = 25, message = "O campo fabricante deve ter no máximo 3 caracteres")
+	@Size(max = 3, message = "O campo fabricante deve ter no máximo 3 caracteres")
 	private String alcance;
 	
 	@NotNull(message = "Cor é obrigatório")

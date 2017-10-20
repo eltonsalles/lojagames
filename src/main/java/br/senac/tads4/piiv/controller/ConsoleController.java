@@ -57,7 +57,7 @@ public class ConsoleController {
 			return novo(console);
 		}
 
-		attributes.addFlashAttribute("message", "Console cadastrado com sucesso!");
+		attributes.addFlashAttribute("mensagem", "Console cadastrado com sucesso!");
 		return new ModelAndView("redirect:/produtos/consoles/novo");
 	}
 }

@@ -19,6 +19,7 @@ public class ConsoleService {
 	private ConsoleRepository consoles;
 	
 	public void salvar(Console console) {
+		console.setTipoProduto("CONSOLE");
 		consoles.save(console);
 	}
 }
