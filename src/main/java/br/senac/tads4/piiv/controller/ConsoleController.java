@@ -16,6 +16,7 @@ import br.senac.tads4.piiv.model.Cor;
 import br.senac.tads4.piiv.model.Midia;
 import br.senac.tads4.piiv.model.Resolucao;
 import br.senac.tads4.piiv.model.Voltagem;
+import br.senac.tads4.piiv.repository.TipoConsoleRepository;
 import br.senac.tads4.piiv.service.ConsoleService;
 
 @Controller
@@ -23,16 +24,23 @@ import br.senac.tads4.piiv.service.ConsoleService;
 public class ConsoleController {
 
 	@Autowired
-	private ConsoleService consoles;
+	private TipoConsoleRepository tiposConsoles;
+	
+	@Autowired
+	private ConsoleService consoleService;
 
 	@RequestMapping(value = "/novo")
 	public ModelAndView novo(Console console) {
 		ModelAndView mv = new ModelAndView("backoffice/produto/CadastroConsole");
+		// Carrega as opções do formulário que são comuns a todos os forms
+		mv.addObject("tiposConsoles", tiposConsoles.findAll());
+		
+		// Carrega as opções do formulário que são relacionadas aos controles
 		mv.addObject("capacidades", Capacidade.values());
 		mv.addObject("voltagens", Voltagem.values());
 		mv.addObject("cores", Cor.values());
 		mv.addObject("resolucoes", Resolucao.values());
-		mv.addObject("midias", Midia.values());		
+		mv.addObject("midias", Midia.values());
 		return mv;
 	}
 
@@ -43,7 +51,7 @@ public class ConsoleController {
 		}
 
 		try {
-			consoles.salvar(console);
+			consoleService.salvar(console);
 		} catch (Exception e) { // Trocar por uma exceção mais especifica
 			// result.rejectValue();
 			return novo(console);

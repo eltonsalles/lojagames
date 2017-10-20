@@ -14,6 +14,7 @@ import br.senac.tads4.piiv.model.Alimentacao;
 import br.senac.tads4.piiv.model.Conexao;
 import br.senac.tads4.piiv.model.Controle;
 import br.senac.tads4.piiv.model.Cor;
+import br.senac.tads4.piiv.repository.TipoConsoleRepository;
 import br.senac.tads4.piiv.service.ControleService;
 
 @Controller
@@ -21,11 +22,18 @@ import br.senac.tads4.piiv.service.ControleService;
 public class ControleController {
 
 	@Autowired
-	private ControleService controles;
+	private TipoConsoleRepository tiposConsoles;
+	
+	@Autowired
+	private ControleService controleService;
 	
 	@RequestMapping(value = "/novo")
 	public ModelAndView novo(Controle controle) {
 		ModelAndView mv = new ModelAndView("backoffice/produto/CadastroControle");
+		// Carrega as opções do formulário que são comuns a todos os forms
+		mv.addObject("tiposConsoles", tiposConsoles.findAll());
+				
+		// Carrega as opções do formulário que são relacionadas aos controles
 		mv.addObject("conexoes", Conexao.values());
 		mv.addObject("alimentacoes", Alimentacao.values());
 		mv.addObject("cores", Cor.values());
@@ -39,7 +47,7 @@ public class ControleController {
 		}
 		
 		try {
-			controles.salvar(controle);
+			controleService.salvar(controle);
 		} catch (Exception e) { // Trocar por uma exceção mais especifica
 			// result.rejectValue();
 			return novo(controle);

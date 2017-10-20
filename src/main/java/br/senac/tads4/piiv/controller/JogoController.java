@@ -14,6 +14,7 @@ import br.senac.tads4.piiv.model.Idioma;
 import br.senac.tads4.piiv.model.Jogo;
 import br.senac.tads4.piiv.model.Legenda;
 import br.senac.tads4.piiv.model.Resolucao;
+import br.senac.tads4.piiv.repository.TipoConsoleRepository;
 import br.senac.tads4.piiv.service.JogoService;
 
 @Controller
@@ -21,11 +22,18 @@ import br.senac.tads4.piiv.service.JogoService;
 public class JogoController {
 
 	@Autowired
-	private JogoService jogos;
+	private TipoConsoleRepository tiposConsoles;
+	
+	@Autowired
+	private JogoService jogoService;
 
 	@RequestMapping(value = "/novo")
 	public ModelAndView novo(Jogo jogo) {
 		ModelAndView mv = new ModelAndView("backoffice/produto/CadastroJogo");
+		// Carrega as opções do formulário que são comuns a todos os forms
+		mv.addObject("tiposConsoles", tiposConsoles.findAll());
+		
+		// Carrega as opções do formulário que são relacionadas aos jogos
 		mv.addObject("idiomas", Idioma.values());
 		mv.addObject("legendas", Legenda.values());
 		mv.addObject("Resolucoes", Resolucao.values());
@@ -39,7 +47,7 @@ public class JogoController {
 		}
 
 		try {
-			jogos.salvar(jogo);
+			jogoService.salvar(jogo);
 		} catch (Exception e) { // Trocar por uma exceção mais especifica
 			// result.rejectValue();
 			return novo(jogo);
