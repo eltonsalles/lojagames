@@ -1,13 +1,13 @@
 package br.senac.tads4.piiv.model;
 
-public enum Cor {
-	PRETO("Preto"),
-	BRANCO("Branco"),
-	PERSONALIZADO("Personalizado");
+public enum Capacidade {
+
+	R500GB("500GB"),
+	R1TB("1TB");
 	
 	private String descricao;
-	
-	Cor(String descricao) {
+
+	Capacidade(String descricao) {
 		this.descricao = descricao;
 	}
 
