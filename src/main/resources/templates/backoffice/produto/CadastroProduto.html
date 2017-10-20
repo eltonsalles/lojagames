@@ -2,29 +2,38 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	xlmns:thecode="http://thecode.com.br">
 <body>
-
 	<div class="row">
 		<div class="col-lg-3 col-sm-6 form-group" thecode:classforerror="status">
 			<label for="status" class="control-label">Status</label>
 			<div>
 				<label class="tc-radio radio-inline">
-					<input id="ativo" type="radio" value="true" th:field="*{status}"> Ativo
+					<input id="ativo" type="radio" value="true" th:field="*{status}">
+					Ativo
 				</label>
 				<label class="tc-radio radio-inline">
-					<input id="inativo" type="radio" value="false" th:field="*{status}"> Inativo
+					<input id="inativo" type="radio" value="false" th:field="*{status}">
+					Inativo
 				</label>
 			</div>
 		</div>
 		<div class="col-sm-3 form-group" thecode:classforerror="tipoConsole">
-			<label for="tipo-console" class="control-label">Tipo de Console</label> <select id="tipo-console"
-				class="form-control" th:field="*{tipoConsole}">
+			<label for="tipo-console" class="control-label">Tipo de Console</label>
+			<select id="tipo-console" class="form-control" th:field="*{tipoConsole}">
 				<option value="">Selecione o Tipo de Console</option>
 				<option th:each="tipoConsole : ${tiposConsoles}" th:value="${tipoConsole.id}" th:text="${tipoConsole.nome}"></option>
 			</select>
 		</div>
 		<div class="col-sm-6 form-group" thecode:classforerror="nome">
-			<label for="nome" class="control-label">Nome</label> <input id="nome" type="text" class="form-control"
-				th:field="*{nome}" />
+			<label for="nome" class="control-label">Nome</label>
+			<input id="nome" type="text" class="form-control" th:field="*{nome}" />
+		</div>
+		<div class="col-sm-12 form-group" thecode:classforerror="itensInclusos">
+			<label for="itens-inclusos" class="control-label">Itens Inclusos</label>
+			<textarea id="itens-inclusos" rows="3" class="form-control" th:field="*{itensInclusos}"></textarea>
+		</div>
+		<div class="col-sm-12 form-group" thecode:classforerror="descricao">
+			<label for="descricao" class="control-label">Descrição</label>
+			<textarea id="descricao" rows="3" class="form-control" th:field="*{descricao}"></textarea>
 		</div>
 		<div class="col-sm-3 form-group" thecode:classforerror="precoCompra">
 			<label for="preco-compra" class="control-label">Preço de Compra</label>
@@ -40,21 +49,13 @@
 				<input id="preco-venda" type="text" class="form-control js-decimal" th:field="*{precoVenda}" />
 			</div>
 		</div>
-		<div class="col-sm-12 form-group" thecode:classforerror="itensInclusos">
-			<label for="itens-inclusos" class="control-label">Itens inclusos</label>
-			<textarea id="itens-inclusos" rows="3" class="form-control" th:field="*{itensInclusos}"></textarea>
-		</div>
 		<div class="col-sm-3 form-group" thecode:classforerror="estoque">
-			<label for="estoque" class="control-label">Estoque</label> <input id="estoque" type="text"
-				class="form-control js-int" th:field="*{estoque}" />
+			<label for="estoque" class="control-label">Estoque</label>
+			<input id="estoque" type="text" class="form-control js-int" th:field="*{estoque}" />
 		</div>
-		<div class="col-sm-1 form-group" thecode:classforerror="garantia">
-			<label for="garantia" class="control-label">Garantia</label> <input id="garantia" type="text" class="form-control"
-				th:field="*{garantia}" />
-		</div>
-		<div class="col-sm-12 form-group" thecode:classforerror="descricao">
-			<label for="descricao" class="control-label">Descrição</label>
-			<textarea id="descricao" rows="3" class="form-control" th:field="*{descricao}"></textarea>
+		<div class="col-sm-2 form-group" thecode:classforerror="garantia">
+			<label for="garantia" class="control-label">Garantia em Meses</label>
+			<input id="garantia" type="text" class="form-control js-int" th:field="*{garantia}" />
 		</div>
 	</div>
 </body>

@@ -23,19 +23,19 @@
 					</div>
 					<div class="col-sm-1 form-group" thecode:classforerror="idade">
 						<label for="idade" class="control-label">Idade</label>
-						<input id="idade" type="text" class="form-control" th:field="*{idade}" />
+						<input id="idade" type="text" class="form-control js-int" th:field="*{idade}" />
 					</div>
 				</div>
 
 				<div class="row">
-					<div class="col-sm-2 form-group" thecode:classforerror="idioma">
+					<div class="col-sm-3 form-group" thecode:classforerror="idioma">
 						<label for="idioma" class="control-label">Idioma</label>
 						<select class="col-sm-3 form-control" id="idioma" th:field="*{idioma}">
 							<option value="">Selecione o Idioma</option>
 							<option th:each="idioma : ${idiomas}" th:value="${idioma}" th:text="${idioma.descricao}"></option>
 						</select>
 					</div>
-					<div class="col-sm-2 form-group" thecode:classforerror="legenda">
+					<div class="col-sm-3 form-group" thecode:classforerror="legenda">
 						<label for="legenda" class="control-label">Legenda</label>
 						<select class="col-sm-3 form-control" id="legenda" th:field="*{legenda}">
 							<option value="">Selecione a Legenda</option>
@@ -43,7 +43,7 @@
 						</select>
 					</div>
 
-					<div class="col-sm-2 form-group" thecode:classforerror="resolucao">
+					<div class="col-sm-3 form-group" thecode:classforerror="resolucao">
 						<label for="resolucao" class="control-label">Resolução</label>
 						<br>
 						<select class="col-sm-3 form-control" id="legenda" th:field="*{resolucao}">
@@ -51,7 +51,7 @@
 							<option th:each="resolucao : ${Resolucoes}" th:value="${resolucao}" th:text="${resolucao.descricao}"></option>
 						</select>
 					</div>
-					<div class="col-sm-2 form-group" thecode:classforerror="lancamento">
+					<div class="col-sm-3 form-group" thecode:classforerror="lancamento">
 						<label for="lancamento" class="control-label">Lançamento</label>
 						<input id="lancamento" type="date" class="form-control" th:field="*{lancamento}" />
 					</div>
@@ -59,11 +59,11 @@
 				<div class="row">
 					<div class="col-sm-1 form-group" thecode:classforerror="qtdeJogadoresOff">
 						<label for="qtdeJogadoresOff" class="control-label">Jogadores OFFLINE</label>
-						<input id="qtdeJogadoresOff" type="text" class="form-control" th:field="*{qtdeJogadoresOff}" />
+						<input id="qtdeJogadoresOff" type="text" class="form-control js-int" th:field="*{qtdeJogadoresOff}" />
 					</div>
 					<div class="col-sm-1 form-group" thecode:classforerror="qtdeJogadoresOn">
 						<label for="qtdeJogadoresOn" class="control-label">Jogadores ONLINE</label>
-						<input id="qtdeJogadoresOn" type="text" class="form-control" th:field="*{qtdeJogadoresOn}" />
+						<input id="qtdeJogadoresOn" type="text" class="form-control js-int" th:field="*{qtdeJogadoresOn}" />
 					</div>
 
 				</div>
@@ -74,5 +74,8 @@
 			</form>
 		</div>
 	</div>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/formatar-numeros.js}"></script>
+	</th:block>
 </body>
 </html>

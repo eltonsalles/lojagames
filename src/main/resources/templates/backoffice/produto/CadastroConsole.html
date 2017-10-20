@@ -29,7 +29,7 @@
 							<option th:each="capacidade : ${capacidades}" th:value="${capacidade}" th:text="${capacidade.descricao}"></option>
 						</select>
 					</div>
-					<div class="col-sm-2 form-group" thecode:classforerror="voltagem">
+					<div class="col-sm-3 form-group" thecode:classforerror="voltagem">
 						<label for="voltagem" class="control-label">Voltagem</label>
 						<select class="col-sm-2 form-control" id="voltagem" th:field="*{voltagem}">
 							<option value="">Selecione a voltagem</option>
@@ -43,15 +43,17 @@
 							<option th:each="cor : ${cores}" th:value="${cor}" th:text="${cor.descricao}"></option>
 						</select>
 					</div>
+				</div>
+				<div class="row">
 					<div class="col-sm-3 form-group" thecode:classforerror="resolucao">
-						<label for="resolucao" class="control-label">Resolucao</label>
+						<label for="resolucao" class="control-label">Resolução</label>
 						<select class="col-sm-3 form-control" id="resolucao" th:field="*{resolucao}">
-							<option value="">Selecione a cor</option>
+							<option value="">Selecione a resolução</option>
 							<option th:each="resolucao : ${resolucoes}" th:value="${resolucao}" th:text="${resolucao.descricao}"></option>
 						</select>
 					</div>
-					<div class="col-sm-2 form-group" thecode:classforerror="midia">
-						<label for="midia" class="control-label">Midia</label>
+					<div class="col-sm-3 form-group" thecode:classforerror="midia">
+						<label for="midia" class="control-label">Mídia</label>
 						<select class="col-sm-2 form-control" id="midia" th:field="*{midia}">
 							<option value="">Selecione a midia</option>
 							<option th:each="midia : ${midias}" th:value="${midia}" th:text="${midia.descricao}"></option>
@@ -64,5 +66,8 @@
 			</form>
 		</div>
 	</div>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/formatar-numeros.js}"></script>
+	</th:block>
 </body>
 </html>
