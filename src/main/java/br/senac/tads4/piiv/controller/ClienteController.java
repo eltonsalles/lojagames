@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.senac.tads4.piiv.model.Cliente;
+import br.senac.tads4.piiv.model.enumerated.Sexo;
 import br.senac.tads4.piiv.service.ClienteService;
 
 @Controller
@@ -23,6 +24,7 @@ public class ClienteController {
 	@RequestMapping(value = "/novo")
 	public ModelAndView novo(Cliente cliente) {
 		ModelAndView mv = new ModelAndView("site/cliente/NovoCliente");
+		mv.addObject("sexos", Sexo.values());
 		return mv;
 	}
 	

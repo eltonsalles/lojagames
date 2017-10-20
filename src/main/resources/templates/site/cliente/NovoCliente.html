@@ -23,10 +23,10 @@
 					</div>
 					<div class="col s3">
 						<p>
-							<input class="with-gap" value="" name="sexo" type="radio" id="masculino" th:field="*{sexo}" />
-							<label for="masculino">Masculino</label>
-							<input class="with-gap" value="" name="sexo" type="radio" id="feminino" th:field="*{sexo}" />
-							<label for="feminino">Feminino</label>
+							<th:block th:each="sexo : ${sexos}">
+								<input class="with-gap" th:id="|id_${sexo}|" type="radio" th:value="${sexo}"  th:field="*{sexo}" />
+								<label th:for="|id_${sexo}|" th:text="${sexo.descricao}"></label>
+							</th:block>
 						</p>
 					</div>
 					<div class="input-field col s6">
@@ -65,7 +65,8 @@
 						<label for="repitir-senha">Repita senha</label>
 					</div>
 					<div class="col offset-s9 s3">
-						<button class="btn waves-effect waves-light amber darken-2" type="submit" name="enviar">Enviar
+						<button class="btn waves-effect waves-light amber darken-2" type="submit" name="enviar">
+							Enviar
 							<i class="material-icons left">send</i>
 						</button>
 					</div>
