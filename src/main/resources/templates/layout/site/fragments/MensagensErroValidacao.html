@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body>
+	<div class="row tc-alert" th:if="${#fields.hasAnyErrors()}">
+		<div class="col s12">
+			<div class="card-panel red lighten-4">
+				<button class="btn-flat btn-floating red lighten-4 right tc-close" type="button">
+					<i class="material-icons red-text text-darken-4">close</i>
+				</button>
+				<th:block th:each="detailedError : ${#fields.detailedErrors()}">
+					<span class="red-text text-darken-4">[[${detailedError.message}]]</span><br>
+				</th:block>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

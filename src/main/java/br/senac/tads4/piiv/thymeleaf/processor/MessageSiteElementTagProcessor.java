@@ -8,12 +8,12 @@ import org.thymeleaf.processor.element.AbstractElementTagProcessor;
 import org.thymeleaf.processor.element.IElementTagStructureHandler;
 import org.thymeleaf.templatemode.TemplateMode;
 
-public class MessageBackofficeElementTagProcessor extends AbstractElementTagProcessor {
+public class MessageSiteElementTagProcessor extends AbstractElementTagProcessor {
 
-	private static final String NOME_TAG = "messagebackoffice";
+	private static final String NOME_TAG = "messagesite";
 	private static final int PRECEDENCIA = 1000;
 	
-	public MessageBackofficeElementTagProcessor(String dialectPrefix) {
+	public MessageSiteElementTagProcessor(String dialectPrefix) {
 		super(TemplateMode.HTML, dialectPrefix, NOME_TAG, true, null, true, PRECEDENCIA);
 	}
 
@@ -23,8 +23,7 @@ public class MessageBackofficeElementTagProcessor extends AbstractElementTagProc
 		IModelFactory modelFactory = context.getModelFactory();
 		
 		IModel model = modelFactory.createModel();
-		model.add(modelFactory.createStandaloneElementTag("th:block", "th:replace", "layout/backoffice/fragments/MensagemSucesso"));
-		model.add(modelFactory.createStandaloneElementTag("th:block", "th:replace", "layout/backoffice/fragments/MensagensErroValidacao"));
+		model.add(modelFactory.createStandaloneElementTag("th:block", "th:replace", "layout/site/fragments/MensagensErroValidacao"));
 		
 		structureHandler.replaceWith(model, true);
 	}
