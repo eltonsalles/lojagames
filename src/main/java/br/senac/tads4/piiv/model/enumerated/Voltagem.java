@@ -1,17 +1,17 @@
-package br.senac.tads4.piiv.model;
+package br.senac.tads4.piiv.model.enumerated;
 
-public enum Capacidade {
-
-	R500GB("500GB"),
-	R1TB("1TB");
+public enum Voltagem {
 	
+	BIVOLT("Bivolt");
+		
 	private String descricao;
 
-	Capacidade(String descricao) {
+	Voltagem(String descricao) {
 		this.descricao = descricao;
 	}
 
 	public String getDescricao() {
 		return this.descricao;
 	}
+
 }

@@ -1,4 +1,4 @@
-package br.senac.tads4.piiv.model;
+package br.senac.tads4.piiv.model.enumerated;
 
 public enum Alimentacao {
 	BATERIA_RECARREGAVEL("Bateria recarregável"),

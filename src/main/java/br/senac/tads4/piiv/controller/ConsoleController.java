@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.senac.tads4.piiv.model.Capacidade;
 import br.senac.tads4.piiv.model.Console;
-import br.senac.tads4.piiv.model.Cor;
-import br.senac.tads4.piiv.model.Midia;
-import br.senac.tads4.piiv.model.Resolucao;
-import br.senac.tads4.piiv.model.Voltagem;
+import br.senac.tads4.piiv.model.enumerated.Capacidade;
+import br.senac.tads4.piiv.model.enumerated.Cor;
+import br.senac.tads4.piiv.model.enumerated.Midia;
+import br.senac.tads4.piiv.model.enumerated.Resolucao;
+import br.senac.tads4.piiv.model.enumerated.Voltagem;
 import br.senac.tads4.piiv.repository.TipoConsoleRepository;
 import br.senac.tads4.piiv.service.ConsoleService;
 

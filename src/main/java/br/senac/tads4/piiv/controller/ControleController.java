@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.senac.tads4.piiv.model.Alimentacao;
-import br.senac.tads4.piiv.model.Conexao;
 import br.senac.tads4.piiv.model.Controle;
-import br.senac.tads4.piiv.model.Cor;
+import br.senac.tads4.piiv.model.enumerated.Alimentacao;
+import br.senac.tads4.piiv.model.enumerated.Conexao;
+import br.senac.tads4.piiv.model.enumerated.Cor;
 import br.senac.tads4.piiv.repository.TipoConsoleRepository;
 import br.senac.tads4.piiv.service.ControleService;
 

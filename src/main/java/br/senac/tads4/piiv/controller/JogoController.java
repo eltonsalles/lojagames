@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.senac.tads4.piiv.model.Idioma;
 import br.senac.tads4.piiv.model.Jogo;
-import br.senac.tads4.piiv.model.Legenda;
-import br.senac.tads4.piiv.model.Resolucao;
+import br.senac.tads4.piiv.model.enumerated.Idioma;
+import br.senac.tads4.piiv.model.enumerated.Legenda;
+import br.senac.tads4.piiv.model.enumerated.Resolucao;
 import br.senac.tads4.piiv.repository.TipoConsoleRepository;
 import br.senac.tads4.piiv.service.JogoService;
 

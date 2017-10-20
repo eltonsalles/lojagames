@@ -9,6 +9,10 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import br.senac.tads4.piiv.model.enumerated.Alimentacao;
+import br.senac.tads4.piiv.model.enumerated.Conexao;
+import br.senac.tads4.piiv.model.enumerated.Cor;
+
 @Entity
 @Table(name = "controle")
 @PrimaryKeyJoinColumn(name = "idProduto")

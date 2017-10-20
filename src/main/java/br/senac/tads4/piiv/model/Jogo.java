@@ -13,6 +13,10 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import br.senac.tads4.piiv.model.enumerated.Idioma;
+import br.senac.tads4.piiv.model.enumerated.Legenda;
+import br.senac.tads4.piiv.model.enumerated.Resolucao;
+
 @Entity
 @Table(name = "jogo")
 @PrimaryKeyJoinColumn(name = "idProduto")

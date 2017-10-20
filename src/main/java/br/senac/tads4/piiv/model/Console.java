@@ -9,6 +9,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import br.senac.tads4.piiv.model.enumerated.Capacidade;
+import br.senac.tads4.piiv.model.enumerated.Cor;
+import br.senac.tads4.piiv.model.enumerated.Midia;
+import br.senac.tads4.piiv.model.enumerated.Resolucao;
+import br.senac.tads4.piiv.model.enumerated.Voltagem;
+
 
 @Entity
 @Table(name = "console")
