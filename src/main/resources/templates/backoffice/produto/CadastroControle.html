@@ -18,21 +18,21 @@
 					</div>
 					<div class="col-sm-3 form-group" thecode:classforerror="conexao">
 						<label for="conexao" class="control-label">Conexão</label>
-						<select id="conexao" class="form-control" th:field="*{conexao}">
+						<select id="conexao" class="form-control" th:field="*{conexao}" required>
 							<option value="">Selecione a conexão</option>
 							<option th:each="conexao : ${conexoes}" th:value="${conexao}" th:text="${conexao.descricao}"></option>
 						</select>
 					</div>
 					<div class="col-sm-3 form-group" thecode:classforerror="alimentacao">
 						<label for="alimentacao" class="control-label">Alimentação</label>
-						<select id="alimentacao" class="form-control" th:field="*{alimentacao}">
+						<select id="alimentacao" class="form-control" th:field="*{alimentacao}" required>
 							<option value="">Selecione a alimentação</option>
 							<option th:each="alimentacao : ${alimentacoes}" th:value="${alimentacao}" th:text="${alimentacao.descricao}"></option>
 						</select>
 					</div>
 					<div class="col-sm-2 form-group" thecode:classforerror="cor">
 						<label for="cor" class="control-label">Cor</label>
-						<select id="cor" class="form-control" th:field="*{cor}">
+						<select id="cor" class="form-control" th:field="*{cor}" required>
 							<option value="">Selecione a cor</option>
 							<option th:each="cor : ${cores}" th:value="${cor}" th:text="${cor.descricao}"></option>
 						</select>
