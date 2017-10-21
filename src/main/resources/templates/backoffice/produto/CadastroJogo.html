@@ -25,6 +25,10 @@
 						<label for="idade" class="control-label">Idade</label>
 						<input id="idade" type="text" class="form-control js-int" required th:field="*{idade}" />
 					</div>
+					<div class="col-sm-3 form-group" thecode:classforerror="lancamento">
+						<label for="lancamento" class="control-label">Lançamento</label>
+						<input id="lancamento" type="date" class="form-control" required th:field="*{lancamento}" />
+					</div>
 				</div>
 
 				<div class="row">
@@ -35,6 +39,13 @@
 							<option th:each="idioma : ${idiomas}" th:value="${idioma}" th:text="${idioma.descricao}"></option>
 						</select>
 					</div>
+					<div class="col-sm-3 form-group" thecode:classforerror="genero">
+						<label for="genero" class="control-label">Gênero</label>
+						<select class="col-sm-3 form-control" id="genero" required th:field="*{genero}">
+							<option value="">Selecione o Gênero</option>
+							<option th:each="genero : ${generos}" th:value="${genero.id}" th:text="${genero.nome}"></option>
+						</select>
+					</div>
 					<div class="col-sm-3 form-group" thecode:classforerror="legenda">
 						<label for="legenda" class="control-label">Legenda</label>
 						<select class="col-sm-3 form-control" id="legenda" required th:field="*{legenda}">
@@ -42,7 +53,6 @@
 							<option th:each="legenda : ${legendas}" th:value="${legenda}" th:text="${legenda.descricao}"></option>
 						</select>
 					</div>
-
 					<div class="col-sm-3 form-group" thecode:classforerror="resolucao">
 						<label for="resolucao" class="control-label">Resolução</label>
 						<br>
@@ -51,11 +61,8 @@
 							<option th:each="resolucao : ${Resolucoes}" th:value="${resolucao}" th:text="${resolucao.descricao}"></option>
 						</select>
 					</div>
-					<div class="col-sm-3 form-group" thecode:classforerror="lancamento">
-						<label for="lancamento" class="control-label">Lançamento</label>
-						<input id="lancamento" type="date" class="form-control" required th:field="*{lancamento}" />
-					</div>
-				</div>
+				</div>	
+				
 				<div class="row">
 					<div class="col-sm-1 form-group" thecode:classforerror="qtdeJogadoresOff">
 						<label for="qtdeJogadoresOff" class="control-label">Jogadores OFFLINE</label>

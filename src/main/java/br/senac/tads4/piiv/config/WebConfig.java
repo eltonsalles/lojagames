@@ -1,6 +1,7 @@
 package br.senac.tads4.piiv.config;
 
 import java.math.BigDecimal;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 import org.springframework.beans.BeansException;
@@ -9,6 +10,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
 import org.springframework.format.number.NumberStyleFormatter;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
@@ -26,6 +28,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import br.senac.tads4.piiv.controller.ClienteController;
+import br.senac.tads4.piiv.controller.converter.GeneroConverter;
 import br.senac.tads4.piiv.controller.converter.TipoConsoleConverter;
 import br.senac.tads4.piiv.thymeleaf.TheCodeDialect;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
@@ -85,12 +88,18 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 	public FormattingConversionService mvcConversionService() {
 		DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService();
 		conversionService.addConverter(new TipoConsoleConverter());
+		conversionService.addConverter(new GeneroConverter());
 		
 		NumberStyleFormatter bigDecimalFomatter = new NumberStyleFormatter("#,##0.00");
 		conversionService.addFormatterForFieldType(BigDecimal.class, bigDecimalFomatter);
 		
 		NumberStyleFormatter integerFomatter = new NumberStyleFormatter("#,##0");
 		conversionService.addFormatterForFieldType(Integer.class, integerFomatter);
+		
+		DateTimeFormatterRegistrar dateTimeFomatter = new DateTimeFormatterRegistrar();
+		dateTimeFomatter.setDateFormatter(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		dateTimeFomatter.setTimeFormatter(DateTimeFormatter.ofPattern("HH:mm"));
+		dateTimeFomatter.registerFormatters(conversionService);
 		
 		return conversionService;
 	}
