@@ -1,5 +1,6 @@
 package br.senac.tads4.piiv.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -18,7 +19,7 @@ import br.senac.tads4.piiv.model.enumerated.Voltagem;
 
 @Entity
 @Table(name = "console")
-@PrimaryKeyJoinColumn(name = "idProduto")
+@PrimaryKeyJoinColumn(name = "id_produto")
 public class Console extends Produto {
 
 	private static final long serialVersionUID = 1L;
@@ -49,15 +50,15 @@ public class Console extends Produto {
 	
 	@NotNull(message = "O campo midia é obrigatório")
 	@Enumerated(EnumType.STRING)
+	@Column (name = "midias")
 	private Midia midia;
-	
-	
-	public Capacidade getCapacidade() {
-		return capacidade;
+
+	public String getFabricante() {
+		return fabricante;
 	}
 
-	public void setCapacidade(Capacidade capacidade) {
-		this.capacidade = capacidade;
+	public void setFabricante(String fabricante) {
+		this.fabricante = fabricante;
 	}
 
 	public String getModelo() {
@@ -66,6 +67,14 @@ public class Console extends Produto {
 
 	public void setModelo(String modelo) {
 		this.modelo = modelo;
+	}
+
+	public Capacidade getCapacidade() {
+		return capacidade;
+	}
+
+	public void setCapacidade(Capacidade capacidade) {
+		this.capacidade = capacidade;
 	}
 
 	public Voltagem getVoltagem() {
@@ -99,12 +108,9 @@ public class Console extends Produto {
 	public void setMidia(Midia midia) {
 		this.midia = midia;
 	}
-	public String getFabricante() {
-		return fabricante;
-	}
 
-	public void setFabricante(String fabricante) {
-		this.fabricante = fabricante;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 	
 }

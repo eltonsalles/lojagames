@@ -14,11 +14,11 @@
 				<div class="row">
 					<div class="col-sm-6 form-group" thecode:classforerror="fabricante">
 						<label for="fabricante" class="control-label">Fabricante</label>
-						<input id="fabricante" type="text" class="form-control" th:field="*{fabricante}" />
+						<input id="fabricante" type="text" class="form-control" th:field="*{fabricante}" maxlength="50" required/>
 					</div>
 					<div class="col-sm-6 form-group" thecode:classforerror="modelo">
 						<label for="modelo" class="control-label">Modelo</label>
-						<input id="modelo" type="text" class="form-control" th:field="*{modelo}" />
+						<input id="modelo" type="text" class="form-control" th:field="*{modelo}" maxlength="15" required />
 					</div>
 				</div>
 				<div class="row">

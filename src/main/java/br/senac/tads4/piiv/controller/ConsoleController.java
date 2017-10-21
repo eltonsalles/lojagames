@@ -53,7 +53,7 @@ public class ConsoleController {
 		try {
 			consoleService.salvar(console);
 		} catch (Exception e) { // Trocar por uma exceção mais especifica
-			// result.rejectValue();
+			System.out.println(">>>>>"+e.getMessage());
 			return novo(console);
 		}
 
