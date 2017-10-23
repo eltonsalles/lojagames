@@ -33,6 +33,7 @@ main[class="container"] {
 /* Da um espaço em baixo no título do jogo */
 .produto h6 {
 	padding-bottom: 5%;
+	min-height: 41px;
 }
 
 /* Tira a margem e deixa em negrito o preço */

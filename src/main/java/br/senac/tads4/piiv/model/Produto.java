@@ -2,9 +2,11 @@ package br.senac.tads4.piiv.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +14,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.Max;
@@ -28,7 +31,7 @@ public class Produto implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_produto")
+	@Column(name = "id")
 	private Long idProduto;
 	
 	@Column(name = "tipo_produto")
@@ -71,6 +74,9 @@ public class Produto implements Serializable {
 	@NotBlank(message = "A descrição é obrigatória")
 	@Size(max = 1000, message = "O campo descricao")
 	private String descricao;
+	
+	@OneToMany(mappedBy = "produto", fetch = FetchType.EAGER)
+	private List<Imagem> imagens;
 
 	public Long getIdProduto() {
 		return idProduto;
@@ -158,6 +164,14 @@ public class Produto implements Serializable {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+	
+	public List<Imagem> getImagens() {
+		return imagens;
+	}
+
+	public void setImagens(List<Imagem> imagens) {
+		this.imagens = imagens;
 	}
 
 	@Override
