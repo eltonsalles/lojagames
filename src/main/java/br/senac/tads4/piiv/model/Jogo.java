@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
@@ -19,7 +21,7 @@ import br.senac.tads4.piiv.model.enumerated.Resolucao;
 
 @Entity
 @Table(name = "jogo")
-@PrimaryKeyJoinColumn(name = "idProduto")
+@PrimaryKeyJoinColumn(name = "id_produto")
 public class Jogo extends Produto {
 
 	private static final long serialVersionUID = 1L;
@@ -38,6 +40,11 @@ public class Jogo extends Produto {
 	@NotNull(message = "Idioma é obrigatório")
 	@Enumerated(EnumType.STRING)
 	private Idioma idioma;
+	
+	@NotNull(message = "O gênero é obrigatóio")
+	@ManyToOne
+	@JoinColumn(name = "id_genero")
+	private Genero genero;
 	
 	@NotNull(message = "Legenda é obrigatório")
 	@Enumerated(EnumType.STRING)
@@ -75,6 +82,14 @@ public class Jogo extends Produto {
 
 	public void setProdutora(String produtora) {
 		this.produtora = produtora;
+	}
+	
+	public Genero getGenero() {
+		return genero;
+	}
+
+	public void setGenero(Genero genero) {
+		this.genero = genero;
 	}
 
 	public LocalDate getLancamento() {

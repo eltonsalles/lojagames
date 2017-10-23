@@ -14,6 +14,7 @@ import br.senac.tads4.piiv.model.Jogo;
 import br.senac.tads4.piiv.model.enumerated.Idioma;
 import br.senac.tads4.piiv.model.enumerated.Legenda;
 import br.senac.tads4.piiv.model.enumerated.Resolucao;
+import br.senac.tads4.piiv.repository.GeneroRepository;
 import br.senac.tads4.piiv.repository.TipoConsoleRepository;
 import br.senac.tads4.piiv.service.JogoService;
 
@@ -23,6 +24,9 @@ public class JogoController {
 
 	@Autowired
 	private TipoConsoleRepository tiposConsoles;
+	
+	@Autowired
+	private GeneroRepository generos;
 	
 	@Autowired
 	private JogoService jogoService;
@@ -37,6 +41,7 @@ public class JogoController {
 		mv.addObject("idiomas", Idioma.values());
 		mv.addObject("legendas", Legenda.values());
 		mv.addObject("Resolucoes", Resolucao.values());
+		mv.addObject("generos", generos.findAll());
 		return mv;
 	}
 
@@ -50,6 +55,8 @@ public class JogoController {
 			jogoService.salvar(jogo);
 		} catch (Exception e) { // Trocar por uma exceção mais especifica
 			// result.rejectValue();
+			
+			System.out.println(">>>>>>>>>>" +e.getMessage());
 			return novo(jogo);
 		}
 
