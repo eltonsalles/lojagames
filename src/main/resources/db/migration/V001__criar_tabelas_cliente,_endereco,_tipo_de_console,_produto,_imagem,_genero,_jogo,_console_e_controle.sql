@@ -105,7 +105,7 @@ CREATE TABLE jogo (
     idade VARCHAR(5) NOT NULL,
     quantidade_jogadores_off INTEGER NOT NULL,
     quantidade_jogadores_on INTEGER NOT NULL,
-    resolucao VARCHAR(10) NOT NULL,
+    resolucao VARCHAR(6) NOT NULL,
     FOREIGN KEY (id_produto) REFERENCES produto(id) ON DELETE CASCADE,
     FOREIGN KEY (id_genero) REFERENCES genero(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -117,7 +117,7 @@ CREATE TABLE console (
     modelo VARCHAR(15) NOT NULL,
     voltagem VARCHAR(10) NOT NULL,
     cor VARCHAR(15) NOT NULL,
-    resolucao VARCHAR(5) NOT NULL,
+    resolucao VARCHAR(6) NOT NULL,
     midias VARCHAR(15) NOT NULL,
     FOREIGN KEY (id_produto) REFERENCES produto(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -227,46 +227,46 @@ INSERT INTO genero (nome) VALUES
 ('Terror');
 
 INSERT INTO jogo (id_produto, id_genero, edicao, produtora, lancamento, idioma, legenda, idade, quantidade_jogadores_off, quantidade_jogadores_on, resolucao) VALUES
-(1, 1, 'N/A', 'Bethesda', '2011-11-01','Inglês','Inglês', '18', 1, 0, '720p'),
-(2, 2, 'N/A', 'Konami', '2016-09-01','Português BR','Português BR', 'Livre', 1, 22, '1080p'),
-(3, 3, 'Komplete Edition', 'Warner Bros', '2012-02-01','Inglês','Português BR', '18', 2, 2, '1080p'),
-(4, 5, 'N/A', 'Campcom', '2012-10-01','Inglês','Português BR', '18', 2, 4, '1080p'),
-(5, 4, 'N/A', 'Rockstar', '2013-09-01','Inglês','Português BR', '18', 1, 16, '1080p'),
-(6, 2, 'N/A', 'EA Games', '2012-02-01','Inglês','Inglês', 'Livre', 1, 0, '720p'),
-(7, 3, 'Ultimate Edition', 'WB Games', '2013-04-01','Português BR','Português BR', '12', 2, 8, '1080p'),
-(8, 5, 'N/A', 'WB Games', '2014-11-01','Português BR','Português BR', '18', 1, 0, '1080p'),
-(9, 4, 'N/A', 'EA Games', '2011-01-01','Inglês','Inglês', '18', 2, 8, '1080p'),
-(10, 2,'N/A', 'Bethesda', '2015-11-01','Inglês','Português BR', '18', 1, 0, '1080p'),
-(11, 3,'Edição Especial', 'Codemasters', '2018-01-01','Português BR','Português BR', 'Livre', 1, 20, '1080p'),
-(12, 1,'N/A', 'Bandai Namco', '2016-10-01','Inglês','Português BR', '10', 2, 6, '1080p'),
-(13, 5,'N/A', 'Capcom', '2017-01-01','Inglês','Português BR', '16', 1, 0, '1080p'),
-(14, 1,'N/A', 'Ubisoft', '2014-11-01','Português BR','Português BR', '18', 4, 4, '1080p'),
-(15, 3,'N/A', 'Namco Bandai', '2017-05-01','Inglês','Português BR', '12', 2, 8, '1080p'),
-(16, 4,'N/A', 'CD Project Red', '2015-05-01','Português BR','Português BR', '16', 1, 0, '1080p'),
-(17, 5,'Apocalypse Edition', 'Capcom', '2014-08-01','Português BR','Português BR', '18', 1, 2, '1080p'),
-(18, 4,'N/A', 'Bandai Namco', '2016-04-01','Inglês','Português BR', '14', 1, 6, '1080p'),
-(19, 2,'N/A', 'Eletronic Arts', '2016-03-01','Português BR','Português BR', '14', 1, 2, '1080p'),
-(20, 1,'N/A', 'Sony', '2018-01-01','Português BR','Português BR', '18', 1, 0, '1080p'),
-(21, 1,'Remasterizado', 'Sony', '2014-07-01','Português BR','Português BR', '18', 1, 8, '1080p'),
-(22, 1,'N/A', 'Sony', '2017-08-01','Português BR','Português BR', '14', 1, 10, '1080p'),
-(23, 2,'Edição Especial', 'Codemasters', '2018-01-01','Português BR','Português BR', 'Livre', 1, 20, '1080p'),
-(24, 2,'N/A', 'Capcom', '2016-02-01','Inglês','Português BR', '12', 2, 8, '1080p'),
-(25, 4,'N/A', 'Sony', '2015-03-01','Português BR','Português BR', '16', 1, 3, '1080p'),
-(26, 3,'N/A', 'Sony', '2015-09-01','Português BR','Português BR', '18', 1, 0, '1080p'),
-(27, 2,'Edição Premium', 'Konami', '2017-09-01','Português BR','Português BR', 'Livre', 4, 22, '1080p'),
-(28, 2,'Edição Premium', 'Konami', '2017-09-01','Português BR','Português BR', 'Livre', 4, 22, '1080p'),
-(29, 2,'Edição Premium', 'Konami', '2017-09-01','Português BR','Português BR', 'Livre', 4, 22, '1080p'),
-(30, 1,'N/A', 'Activision', '2017-09-01','Português BR','Português BR', '14', 0, 9, '1080p'),
-(31, 1,'N/A', 'Activision', '2017-09-01','Português BR','Português BR', '14', 0, 9, '1080p'),
-(32, 2,'N/A', '2K Games', '2017-09-01','Inglês','Inglês', 'Livre', 4, 10, '1080p'),
-(33, 2,'N/A', '2K Games', '2017-09-01','Inglês','Inglês', 'Livre', 4, 10, '1080p'),
-(34, 2,'N/A', '2K Games', '2017-09-01','Inglês','Inglês', 'Livre', 4, 10, '1080p'),
-(35, 1,'N/A', 'Sony', '2017-09-01','Português BR','Português BR', 'Livre', 2, 2, '1080p');
+(1, 1, 'N/A', 'Bethesda', '2011-11-01','INGLES','INGLES', '18', 1, 0, 'R720P'),
+(2, 2, 'N/A', 'Konami', '2016-09-01','PORTUGUES_BR','PORTUGUES_BR', 'Livre', 1, 22, 'R1080P'),
+(3, 3, 'Komplete Edition', 'Warner Bros', '2012-02-01','INGLES','PORTUGUES_BR', '18', 2, 2, 'R1080P'),
+(4, 5, 'N/A', 'Campcom', '2012-10-01','INGLES','PORTUGUES_BR', '18', 2, 4, 'R1080P'),
+(5, 4, 'N/A', 'Rockstar', '2013-09-01','INGLES','PORTUGUES_BR', '18', 1, 16, 'R1080P'),
+(6, 2, 'N/A', 'EA Games', '2012-02-01','INGLES','INGLES', 'Livre', 1, 0, 'R720P'),
+(7, 3, 'Ultimate Edition', 'WB Games', '2013-04-01','PORTUGUES_BR','PORTUGUES_BR', '12', 2, 8, 'R1080P'),
+(8, 5, 'N/A', 'WB Games', '2014-11-01','PORTUGUES_BR','PORTUGUES_BR', '18', 1, 0, 'R1080P'),
+(9, 4, 'N/A', 'EA Games', '2011-01-01','INGLES','INGLES', '18', 2, 8, 'R1080P'),
+(10, 2,'N/A', 'Bethesda', '2015-11-01','INGLES','PORTUGUES_BR', '18', 1, 0, 'R1080P'),
+(11, 3,'Edição Especial', 'Codemasters', '2018-01-01','PORTUGUES_BR','PORTUGUES_BR', 'Livre', 1, 20, 'R1080P'),
+(12, 1,'N/A', 'Bandai Namco', '2016-10-01','INGLES','PORTUGUES_BR', '10', 2, 6, 'R1080P'),
+(13, 5,'N/A', 'Capcom', '2017-01-01','INGLES','PORTUGUES_BR', '16', 1, 0, 'R1080P'),
+(14, 1,'N/A', 'Ubisoft', '2014-11-01','PORTUGUES_BR','PORTUGUES_BR', '18', 4, 4, 'R1080P'),
+(15, 3,'N/A', 'Namco Bandai', '2017-05-01','INGLES','PORTUGUES_BR', '12', 2, 8, 'R1080P'),
+(16, 4,'N/A', 'CD Project Red', '2015-05-01','PORTUGUES_BR','PORTUGUES_BR', '16', 1, 0, 'R1080P'),
+(17, 5,'Apocalypse Edition', 'Capcom', '2014-08-01','PORTUGUES_BR','PORTUGUES_BR', '18', 1, 2, 'R1080P'),
+(18, 4,'N/A', 'Bandai Namco', '2016-04-01','INGLES','PORTUGUES_BR', '14', 1, 6, 'R1080P'),
+(19, 2,'N/A', 'Eletronic Arts', '2016-03-01','PORTUGUES_BR','PORTUGUES_BR', '14', 1, 2, 'R1080P'),
+(20, 1,'N/A', 'Sony', '2018-01-01','PORTUGUES_BR','PORTUGUES_BR', '18', 1, 0, 'R1080P'),
+(21, 1,'Remasterizado', 'Sony', '2014-07-01','PORTUGUES_BR','PORTUGUES_BR', '18', 1, 8, 'R1080P'),
+(22, 1,'N/A', 'Sony', '2017-08-01','PORTUGUES_BR','PORTUGUES_BR', '14', 1, 10, 'R1080P'),
+(23, 2,'Edição Especial', 'Codemasters', '2018-01-01','PORTUGUES_BR','PORTUGUES_BR', 'Livre', 1, 20, 'R1080P'),
+(24, 2,'N/A', 'Capcom', '2016-02-01','INGLES','PORTUGUES_BR', '12', 2, 8, 'R1080P'),
+(25, 4,'N/A', 'Sony', '2015-03-01','PORTUGUES_BR','PORTUGUES_BR', '16', 1, 3, 'R1080P'),
+(26, 3,'N/A', 'Sony', '2015-09-01','PORTUGUES_BR','PORTUGUES_BR', '18', 1, 0, 'R1080P'),
+(27, 2,'Edição Premium', 'Konami', '2017-09-01','PORTUGUES_BR','PORTUGUES_BR', 'Livre', 4, 22, 'R1080P'),
+(28, 2,'Edição Premium', 'Konami', '2017-09-01','PORTUGUES_BR','PORTUGUES_BR', 'Livre', 4, 22, 'R1080P'),
+(29, 2,'Edição Premium', 'Konami', '2017-09-01','PORTUGUES_BR','PORTUGUES_BR', 'Livre', 4, 22, 'R1080P'),
+(30, 1,'N/A', 'Activision', '2017-09-01','PORTUGUES_BR','PORTUGUES_BR', '14', 0, 9, 'R1080P'),
+(31, 1,'N/A', 'Activision', '2017-09-01','PORTUGUES_BR','PORTUGUES_BR', '14', 0, 9, 'R1080P'),
+(32, 2,'N/A', '2K Games', '2017-09-01','INGLES','INGLES', 'Livre', 4, 10, 'R1080P'),
+(33, 2,'N/A', '2K Games', '2017-09-01','INGLES','INGLES', 'Livre', 4, 10, 'R1080P'),
+(34, 2,'N/A', '2K Games', '2017-09-01','INGLES','INGLES', 'Livre', 4, 10, 'R1080P'),
+(35, 1,'N/A', 'Sony', '2017-09-01','PORTUGUES_BR','PORTUGUES_BR', 'Livre', 2, 2, 'R1080P');
 
 INSERT INTO console (id_produto, fabricante, capacidade, modelo, voltagem, cor, resolucao, midias) VALUES
-(13, 'Sony','1 TB','Pro','Bi-Volt','Preto','4k','Blu-ray, 3D'),
-(14, 'Microsoft','1 TB','S','Bi-Volt','Branco','1080p','Blu-ray, 3D');
+(13, 'Sony','HD1TB','Pro','BIVOLT','PRETO','R4k','BLUERAY'),
+(14, 'Microsoft','HD1TB','S','BIVOLT','BRANCO','R1080P','BLUERAY');
 
 INSERT INTO controle (id_produto, fabricante, conexao, alimentacao, alcance, cor) VALUES
-(15, 'Sony', 'Wireless bluetooth', 'Bateria recarregável', '10m', 'Preto'),
-(16, 'Microsoft', 'Wireless bluetooth', 'Pilhas AA, Bateria recarregável', '10m', 'Preto');
+(15, 'Sony', 'WIRELESS_BLUETOOTH', 'BATERIA_RECARREGAVEL', '10m', 'PRETO'),
+(16, 'Microsoft', 'WIRELESS_BLUETOOTH', 'PILHAS_BATERIA_RECARREGAVEL', '10m', 'PRETO');
