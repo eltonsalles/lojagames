@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/backoffice/LayoutPadrao" xlmns:thecode="http://thecode.com.br">
+<head>
+	<title>Pesquisar Estoque</title>
+</head>
+<body>
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" layout:fragment="conteudo">
+		<h1 class="page-header">Pesquisar Estoque</h1>
+		<div class="row">
+			<form method="post" th:object="${produto}">
+				<div class="row">
+					<div class="col-sm-3 form-group">
+						<label for="codigo" class="control-label">Código</label> <input id="codigo" type="text" class="form-control js-int" maxlength="20" />
+					</div>
+					<div class="col-sm-9 form-group">
+						<label for="nome" class="control-label">Nome</label> <input id="nome" type="text" class="form-control" maxlength="150" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3 form-group">
+						<label for="tipo-produto" class="control-label">Tipo de Produto</label> <select class="col-sm-3 form-control"
+							id="tipo-produto">
+							<option value="">Selecione o tipo</option>
+							<option th:each="tipoProduto : ${tipos}" th:value="${tipoProduto}" th:text="${tipoProduto.descricao}"></option>
+						</select>
+					</div>
+					<div class="col-sm-3 form-group">
+						<label for="preco-compra" class="control-label">Preço de Compra</label>
+						<div class="input-group">
+							<div class="input-group-addon">R$</div>
+							<input id="preco-compra" type="text" class="form-control js-decimal" maxlength="20" />
+						</div>
+					</div>
+					<div class="col-sm-3 form-group">
+						<label for="preco-venda" class="control-label">Preço de Venda</label>
+						<div class="input-group">
+							<div class="input-group-addon">R$</div>
+							<input id="preco-venda" type="text" class="form-control js-decimal" maxlength="20"/>
+						</div>
+					</div>
+					<div class="col-lg-3 col-sm-6 form-group">
+						<label for="status" class="control-label">Estoque</label>
+						<div class="checkbox">
+							<label> <input type="checkbox"> Ruptura
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-3 col-sm-6 form-group">
+						<button class="btn  btn-primary" type="submit">Pesquisar</button>
+					</div>
+				</div>
+			</form>
+			<div class="table-responsive">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Código</th>
+							<th>Nome</th>
+							<th>Tipo de Produto</th>
+							<th>Preço de Compra</th>
+							<th>Preço de Venda</th>
+							<th>Estoque</th>
+							<th>Ações</th>
+						</tr>
+					</thead>
+					<tbody>	
+						<tr th:each="produto : ${produtos}">
+							<td th:text="$produto.codigo"></td>
+							<td th:text="$produto.nome"></td>
+							<td th:text="$produto.tipoProduto"></td>
+							<td th:text="$produto.precoCompra"></td>
+							<td th:text="$produto.precoVenda"></td>
+							<td th:text="$produto.estoque"></td>
+							<td class="text-center">
+								<a class="btn btn-link btn-xs" title="Editar">
+									<i class="glyphicon glyphicon-pencil"></i>
+								</a>
+								<a class="btn btn-link btn-xs" title="Excluir">
+									<i class="glyphicon glyphicon-remove"></i>
+								</a>
+							</td>
+						</tr>
+						<tr th:if="produtos.empty">
+							<td colspan="12">Nenhum produto encontrado</td>
+						</tr>
+					</tbody>				
+				</table>
+			</div>
+		</div>
+	</div>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/formatar-numeros.js}"></script>
+	</th:block>
+</body>
+</html>
