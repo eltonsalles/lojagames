@@ -1,8 +1,8 @@
 package br.senac.tads4.piiv.model.enumerated;
 
 public enum Midia {
-	
-	BLUERAY("Blue-Ray 3D");
+	BLUERAY("Blue-Ray"),
+	BLUERAY_3D("Blue-Ray e 3D");
 		
 	private String descricao;
 
@@ -13,5 +13,4 @@ public enum Midia {
 	public String getDescricao() {
 		return this.descricao;
 	}
-
 }

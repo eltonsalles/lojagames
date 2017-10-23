@@ -6,7 +6,7 @@ public enum Legenda {
 
 	private String descricao;
 
-	private Legenda(String descricao) {
+	Legenda(String descricao) {
 		this.descricao = descricao;
 	}
 

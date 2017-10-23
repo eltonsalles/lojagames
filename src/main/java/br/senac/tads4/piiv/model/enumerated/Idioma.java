@@ -6,7 +6,7 @@ public enum Idioma {
 
 	private String descricao;
 
-	private Idioma(String descricao) {
+	Idioma(String descricao) {
 		this.descricao = descricao;
 	}
 
