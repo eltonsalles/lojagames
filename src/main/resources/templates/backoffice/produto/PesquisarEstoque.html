@@ -2,47 +2,51 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="layout/backoffice/LayoutPadrao" xlmns:thecode="http://thecode.com.br">
 <head>
-	<title>Pesquisar Estoque</title>
+<title>Pesquisar estoque</title>
 </head>
 <body>
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" layout:fragment="conteudo">
-		<h1 class="page-header">Pesquisar Estoque</h1>
+		<h1 class="page-header">Pesquisar estoque</h1>
 		<div class="row">
 			<form method="post" th:object="${produto}">
 				<div class="row">
 					<div class="col-sm-3 form-group">
-						<label for="codigo" class="control-label">Código</label> <input id="codigo" type="text" class="form-control js-int" maxlength="20" />
-					</div>
-					<div class="col-sm-9 form-group">
-						<label for="nome" class="control-label">Nome</label> <input id="nome" type="text" class="form-control" maxlength="150" />
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-3 form-group">
-						<label for="tipo-produto" class="control-label">Tipo de Produto</label> <select class="col-sm-3 form-control"
-							id="tipo-produto">
-							<option value="">Selecione o tipo</option>
-							<option th:each="tipoProduto : ${tipos}" th:value="${tipoProduto}" th:text="${tipoProduto.descricao}"></option>
+						<label for="tipo-produto" class="control-label">Tipo de Produto</label>
+						<select class="col-sm-3 form-control" id="tipo-produto">
+							<option value="">Todos os tipos de produto</option>
+							<option th:each="tipoProduto : ${tiposProduto}" th:value="${tipoProduto}" th:text="${tipoProduto.descricao}"></option>
 						</select>
 					</div>
 					<div class="col-sm-3 form-group">
-						<label for="preco-compra" class="control-label">Preço de Compra</label>
-						<div class="input-group">
-							<div class="input-group-addon">R$</div>
-							<input id="preco-compra" type="text" class="form-control js-decimal" maxlength="20" />
+						<label for="codigo" class="control-label">Código</label>
+						<input id="codigo" type="text" class="form-control js-int" maxlength="20" />
+					</div>
+					<div class="col-sm-6 form-group">
+						<label for="nome" class="control-label">Nome</label>
+						<input id="nome" type="text" class="form-control" maxlength="150" />
+					</div>
+					<div class="col-sm-5 form-group">
+						<label for="precoCompraDe">Preço de Compra</label>
+						<div class="form-inline">
+							<input type="text" class="form-control  js-decimal" id="precoCompraDe" />
+							<label for="precoCompraAte"> até </label>
+							<input type="text" class="form-control  js-decimal" id="precoCompraAte" />
 						</div>
 					</div>
-					<div class="col-sm-3 form-group">
-						<label for="preco-venda" class="control-label">Preço de Venda</label>
-						<div class="input-group">
-							<div class="input-group-addon">R$</div>
-							<input id="preco-venda" type="text" class="form-control js-decimal" maxlength="20"/>
+					<div class="col-sm-5 form-group">
+						<label for="precoVendaDe">Preço de Venda</label>
+						<div class="form-inline">
+							<input type="text" class="form-control  js-decimal" id="precoVendaDe" />
+							<label for="precoVendaAte"> até </label>
+							<input type="text" class="form-control  js-decimal" id="precoVendaAte" />
 						</div>
 					</div>
-					<div class="col-lg-3 col-sm-6 form-group">
+					<div class="col-sm-2 form-group">
 						<label for="status" class="control-label">Estoque</label>
 						<div class="checkbox">
-							<label> <input type="checkbox"> Ruptura
+							<label>
+								<input type="checkbox">
+								Ruptura
 							</label>
 						</div>
 					</div>
@@ -66,7 +70,7 @@
 							<th>Ações</th>
 						</tr>
 					</thead>
-					<tbody>	
+					<tbody>
 						<tr th:each="produto : ${produtos}">
 							<td th:text="$produto.codigo"></td>
 							<td th:text="$produto.nome"></td>
@@ -86,7 +90,7 @@
 						<tr th:if="produtos.empty">
 							<td colspan="12">Nenhum produto encontrado</td>
 						</tr>
-					</tbody>				
+					</tbody>
 				</table>
 			</div>
 		</div>

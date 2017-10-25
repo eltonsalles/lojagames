@@ -1,10 +1,9 @@
 package br.senac.tads4.piiv.model.enumerated;
 
 public enum TipoProduto {
-	
 	CONSOLE("Console"),
 	CONTROLE("Controle"),
-	JOGO("Wireless bluetooth");
+	JOGO("Jogo");
 
 	private String descricao;
 
@@ -15,5 +14,4 @@ public enum TipoProduto {
 	public String getDescricao() {
 		return this.descricao;
 	}
-
 }
