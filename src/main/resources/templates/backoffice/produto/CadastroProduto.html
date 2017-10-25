@@ -7,55 +7,55 @@
 			<label for="status" class="control-label">Status</label>
 			<div>
 				<label class="tc-radio radio-inline">
-					<input id="ativo" type="radio" value="true" th:field="*{status}">
+					<input id="ativo" type="radio" value="true" th:field="*{status}" required>
 					Ativo
 				</label>
 				<label class="tc-radio radio-inline">
-					<input id="inativo" type="radio" value="false" th:field="*{status}">
+					<input id="inativo" type="radio" value="false" th:field="*{status}" required>
 					Inativo
 				</label>
 			</div>
 		</div>
 		<div class="col-sm-3 form-group" thecode:classforerror="tipoConsole">
 			<label for="tipo-console" class="control-label">Tipo de Console</label>
-			<select id="tipo-console" class="form-control" th:field="*{tipoConsole}">
+			<select id="tipo-console" class="form-control" th:field="*{tipoConsole}" required>
 				<option value="">Selecione o Tipo de Console</option>
 				<option th:each="tipoConsole : ${tiposConsoles}" th:value="${tipoConsole.id}" th:text="${tipoConsole.nome}"></option>
 			</select>
 		</div>
 		<div class="col-sm-6 form-group" thecode:classforerror="nome">
 			<label for="nome" class="control-label">Nome</label>
-			<input id="nome" type="text" class="form-control" th:field="*{nome}" />
+			<input id="nome" type="text" class="form-control" th:field="*{nome}" maxlength="150" required/>
 		</div>
 		<div class="col-sm-12 form-group" thecode:classforerror="itensInclusos">
 			<label for="itens-inclusos" class="control-label">Itens Inclusos</label>
-			<textarea id="itens-inclusos" rows="3" class="form-control" th:field="*{itensInclusos}"></textarea>
+			<textarea id="itens-inclusos" rows="3" class="form-control" th:field="*{itensInclusos}" maxlength="150" required></textarea>
 		</div>
 		<div class="col-sm-12 form-group" thecode:classforerror="descricao">
 			<label for="descricao" class="control-label">Descrição</label>
-			<textarea id="descricao" rows="3" class="form-control" th:field="*{descricao}"></textarea>
+			<textarea id="descricao" rows="3" class="form-control" th:field="*{descricao}" maxlength="2000" required></textarea>
 		</div>
 		<div class="col-sm-3 form-group" thecode:classforerror="precoCompra">
 			<label for="preco-compra" class="control-label">Preço de Compra</label>
 			<div class="input-group">
 				<div class="input-group-addon">R$</div>
-				<input id="preco-compra" type="text" class="form-control js-decimal" th:field="*{precoCompra}" />
+				<input id="preco-compra" type="text" class="form-control js-decimal" th:field="*{precoCompra}" required/>
 			</div>
 		</div>
 		<div class="col-sm-3 form-group" thecode:classforerror="precoVenda">
 			<label for="preco-venda" class="control-label">Preço de Venda</label>
 			<div class="input-group">
 				<div class="input-group-addon">R$</div>
-				<input id="preco-venda" type="text" class="form-control js-decimal" th:field="*{precoVenda}" />
+				<input id="preco-venda" type="text" class="form-control js-decimal" th:field="*{precoVenda}" required/>
 			</div>
 		</div>
 		<div class="col-sm-3 form-group" thecode:classforerror="estoque">
 			<label for="estoque" class="control-label">Estoque</label>
-			<input id="estoque" type="text" class="form-control js-int" th:field="*{estoque}" />
+			<input id="estoque" type="text" class="form-control js-int" th:field="*{estoque}" required/>
 		</div>
 		<div class="col-sm-2 form-group" thecode:classforerror="garantia">
 			<label for="garantia" class="control-label">Garantia em Meses</label>
-			<input id="garantia" type="text" class="form-control js-int" th:field="*{garantia}" />
+			<input id="garantia" type="text" class="form-control js-int" th:field="*{garantia}" required/>
 		</div>
 	</div>
 </body>
