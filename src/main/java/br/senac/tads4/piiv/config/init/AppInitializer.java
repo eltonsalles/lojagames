@@ -1,6 +1,8 @@
 package br.senac.tads4.piiv.config.init;
 
 import javax.servlet.Filter;
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletRegistration.Dynamic;
 
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
@@ -13,25 +15,30 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class<?>[] {JpaConfig.class};
+		return new Class<?>[] { JpaConfig.class };
 	}
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		return new Class<?>[] {WebConfig.class, ServiceConfig.class};
+		return new Class<?>[] { WebConfig.class, ServiceConfig.class };
 	}
 
 	@Override
 	protected String[] getServletMappings() {
-		return new String[] {"/"};
+		return new String[] { "/" };
 	}
-	
+
 	@Override
 	protected Filter[] getServletFilters() {
 		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
 		characterEncodingFilter.setEncoding("UTF-8");
 		characterEncodingFilter.setForceEncoding(true);
-		
+
 		return new Filter[] { characterEncodingFilter };
+	}
+
+	@Override
+	protected void customizeRegistration(Dynamic registration) {
+		registration.setMultipartConfig(new MultipartConfigElement(""));
 	}
 }

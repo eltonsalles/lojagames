@@ -3,6 +3,7 @@
 	layout:decorator="layout/backoffice/LayoutPadrao" xlmns:thecode="http://thecode.com.br">
 <head>
 <title>Cadastro de console</title>
+<link rel="stylesheet" th:href="@{/stylesheets/vendors/upload.min.css}" />
 </head>
 <body>
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" layout:fragment="conteudo">
@@ -14,7 +15,7 @@
 				<div class="row">
 					<div class="col-sm-6 form-group" thecode:classforerror="fabricante">
 						<label for="fabricante" class="control-label">Fabricante</label>
-						<input id="fabricante" type="text" class="form-control" th:field="*{fabricante}" maxlength="50" required/>
+						<input id="fabricante" type="text" class="form-control" th:field="*{fabricante}" maxlength="50" required />
 					</div>
 					<div class="col-sm-6 form-group" thecode:classforerror="modelo">
 						<label for="modelo" class="control-label">Modelo</label>
@@ -60,14 +61,36 @@
 						</select>
 					</div>
 				</div>
+				<div class="row">
+					<div class="form-group col-sm-12">
+						<input type="hidden" />
+						<input type="hidden" />
+						<label class="control-label">Imagem</label>
+						<div class="js-container-imagem-produto" th:attr="data-url-imagens=@{/imagens}">
+							<div id="upload-drop" class="tc-upload">
+								<i class="glyphicon glyphicon-cloud-upload"></i>
+								<span>Arraste a imagem aqui ou </span>
+								<a class="tc-upload-form-file">
+									selecione
+									<input type="file" id="upload-select" accept=".jpg,.jpeg,.png" />
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
 				<div class="form-group">
 					<button class="btn  btn-primary" type="submit">Salvar</button>
 				</div>
 			</form>
 		</div>
+		<th:block th:replace="backoffice/hbs/ImagemProduto"></th:block>
 	</div>
 	<th:block layout:fragment="javascript-extra">
 		<script th:src="@{/javascripts/formatar-numeros.js}"></script>
+		<script th:src="@{/javascripts/vendors/uikit.min.js}"></script>
+		<script th:src="@{/javascripts/vendors/upload.min.js}"></script>
+		<script th:src="@{/javascripts/vendors/handlebars.min.js}"></script>
+		<script th:src="@{/javascripts/produto-upload-imagem.js}"></script>
 	</th:block>
 </body>
 </html>
