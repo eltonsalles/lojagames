@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,6 +24,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import br.senac.tads4.piiv.model.enumerated.TipoProduto;
+
 @Entity
 @Table(name = "produto")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -35,7 +39,8 @@ public class Produto implements Serializable {
 	private Long idProduto;
 	
 	@Column(name = "tipo_produto")
-	private String tipoProduto;
+	@Enumerated(EnumType.STRING)
+	private TipoProduto tipoProduto;
 
 	@NotNull(message = "O status é obrigatório")
 	private Boolean status;
@@ -86,11 +91,11 @@ public class Produto implements Serializable {
 		this.idProduto = idProduto;
 	}
 
-	public String getTipoProduto() {
+	public TipoProduto getTipoProduto() {
 		return tipoProduto;
 	}
 
-	public void setTipoProduto(String tipoProduto) {
+	public void setTipoProduto(TipoProduto tipoProduto) {
 		this.tipoProduto = tipoProduto;
 	}
 

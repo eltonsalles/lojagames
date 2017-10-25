@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.senac.tads4.piiv.model.Jogo;
+import br.senac.tads4.piiv.model.enumerated.TipoProduto;
 import br.senac.tads4.piiv.repository.JogoRepository;
 
 /**
@@ -19,7 +20,7 @@ public class JogoService {
 	private JogoRepository jogos;
 	
 	public void salvar(Jogo jogo) {
-		jogo.setTipoProduto("JOGO");
+		jogo.setTipoProduto(TipoProduto.JOGO);
 		jogos.save(jogo);
 	}
 }

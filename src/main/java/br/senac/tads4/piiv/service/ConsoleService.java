@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.senac.tads4.piiv.model.Console;
+import br.senac.tads4.piiv.model.enumerated.TipoProduto;
 import br.senac.tads4.piiv.repository.ConsoleRepository;
 
 /**
@@ -19,7 +20,7 @@ public class ConsoleService {
 	private ConsoleRepository consoles;
 	
 	public void salvar(Console console) {
-		console.setTipoProduto("CONSOLE");
+		console.setTipoProduto(TipoProduto.CONSOLE);
 		consoles.save(console);
 	}
 }

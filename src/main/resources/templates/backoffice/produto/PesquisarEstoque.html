@@ -64,6 +64,7 @@
 							<th>Código</th>
 							<th>Nome</th>
 							<th>Tipo de Produto</th>
+							<th>Console</th>
 							<th>Preço de Compra</th>
 							<th>Preço de Venda</th>
 							<th>Estoque</th>
@@ -72,12 +73,13 @@
 					</thead>
 					<tbody>
 						<tr th:each="produto : ${produtos}">
-							<td th:text="$produto.codigo"></td>
-							<td th:text="$produto.nome"></td>
-							<td th:text="$produto.tipoProduto"></td>
-							<td th:text="$produto.precoCompra"></td>
-							<td th:text="$produto.precoVenda"></td>
-							<td th:text="$produto.estoque"></td>
+							<td th:text="${produto.idProduto}"></td>
+							<td th:text="${produto.nome}"></td>
+							<td th:text="${produto.tipoProduto.descricao}"></td>
+							<td th:text="${produto.tipoConsole.nome}"></td>
+							<td th:text="${#numbers.formatCurrency(produto.precoCompra)}"></td>
+							<td th:text="${#numbers.formatCurrency(produto.precoVenda)}"></td>
+							<td th:text="${produto.estoque}"></td>
 							<td class="text-center">
 								<a class="btn btn-link btn-xs" title="Editar">
 									<i class="glyphicon glyphicon-pencil"></i>
@@ -86,9 +88,6 @@
 									<i class="glyphicon glyphicon-remove"></i>
 								</a>
 							</td>
-						</tr>
-						<tr th:if="produtos.empty">
-							<td colspan="12">Nenhum produto encontrado</td>
 						</tr>
 					</tbody>
 				</table>

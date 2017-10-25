@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.senac.tads4.piiv.model.Controle;
+import br.senac.tads4.piiv.model.enumerated.TipoProduto;
 import br.senac.tads4.piiv.repository.ControleRepository;
 
 /**
@@ -19,7 +20,7 @@ public class ControleService {
 	private ControleRepository controles;
 	
 	public void salvar(Controle controle) {
-		controle.setTipoProduto("CONTROLE");
+		controle.setTipoProduto(TipoProduto.CONTROLE);
 		controles.save(controle);
 	}
 }
