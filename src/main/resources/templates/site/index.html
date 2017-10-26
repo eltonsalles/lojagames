@@ -29,7 +29,7 @@
 				<article class="col col-content z-depth-2">
 					<div class="col s12 m12">
 						<a th:href="@{/detalhes-do-produto/} + ${produto.idProduto}">
-							<img th:each="imagem : ${produto.imagens}" class="responsive-img" th:src="@{/images/site/produtos/} + ${imagem.endereco}" th:alt="${imagem.descricao}">
+							<img th:each="imagem : ${produto.imagens}" class="responsive-img" th:src="@{/images/site/produtos/} + ${imagem.nome}" th:alt="${imagem.descricao}">
 						</a>
 					</div>
 					<div class="col s12 m12">

@@ -1,0 +1,1 @@
+ALTER TABLE imagem ADD content_type VARCHAR(100);

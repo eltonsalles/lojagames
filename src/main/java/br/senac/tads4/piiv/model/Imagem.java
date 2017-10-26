@@ -2,6 +2,7 @@ package br.senac.tads4.piiv.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,7 +25,10 @@ public class Imagem implements Serializable {
 	@JoinColumn(name = "id_produto")
 	private Produto produto;
 	
-	private String endereco;
+	private String nome;
+	
+	@Column(name = "content_type")
+	private String contentType;
 	
 	private String descricao;
 
@@ -44,12 +48,20 @@ public class Imagem implements Serializable {
 		this.produto = produto;
 	}
 
-	public String getEndereco() {
-		return endereco;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getContentType() {
+		return contentType;
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
 	}
 
 	public String getDescricao() {

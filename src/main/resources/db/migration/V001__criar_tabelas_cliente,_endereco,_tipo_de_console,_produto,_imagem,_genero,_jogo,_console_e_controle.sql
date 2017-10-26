@@ -84,7 +84,7 @@ CREATE TABLE produto (
 CREATE TABLE imagem (
 	id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
     id_produto BIGINT(20) NOT NULL,
-    endereco VARCHAR(255) NOT NULL,
+    nome VARCHAR(255) NOT NULL,
     descricao TEXT NOT NULL,
     FOREIGN KEY (id_produto) REFERENCES produto(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -178,7 +178,7 @@ INSERT INTO produto (tipo_produto, id_tipo_console, nome, preco_compra, preco_ve
 ('JOGO', 3, 'NBA 2K18', 99.90, 209.99, 100, 'Mídia, Manual', '3', 'NBA 2K18 traz toda emoção das partidas de basquete da liga mais famosa do mundo a NBA (National Basketball Association), que seria a liga de basquetebol profissional da América do Norte. Trazendo todos os times que compõem essa liga, dentre eles temos: os Warriors, Chicago Bulls, Detroit Pistons, Cavaliers e muitos outros times que participam deste campeonato, assistido pelo mundo todo. Além do melhoramento gráfico, comparado ao seu antecessor NBA 2K17, o game traz um nível de exigência muito maior, mantendo um nível de excelência que a 2K sempre busca alcançar em seus jogos. O jogo é muito competitivo, tanto no singleplayer, quanto no multiplayer. O jogo te possibilita jogar com até quatro pessoas no modo off-line e dez pessoas em seu modo online.'),
 ('JOGO', 2, 'Knack 2', 99.90, 169.99, 100, 'Mídia, Manual', '3', 'Knack é um ser energizado por relíquias antigas e misteriosas, que o tornam capaz de se transformar em um brutamontes poderoso, um gigante destruidor, ou até mesmo um anão flexível, tudo isto apenas utilizando peças que você encontra pelo cenário. Após salvar o mundo da invasão orc no primeiro jogo, Knack é convocado novamente para uma nova aventura, e desta vez, ele não está sozinho. Em Knack 2 o modo cooperativo online e local do jogo se torna uma realidade, com mais de 20 combinações de golpes conjuntos e muitos puzzles pelo caminho, onde você deve impedir um temível vilão de recuperar armas antigas e reviver titãs mortíferos. Explore este mundo de cores vibrantes e gráficos incríveis, que oferece uma jogabilidade acessível à crianças e desafiadora para adultos.');
 
-INSERT INTO imagem (id_produto, endereco, descricao) VALUES 
+INSERT INTO imagem (id_produto, nome, descricao) VALUES 
 (1, '1.jpg', 'Descrição da imagem'),
 (2, '2.jpg', 'Descrição da imagem'),
 (3, '3.jpg', 'Descrição da imagem'),

@@ -63,8 +63,8 @@
 				</div>
 				<div class="row">
 					<div class="form-group col-sm-12">
-						<input type="hidden" />
-						<input type="hidden" />
+						<input type="hidden" id="js-nome-imagem" th:field="*{imagens[0].endereco}"/>
+						<input type="hidden" id="js-content-type-imagem" th:field="*{imagens[0].contentType}"/>
 						<label class="control-label">Imagem</label>
 						<div class="js-container-imagem-produto" th:attr="data-url-imagens=@{/imagens}">
 							<div id="upload-drop" class="tc-upload">
