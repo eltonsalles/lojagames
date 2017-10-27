@@ -1,6 +1,12 @@
+/* Campos do tipo radio */
 .tc-radio {
 	margin-top: 5px !important;
 	margin-right: 25px;
+}
+
+/* Campos obrigatórios */
+.tc-required>.control-label:after {
+	content: "*";
 }
 
 /* Uploads */

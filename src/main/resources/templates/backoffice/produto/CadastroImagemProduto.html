@@ -2,7 +2,7 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <body>
 	<div class="row">
-		<div class="form-group col-sm-12">
+		<div class="form-group col-sm-12 tc-required">
 			<input type="hidden" id="js-nome-imagem" th:field="*{imagens[0].nome}" />
 			<input type="hidden" id="js-content-type-imagem" th:field="*{imagens[0].contentType}" />
 			<label class="control-label">Imagem</label>
@@ -17,7 +17,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-sm-12 form-group">
+		<div class="col-sm-12 form-group tc-required">
 			<label for="descricao-imagem" class="control-label">Descrição da Imagem</label>
 			<textarea id="descricao-imagem" rows="3" class="form-control" th:field="*{imagens[0].descricao}" maxlength="2000"
 				required></textarea>
