@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div class="row">
+		<div class="form-group col-sm-12">
+			<input type="hidden" id="js-nome-imagem" th:field="*{imagens[0].nome}" />
+			<input type="hidden" id="js-content-type-imagem" th:field="*{imagens[0].contentType}" />
+			<label class="control-label">Imagem</label>
+			<div class="js-container-imagem-produto" th:attr="data-url-imagens=@{/imagens}">
+				<div id="upload-drop" class="tc-upload">
+					<i class="glyphicon glyphicon-cloud-upload"></i>
+					<span>Arraste a imagem aqui ou </span>
+					<a class="tc-upload-form-file">
+						selecione
+						<input type="file" id="upload-select" accept=".jpg,.jpeg,.png" />
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-12 form-group">
+			<label for="descricao-imagem" class="control-label">Descrição da Imagem</label>
+			<textarea id="descricao-imagem" rows="3" class="form-control" th:field="*{imagens[0].descricao}" maxlength="2000"
+				required></textarea>
+		</div>
+	</div>
+</body>
+</html>

@@ -3,6 +3,7 @@
 	layout:decorator="layout/backoffice/LayoutPadrao" xlmns:thecode="http://thecode.com.br">
 <head>
 <title>Cadastro de controle</title>
+<link rel="stylesheet" th:href="@{/stylesheets/vendors/upload.min.css}" />
 </head>
 <body>
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" layout:fragment="conteudo">
@@ -42,14 +43,20 @@
 						<input id="alcance" type="text" class="form-control js-int" th:field="*{alcance}" maxlength="3" required />
 					</div>
 				</div>
+				<thecode:formimagemproduto />
 				<div class="form-group">
 					<button class="btn  btn-primary" type="submit">Salvar</button>
 				</div>
 			</form>
 		</div>
+		<th:block th:replace="backoffice/hbs/ImagemProduto"></th:block>
 	</div>
 	<th:block layout:fragment="javascript-extra">
 		<script th:src="@{/javascripts/formatar-numeros.js}"></script>
+		<script th:src="@{/javascripts/vendors/uikit.min.js}"></script>
+		<script th:src="@{/javascripts/vendors/upload.min.js}"></script>
+		<script th:src="@{/javascripts/vendors/handlebars.min.js}"></script>
+		<script th:src="@{/javascripts/produto-upload-imagem.js}"></script>
 	</th:block>
 </body>
 </html>

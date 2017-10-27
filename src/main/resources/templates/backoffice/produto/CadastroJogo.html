@@ -3,12 +3,12 @@
 	layout:decorator="layout/backoffice/LayoutPadrao" xlmns:thecode="http://thecode.com.br">
 <head>
 <title>Cadastro de jogo</title>
+<link rel="stylesheet" th:href="@{/stylesheets/vendors/upload.min.css}" />
 </head>
 <body>
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" layout:fragment="conteudo">
 		<h1 class="page-header">Cadastro de jogo</h1>
 		<div class="row">
-
 			<form method="post" th:object="${jogo}">
 				<thecode:messagebackoffice />
 				<thecode:formproduto />
@@ -30,7 +30,6 @@
 						<input id="lancamento" type="date" class="form-control" required th:field="*{lancamento}" />
 					</div>
 				</div>
-
 				<div class="row">
 					<div class="col-sm-3 form-group" thecode:classforerror="idioma">
 						<label for="idioma" class="control-label">Idioma</label>
@@ -61,8 +60,7 @@
 							<option th:each="resolucao : ${Resolucoes}" th:value="${resolucao}" th:text="${resolucao.descricao}"></option>
 						</select>
 					</div>
-				</div>	
-				
+				</div>
 				<div class="row">
 					<div class="col-sm-1 form-group" thecode:classforerror="qtdeJogadoresOff">
 						<label for="qtdeJogadoresOff" class="control-label">Jogadores OFFLINE</label>
@@ -72,17 +70,21 @@
 						<label for="qtdeJogadoresOn" class="control-label">Jogadores ONLINE</label>
 						<input id="qtdeJogadoresOn" type="text" class="form-control js-int" required th:field="*{qtdeJogadoresOn}" />
 					</div>
-
 				</div>
-
+				<thecode:formimagemproduto />
 				<div class="form-group">
 					<button class="btn  btn-primary" type="submit">Salvar</button>
 				</div>
 			</form>
 		</div>
+		<th:block th:replace="backoffice/hbs/ImagemProduto"></th:block>
 	</div>
 	<th:block layout:fragment="javascript-extra">
 		<script th:src="@{/javascripts/formatar-numeros.js}"></script>
+		<script th:src="@{/javascripts/vendors/uikit.min.js}"></script>
+		<script th:src="@{/javascripts/vendors/upload.min.js}"></script>
+		<script th:src="@{/javascripts/vendors/handlebars.min.js}"></script>
+		<script th:src="@{/javascripts/produto-upload-imagem.js}"></script>
 	</th:block>
 </body>
 </html>
