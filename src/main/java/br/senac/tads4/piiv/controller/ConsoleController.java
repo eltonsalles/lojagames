@@ -18,6 +18,9 @@ import br.senac.tads4.piiv.model.enumerated.Resolucao;
 import br.senac.tads4.piiv.model.enumerated.Voltagem;
 import br.senac.tads4.piiv.repository.TipoConsoleRepository;
 import br.senac.tads4.piiv.service.ConsoleService;
+import br.senac.tads4.piiv.service.exception.DescricaoDaImagemPassaLimiteCaractesException;
+import br.senac.tads4.piiv.service.exception.DescricaoDaImagemVaziaException;
+import br.senac.tads4.piiv.service.exception.ListaDeImagensVaziasException;
 
 @Controller
 @RequestMapping(value = "/produtos/consoles")
@@ -52,8 +55,8 @@ public class ConsoleController {
 
 		try {
 			consoleService.salvar(console);
-		} catch (Exception e) { // Trocar por uma exceção mais especifica
-			System.out.println(">>>>>"+e.getMessage());
+		} catch (ListaDeImagensVaziasException | DescricaoDaImagemVaziaException | DescricaoDaImagemPassaLimiteCaractesException e) {
+			result.rejectValue("imagens", e.getMessage(), e.getMessage());
 			return novo(console);
 		}
 

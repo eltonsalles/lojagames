@@ -49,6 +49,10 @@
   	
   	<!-- Stella -->
   	<stella.version>2.1.2</stella.version>
+  	
+ 	<!-- Thumbnailator - Gerar Thumbnail -->
+  	<!-- https://github.com/coobird/thumbnailator -->
+  	<thumbnailator.version>0.4.8</thumbnailator.version>
   </properties>
   
   <build>
@@ -221,5 +225,13 @@
 	    <artifactId>caelum-stella-boleto</artifactId>
 	    <version>${stella.version}</version>
 	</dependency>
+	
+	<!-- Thumbnailator - Gerar Thumbnail -->
+  	<dependency>
+  		<groupId>net.coobird</groupId>
+	    <artifactId>thumbnailator</artifactId>
+	    <version>${thumbnailator.version}</version>
+  		<scope>compile</scope>
+  	</dependency>
   </dependencies>
 </project>

@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "imagem")
@@ -25,11 +27,14 @@ public class Imagem implements Serializable {
 	@JoinColumn(name = "id_produto")
 	private Produto produto;
 	
+	@NotBlank(message = "O campo imagem é obrigatório")
 	private String nome;
 	
 	@Column(name = "content_type")
 	private String contentType;
 	
+	@NotBlank(message = "O campo descrição é obrigatório")
+	@Size(max = 2000, message = "A descrição deve ter no máximo 2000 caracteres")
 	private String descricao;
 
 	public Long getId() {

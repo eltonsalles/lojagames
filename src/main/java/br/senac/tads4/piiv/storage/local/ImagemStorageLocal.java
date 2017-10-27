@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.senac.tads4.piiv.storage.ImagemStorage;
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.name.Rename;
 
 public class ImagemStorageLocal implements ImagemStorage {
 
@@ -54,6 +56,30 @@ public class ImagemStorageLocal implements ImagemStorage {
 			return Files.readAllBytes(this.localTemporario.resolve(nome));
 		} catch (IOException e) {
 			throw new RuntimeException("Erro lendo a imagem temporária", e);
+		}
+	}
+	
+	@Override
+	public byte[] recuperar(String imagem) {
+		try {
+			return Files.readAllBytes(this.local.resolve(imagem));
+		} catch (IOException e) {
+			throw new RuntimeException("Erro lendo a imagem final", e);
+		}
+	}
+	
+	@Override
+	public void salvar(String imagem) {
+		try {
+			Files.move(this.localTemporario.resolve(imagem), this.local.resolve(imagem));
+		} catch (IOException e) {
+			throw new RuntimeException("Erro movendo a foto para o destino final", e);
+		}
+		
+		try {
+			Thumbnails.of(this.local.resolve(imagem).toString()).size(174,  174).toFiles(Rename.PREFIX_DOT_THUMBNAIL);
+		} catch (IOException e) {
+			throw new RuntimeException("Erro gerando thumbnail", e);
 		}
 	}
 	

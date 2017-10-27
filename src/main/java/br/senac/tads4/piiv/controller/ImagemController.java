@@ -17,7 +17,6 @@ import br.senac.tads4.piiv.storage.ImagemStorageRunnable;
 @RestController
 @RequestMapping("/imagens")
 public class ImagemController {
-
 	
 	@Autowired
 	private ImagemStorage imagemStorage;
@@ -35,5 +34,10 @@ public class ImagemController {
 	@GetMapping("/temp/{nome:.*}")
 	public byte[] recuperarImagemTemporaria(@PathVariable String nome) {
 		return imagemStorage.recuperarImagemTemporaria(nome);
+	}
+	
+	@GetMapping("/{nome:.*}")
+	public byte[] recuperar(@PathVariable String nome) {
+		return imagemStorage.recuperar(nome);
 	}
 }

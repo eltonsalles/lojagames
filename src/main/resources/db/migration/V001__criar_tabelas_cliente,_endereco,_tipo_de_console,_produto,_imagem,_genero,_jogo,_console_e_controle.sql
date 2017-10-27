@@ -113,7 +113,7 @@ CREATE TABLE jogo (
 CREATE TABLE console (
 	id_produto BIGINT(20) NOT NULL,
     fabricante VARCHAR(50) NOT NULL,
-    capacidade VARCHAR(6) NOT NULL,
+    capacidade VARCHAR(10) NOT NULL,
     modelo VARCHAR(15) NOT NULL,
     voltagem VARCHAR(10) NOT NULL,
     cor VARCHAR(15) NOT NULL,

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -36,7 +37,7 @@ public class Produto implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Long idProduto;
+	private Long id;
 	
 	@Column(name = "tipo_produto")
 	@Enumerated(EnumType.STRING)
@@ -80,15 +81,15 @@ public class Produto implements Serializable {
 	@Size(max = 1000, message = "O campo descricao")
 	private String descricao;
 	
-	@OneToMany(mappedBy = "produto", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "produto", targetEntity = Imagem.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Imagem> imagens;
 
 	public Long getIdProduto() {
-		return idProduto;
+		return id;
 	}
 
 	public void setIdProduto(Long idProduto) {
-		this.idProduto = idProduto;
+		this.id = idProduto;
 	}
 
 	public TipoProduto getTipoProduto() {
@@ -183,7 +184,7 @@ public class Produto implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((idProduto == null) ? 0 : idProduto.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -196,10 +197,10 @@ public class Produto implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Produto other = (Produto) obj;
-		if (idProduto == null) {
-			if (other.idProduto != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!idProduto.equals(other.idProduto))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}
