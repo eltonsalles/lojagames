@@ -16,6 +16,9 @@ import br.senac.tads4.piiv.model.enumerated.Conexao;
 import br.senac.tads4.piiv.model.enumerated.Cor;
 import br.senac.tads4.piiv.repository.TipoConsoleRepository;
 import br.senac.tads4.piiv.service.ControleService;
+import br.senac.tads4.piiv.service.exception.DescricaoDaImagemPassaLimiteCaractesException;
+import br.senac.tads4.piiv.service.exception.DescricaoDaImagemVaziaException;
+import br.senac.tads4.piiv.service.exception.ListaDeImagensVaziasException;
 
 @Controller
 @RequestMapping(value = "/produtos/controles")
@@ -48,8 +51,8 @@ public class ControleController {
 		
 		try {
 			controleService.salvar(controle);
-		} catch (Exception e) { // Trocar por uma exceção mais especifica
-			// result.rejectValue();
+		} catch (ListaDeImagensVaziasException | DescricaoDaImagemVaziaException | DescricaoDaImagemPassaLimiteCaractesException e) {
+			result.rejectValue("imagens", e.getMessage(), e.getMessage());
 			return novo(controle);
 		}
 		
