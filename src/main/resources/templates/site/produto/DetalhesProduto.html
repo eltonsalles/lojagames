@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/site/LayoutPadrao" xlmns:thecode="http://thecode.com.br">
+<head>
+<title>Detalhes do Produto</title>
+</head>
+<body>
+	<main class="container" layout:fragment="conteudo">
+	<div class="parallax-container">
+		<div class="parallax black">
+			<img
+				th:src="@{/images/site/paralax/{id}.jpg(id=${produto.idProduto})}"
+				th:alt="(${#lists.isEmpty(produto.imagens)} ? 'Imagem padrão do produto' : (${produto.imagens[0].descricao}))">
+		</div>
+	</div>
+	<div class="row">
+		<nav class="z-depth-0 white breadcrumb-site">
+			<div class="nav-wrapper">
+				<div class="col s12">
+					<a href="@{/}" class="breadcrumb">Início</a>
+					<a href="lista-produto.html" class="breadcrumb">Lista de Produtos</a>
+					<a href="#" class="breadcrumb">Jogo PS3</a>
+					<a href="#" class="breadcrumb">Skyrim</a>
+				</div>
+			</div>
+		</nav>
+	</div>
+	<div class="row">
+		<div class="col s12 offset-m6 m6">
+			<h4 class="center-align" th:text="${produto.nome}"></h4>
+		</div>
+		<div class="col s12 m5">
+			<img class="responsive-img"
+				th:src="(${#lists.isEmpty(produto.imagens)} ? (@{/imagens/produto-mock.png}) : (@{/imagens/{nome}(nome=${produto.imagens[0].nome})}))"
+				th:alt="(${#lists.isEmpty(produto.imagens)} ? 'Imagem padrão do produto' : (${produto.imagens[0].descricao}))">
+		</div>
+		<div class="col s12 m7">
+			<div class="col s12 m12">
+				<p class="preco detalhes-produto">
+					<span th:text="${produto.precoVenda}"></span>
+					<br>
+					<n th:text="${produto.precoVenda}"> </n>
+					<span class="a-vista"></span>
+					<strong class="boleto-bancario">via Boleto Bancário</strong>
+				</p>
+				<p class="pagamento-parcelado">
+					ou
+					<br>
+					10x de R$ 19,99 sem juros
+				</p>
+				<a class="waves-effect waves-light btn-large orange darken-1 btn-comprar" href="carrinho-produto.html">
+					<i class="material-icons left">add_shopping_cart</i>
+					Comprar
+				</a>
+			</div>
+			<div class="col s12">
+				<form action="#" class="col s12" id="form-frete">
+					<div class="row">
+						<div class="col s12">
+							<div class="input-field col 12 m4">
+								<input type="text" value="01234-567" name="calcular-frete" id="calcular-frete" class="input-field" required>
+								<label for="calcular-frete">Calcular Frete</label>
+							</div>
+							<div class="input-field col s12 m8 texto-frete">
+								<p>
+									<strong> </strong>
+								</p>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col s12 m12">
+				<ul class="collection with-header valores-parcela">
+					<li class="collection-header">
+						<h6>
+							Parcelas
+							<i class="small material-icons right">credit_card</i>
+						</h6>
+					</li>
+					<li class="collection-item">
+						<div>
+							1x de R$ 199,99 sem juros
+							<div class="secondary-content">6x de R$ 33,33 sem juros</div>
+						</div>
+						<div>
+							2x de R$ 100,00 sem juros
+							<div class="secondary-content">7x de R$ 28,57 sem juros</div>
+						</div>
+						<div>
+							3x de R$ 66,66 sem juros
+							<div class="secondary-content">8x de R$ 25,00 sem juros</div>
+						</div>
+						<div>
+							4x de R$ 50,00 sem juros
+							<div class="secondary-content">9x de R$ 22,22 sem juros</div>
+						</div>
+						<div>
+							5x de R$ 40,00 sem juros
+							<div class="secondary-content">10x de R$ 20,00 sem juros</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col s12 m12">
+			<ul class="collapsible" data-collapsible="accordion">
+				<li>
+					<div class="collapsible-header">
+						<i class="material-icons">view_headline</i>
+						Descrição
+					</div>
+					<div class="collapsible-body">
+						<span  th:text="${produto.descricao}"></span>
+					</div>
+				<li>
+					<div class="collapsible-header">
+						<i class="material-icons">list</i>
+						Especificações
+					</div>
+					<div class="collapsible-body">
+						<div th:switch="${produto.tipoProduto}">
+							<p th:case="${tiposProduto[0]}">
+								<span>
+		                            <strong>Fabricante: </strong> <i th:text="${produto.fabricante}"> </i><br>
+		                            <strong>Modelo: </strong> <i th:text="${produto.modelo}"> </i><br>
+		                            <strong>Capacidade: </strong> <i th:text="${produto.capacidade}"> </i>
+                            		<strong>Voltagem: </strong> <i th:text="${produto.voltagem}"> </i>
+			                 		<strong>Cor: </strong> <i th:text="${produto.cor}"> </i>
+			           		        <strong>Resolução: </strong> <i th:text="${produto.resolucao}"> </i>
+			         		 		<strong>Midia: </strong> <i th:text="${produto.midia}"> </i>
+			                    </span>
+							</p>
+							<p th:case="${tiposProduto[1]}">
+								<span>
+		                            <strong>Fabricante: </strong> <i th:text="${produto.fabricante}"> </i><br>
+		                            <strong>Conexao: </strong> <i th:text="${produto.conexao}"> </i><br>
+		                            <strong>Alimentação: </strong> <i th:text="${produto.alimentacao}"> </i>
+                            		<strong>Alcance: </strong> <i th:text="${produto.alcance}"> </i>
+			                 		<strong>Cor: </strong> <i th:text="${produto.cor}"> </i>
+			                    </span>
+							</p>
+							<p th:case="${tiposProduto[2]}">
+								<span>
+		                            <strong>Produtora: </strong> <i th:text="${produto.produtora}"> </i><br>
+		                            <strong>Ano de lançamento: </strong> <i th:text="${produto.lancamento}"> </i><br>
+		                            <strong>Idiomas: </strong> <i th:text="${produto.idioma}"> </i><br>
+		                            <strong>Legendas: </strong> <i th:text="${produto.legenda}"> </i><br>
+		                            <strong>Idade Recomendada: </strong> <i th:text="${produto.idade}"> </i><br>
+		                            <strong>Número de jogadores offline: </strong> <i th:text="${produto.qtdeJogadoresOff}"> </i><br>
+		                            <strong>Número de jogadores online:</strong> <i th:text="${produto.qtdeJogadoresOn}"> </i><br>
+		                            <strong>Resolução: </strong> <i th:text="${produto.resolucao}"> </i>
+		                        </span>
+							</p>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="collapsible-header">
+						<i class="material-icons">playlist_add_check</i>
+						Requisitos
+					</div>
+					<div class="collapsible-body">
+						<span th:text="${produto.tipoConsole.nome}"> </span>
+					</div>
+				</li>
+				<li>
+					<div class="collapsible-header">
+						<i class="material-icons">done</i>
+						Itens Inclusos
+					</div>
+					<div class="collapsible-body">
+						<span th:text="${produto.itensInclusos}"> </span>
+
+					</div>
+				</li>
+				<li>
+					<div class="collapsible-header">
+						<i class="material-icons">assignment_turned_in</i>
+						Garantia
+					</div>
+					<div class="collapsible-body">
+						<strong> 
+							<span th:text="${produto.garantia}"> </span>
+							Anos
+						</strong>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="col s12 m12">
+			<p class="ilustrativa">* Imagens meramente ilustrativas. Selos, ilustrações ou informações que constam na
+				embalagem podem ser diferentes do produto disponível em estoque.</p>
+		</div>
+	</div>
+	</main>
+</body>
+</html>
