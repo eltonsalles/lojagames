@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/site/LayoutPadrao" xlmns:thecode="http://thecode.com.br">
+<head>
+<title>Carrinho de Compra</title>
+</head>
+<body>
+	<main class="container" layout:fragment="conteudo">
+        <div class="row">
+            <div class="col s12 m6 btn-escolher-mais-produtos">
+                <br>
+                <a class="waves-effect waves-light btn grey" href="index.html"><i class="material-icons left">arrow_back</i>Escolher mais produtos</a>
+            </div>
+            <div class="col s12 m6 titulo-carrinho-compras">
+                <div>
+                    <h4 class="center-align">Carrinho de Compras</h4>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <form method="post" class="col s12" id="carrinho-compra"  th:object="${itemProdutoDto}">
+                <div class="row z-depth-2">
+                    <div class="input-field col offset-s4 s4 m2">
+                        <img class="responsive-img">
+                    </div>
+                    <br>
+                    <div class="input-field col offset-s4 s6 m4">
+                        <input type="text" value="" name="item-produto" id="item-produto1" class="input-field" th:field="*{item}" readonly>
+                        <label for="item-produto1">Item</label>
+                    </div>
+                    <div class="input-field col offset-s4 s4 m2">
+                        <input type="text" value="" name="item-preco" id="item-preco1" class="input-field" th:field="*{preco}" readonly>
+                        <label for="item-preco1">Preço</label>
+                    </div>
+                    <div class="input-field col offset-s4 s4 m1">
+                        <input type="number" value="1" name="qtde-item" id="qtde-item1" class="input-field" th:field="*{qtde}" min="1" >
+                        <label for="qtde-item1">Qtde</label>
+                    </div>
+                    <div class="input-field col offset-s4 s4 m2">
+                        <input type="text" value="" name="subtotal-item1" id="subtotal-item1" class="input-field" th:field="*{subtotal}" readonly>
+                        <label for="subtotal-item1">SubTotal</label>
+                    </div>
+                    <div class="col offset-s5 s4 m1 btn-excluir-produto">
+                        <a class="btn-floating btn waves-effect waves-light red"><i class="material-icons">remove_shopping_cart</i></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 z-depth-1 grey lighten-2">
+                        <div class="col s4 m2">
+                            <div class="valign-wrapper">
+                                <p>Subtotal</p>
+                            </div>
+                        </div>
+                        <div class="input-field col offset-s4 s4 offset-m8 m2">
+                            <input type="text" value="" name="subtotal" id="subtotal" class="input-field" readonly>
+                        </div>
+                    </div>
+                    <div class="col s12 z-depth-1 grey lighten-1">
+                        <div class="input-field col s4 m3">
+                            <input type="text" value="01234-567" name="calcular-frete" id="calcular-frete" class="input-field" required>
+                            <label for="calcular-frete">Calcular Frete</label>
+                        </div>
+                        <div class="input-field col offset-s4 s4 offset-m7 m2">
+                            <input type="text" value="" name="valor-frete" id="valor-frete" class="input-field" readonly>
+                        </div>
+                    </div>
+                    <div class="col s12 z-depth-1 grey darken-4 white-text">
+                        <div class="col s4 m2">
+                            <div class="valign-wrapper">
+                                <p>Total</p>
+                            </div>
+                        </div>
+                        <div class="input-field col offset-s4 s4 offset-m8 m2">
+                            <input type="text" value="" name="total" id="total" class="input-field" readonly>
+                        </div>
+                    </div>
+                    <div class="col s12 finalizar-compra">
+                        <button class="btn-large waves-effect waves-light orange right" type="submit" name="action">
+                            Finalizar Compra<i class="material-icons left">done</i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </
+	</div>
+	</main>
+</body>
+</html>
