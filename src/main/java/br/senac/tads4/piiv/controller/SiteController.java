@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.senac.tads4.piiv.model.enumerated.TipoProduto;
 import br.senac.tads4.piiv.repository.ProdutoRepository;
+import br.senac.tads4.piiv.service.ProdutoService;
 
 @Controller
 @RequestMapping("/")
@@ -17,10 +18,13 @@ public class SiteController {
 
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private ProdutoService produtoService;
 
 	@RequestMapping("/")
 	public ModelAndView index() {
-		ModelAndView mv = new ModelAndView("site/index");
+		ModelAndView mv = new ModelAndView("site/Index");
 
 		// Traz os 16 primeiros produtos
 		Pageable limit = new PageRequest(0, 16);
@@ -34,6 +38,8 @@ public class SiteController {
 
 		mv.addObject("produto", produtoRepository.findOne(id));
 		mv.addObject("tiposProduto", TipoProduto.values());
+		mv.addObject("percentualDesconto", produtoService.getPercentualDesconto());
+		mv.addObject("maximoParcelas", produtoService.getMaximoParcelas());
 		return mv;
 	}
 }
