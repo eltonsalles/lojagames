@@ -71,12 +71,13 @@ public class ProdutoRepositoryImpl implements ProdutosQueries {
 		if (id != null) {
 			criteria.add(Restrictions.eq("id", id));
 			Produto produto = (Produto) criteria.uniqueResult();
-			ItemProdutoDto itemProduto = new ItemProdutoDto(produto.getImagens().get(0).getNome(), produto.getNome(),
-					produto.getPrecoVenda(), produto.getEstoque(), produto.getPrecoVenda());
+			ItemProdutoDto itemProduto = new ItemProdutoDto(produto.getIdProduto(),
+					produto.getImagens().get(0).getNome(), produto.getImagens().get(0).getDescricao(),
+					produto.getNome(), produto.getPrecoVenda(), 1, produto.getPrecoVenda());
 
 			return itemProduto;
 		}
-		
+
 		return null;
 	}
 }
