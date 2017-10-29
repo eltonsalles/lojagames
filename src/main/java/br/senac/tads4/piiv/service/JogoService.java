@@ -20,7 +20,7 @@ import br.senac.tads4.piiv.service.exception.ListaDeImagensVaziasException;
  *
  */
 @Service
-public class JogoService {
+public class JogoService extends ProdutoService {
 
 	@Autowired
 	private JogoRepository jogos;

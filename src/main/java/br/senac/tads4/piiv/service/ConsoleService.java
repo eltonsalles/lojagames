@@ -20,7 +20,7 @@ import br.senac.tads4.piiv.service.exception.ListaDeImagensVaziasException;
  *
  */
 @Service
-public class ConsoleService {
+public class ConsoleService extends ProdutoService {
 
 	@Autowired
 	private ConsoleRepository consoles;

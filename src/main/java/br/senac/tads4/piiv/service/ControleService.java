@@ -20,7 +20,7 @@ import br.senac.tads4.piiv.service.exception.ListaDeImagensVaziasException;
  *
  */
 @Service
-public class ControleService {
+public class ControleService extends ProdutoService {
 
 	@Autowired
 	private ControleRepository controles;
