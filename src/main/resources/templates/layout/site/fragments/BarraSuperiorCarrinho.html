@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<body>
+	<header class="navbar-fixed" th:fragment="layout-site-barra-superior-carrinho">
+		<nav class="black ocultar-navbar">
+			<div class="row">
+				<div class="col s3 m3 l3">
+					<div class="nav-wrapper">
+						<a th:href="@{/}" class="brand-logo">Logo</a>
+					</div>
+				</div>
+				<div class="col offset-s2 s7 offset-m5 m4 offset-l6 l3">
+					<form method="post" th:action=@{/carrinho-compra/finalizar-compra} th:if="${!#lists.isEmpty(@carrinhoCompraController.carrinho)}">
+						<button class="btn-large waves-effect waves-light orange btn-nav-finalizar-compra" type="submit" name="action">
+							Finalizar Compra<i class="material-icons left">done</i>
+						</button>
+					</form>
+				</div>
+			</div>
+		</nav>
+	</header>
+</body>
+</html>

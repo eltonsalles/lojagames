@@ -287,6 +287,14 @@ label[for="calcular-frete"], input[name="calcular-frete"] {
 	}
 }
 
+#carrinho-vazio {
+	height: 400px !important;
+}
+
+#carrinho-vazio strong {
+	font-size: 2em;
+}
+
 /***********************************************************************************************************************/
 /* Cadastro de cliente */
 
