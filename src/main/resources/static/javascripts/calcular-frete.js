@@ -44,7 +44,10 @@ $(function() {
 			success: function (xml) {
 				var textoFrete = $('.texto-frete');
 				var btnComprar = $('.btn-comprar');
+				var finalizarCompra = $('.js-finalizar-compra');
 				textoFrete.html('');
+				btnComprar.focus();
+				finalizarCompra.focus();
 				
 				$(xml).find('cServico').each(function () {
 					var codigo = servicos[$(this).find('Codigo').text()];
@@ -55,12 +58,14 @@ $(function() {
 						if (btnComprar.length) {
 							textoFrete.append('<p>' + "Serviço: " + codigo + " - Valor: R$ " + valor + " - Prazo: " + prazo + " dia(s)" + '</p>');
 						} else {
-							textoFrete.append("<p><input class='with-gap' name='valor-frete' value='" + valor + "' type='radio' id='" + codigo + "' /><label for='" + codigo + "'>Serviço: " + codigo + " - Valor: R$ " + valor + " - Prazo: " + prazo + " dia(s)" + "</label></p>");
+							textoFrete.append("<p><input class='with-gap tc-radio-site js-valor-frete' name='valor-frete' value='" + valor + "' type='radio' id='" + codigo + "' /><label for='" + codigo + "'>Serviço: " + codigo + " - Valor: R$ " + valor + " - Prazo: " + prazo + " dia(s)" + "</label></p>");
+							
+							$('.js-valor-frete').on('click', function() {
+								$('#valor-frete').val('R$ ' + $(this).val());
+							});
 						}
 					}
 				});
-				
-				btnComprar.focus();
 			},
 			error: function () {
 				console.log("Deu erro!!");

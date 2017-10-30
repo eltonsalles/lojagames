@@ -296,65 +296,29 @@ label[for="calcular-frete"], input[name="calcular-frete"] {
 }
 
 /***********************************************************************************************************************/
-/* Cadastro de cliente */
-
-/* Cor da Label */
-.input-field label {
-	color: #c0c0c0 !important;
-}
-
-/* label focus color */
-.input-field input[type=text]:focus+label {
-	color: #ffa000 !important;
-}
-
-/* label underline focus color */
-.input-field input[type=text]:focus {
-	border-bottom: 1px solid #ffa000 !important;
-	box-shadow: 0 1px 0 0 #ffa000 !important;
-}
-
-/* valid color */
-.input-field input[type=text].valid {
-	border-bottom: 1px solid #008000;
-	box-shadow: 0 1px 0 0 #008000;
-}
-
-/* invalid color */
-.input-field input[type=text].invalid {
-	border-bottom: 1px solid #ff0000;
-	box-shadow: 0 1px 0 0 #ff0000;
-}
-
-/* icon prefix focus color */
-.input-field .prefix.active {
-	color: #ffa000 !important;
-}
-
-/* label focus color */
-.input-field input[type=password]:focus+label {
-	color: #ffa000 !important;
-}
-
-/* label underline focus color */
-.input-field input[type=password]:focus {
-	border-bottom: 1px solid #ffa000 !important;
-	box-shadow: 0 1px 0 0 #ffa000 !important;
-}
-
-/* valid color */
-.input-field input[type=password].valid {
-	border-bottom: 1px solid #008000;
-	box-shadow: 0 1px 0 0 #008000;
-}
-
-/* invalid color */
-.input-field input[type=password].invalid {
-	border-bottom: 1px solid #ff0000;
-	box-shadow: 0 1px 0 0 #ff0000;
-}
+/* Alertas */
 
 /* Posição do botão para fechar os alertas do materialize */
 .tc-close {
 	margin-top: -15px;
+}
+
+/***********************************************************************************************************************/
+/* Campos de formulário no site */
+
+/* label underline focus color */
+.input-field input[type=text]:focus {
+	border-bottom: 1px solid #ff9800 !important;
+	box-shadow: 0 1px 0 0 #ff9800 !important;
+}
+
+.tc-radio-site:checked+label:after,
+.tc-radio-site.with-gap:checked+label:before,
+.tc-radio-site.with-gap:checked+label:after {
+	border: 2px solid #ff9800 !important;
+}
+
+.tc-radio-site:checked+label:after,
+.tc-radio-site.with-gap:checked+label:after {
+	background-color: #ff9800 !important;
 }

@@ -58,11 +58,13 @@
 					</div>
 				</div>
 				<div class="col s12 z-depth-1 grey lighten-1">
-					<div class="input-field col s4 m3">
-						<input type="text" value="" name="cep" id="calcular-frete" class="input-field" required> <label
-							for="calcular-frete">Calcular Frete</label>
+					<div class="input-field col s4 m2 tc-cep-carrinho">
+						<input type="text" th:value="${cep}" name="cep" id="cep" class="input-field js-cep" required>
+						<label for="cep">Calcular Frete</label>
 					</div>
-					<div class="input-field col offset-s4 s4 offset-m7 m2">
+					<div class="col s4 m8 texto-frete"></div>
+					
+					<div class="input-field col s4 m2">
 						<input type="text" value="" name="valor-frete" id="valor-frete" class="input-field" readonly>
 					</div>
 				</div>
@@ -77,7 +79,7 @@
 					</div>
 				</div>
 				<div class="col s12 finalizar-compra">
-					<button class="btn-large waves-effect waves-light orange right" type="submit" name="action">
+					<button class="btn-large waves-effect waves-light orange right js-finalizar-compra" type="submit" name="action">
 						Finalizar Compra<i class="material-icons left">done</i>
 					</button>
 				</div>
@@ -89,5 +91,9 @@
 		</div>
 	</div>
 	</main>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/vendors/jquery.mask.min.js}"></script>
+		<script th:src="@{/javascripts/calcular-frete.js}"></script>
+	</th:block>
 </body>
 </html>
