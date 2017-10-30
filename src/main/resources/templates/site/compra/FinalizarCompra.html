@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/site/LayoutPadrao" xlmns:thecode="http://thecode.com.br">
+<head>
+<title>Finalizar Compra</title>
+</head>
+<body>
+	<main class="container" layout:fragment="conteudo">
+	<div class="row">
+		<form class="col s12">
+			<div class="col m4 s12">
+				<div class="row">
+					<div class="col s12 black lighten-2 white-text">
+						<h6>ENDEREÇOS</h6>
+					</div>
+					<div class="col s12 grey lighten-2">
+						<h7>Endereço Principal</h7>
+					</div>
+					<div class="col s12">
+						<p>
+							<strong>Fillipe Pinheiro</strong>
+						</p>
+						<p>Av. Lopes de Azevedo, 702</p>
+						<p>Jardim Guedala</p>
+						<p>05603-001</p>
+						<p>São Paulo - SP</p>
+						<p>Ref.: Praça Alfredo Volpi</p>
+						<p>(11) 94141-1414</p>
+					</div>
+					<div class="input-field col s12">
+						<a href="#" class="left">Editar</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12 right">
+						<button class="btn waves-effect waves-light amber darken-2 col s12" type="submit" name="entrar">Inserir
+							novo endereço</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12 grey lighten-2">
+						<h7>Endereço de Entrega</h7>
+					</div>
+					<div class="col s12">
+						<p>
+							<input type="checkbox" id="test5" />
+							<label for="test5">Endereço de entrega igual ao principal</label>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col m4 s12">
+				<div class="row">
+					<div class="col s12">
+						<div class="col s12 black white-text">
+							<h6>OPÇÕES DE ENTREGA</h6>
+						</div>
+						<div class="col s12">
+							<p>
+								<input name="group1" type="radio" id="test1" />
+								<label for="test1">PAC</label>
+							</p>
+							<p>
+								<input name="group1" type="radio" id="test2" />
+								<label for="test2">SEDEX</label>
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12">
+						<div class="col s12 black white-text">
+							<h6>FORMA DE PAGAMENTO</h6>
+						</div>
+						<div class="col s12">
+							<p>
+								<input name="forma-pagamento" type="radio" id="cartao" />
+								<label for="cartao">Cartão de crédito</label>
+							</p>
+						</div>
+						<div class="col s12">
+							<div class="input-field col s12">
+								<input placeholder="0000 0000 0000 0000" id="first_name" type="text" class="validate">
+								<label for="numero-cartao">Nº do Cartão</label>
+							</div>
+							<div class="input-field col s12">
+								<select>
+									<option value="" disabled selected>1x de R$ 199,99</option>
+								</select>
+								<label>Nº de parcelas</label>
+							</div>
+							<div class="input-field col s12">
+								<input placeholder="Digite como no cartão" id="first_name" type="text" class="validate">
+								<label for="first_name">Nome</label>
+							</div>
+							<div class="input-field col s12">
+								<select>
+									<option value="" disabled selected>Mês</option>
+								</select>
+								<label>Vencimento</label>
+							</div>
+							<div class="input-field col s12">
+								<input id="first_name" type="text" class="validate">
+								<label for="first_name">Código de segurança</label>
+							</div>
+							<div class="col s12">
+								<p>
+									<input name="forma-pagamento" type="radio" id="boleto" />
+									<label for="boleto">Boleto</label>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col m4 s12">
+				<div class="row">
+					<div class="col s12 black white-text">
+						<h6>REVISÃO DO PEDIDO</h6>
+					</div>
+					<div class="col s12">
+						<div class="col s4">
+							<img class="responsive-img" th:src="@{/imagens/thumbnail.1.jpg}" alt="TESTE">
+						</div>
+						<div class="col s4">
+							<p>Skyrim</p>
+							<p>PS3</p>
+							<p>Qtde: 1</p>
+						</div>
+						<div class="col s4">
+							<p class="right">R$ 199,99</p>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12 grey lighten-2">
+						<div class="col s12">
+							<p class="right">Subtotal: R$ 199,99</p>
+						</div>
+						<div class="col s12">
+							<p class="right">Frete: R$ 39,99</p>
+						</div>
+
+						<div class="col s12 ">
+							<p class="right">
+								<strong>Total: 239,98</strong>
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12">
+						<button class="btn waves-effect waves-light amber darken-2 col s12" type="submit" name="enviar">Finalizar
+							Compra</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	</main>
+</body>
+</html>
