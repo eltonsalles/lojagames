@@ -83,6 +83,7 @@
 				</div>
 			</div>
 		</form>
+		<div class="hidden mensagem-produto-carrinho" th:if="${not #strings.isEmpty(mensagem)}" th:text="${mensagem}"></div>
 		<div th:if="${#lists.isEmpty(@carrinhoCompraController.carrinho)}" id="carrinho-vazio" class="valign-wrapper">
 			<h5><strong>Ops!</strong><br>Ainda não há itens em seu carrinho. Para comprar <a th:href="@{/}">clique aqui</a>.</h5>
 		</div>

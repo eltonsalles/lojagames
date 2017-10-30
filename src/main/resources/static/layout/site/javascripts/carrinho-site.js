@@ -1,10 +1,11 @@
 var lastScroll = 0;
 
 $(document).ready(function() {
-	var carrinho = $('#carrinho-compra');
+	var carrinho = $("div[class^='produto-id']");
+	var msgProdutoCarrinho = $('.mensagem-produto-carrinho');
 
-	if (carrinho.length) {
-		Materialize.toast('Produto adicionado com sucesso!', 4000, 'green');
+	if (msgProdutoCarrinho.length) {
+		Materialize.toast(msgProdutoCarrinho.text(), 4000, 'green');
 	}
 
 	// Verifica o scroll da página para mostrar o botão voltar ao topo

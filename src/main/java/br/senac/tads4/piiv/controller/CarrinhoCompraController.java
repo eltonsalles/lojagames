@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.senac.tads4.piiv.dto.ItemProdutoDto;
 import br.senac.tads4.piiv.repository.ProdutoRepository;
@@ -34,9 +35,11 @@ public class CarrinhoCompraController {
 	}
 	
 	@RequestMapping(value = "/adicionar-item-carrinho", method = RequestMethod.POST)
-	public ModelAndView itemCarrinho(@RequestParam Long idProduto, @RequestParam String cep) {
+	public ModelAndView itemCarrinho(@RequestParam Long idProduto, @RequestParam String cep, RedirectAttributes attributes) {
 		ItemProdutoDto itemProdutoDto = produtoRepository.itemProduto(idProduto);
 		carrinho.add(itemProdutoDto);
+		
+		attributes.addFlashAttribute("mensagem", "Produto adicionado ao carrinho com sucesso!");
 		return new ModelAndView("redirect:/carrinho-compra");
 	}
 	
