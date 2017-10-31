@@ -8,17 +8,19 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/")
 public class LoginController {
 	
-	/**
+	
 	@RequestMapping("/login")
 	public ModelAndView index() {
 		ModelAndView mv = new ModelAndView("site/login/Login");
 		return mv;
 	}
-	**/
 	
+	
+	/**
 	@RequestMapping("/finalizar-compra")
 	public ModelAndView index() {
 		ModelAndView mv = new ModelAndView("site/compra/FinalizarCompra");
 		return mv;
 	}
+	**/
 }
