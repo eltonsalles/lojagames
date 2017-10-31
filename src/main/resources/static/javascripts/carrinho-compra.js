@@ -33,13 +33,6 @@ $(document).ready(function() {
 			scrollTop : 0
 		}, 2000);
 	});
-	
-	$('.js-btn-excluir-produto').on('click', function() {
-		var produto = $(this).attr('class').split(' ')[0];
-		var div = $("div." + produto)[0];
-		
-		div.remove();
-	});
 });
 
 // Converte string em decimal

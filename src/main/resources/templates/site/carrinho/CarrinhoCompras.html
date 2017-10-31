@@ -43,7 +43,7 @@
 						th:for="|subtotal-produto-${item.id}|">SubTotal</label>
 				</div>
 				<div th:class="|produto-id-${item.id} col offset-s5 s4 m1 btn-excluir-produto js-btn-excluir-produto|">
-					<a class="btn-floating btn waves-effect waves-light red"><i class="material-icons">remove_shopping_cart</i></a>
+					<a class="btn-floating btn waves-effect waves-light red" th:href="@{/carrinho-compra/remover-item-carrinho/{id}(id=${item.id})}"><i class="material-icons">remove_shopping_cart</i></a>
 				</div>
 			</div>
 			<div class="row">
@@ -59,7 +59,7 @@
 				</div>
 				<div class="col s12 z-depth-1 grey lighten-1">
 					<div class="input-field col s4 m2 tc-cep-carrinho">
-						<input type="text" th:value="${cep}" name="cep" id="cep" class="input-field js-cep" required>
+						<input type="text" th:value="${@carrinhoCompraController.cep}" name="cep" id="cep" class="input-field js-cep" required>
 						<label for="cep">Calcular Frete</label>
 					</div>
 					<div class="col s1 m1 gif-carregando hide">

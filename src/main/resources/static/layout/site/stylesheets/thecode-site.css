@@ -306,6 +306,11 @@ label[for="calcular-frete"], input[name="calcular-frete"] {
 /***********************************************************************************************************************/
 /* Campos de formulário no site */
 
+/* label focus color */
+.input-field input[type=text]:focus+label {
+	color: #ffa000 !important;
+}
+
 /* label underline focus color */
 .input-field input[type=text]:focus {
 	border-bottom: 1px solid #ff9800 !important;

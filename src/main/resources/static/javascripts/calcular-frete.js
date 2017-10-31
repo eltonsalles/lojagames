@@ -1,6 +1,7 @@
 $(function() {
 	var cep = $('.js-cep');
 	var textoFrete = $('.texto-frete');
+	var btnComprar = $('.btn-comprar');
 	
 	// Coloca a máscara no campo CEP
 	cep.mask('00000-000');
@@ -49,7 +50,6 @@ $(function() {
 			dataType: "xml",
 			contentType: "application/xml",
 			success: function (xml) {
-				var btnComprar = $('.btn-comprar');
 				var finalizarCompra = $('.js-finalizar-compra');
 				
 				textoFrete.html('');
@@ -66,7 +66,7 @@ $(function() {
 						if (btnComprar.length) {
 							textoFrete.append('<p>' + "Serviço: " + codigo + " - Valor: R$ " + valor + " - Prazo: " + prazo + " dia(s)" + '</p>');
 						} else {
-							textoFrete.append("<p><input class='with-gap tc-radio-site js-valor-frete' name='valor-frete' value='" + valor + "' type='radio' id='" + codigo + "' /><label for='" + codigo + "'>Serviço: " + codigo + " - Valor: R$ " + valor + " - Prazo: " + prazo + " dia(s)" + "</label></p>");
+							textoFrete.append("<p><input class='with-gap tc-radio-site js-valor-frete' name='valor-frete' value='" + valor + "' type='radio' id='" + codigo + "' required /><label for='" + codigo + "'>Serviço: " + codigo + " - Valor: R$ " + valor + " - Prazo: " + prazo + " dia(s)" + "</label></p>");
 						}
 					}
 				});
@@ -86,15 +86,34 @@ $(function() {
 			beforeSend: function () {
 				// Apresenta o gif até o fim da requisição
 				$('.gif-carregando').removeClass('hide');
-				textoFrete.removeClass('s4 m8');
-				textoFrete.addClass('s3 m7');
+				
+				if (btnComprar.length) {
+					textoFrete.removeClass('s12 m8');
+					textoFrete.addClass('s10 m6');
+				} else {
+					textoFrete.removeClass('s4 m8');
+					textoFrete.addClass('s3 m7');
+				}
 			},
 			complete: function () {
 				// Retira o gif após a requisição
 				$('.gif-carregando').addClass('hide');
-				textoFrete.removeClass('s3 m7');
-				textoFrete.addClass('s4 m8');
+				
+				if (btnComprar.length) {
+					textoFrete.removeClass('s10 m6');
+					textoFrete.addClass('s12 m8');
+				} else {
+					textoFrete.removeClass('s3 m7');
+					textoFrete.addClass('s4 m8');
+				}
+				
 			}
 		})
+	}
+	
+	// Caso tenha um CEP ao carregar a página, então faz uma requisição para calcular prazo e frete
+	if (cep.val().length == 9) {
+		textoFrete.html('');
+		calcularFrete(cep.val());
 	}
 });
