@@ -18,13 +18,9 @@
 	<div th:replace="layout/site/fragments/BarraSuperiorCarrinho :: layout-site-barra-superior-carrinho"></div>
 	<main layout:fragment="conteudo"></main>
 	<div th:replace="layout/site/fragments/Footer :: layout-site-footer"></div>
-
-	<!-- Import jQuery before materialize.js -->
 	<script th:src="@{/layout/site/vendors/jquery/jquery-3.2.1.min.js}"></script>
-	<!-- Compiled and minified JavaScript -->
 	<script th:src="@{/layout/site/vendors/materialize/js/materialize.min.js}"></script>
-	<!-- Js da parte do site -->
-	<script th:src="@{/layout/site/javascripts/carrinho-site.js}"></script>
+	<script th:src="@{/javascripts/carrinho-compra.js}"></script>
 
 	<th:block layout:fragment="javascript-extra"></th:block>
 </body>
