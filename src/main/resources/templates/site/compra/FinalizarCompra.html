@@ -25,27 +25,18 @@
 						<p>05603-001</p>
 						<p>São Paulo - SP</p>
 						<p>Ref.: Praça Alfredo Volpi</p>
-						<p>(11) 94141-1414</p>
 					</div>
-					<div class="input-field col s12">
+					<div class="input-field col s6">
 						<a href="#" class="left">Editar</a>
+					</div>
+					<div class="input-field col s6">
+						<a href="#" class="right">Remover</a>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col s12 right">
-						<button class="btn waves-effect waves-light amber darken-2 col s12" type="submit" name="entrar">Inserir
+						<button class="btn waves-effect waves-light amber darken-2 col s12" type="submit" name="inserir">Inserir
 							novo endereço</button>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col s12 grey lighten-2">
-						<h7>Endereço de Entrega</h7>
-					</div>
-					<div class="col s12">
-						<p>
-							<input type="checkbox" id="test5" />
-							<label for="test5">Endereço de entrega igual ao principal</label>
-						</p>
 					</div>
 				</div>
 			</div>
@@ -57,12 +48,16 @@
 						</div>
 						<div class="col s12">
 							<p>
-								<input name="group1" type="radio" id="test1" />
-								<label for="test1">PAC</label>
+								<input name="opcao-entrega" type="radio" id="sedex" />
+								<label for="sedex">Serviço SEDEX: Valor: R$ 21,50 - Prazo: 1 dia(s)</label>
 							</p>
 							<p>
-								<input name="group1" type="radio" id="test2" />
-								<label for="test2">SEDEX</label>
+								<input name="opcao-entrega" type="radio" id="sedex-10" />
+								<label for="sedex-10">Serviço SEDEX 10: Valor: R$ 33,50 - Prazo: 1 dia(s)</label>
+							</p>
+							<p>
+								<input name="opcao-entrega" type="radio" id="pac" />
+								<label for="pac">Serviço PAC: Valor: R$ 20,40 - Prazo: 5 dia(s)</label>
 							</p>
 						</div>
 					</div>
@@ -80,28 +75,56 @@
 						</div>
 						<div class="col s12">
 							<div class="input-field col s12">
-								<input placeholder="0000 0000 0000 0000" id="first_name" type="text" class="validate">
-								<label for="numero-cartao">Nº do Cartão</label>
-							</div>
-							<div class="input-field col s12">
-								<select>
+								<select id="parcelas">
 									<option value="" disabled selected>1x de R$ 199,99</option>
 								</select>
 								<label>Nº de parcelas</label>
 							</div>
 							<div class="input-field col s12">
-								<input placeholder="Digite como no cartão" id="first_name" type="text" class="validate">
-								<label for="first_name">Nome</label>
+								<input placeholder="Digite como no cartão" id="nome" type="text" class="validate" maxlength="150">
+								<label for="nome">Nome</label>
 							</div>
 							<div class="input-field col s12">
-								<select>
+								<input placeholder="0000 0000 0000 0000" id="numero-cartao" type="text" class="validate" maxlength="16">
+								<label for="numero-cartao">Nº do Cartão</label>
+							</div>
+							<div class="input-field col s6">
+								<select id="mes">
 									<option value="" disabled selected>Mês</option>
+									<option value="1">Janeiro</option>
+									<option value="2">Fevereiro</option>
+									<option value="3">Março</option>
+									<option value="4">Abril</option>
+									<option value="5">Maio</option>
+									<option value="6">Junho</option>
+									<option value="7">Julho</option>
+									<option value="8">Agosto</option>
+									<option value="9">Setembro</option>
+									<option value="10">Outubro</option>
+									<option value="11">Novembro</option>
+									<option value="12">Dezembro</option>
 								</select>
-								<label>Vencimento</label>
+								<label>Mês de vencimento</label>
+							</div>
+							<div class="input-field col s6">
+								<select id="ano">
+									<option value="" disabled selected>Ano</option>
+									<option value="1">2018</option>
+									<option value="1">2019</option>
+									<option value="1">2020</option>
+									<option value="1">2021</option>
+									<option value="1">2022</option>
+									<option value="1">2023</option>
+									<option value="1">2024</option>
+									<option value="1">2025</option>
+									<option value="1">2026</option>
+									<option value="1">2027</option>
+								</select>
+								<label>Ano de vencimento</label>
 							</div>
 							<div class="input-field col s12">
-								<input id="first_name" type="text" class="validate">
-								<label for="first_name">Código de segurança</label>
+								<input id="codigo-seguranca" type="text" class="validate" maxlength="3">
+								<label for="codigo-seguranca">Código de segurança</label>
 							</div>
 							<div class="col s12">
 								<p>
@@ -118,40 +141,56 @@
 					<div class="col s12 black white-text">
 						<h6>REVISÃO DO PEDIDO</h6>
 					</div>
-					<div class="col s12">
-						<div class="col s4">
-							<img class="responsive-img" th:src="@{/imagens/thumbnail.1.jpg}" alt="TESTE">
+					<div class="row">
+						<div class="col s12">
+							<div class="col s5">
+								<img class="responsive-img" th:src="@{/imagens/thumbnail.8.jpg}" alt="Terra Média: Sombras de Mordor">
+							</div>
+							<div class="col s7">
+								<p>Terra Média: Sombras de Mordor</p>
+								<p>Qtde: 1 | R$ 199,99</p>
+							</div>
 						</div>
-						<div class="col s4">
-							<p>Skyrim</p>
-							<p>PS3</p>
-							<p>Qtde: 1</p>
+						<div class="col s12">
+							<div class="col s5">
+								<img class="responsive-img" th:src="@{/imagens/thumbnail.1.jpg}" alt="Skyrim">
+							</div>
+							<div class="col s7">
+								<p>Skyrim</p>
+								<p>Qtde: 1 | R$ 199,99</p>
+							</div>
 						</div>
-						<div class="col s4">
-							<p class="right">R$ 199,99</p>
+						<div class="col s12">
+							<div class="col s5">
+								<img class="responsive-img" th:src="@{/imagens/thumbnail.27.jpg}" alt="Playstation 4">
+							</div>
+							<div class="col s7">
+								<p>Playstation 4</p>
+								<p>Qtde: 1 | R$ 2199,99</p>
+							</div>
 						</div>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col s12 grey lighten-2">
-						<div class="col s12">
-							<p class="right">Subtotal: R$ 199,99</p>
+					<div class="col s12">
+						<div class="input-field col s12">
+							<input value="R$ 399,98" id="subtotal" type="text" readonly>
+							<label for="subtotal">Subtotal</label>
 						</div>
-						<div class="col s12">
-							<p class="right">Frete: R$ 39,99</p>
+						<div class="input-field col s12">
+							<input value="R$ 39,99" id="frete" type="text" readonly>
+							<label for="frete">Frete</label>
 						</div>
-
-						<div class="col s12 ">
-							<p class="right">
-								<strong>Total: 239,98</strong>
-							</p>
+						<div class="input-field col s12">
+							<input value="R$ 2.639,96" id="total" type="text" readonly>
+							<label for="total">Total</label>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col s12">
-						<button class="btn waves-effect waves-light amber darken-2 col s12" type="submit" name="enviar">Finalizar
-							Compra</button>
+						<button class="btn waves-effect waves-light amber darken-2 col s12" type="submit" name="finalizar">
+							Finalizar Compra</button>
 					</div>
 				</div>
 			</div>
