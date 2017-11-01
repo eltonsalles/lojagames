@@ -29,10 +29,44 @@ $(document).ready(function() {
 
 	// Atribui ao botão a função de voltar ao topo
 	$('.btn-voltar-topo').click(function() {
-		$('html, boby').animate({
+		$('html, body').animate({
 			scrollTop : 0
 		}, 2000);
 	});
+
+	// Verifica a quantidade em estoque do produto
+	$('.js-quantidade').on('click', function() {
+		var id = $(this).attr('id').split('-')[2];
+		verificarEstoque(id, $(this).val(), $(this));
+	});
+	
+	// Verifica a quantidade em estoque do produto
+	$('.js-quantidade').on('change', function() {
+		var id = $(this).attr('id').split('-')[2];
+		verificarEstoque(id, $(this).val(), $(this));
+	});
+
+	function verificarEstoque(id, quantidade, input) {
+		var url = input.data('alterar-quantidade');
+
+		$.ajax({
+			url: url,
+			method: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify({
+				id: id,
+				qtde: quantidade
+			}),
+			error: function(obj) {
+				$('.toast').remove();
+				Materialize.toast('O produto não tem o estoque desejado!', 4000, 'red');
+				
+				var estoque = obj.responseText;
+				input.val(estoque);
+			},
+			success: function(mensagem) {}
+		});
+	}
 });
 
 // Converte string em decimal
@@ -45,7 +79,7 @@ function converterParaDecimal(valor) {
 function converterParaReal(valor) {
 	var inteiro = null, decimal = null, c = null, j = null;
 	var aux = new Array();
-	
+
 	valor = "" + valor;
 	c = valor.indexOf(".", 0);
 	// Encontrou o ponto na string

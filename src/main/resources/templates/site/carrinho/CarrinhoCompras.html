@@ -35,7 +35,7 @@
 						th:for="|preco-produto-${item.id}|">Preço</label>
 				</div>
 				<div class="input-field col offset-s4 s4 m1">
-					<input th:id="|qtde-produto-${item.id}|" value="1" type="number" class="input-field" min="1"> <label
+					<input th:id="|qtde-produto-${item.id}|" value="1" type="number" class="input-field js-quantidade" th:attr="data-alterar-quantidade=@{/carrinho-compra/alterar-quantidade}" min="1"> <label
 						th:for="|qtde-produto-${item.id}|">Qtde</label>
 				</div>
 				<div class="input-field col offset-s4 s4 m2">
