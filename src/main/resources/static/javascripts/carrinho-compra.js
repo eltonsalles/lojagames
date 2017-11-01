@@ -48,7 +48,7 @@ $(document).ready(function() {
 
 	function verificarEstoque(id, quantidade, input) {
 		var url = input.data('alterar-quantidade');
-
+		
 		$.ajax({
 			url: url,
 			method: 'POST',
@@ -63,9 +63,33 @@ $(document).ready(function() {
 				
 				var estoque = obj.responseText;
 				input.val(estoque);
+				atualizarValores(id, estoque);
 			},
-			success: function(mensagem) {}
+			success: function(mensagem) {
+				atualizarValores(id, quantidade);
+			}
 		});
+	}
+	
+	function atualizarValores(id, quantidade) {
+		var produtos = $('.js-container-item-carrinho');
+		var preco = $('#preco-produto-' + id).val();
+		var subTotal = 0;
+		var total = $('#total');
+		var frete = $('#valor-frete').val();
+		
+		$('#subtotal-produto-' + id).val('R$ ' + converterParaReal(converterParaDecimal(preco) * quantidade));
+		produtos.each(function(index, p) {
+			subTotal += converterParaDecimal($(p).find('.js-subtotal-produto').val());
+		})
+		
+		$('#subtotal').val('R$ ' + converterParaReal(subTotal));
+		
+		if (frete != '') {
+			total.val('R$ ' + converterParaReal(converterParaDecimal(frete) + subTotal));
+		} else {
+			total.val('R$ ' + converterParaReal(subTotal));
+		}
 	}
 });
 
@@ -80,7 +104,7 @@ function converterParaReal(valor) {
 	var inteiro = null, decimal = null, c = null, j = null;
 	var aux = new Array();
 
-	valor = "" + valor;
+	valor = "" + valor.toFixed(2);
 	c = valor.indexOf(".", 0);
 	// Encontrou o ponto na string
 	if (c > 0) {
@@ -118,6 +142,6 @@ function converterParaReal(valor) {
 			decimal = "0" + decimal;
 		}
 	}
-	valor = inteiro + "," + decimal;
+	valor = inteiro + "," + decimal; //.substring(0, 2);
 	return valor;
 }

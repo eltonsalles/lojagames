@@ -19,7 +19,7 @@
 					</div>
 				</div>
 			</div>
-			<div th:each="item : ${@carrinhoCompraController.carrinho}" th:class="|produto-id-${item.id} row z-depth-2|">
+			<div th:each="item : ${@carrinhoCompraController.carrinho}" th:class="|produto-id-${item.id} row z-depth-2 js-container-item-carrinho|">
 				<div class="input-field col offset-s4 s4 m2">
 					<img class="responsive-img"
 						th:src="(${#strings.isEmpty(item.img)} ? (@{/imagens/thumbnail.produto-mock.png}) : (@{/imagens/thumbnail.{nome}(nome=${item.img})}))"
@@ -35,11 +35,11 @@
 						th:for="|preco-produto-${item.id}|">Preço</label>
 				</div>
 				<div class="input-field col offset-s4 s4 m1">
-					<input th:id="|qtde-produto-${item.id}|" value="1" type="number" class="input-field js-quantidade" th:attr="data-alterar-quantidade=@{/carrinho-compra/alterar-quantidade}" min="1"> <label
+					<input th:id="|qtde-produto-${item.id}|" th:value="${item.qtde}" type="number" class="input-field js-quantidade" th:attr="data-alterar-quantidade=@{/carrinho-compra/alterar-quantidade}" min="1"> <label
 						th:for="|qtde-produto-${item.id}|">Qtde</label>
 				</div>
 				<div class="input-field col offset-s4 s4 m2">
-					<input th:id="|subtotal-produto-${item.id}|" th:value="${#numbers.formatCurrency(item.preco)}" type="text" class="input-field" readonly> <label
+					<input th:id="|subtotal-produto-${item.id}|" th:value="${#numbers.formatCurrency(item.qtde * item.preco)}" type="text" class="input-field js-subtotal-produto" readonly> <label
 						th:for="|subtotal-produto-${item.id}|">SubTotal</label>
 				</div>
 				<div th:class="|produto-id-${item.id} col offset-s5 s4 m1 btn-excluir-produto js-btn-excluir-produto|">
