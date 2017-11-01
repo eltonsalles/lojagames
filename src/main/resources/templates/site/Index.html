@@ -6,19 +6,19 @@
 </head>
 <body>
 	<div class="carousel carousel-slider" data-indicators="true" layout:fragment="banner">
-		<a class="carousel-item" href="#one!">
+		<a class="carousel-item" href="#">
 			<img th:src="@{/images/site/banner/banner1.jpg}" alt="PES 2018">
 		</a>
-		<a class="carousel-item" href="#two!">
+		<a class="carousel-item" href="#">
 			<img th:src="@{/images/site/banner/banner2.jpg}" alt="Destiny 2">
 		</a>
-		<a class="carousel-item" href="#three!">
+		<a class="carousel-item" href="#">
 			<img th:src="@{/images/site/banner/banner3.jpg}" alt="NBA2k 18">
 		</a>
-		<a class="carousel-item" href="#four!">
+		<a class="carousel-item" href="#">
 			<img th:src="@{/images/site/banner/banner4.jpg}" alt="Knack II">
 		</a>
-		<a class="carousel-item" href="#five!">
+		<a class="carousel-item" href="#">
 			<img th:src="@{/images/site/banner/banner5.jpg}" alt="Uncharted - The Lost Legacy">
 		</a>
 	</div>
@@ -29,7 +29,7 @@
 				<article class="col col-content z-depth-2">
 					<div class="col s12 m12">
 						<a th:href="@{/detalhes-do-produto/} + ${produto.idProduto}">
-							<img th:src="(${#lists.isEmpty(produto.imagens)} ? (@{/imagens/thumbnail.produto-mock.png}) : (@{/imagens/thumbnail.{nome}(nome=${produto.imagens[0].nome})}))" th:alt="(${#lists.isEmpty(produto.imagens)} ? 'Imagem padrão do produto' : (${produto.imagens[0].descricao}))">
+							<img class="responsive-img" th:src="(${#lists.isEmpty(produto.imagens)} ? (@{/imagens/thumbnail.produto-mock.png}) : (@{/imagens/thumbnail.{nome}(nome=${produto.imagens[0].nome})}))" th:alt="(${#lists.isEmpty(produto.imagens)} ? 'Imagem padrão do produto' : (${produto.imagens[0].descricao}))">
 						</a>
 					</div>
 					<div class="col s12 m12">
@@ -40,7 +40,7 @@
 							<p class="preco a-vista">
 								<span th:text="${#numbers.formatCurrency(produto.precoVenda)}"></span>
 								<br>
-								<span th:text="${#numbers.formatCurrency(produto.precoVenda * 0.9)}"></span>
+								<span th:text="${#numbers.formatCurrency(produto.precoVenda * percentualDesconto)}"></span>
 							</p>
 						</div>
 						<div class="col s4 m4 add-carrinho">

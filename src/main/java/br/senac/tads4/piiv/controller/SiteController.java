@@ -29,6 +29,7 @@ public class SiteController {
 		// Traz os 16 primeiros produtos
 		Pageable limit = new PageRequest(0, 16);
 		mv.addObject("produtos", produtoRepository.findAll(limit));
+		mv.addObject("percentualDesconto", produtoService.getPercentualDesconto());
 		return mv;
 	}
 

@@ -32,9 +32,10 @@
 					</a>
 				</div>
 				<div class="col s2 m1 l1">
-					<a href="#">
+					<a th:href="@{/carrinho-compra}">
 						<i class="large material-icons">shopping_cart</i>
 					</a>
+					<div class="contar-produtos-carrinho" th:if="${!#lists.isEmpty(@carrinhoCompraController.carrinho)}" th:text="${#lists.size(@carrinhoCompraController.carrinho)}"></div>
 				</div>
 				<div class="col m12 black hide-on-med-and-down menu-desktop">
 					<div class="nav-content">

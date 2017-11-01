@@ -49,7 +49,7 @@ main[class="container"] {
 
 /* Muda o tamanho da font do preço */
 .preco {
-	font-size: 0.8rem;
+	font-size: 0.7rem;
 }
 
 /* Colocar a linha no meio do preço antigo e deixa ele um rem menor */
@@ -91,6 +91,13 @@ header {
 	min-height: 112px;
 }
 
+@media ( max-width : 667px) {
+	/* Quebra de linha */
+	.a-vista:after {
+		display: block;
+	}
+}
+
 @media ( max-width : 768px) {
 	/* Altura mínima para o header */
 	header {
@@ -112,12 +119,12 @@ header {
 
 	/* Muda o tamanho do preço atual */
 	.preco {
-		font-size: 0.8rem;
+		font-size: 0.9rem;
 	}
 
 	/* Muda o tamanho do preço antigo */
 	.preco span {
-		font-size: 0.7rem;
+		font-size: 0.8rem;
 	}
 
 	/* Muda o tamanho e a cor do icone de carrinho no produto  */
@@ -258,6 +265,24 @@ label[for="calcular-frete"], input[name="calcular-frete"] {
 	font-size: 0.9rem !important;
 }
 
+#carrinho-vazio {
+	height: 400px !important;
+}
+
+#carrinho-vazio strong {
+	font-size: 2em;
+}
+
+.contar-produtos-carrinho {
+	position: absolute;
+	top: 8px;
+	right: 55px;
+	background: #ff9800;
+	border-radius: 100%;
+	line-height: 20px;
+	padding: 0 6px;
+}
+
 /* Pra esse tamanho de tela é necessário da margem em baixo */
 @media ( max-width : 500px) {
 	.btn-excluir-produto {
@@ -285,14 +310,18 @@ label[for="calcular-frete"], input[name="calcular-frete"] {
 	form input {
 		font-size: 0.9rem !important;
 	}
+	
+	/* Número de itens no carrinho */
+	.contar-produtos-carrinho {
+		right: 10px;
+	}
 }
 
-#carrinho-vazio {
-	height: 400px !important;
-}
-
-#carrinho-vazio strong {
-	font-size: 2em;
+@media ( max-width : 1024px) {
+	/* Número de itens no carrinho */	
+	.contar-produtos-carrinho {
+		right: 32px;
+	}
 }
 
 /***********************************************************************************************************************/
@@ -317,13 +346,12 @@ label[for="calcular-frete"], input[name="calcular-frete"] {
 	box-shadow: 0 1px 0 0 #ff9800 !important;
 }
 
-.tc-radio-site:checked+label:after,
-.tc-radio-site.with-gap:checked+label:before,
-.tc-radio-site.with-gap:checked+label:after {
+.tc-radio-site:checked+label:after, .tc-radio-site.with-gap:checked+label:before,
+	.tc-radio-site.with-gap:checked+label:after {
 	border: 2px solid #ff9800 !important;
 }
 
-.tc-radio-site:checked+label:after,
-.tc-radio-site.with-gap:checked+label:after {
+.tc-radio-site:checked+label:after, .tc-radio-site.with-gap:checked+label:after
+	{
 	background-color: #ff9800 !important;
 }
