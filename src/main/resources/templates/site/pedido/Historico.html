@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/site/LayoutPadrao" xlmns:thecode="http://thecode.com.br">
+<head>
+<title>Histórido do Pedido</title>
+</head>
+<body>
+	<main class="container" layout:fragment="conteudo">
+	<div class="row">
+		<div class="col s12">
+			<div class="row">
+				<div class="col s12">
+					<a href="#"><i class="material-icons">arrow_back</i></a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s12  grey lighten-4">
+					<div class="col s5 offset-s1">
+						<p>Pedido nº: 0001</p>
+						<p>Data: 02/11/2017</p>
+						<p>Total: R$ 2599,99</p>
+					</div>
+					<div class="col s5 offeset-s1">
+						<p>Quantidade de produtos: 33</p>
+						<p>Pagamento: Boleto bancário</p>
+						<div class="row">
+							<div class="col m6 s12">
+								<button class="btn waves-effect waves-light amber darken-2 col s12" type="submit" name="boleto">Ver
+									Boleto</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s12">
+					<div class="col s12 black white-text">
+						<h6>HISTÓRICO DE ENTREGA</h6>
+					</div>
+					<div class="col s12">
+						<table class="striped">
+							<thead>
+								<tr>
+									<th>Fase</th>
+									<th>Data</th>
+									<th>Horário</th>
+									<th>Status</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Pedido</td>
+									<td>25/10/2017</td>
+									<td>10:00</td>
+									<td>Concluído</td>
+								</tr>
+								<tr>
+									<td>Pagamento</td>
+									<td>28/10/2017</td>
+									<td>16:00</td>
+									<td>Concluído</td>
+								</tr>
+								<tr>
+									<td>Separação</td>
+									<td>29/10/2017</td>
+									<td>09:00</td>
+									<td>Concluído</td>
+								</tr>
+								<tr>
+									<td>Transporte</td>
+									<td>31/10/2017</td>
+									<td>09:00</td>
+									<td>Concluído</td>
+								</tr>
+								<tr>
+									<td>Entrega</td>
+									<td>01/11/2017</td>
+									<td>14:00</td>
+									<td>Concluído</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s12">
+					<div class="col s12 black white-text">
+						<h6>PRODUTO(S)</h6>
+					</div>
+					<div class="col s12 m6 offset-m3">
+						<div class="col s6">
+							<img class="responsive-img" th:src="@{/imagens/thumbnail.8.jpg}" alt="Terra Média: Sombras de Mordor">
+						</div>
+						<div class="col s6">
+							<p>Terra Média: Sombras de Mordor</p>
+							<p>Qtde: 1</p>
+							<p>R$ 199,99</p>
+						</div>
+					</div>
+					<div class="col col s12 m6 offset-m3">
+						<div class="col s6">
+							<img class="responsive-img" th:src="@{/imagens/thumbnail.1.jpg}" alt="Skyrim">
+						</div>
+						<div class="col s6">
+							<p>Skyrim</p>
+							<p>Qtde: 1</p>
+							<p>R$ 199,99
+						</div>
+					</div>
+					<div class="col col s12 m6 offset-m3">
+						<div class="col s6">
+							<img class="responsive-img" th:src="@{/imagens/thumbnail.27.jpg}" alt="Playstation 4">
+						</div>
+						<div class="col s6">
+							<p>Playstation 4</p>
+							<p>Qtde: 1</p>
+							<p>R$ 2199,99</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col m6 s12">
+					<div class="col s12 black white-text">
+						<h6>ENDEREÇO DE ENTREGA</h6>
+					</div>
+					<div class="col s12 grey lighten-4">
+						<p>
+							<strong>Fillipe Pinheiro</strong>
+						</p>
+						<p>Av. Lopes de Azevedo, 702
+						<p>Jardim Guedala
+						<p>05603-001</p>
+
+						<p>São Paulo - SP</p>
+						<p>Ref.: Praça Alfredo Volpi</p>
+					</div>
+				</div>
+				<div class="col m6 s12">
+					<div class="col s12 black white-text">
+						<h6>RESUMO DE VALORES</h6>
+					</div>
+					<div class="col s12 grey lighten-4">
+						<p>Subtotal: R$ 2.599,97</p>
+						<p>Frete: R$ 39,99</p>
+						<p>
+							<strong>Total: R$ 2.639,96</strong>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</main>
+</body>
+</html>
