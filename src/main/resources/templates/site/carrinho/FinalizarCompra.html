@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/site/LayoutCarrinhoCompra" xlmns:thecode="http://thecode.com.br">
+<head>
+<title>Finalizar compra</title>
+</head>
+<body>
+	<main class="container" layout:fragment="conteudo">
+	<div class="row">
+		<form class="col s12">
+			<div class="col m4 s12">
+				<div class="col s12 black lighten-2 white-text">
+					<h6>ENDEREÇOS</h6>
+				</div>
+				<div class="col s12 grey lighten-2">
+					<h6>Endereço Principal</h6>
+				</div>
+				<br>
+				<br>
+				<br>
+				<div class="input-field tc-form-endereco-compra">
+					<input type="text" id="nome" value="Fillipe Pinheiro" maxlength="150" readonly>
+					<label for="nome">Nome</label>
+				</div>
+				<div class="input-field tc-form-endereco-compra">
+					<input type="text" id="endereco" value="Av. Lopes de Azevedo" maxlength="150" readonly>
+					<label for="endereco">Endereço</label>
+				</div>
+				<div class="input-field tc-form-endereco-compra">
+					<input type="text" id="numero-endereco" value="702" maxlength="10" readonly>
+					<label for="numero-endereco">Número</label>
+				</div>
+				<div class="input-field tc-form-endereco-compra">
+					<input type="text" id="bairro" value="Jardim Guedala" maxlength="100" readonly>
+					<label for="bairro">Número</label>
+				</div>
+				<div class="input-field tc-cep-carrinho tc-form-endereco-compra">
+					<input type="text" id="cep" class="js-cep" th:value="${@carrinhoCompraController.cep}" readonly>
+					<label for="cep">CEP</label>
+				</div>
+				<div class="input-field tc-form-endereco-compra">
+					<input type="text" id="cidade" value="São Paulo" maxlength="100" readonly>
+					<label for="cidade">Cidade</label>
+				</div>
+				<div class="input-field tc-form-endereco-compra">
+					<input type="text" id="uf" value="SP" maxlength="2" readonly>
+					<label for="uf">Estado</label>
+				</div>
+				<div class="input-field tc-form-endereco-compra">
+					<textarea id="referencia" class="materialize-textarea" readonly>Praça Alfredo Volpi</textarea>
+					<label for="referencia">Referência</label>
+				</div>
+				<br>
+				<br>
+				<br>
+				<div class="col s6">
+					<a href="#" class="left">Editar</a>
+				</div>
+				<div class="col s6">
+					<a href="#" class="right">Remover</a>
+				</div>
+				<br>
+				<br>
+				<div class="row">
+					<div class="col s12">
+						<button class="btn waves-effect waves-light orange col s12" type="button">Inserir novo endereço</button>
+					</div>
+				</div>
+			</div>
+			<div class="col m4 s12">
+				<div class="col s12 black white-text js-opcao-entrega">
+					<h6>OPÇÕES DE ENTREGA</h6>
+				</div>
+				<div class="col s12 texto-frete"></div>
+				<div class="col s12 black white-text tc-forma-pagamento">
+					<h6>FORMA DE PAGAMENTO</h6>
+				</div>
+				<p>
+					<input class="with-gap tc-radio-site" type="radio" id="cartao" name="forma-pagamento" value="cartao-credito" />
+					<label for="cartao">Cartão de crédito</label>
+				</p>
+				<div class="tc-pagamento-cartao js-pagamento-cartao hide">
+					<div class="input-field tc-form-opcao-pagamento">
+						<select>
+							<option value="" disabled selected>Selecione o nº de parcelas</option>
+						</select>
+						<label>Nº de parcelas</label>
+					</div>
+					<div class="input-field tc-form-opcao-pagamento">
+						<input placeholder="Digite como no cartão" id="nome" type="text" maxlength="150">
+						<label for="nome">Nome</label>
+					</div>
+					<div class="input-field tc-form-opcao-pagamento">
+						<input placeholder="0000 0000 0000 0000" id="numero-cartao" type="text" maxlength="20">
+						<label for="numero-cartao">Nº do Cartão</label>
+					</div>
+					<div class="input-field tc-form-opcao-pagamento">
+						<select id="mes">
+							<option value="" disabled selected>Mês</option>
+							<option th:each="mes : ${meses}" th:value="${mes}" th:text="${mes.descricao}"></option>
+						</select>
+						<label>Mês de vencimento</label>
+					</div>
+					<div class="input-field tc-form-opcao-pagamento">
+						<select id="ano">
+							<option value="" disabled selected>Ano</option>
+							<option th:each="i : ${#numbers.sequence(0, 10)}" th:value="${ano + i}" th:text="${ano + i}"></option>
+						</select>
+						<label>Ano de vencimento</label>
+					</div>
+					<div class="input-field tc-form-opcao-pagamento">
+						<input placeholder="000" id="codigo-seguranca" type="text" class="validate" maxlength="3">
+						<label for="codigo-seguranca">Código de segurança</label>
+					</div>
+				</div>
+				<p>
+					<input class="with-gap tc-radio-site" type="radio" id="boleto" name="forma-pagamento" value="boleto" />
+					<label for="boleto">Boleto</label>
+				</p>
+			</div>
+			<div class="col m4 s12">
+				<div class="col s12 black white-text">
+					<h6>REVISÃO DO PEDIDO</h6>
+				</div>
+				<div class="col s12" th:each="item : ${@carrinhoCompraController.carrinho}">
+					<div class="col s4">
+						<img class="responsive-img"
+							th:src="(${#strings.isEmpty(item.img)} ? (@{/imagens/thumbnail.produto-mock.png}) : (@{/imagens/thumbnail.{nome}(nome=${item.img})}))"
+							th:alt="(${#strings.isEmpty(item.descricao)} ? 'Imagem padrão do produto' : (${item.descricao}))">
+					</div>
+					<div class="col s8">
+						<p th:text="${item.nome}"></p>
+						<p th:text="|Qtde: ${item.qtde} • ${#numbers.formatCurrency(item.qtde * item.preco)}|"></p>
+					</div>
+				</div>
+				<div class="col s12">
+					<div class="input-field">
+						<input type="text" th:value="${#numbers.formatCurrency(@carrinhoCompraController.subTotalCarrinho)}"
+							name="subtotal" id="subtotal" readonly>
+						<label for="subtotal">Subtotal</label>
+					</div>
+					<div class="input-field">
+						<input type="text" th:value="${valorFrete}" name="valor-frete" id="valor-frete" placeholder="R$ 0,00" readonly>
+						<label for="valor-frete">Frete</label>
+					</div>
+					<div class="input-field">
+						<input type="text" th:value="${#numbers.formatCurrency(@carrinhoCompraController.subTotalCarrinho)}" name="total"
+							id="total" readonly>
+						<label for="total">Total</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12">
+						<button class="btn waves-effect waves-light orange col s12" type="submit">Finalizar Compra</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	</main>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/vendors/jquery.mask.min.js}"></script>
+		<script th:src="@{/javascripts/calcular-frete.js}"></script>
+		<script th:src="@{/javascripts/finalizar-compra.js}"></script>
+	</th:block>
+</body>
+</html>

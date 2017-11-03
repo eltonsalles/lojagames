@@ -27,11 +27,11 @@
 				</div>
 				<br>
 				<div class="input-field col offset-s4 s6 m4">
-					<input th:id="|nome-produto-${item.id}|" th:value="${item.nome}" type="text" value="" class="input-field" readonly> <label
+					<input th:id="|nome-produto-${item.id}|" th:value="${item.nome}" type="text" value="" readonly> <label
 						th:for="|nome-produto-${item.id}|">Item</label>
 				</div>
 				<div class="input-field col offset-s4 s4 m2">
-					<input th:id="|preco-produto-${item.id}|" th:value="${#numbers.formatCurrency(item.preco)}" type="text" class="input-field" readonly> <label
+					<input th:id="|preco-produto-${item.id}|" th:value="${#numbers.formatCurrency(item.preco)}" type="text" readonly> <label
 						th:for="|preco-produto-${item.id}|">Preço</label>
 				</div>
 				<div class="input-field col offset-s4 s4 m1">
@@ -54,11 +54,11 @@
 						</div>
 					</div>
 					<div class="input-field col offset-s4 s4 offset-m8 m2">
-						<input type="text" th:value="${#numbers.formatCurrency(@carrinhoCompraController.subTotalCarrinho)}" name="subtotal" id="subtotal" class="input-field" readonly>
+						<input type="text" th:value="${#numbers.formatCurrency(@carrinhoCompraController.subTotalCarrinho)}" id="subtotal" readonly>
 					</div>
 				</div>
 				<div class="col s12 z-depth-1 grey lighten-1">
-					<div class="input-field col s12 m2 tc-cep-carrinho">
+					<div class="input-field col s12 m2 tc-cep-carrinho js-opcao-frete">
 						<input type="text" th:value="${@carrinhoCompraController.cep}" name="cep" id="cep" class="input-field js-cep" required>
 						<label for="cep">Calcular Frete</label>
 					</div>
@@ -68,7 +68,7 @@
 					</div>
 					<div class="col s12 m8 texto-frete"></div>
 					<div class="input-field col s12 m2">
-						<input type="text" value="" name="valor-frete" id="valor-frete" class="input-field" readonly>
+						<input type="text" value="" name="valor-frete" id="valor-frete" readonly>
 					</div>
 				</div>
 				<div class="col s12 z-depth-1 grey darken-4 white-text">
@@ -78,11 +78,11 @@
 						</div>
 					</div>
 					<div class="input-field col offset-s4 s4 offset-m8 m2">
-						<input type="text" th:value="${#numbers.formatCurrency(@carrinhoCompraController.subTotalCarrinho)}" name="total" id="total" class="input-field" readonly>
+						<input type="text" th:value="${#numbers.formatCurrency(@carrinhoCompraController.subTotalCarrinho)}" id="total" readonly>
 					</div>
 				</div>
 				<div class="col s12 finalizar-compra">
-					<button class="btn-large waves-effect waves-light orange right js-finalizar-compra" type="submit" name="action">
+					<button class="btn-large waves-effect waves-light orange right js-finalizar-compra" type="submit">
 						Finalizar Compra<i class="material-icons left">done</i>
 					</button>
 				</div>

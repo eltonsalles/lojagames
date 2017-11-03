@@ -283,6 +283,19 @@ label[for="calcular-frete"], input[name="calcular-frete"] {
 	padding: 0 6px;
 }
 
+.tc-form-endereco-compra,
+.tc-form-opcao-pagamento {
+	height: 50px;
+}
+
+.tc-forma-pagamento {
+	margin: 5% 0;
+}
+
+.tc-pagamento-cartao {
+	margin-top: 10%;
+}
+
 /* Pra esse tamanho de tela é necessário da margem em baixo */
 @media ( max-width : 500px) {
 	.btn-excluir-produto {

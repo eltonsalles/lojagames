@@ -1,7 +1,9 @@
 $(function() {
 	var cep = $('.js-cep');
 	var textoFrete = $('.texto-frete');
+	var valorFrete = $('#valor-frete');
 	var btnComprar = $('.btn-comprar');
+	var opcaoEntrga = $('.js-opcao-frete');
 	
 	// Coloca a máscara no campo CEP
 	cep.mask('00000-000');
@@ -66,7 +68,13 @@ $(function() {
 						if (btnComprar.length) {
 							textoFrete.append('<p>' + "Serviço: " + codigo + " - Valor: R$ " + valor + " - Prazo: " + prazo + " dia(s)" + '</p>');
 						} else {
-							textoFrete.append("<p><input class='with-gap tc-radio-site js-valor-frete' name='valor-frete' value='" + valor + "' type='radio' id='" + codigo + "' required /><label for='" + codigo + "'>Serviço: " + codigo + " - Valor: R$ " + valor + " - Prazo: " + prazo + " dia(s)" + "</label></p>");
+							var checked = '';
+							
+							// Se houver uma opção marcada em alguns dos forms já deixa ela marcada
+							if (valorFrete.val().replace('R$ ', '') == valor) {
+								checked = 'checked';
+							}
+							textoFrete.append("<p><input " + checked + " class='with-gap tc-radio-site js-valor-frete' name='opcao-valor-frete' value='" + valor + "' type='radio' id='" + codigo + "' required /><label for='" + codigo + "'>Serviço: " + codigo + " - Valor: R$ " + valor + " - Prazo: " + prazo + " dia(s)" + "</label></p>");
 						}
 					}
 				});
@@ -76,7 +84,7 @@ $(function() {
 					var subtotal = $('#subtotal');
 					var total = $('#total');
 					
-					$('#valor-frete').val('R$ ' + $(this).val());
+					valorFrete.val('R$ ' + $(this).val());
 					total.val('R$ ' + converterParaReal(converterParaDecimal(subtotal.val()) + converterParaDecimal($(this).val())));
 				});
 			},
@@ -90,7 +98,7 @@ $(function() {
 				if (btnComprar.length) {
 					textoFrete.removeClass('s12 m8');
 					textoFrete.addClass('s10 m6');
-				} else {
+				} else if (opcaoEntrga.length) {
 					textoFrete.removeClass('s12 m8');
 					textoFrete.addClass('s11 m7');
 				}
@@ -102,7 +110,7 @@ $(function() {
 				if (btnComprar.length) {
 					textoFrete.removeClass('s10 m6');
 					textoFrete.addClass('s12 m8');
-				} else {
+				} else if (opcaoEntrga.length) {
 					textoFrete.removeClass('s11 m7');
 					textoFrete.addClass('s12 m8');
 				}
