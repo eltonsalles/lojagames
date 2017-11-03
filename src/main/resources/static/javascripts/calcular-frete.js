@@ -91,8 +91,8 @@ $(function() {
 					textoFrete.removeClass('s12 m8');
 					textoFrete.addClass('s10 m6');
 				} else {
-					textoFrete.removeClass('s4 m8');
-					textoFrete.addClass('s3 m7');
+					textoFrete.removeClass('s12 m8');
+					textoFrete.addClass('s11 m7');
 				}
 			},
 			complete: function () {
@@ -103,8 +103,8 @@ $(function() {
 					textoFrete.removeClass('s10 m6');
 					textoFrete.addClass('s12 m8');
 				} else {
-					textoFrete.removeClass('s3 m7');
-					textoFrete.addClass('s4 m8');
+					textoFrete.removeClass('s11 m7');
+					textoFrete.addClass('s12 m8');
 				}
 				
 			}

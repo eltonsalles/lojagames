@@ -58,7 +58,7 @@
 					</div>
 				</div>
 				<div class="col s12 z-depth-1 grey lighten-1">
-					<div class="input-field col s4 m2 tc-cep-carrinho">
+					<div class="input-field col s12 m2 tc-cep-carrinho">
 						<input type="text" th:value="${@carrinhoCompraController.cep}" name="cep" id="cep" class="input-field js-cep" required>
 						<label for="cep">Calcular Frete</label>
 					</div>
@@ -66,8 +66,8 @@
 						<br>
 						<img class="responsive-img" alt="Carregando" th:src="@{/images/carregando.gif}">
 					</div>
-					<div class="col s4 m8 texto-frete"></div>
-					<div class="input-field col s4 m2">
+					<div class="col s12 m8 texto-frete"></div>
+					<div class="input-field col s12 m2">
 						<input type="text" value="" name="valor-frete" id="valor-frete" class="input-field" readonly>
 					</div>
 				</div>
