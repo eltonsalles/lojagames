@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/site/LayoutPadrao" xlmns:thecode="http://thecode.com.br">
+<head>
+<title>Login</title>
+</head>
+<body>
+	<main class="container" layout:fragment="conteudo">
+	<div class="row">
+		<form class="col s12 m6 offset-m3">
+			<div class="row">
+				<div class="col s12">
+					<h5>Já sou cliente</h5>
+				</div>
+				<div class="input-field col s12">
+					<input id="email" type="email" class="validate" maxlength="150" required>
+					<label for="email">E-mail</label>
+				</div>
+				<div class="input-field col s12">
+					<input id="senha" type="password" class="validate" maxlength="255" required>
+					<label for="senha">Senha</label>
+					<a href="#" class="right">Esqueceu a senha?</a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s12">
+					<button class="btn waves-effect waves-light amber darken-2 col s12" type="submit" name="entrar">Entrar</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="row">
+		<div class="col s12 m6 offset-m3">
+			<div class="col s9 offset-s3">
+				<p>
+					Não tem cadastro?
+					<a href="#">cadastre-se</a>
+				</p>
+			</div>
+		</div>
+	</div>
+	</main>
+</body>
+</html>
