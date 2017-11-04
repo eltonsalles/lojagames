@@ -114,7 +114,6 @@ $(function() {
 					textoFrete.removeClass('s11 m7');
 					textoFrete.addClass('s12 m8');
 				}
-				
 			}
 		})
 	}
@@ -123,5 +122,13 @@ $(function() {
 	if (cep.val().length == 9) {
 		textoFrete.html('');
 		calcularFrete(cep.val());
+		atualizarTotal();
+	}
+	
+	function atualizarTotal() {
+		var subtotal = $('#subtotal');
+		var total = $('#total');
+		
+		total.val('R$ ' + converterParaReal(converterParaDecimal(subtotal.val()) + converterParaDecimal(valorFrete.val())));
 	}
 });
