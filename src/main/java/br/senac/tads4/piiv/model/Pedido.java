@@ -19,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import br.senac.tads4.piiv.model.enumerated.FormaPagamento;
@@ -55,8 +56,7 @@ public class Pedido implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private FormaPagamento formaPagamento;
 
-	@NotNull(message = "O campo número de parcelas é obrigatório")
-	private Integer parcelas;
+	private Integer parcelas = 1;
 
 	@Column(name = "data_pagamento")
 	private LocalDate dataPagamento;
@@ -89,6 +89,7 @@ public class Pedido implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private StatusPedido status;
 	
+	@Transient
 	private DadosPagamento dadosPagamento;
 
 	@Embedded

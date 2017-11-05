@@ -1,7 +1,6 @@
 package br.senac.tads4.piiv.controller;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -13,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,14 +25,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.senac.tads4.piiv.dto.ItemProdutoDto;
 import br.senac.tads4.piiv.model.Cliente;
-import br.senac.tads4.piiv.model.ItemPedido;
 import br.senac.tads4.piiv.model.Pedido;
 import br.senac.tads4.piiv.model.Produto;
-import br.senac.tads4.piiv.model.enumerated.FormaPagamento;
 import br.senac.tads4.piiv.model.enumerated.Meses;
 import br.senac.tads4.piiv.model.enumerated.TipoPagamento;
 import br.senac.tads4.piiv.repository.ClienteRepository;
 import br.senac.tads4.piiv.repository.ProdutoRepository;
+import br.senac.tads4.piiv.service.PedidoService;
 import br.senac.tads4.piiv.service.ProdutoService;
 
 @Controller
@@ -45,9 +44,12 @@ public class CarrinhoCompraController {
 
 	@Autowired
 	private ProdutoRepository produtoRepository;
-	
+
 	@Autowired
 	private ProdutoService produtoService;
+
+	@Autowired
+	private PedidoService pedidoService;
 
 	// #MOCK
 	@Autowired
@@ -122,34 +124,18 @@ public class CarrinhoCompraController {
 			@RequestParam(name = "valor-frete") BigDecimal valorFrete,
 			@RequestParam(name = "dias-entrega") Integer diasEntrega, RedirectAttributes attributes) {
 		ModelAndView mv = new ModelAndView("site/carrinho/FinalizarCompra");
-		
+
+		// Informações para o formulário
 		Pedido pedido = new Pedido();
-		pedido.setDataPedido(LocalDate.now());
 		pedido.setValorFrete(valorFrete);
 		pedido.setDiasEntrega(diasEntrega);
 		pedido.setValorSubTotal(this.getSubTotalCarrinho());
 		pedido.setValorTotal(this.getSubTotalCarrinho()); // No front tem a soma do frete
-		
-		List<ItemPedido> itensPedido = new ArrayList<>();
-		for (ItemProdutoDto itemProdutoDto : carrinho) {
-			Produto produto = new Produto();
-			produto.setIdProduto(itemProdutoDto.getId());
-			
-			ItemPedido itemPedido = new ItemPedido();
-			itemPedido.setProduto(produto);
-			itemPedido.setPedido(pedido);
-			itemPedido.setQuantidade(itemProdutoDto.getQtde());
-			itemPedido.setValorUnitario(itemProdutoDto.getPreco());
-			
-			itensPedido.add(itemPedido);
-		}
-		
-		pedido.setItensPedido(itensPedido);
-		
+
 		// #MOCK
 		Cliente cliente = clienteRepository.findOne(1L);
 		pedido.setCliente(cliente);
-		
+
 		Calendar hoje = Calendar.getInstance();
 
 		mv.addObject("ano", hoje.get(Calendar.YEAR));
@@ -157,36 +143,44 @@ public class CarrinhoCompraController {
 		mv.addObject("tiposPagamento", TipoPagamento.values());
 		mv.addObject("maximoParcelas", produtoService.getMaximoParcelas());
 		mv.addObject("pedido", pedido);
-		
+
 		Map<String, ?> mensagem = attributes.getFlashAttributes();
 		if (mensagem.containsKey("msgErroRealizarPedido")) {
 			mv.addObject("msgErroRealizarPedido", mensagem.get("msgErroRealizarPedido"));
 		}
-		
+
 		return mv;
 	}
 
 	@RequestMapping(value = "/realizar-pedido", method = RequestMethod.POST)
 	public ModelAndView realizarPedido(@Valid Pedido pedido, BindingResult result, RedirectAttributes attributes) {
-		// Verifica a forma de pagamento
-		if (pedido.getTipoPagamento().toString().equalsIgnoreCase("BOLETO")) {
-			pedido.setFormaPagamento(FormaPagamento.A_VISTA);
-		} else if (pedido.getTipoPagamento().toString().equalsIgnoreCase("CARTAO_CREDITO") && pedido.getParcelas() == 1) {
-			pedido.setFormaPagamento(FormaPagamento.A_VISTA);
-		} else {
-			pedido.setFormaPagamento(FormaPagamento.PARCELADO);
-		}
-		
 		if (result.hasErrors()) {
 			attributes.addFlashAttribute("msgErroRealizarPedido", "Informe os dados de entrega e pagamento");
-			
+
 			return finalizarCompra(pedido.getCliente().getEnderecos().get(0).getCep(), pedido.getValorFrete(),
 					pedido.getDiasEntrega(), attributes);
 		}
-		
-		// Salvar pedido
-		// Verificar na Cielo
-		
+
+		if (pedido.getTipoPagamento().toString().equalsIgnoreCase("CARTAO_CREDITO")) {
+			if (pedido.getDadosPagamento().getParcelas() == null
+					|| StringUtils.isEmpty(pedido.getDadosPagamento().getNomeTitular())
+					|| StringUtils.isEmpty(pedido.getDadosPagamento().getCartao())
+					|| StringUtils.isEmpty(pedido.getDadosPagamento().getMesVencimento())
+					|| StringUtils.isEmpty(pedido.getDadosPagamento().getAnoVencimento())
+					|| StringUtils.isEmpty(pedido.getDadosPagamento().getCodigoSeguranca())) {
+				attributes.addFlashAttribute("msgErroRealizarPedido", "Informe os dados para o pagamento");
+				
+				return finalizarCompra(pedido.getCliente().getEnderecos().get(0).getCep(), pedido.getValorFrete(),
+						pedido.getDiasEntrega(), attributes);
+			}
+		}
+
+		// #MOCK
+		Cliente cliente = clienteRepository.findOne(1L);
+		pedido.setCliente(cliente);
+
+		pedidoService.salvar(pedido, this.getCarrinho());
+
 		return new ModelAndView("redirect:/pedidos");
 	}
 

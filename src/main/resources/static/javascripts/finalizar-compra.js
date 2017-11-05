@@ -8,11 +8,18 @@ $(function() {
 	$('input[name=tipoPagamento]').on('click', function() {
 		var selecionado = $('input[name=tipoPagamento]:checked').val();
 		var pagamentoCartao = $('.js-pagamento-cartao');
+		var camposPagtoCartao = $('.js-pagto-cartao-credito');
 
 		if (selecionado == 'CARTAO_CREDITO') {
 			pagamentoCartao.removeClass('hide');
+			camposPagtoCartao.each(function(index, c) {
+				$(c).attr('required', 'required');
+			})
 		} else {
 			pagamentoCartao.addClass('hide');
+			camposPagtoCartao.each(function(index, c) {
+				$(c).removeAttr('required');
+			})
 		}
 	});
 });

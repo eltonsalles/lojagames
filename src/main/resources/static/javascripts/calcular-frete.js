@@ -128,9 +128,11 @@ $(function() {
 	}
 	
 	function atualizarTotal() {
-		var subtotal = $('#subtotal');
-		var total = $('#total');
-		
-		total.val('R$ ' + converterParaReal(converterParaDecimal(subtotal.val()) + converterParaDecimal(valorFrete.val().split('|')[0])));
+		if (valorFrete.val() != '') {
+			var subtotal = $('#subtotal');
+			var total = $('#total');
+			
+			total.val('R$ ' + converterParaReal(converterParaDecimal(subtotal.val()) + converterParaDecimal(valorFrete.val().split('|')[0])));
+		}
 	}
 });

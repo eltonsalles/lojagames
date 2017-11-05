@@ -102,7 +102,7 @@
 				</p>
 				<div class="tc-pagamento-cartao js-pagamento-cartao hide">
 					<div class="input-field tc-form-opcao-pagamento">
-						<select th:field="*{parcelas}">
+						<select th:field="*{parcelas}" class="js-pagto-cartao-credito">
 							<option value="" disabled selected>Selecione o nº de parcelas</option>
 							<option th:each="parcela : ${#numbers.sequence(1, maximoParcelas)}" th:value="${parcela}" th:text="|${parcela}x sem juros|"></option>
 						</select>
@@ -110,29 +110,29 @@
 					</div>
 					<div class="input-field tc-form-opcao-pagamento">
 						<input placeholder="Digite como no cartão" id="nome" type="text" maxlength="150"
-							th:field="*{dadosPagamento.nomeTitular}">
+							th:field="*{dadosPagamento.nomeTitular}" class="js-pagto-cartao-credito">
 						<label for="nome">Nome</label>
 					</div>
 					<div class="input-field tc-form-opcao-pagamento">
-						<input placeholder="0000 0000 0000 0000" id="numero-cartao" type="text" maxlength="20" th:field="*{dadosPagamento.cartao}">
+						<input placeholder="0000 0000 0000 0000" id="numero-cartao" type="text" maxlength="20" class="js-pagto-cartao-credito" th:field="*{dadosPagamento.cartao}">
 						<label for="numero-cartao">Nº do Cartão</label>
 					</div>
 					<div class="input-field tc-form-opcao-pagamento">
-						<select id="mes" th:field="*{dadosPagamento.mesVencimento}">
+						<select id="mes" th:field="*{dadosPagamento.mesVencimento}" class="js-pagto-cartao-credito">
 							<option value="" disabled selected>Mês</option>
 							<option th:each="mes : ${meses}" th:value="${mes}" th:text="${mes.descricao}"></option>
 						</select>
 						<label>Mês de vencimento</label>
 					</div>
 					<div class="input-field tc-form-opcao-pagamento">
-						<select id="ano" th:field="*{dadosPagamento.anoVencimento}">
+						<select id="ano" th:field="*{dadosPagamento.anoVencimento}" class="js-pagto-cartao-credito">
 							<option value="" disabled selected>Ano</option>
 							<option th:each="i : ${#numbers.sequence(0, 10)}" th:value="${ano + i}" th:text="${ano + i}"></option>
 						</select>
 						<label>Ano de vencimento</label>
 					</div>
 					<div class="input-field tc-form-opcao-pagamento">
-						<input placeholder="000" id="codigo-seguranca" class="js-int" type="text" maxlength="3" th:field="*{dadosPagamento.codigoSeguranca}">
+						<input placeholder="000" id="codigo-seguranca" class="js-int js-pagto-cartao-credito" type="text" maxlength="3" th:field="*{dadosPagamento.codigoSeguranca}">
 						<label for="codigo-seguranca">Código de segurança</label>
 					</div>
 				</div>
