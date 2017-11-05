@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -16,12 +17,16 @@ import br.senac.tads4.piiv.model.Produto;
 import br.senac.tads4.piiv.model.enumerated.FormaPagamento;
 import br.senac.tads4.piiv.model.enumerated.StatusPedido;
 import br.senac.tads4.piiv.repository.PedidoRepository;
+import br.senac.tads4.piiv.service.event.pedido.PedidoSalvoEvent;
 
 @Service
 public class PedidoService {
 
 	@Autowired
 	private PedidoRepository pedidoRepository;
+	
+	@Autowired
+	private ApplicationEventPublisher publisher;
 
 	public void salvar(Pedido pedido, List<ItemProdutoDto> carrinho) {
 		// Data do pedido
@@ -73,5 +78,7 @@ public class PedidoService {
 		pedido.setStatus(StatusPedido.PENDENTE_PAGTO);
 
 		pedidoRepository.save(pedido);
+		
+		publisher.publishEvent(new PedidoSalvoEvent(pedido));
 	}
 }
