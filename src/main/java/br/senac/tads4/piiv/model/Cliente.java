@@ -1,11 +1,13 @@
 package br.senac.tads4.piiv.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -53,6 +55,9 @@ public class Cliente {
 	@NotBlank(message = "A senha é obrigatória")
 	@Size(min = 3, max = 15, message = "O campo senha deve ter entre 3 e 15 caracteres")
 	private String senha;
+	
+	@OneToMany(mappedBy = "cliente")
+	private List<Pedido> pedidos;
 
 	public Long getId() {
 		return id;
@@ -124,6 +129,14 @@ public class Cliente {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 	@Override
