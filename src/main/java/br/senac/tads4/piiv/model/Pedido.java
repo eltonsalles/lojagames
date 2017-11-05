@@ -35,7 +35,6 @@ public class Pedido implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotNull(message = "O campo data do pedido é obrigatório")
 	@Column(name = "data_pedido")
 	private LocalDate dataPedido;
 
@@ -44,7 +43,6 @@ public class Pedido implements Serializable {
 	@JoinColumn(name = "id_cliente")
 	private Cliente cliente;
 
-	@NotNull(message = "O campo itens do pedido é obrigatório")
 	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<ItemPedido> itensPedido;
 
@@ -53,7 +51,6 @@ public class Pedido implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private TipoPagamento tipoPagamento;
 
-	@NotNull(message = "O campo forma de pagamento é obrigatório")
 	@Column(name = "forma_pagamento")
 	@Enumerated(EnumType.STRING)
 	private FormaPagamento formaPagamento;
@@ -61,7 +58,6 @@ public class Pedido implements Serializable {
 	@NotNull(message = "O campo número de parcelas é obrigatório")
 	private Integer parcelas;
 
-	@NotNull(message = "O campo data de pagamento é obrigatório")
 	@Column(name = "data_pagamento")
 	private LocalDate dataPagamento;
 

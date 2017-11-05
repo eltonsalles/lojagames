@@ -94,8 +94,13 @@ $(document).ready(function() {
 	
 	// Arruma a string para a submissão
 	$('.js-arrumar-valor-frete').submit(function() {
+		var subTotal = $('#subtotal');
 		var valorFrete = $('#valor-frete');
+		var total = $('#total');
+		
+		subTotal.val(subTotal.val().replace('R$ ', ''));
 		valorFrete.val(valorFrete.val().replace('R$ ', ''));
+		total.val(total.val().replace('R$ ', ''));
 	});
 	
 	// Código para fechar os alertas do materialize
