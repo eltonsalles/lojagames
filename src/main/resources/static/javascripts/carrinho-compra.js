@@ -91,6 +91,19 @@ $(document).ready(function() {
 			total.val('R$ ' + converterParaReal(subTotal));
 		}
 	}
+	
+	// Arruma a string para a submissão
+	$('.js-arrumar-valor-frete').submit(function() {
+		var valorFrete = $('#valor-frete');
+		valorFrete.val(valorFrete.val().replace('R$ ', ''));
+	});
+	
+	// Código para fechar os alertas do materialize
+	$('body').on('click', '.tc-alert .tc-close', function() {
+		$(this).parent().fadeOut(300, function() {
+			$(this).remove();
+		});
+	});
 });
 
 // Converte string em decimal

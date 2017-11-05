@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -20,8 +23,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.senac.tads4.piiv.dto.ItemProdutoDto;
+import br.senac.tads4.piiv.model.Cliente;
+import br.senac.tads4.piiv.model.Pedido;
 import br.senac.tads4.piiv.model.Produto;
 import br.senac.tads4.piiv.model.enumerated.Meses;
+import br.senac.tads4.piiv.model.enumerated.TipoPagamento;
+import br.senac.tads4.piiv.repository.ClienteRepository;
 import br.senac.tads4.piiv.repository.ProdutoRepository;
 
 @Controller
@@ -34,6 +41,10 @@ public class CarrinhoCompraController {
 
 	@Autowired
 	private ProdutoRepository produtoRepository;
+
+	// #MOCK
+	@Autowired
+	private ClienteRepository clienteRepository;
 
 	@RequestMapping
 	public ModelAndView carrinhoCompra() {
@@ -100,21 +111,65 @@ public class CarrinhoCompraController {
 	}
 
 	@RequestMapping(value = "/finalizar-compra", method = RequestMethod.POST)
-	public ModelAndView finalizarCompra(@RequestParam String cep, @RequestParam(name = "valor-frete") String valorFrete,
-			RedirectAttributes attributes) {
+	public ModelAndView finalizarCompra(@RequestParam String cep,
+			@RequestParam(name = "valor-frete") BigDecimal valorFrete,
+			@RequestParam(name = "dias-entrega") Integer diasEntrega, RedirectAttributes attributes) {
 		ModelAndView mv = new ModelAndView("site/carrinho/FinalizarCompra");
 
-		if (!cep.isEmpty()) {
-			this.cep = cep;
-		}
+		Pedido pedido = new Pedido();
+		pedido.setValorFrete(valorFrete);
+		pedido.setDiasEntrega(diasEntrega);
+
+		// #MOCK
+		Cliente cliente = clienteRepository.findOne(1L);
+		pedido.setCliente(cliente);
 
 		Calendar hoje = Calendar.getInstance();
-		
+
 		mv.addObject("ano", hoje.get(Calendar.YEAR));
 		mv.addObject("meses", Meses.values());
-		mv.addObject("valorFrete", valorFrete);
+		mv.addObject("tiposPagamento", TipoPagamento.values());
+		mv.addObject("pedido", pedido);
+		
+		Map<String, ?> mensagem = attributes.getFlashAttributes();
+		if (mensagem.containsKey("msgErroRealizarPedido")) {
+			mv.addObject("msgErroRealizarPedido", mensagem.get("msgErroRealizarPedido"));
+		}
+		
 		return mv;
 	}
+
+	@RequestMapping(value = "/realizar-pedido", method = RequestMethod.POST)
+	public ModelAndView realizarPedido(@Valid Pedido pedido, BindingResult result, RedirectAttributes attributes) {
+		if (result.hasErrors()) {
+			attributes.addFlashAttribute("msgErroRealizarPedido", "Informe os dados de entrega e pagamento");
+			
+			return finalizarCompra(pedido.getCliente().getEnderecos().get(0).getCep(), pedido.getValorFrete(),
+					pedido.getDiasEntrega(), attributes);
+		}
+
+		System.out.println("Pedido finalizado com sucesso!");
+
+		return null;
+	}
+
+	// @RequestMapping(value = "/finalizar-compra", method = RequestMethod.POST)
+	// public ModelAndView finalizarCompra(@RequestParam String cep,
+	// @RequestParam(name = "valor-frete") String valorFrete,
+	// RedirectAttributes attributes) {
+	// ModelAndView mv = new ModelAndView("site/carrinho/FinalizarCompra");
+	//
+	// if (!cep.isEmpty()) {
+	// this.cep = cep;
+	// }
+	//
+	// Calendar hoje = Calendar.getInstance();
+	//
+	// mv.addObject("ano", hoje.get(Calendar.YEAR));
+	// mv.addObject("meses", Meses.values());
+	// mv.addObject("valorFrete", valorFrete);
+	// return mv;
+	// }
 
 	public List<ItemProdutoDto> getCarrinho() {
 		return this.carrinho;

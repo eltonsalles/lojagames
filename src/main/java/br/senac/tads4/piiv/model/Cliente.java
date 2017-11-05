@@ -1,9 +1,13 @@
 package br.senac.tads4.piiv.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +23,9 @@ import br.senac.tads4.piiv.validation.Telefone;
 
 @Entity
 @Table(name = "cliente")
-public class Cliente {
+public class Cliente implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +43,7 @@ public class Cliente {
 	private String cpf;
 
 	@NotNull(message = "A data de nascimento é obrigatória")
+	@Column(name = "data_nascimento")
 	private LocalDate dataNascimento;
 
 	@NotBlank(message = "O telefone é obrigatório")
@@ -55,6 +62,9 @@ public class Cliente {
 	@NotBlank(message = "A senha é obrigatória")
 	@Size(min = 3, max = 15, message = "O campo senha deve ter entre 3 e 15 caracteres")
 	private String senha;
+	
+	@OneToMany(mappedBy = "cliente", targetEntity = Endereco.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Endereco> enderecos;
 	
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos;
@@ -129,6 +139,14 @@ public class Cliente {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
 	}
 
 	public List<Pedido> getPedidos() {

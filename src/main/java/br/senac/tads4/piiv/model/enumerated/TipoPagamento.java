@@ -1,7 +1,7 @@
 package br.senac.tads4.piiv.model.enumerated;
 
 public enum TipoPagamento {
-	CARTAO_CREDIDO("Cartão de Crédito"),
+	CARTAO_CREDITO("Cartão de Crédito"),
 	BOLETO("Boleto");
 	
 	private String descricao;

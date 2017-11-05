@@ -2,6 +2,7 @@ $(function() {
 	var cep = $('.js-cep');
 	var textoFrete = $('.texto-frete');
 	var valorFrete = $('#valor-frete');
+	var diasEntrega = $('.js-dias-entrega');
 	var btnComprar = $('.btn-comprar');
 	var opcaoEntrga = $('.js-opcao-frete');
 	
@@ -74,7 +75,7 @@ $(function() {
 							if (valorFrete.val().replace('R$ ', '') == valor) {
 								checked = 'checked';
 							}
-							textoFrete.append("<p><input " + checked + " class='with-gap tc-radio-site js-valor-frete' name='opcao-valor-frete' value='" + valor + "' type='radio' id='" + codigo + "' required /><label for='" + codigo + "'>Serviço: " + codigo + " - Valor: R$ " + valor + " - Prazo: " + prazo + " dia(s)" + "</label></p>");
+							textoFrete.append("<p><input " + checked + " class='with-gap tc-radio-site js-valor-frete' name='opcao-valor-frete' value='" + valor + "|" + prazo + "' type='radio' id='" + codigo + "' required /><label for='" + codigo + "'>Serviço: " + codigo + " - Valor: R$ " + valor + " - Prazo: " + prazo + " dia(s)" + "</label></p>");
 						}
 					}
 				});
@@ -84,7 +85,8 @@ $(function() {
 					var subtotal = $('#subtotal');
 					var total = $('#total');
 					
-					valorFrete.val('R$ ' + $(this).val());
+					valorFrete.val('R$ ' + $(this).val().split('|')[0]);
+					diasEntrega.val($(this).val().split('|')[1]);
 					total.val('R$ ' + converterParaReal(converterParaDecimal(subtotal.val()) + converterParaDecimal($(this).val())));
 				});
 			},
@@ -129,6 +131,6 @@ $(function() {
 		var subtotal = $('#subtotal');
 		var total = $('#total');
 		
-		total.val('R$ ' + converterParaReal(converterParaDecimal(subtotal.val()) + converterParaDecimal(valorFrete.val())));
+		total.val('R$ ' + converterParaReal(converterParaDecimal(subtotal.val()) + converterParaDecimal(valorFrete.val().split('|')[0])));
 	}
 });

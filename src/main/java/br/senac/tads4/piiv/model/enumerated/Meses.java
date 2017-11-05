@@ -1,18 +1,18 @@
 package br.senac.tads4.piiv.model.enumerated;
 
 public enum Meses {
-	JANEIRO("Janeiro"),
-	FEVEREIRO("Fevereiro"),
-	MARCO("Março"),
-	ABRIL("Abril"),
-	MAIO("Maio"),
-	JUNHO("Junho"),
-	JULHO("Julho"),
-	AGOSTO("Agosto"),
-	SETEMBRO("Setembro"),
-	OUTUBRO("Outubro"),
-	NOVEMBRO("Novembro"),
-	DEZEMBRO("Dezembro");
+	_1("Janeiro"),
+	_2("Fevereiro"),
+	_3("Março"),
+	_4("Abril"),
+	_5("Maio"),
+	_6("Junho"),
+	_7("Julho"),
+	_8("Agosto"),
+	_9("Setembro"),
+	_10("Outubro"),
+	_11("Novembro"),
+	_12("Dezembro");
 	
 	private String descricao;
 	

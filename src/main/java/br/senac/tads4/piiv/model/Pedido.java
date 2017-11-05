@@ -92,6 +92,8 @@ public class Pedido implements Serializable {
 
 	@Enumerated(EnumType.STRING)
 	private StatusPedido status;
+	
+	private DadosPagamento dadosPagamento;
 
 	@Embedded
 	private EnderecoEntrega enderecoEntrega;
@@ -230,6 +232,14 @@ public class Pedido implements Serializable {
 
 	public void setEnderecoEntrega(EnderecoEntrega enderecoEntrega) {
 		this.enderecoEntrega = enderecoEntrega;
+	}
+
+	public DadosPagamento getDadosPagamento() {
+		return dadosPagamento;
+	}
+
+	public void setDadosPagamento(DadosPagamento dadosPagamento) {
+		this.dadosPagamento = dadosPagamento;
 	}
 
 	@Override

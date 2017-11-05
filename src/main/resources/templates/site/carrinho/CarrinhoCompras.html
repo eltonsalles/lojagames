@@ -7,7 +7,7 @@
 <body>
 	<main class="container" layout:fragment="conteudo">
 	<div class="row">
-		<form method="post" class="col s12" id="carrinho-compra" th:action=@{/carrinho-compra/finalizar-compra} th:if="${!#lists.isEmpty(@carrinhoCompraController.carrinho)}">
+		<form method="post" class="col s12 js-arrumar-valor-frete" id="carrinho-compra" th:action=@{/carrinho-compra/finalizar-compra} th:if="${!#lists.isEmpty(@carrinhoCompraController.carrinho)}">
 			<div class="row">
 				<div class="col s12 m6 btn-escolher-mais-produtos">
 					<br> <a class="waves-effect waves-light grey-text text-darken-4" th:href="@{/}"><i
@@ -58,6 +58,7 @@
 					</div>
 				</div>
 				<div class="col s12 z-depth-1 grey lighten-1">
+					<input type="hidden" class="js-dias-entrega" name="dias-entrega" value="">
 					<div class="input-field col s12 m2 tc-cep-carrinho js-opcao-frete">
 						<input type="text" th:value="${@carrinhoCompraController.cep}" name="cep" id="cep" class="input-field js-cep" required>
 						<label for="cep">Calcular Frete</label>

@@ -7,7 +7,18 @@
 <body>
 	<main class="container" layout:fragment="conteudo">
 	<div class="row">
-		<form class="col s12">
+		<div class="row tc-alert" th:if=${!#strings.isEmpty(msgErroRealizarPedido)}>
+			<div class="col s12">
+				<div class="card-panel red lighten-4">
+					<button class="btn-flat btn-floating red lighten-4 right tc-close" type="button">
+						<i class="material-icons red-text text-darken-4">close</i>
+					</button>
+					<span class="red-text text-darken-4" th:text=${msgErroRealizarPedido}></span>
+				</div>
+			</div>
+		</div>
+		<form method="post" class="col s12 js-arrumar-valor-frete" th:action=@{/carrinho-compra/realizar-pedido}
+			th:object="${pedido}">
 			<div class="col m4 s12">
 				<div class="col s12 black lighten-2 white-text">
 					<h6>ENDEREÇOS</h6>
@@ -19,35 +30,40 @@
 				<br>
 				<br>
 				<div class="input-field tc-form-endereco-compra">
-					<input type="text" id="nome" value="Fillipe Pinheiro" maxlength="150" readonly>
+					<input type="text" id="nome" maxlength="150" th:field=*{cliente.nome} readonly>
 					<label for="nome">Nome</label>
 				</div>
 				<div class="input-field tc-form-endereco-compra">
-					<input type="text" id="endereco" value="Av. Lopes de Azevedo" maxlength="150" readonly>
+					<input type="text" id="endereco" maxlength="150" th:field=*{cliente.enderecos[0].logradouro} readonly>
 					<label for="endereco">Endereço</label>
 				</div>
 				<div class="input-field tc-form-endereco-compra">
-					<input type="text" id="numero-endereco" value="702" maxlength="10" readonly>
+					<input type="text" id="numero-endereco" maxlength="10" th:field=*{cliente.enderecos[0].numero} readonly>
 					<label for="numero-endereco">Número</label>
 				</div>
+				<div class="input-field tc-form-endereco-compra" th:if="*{!#strings.isEmpty(cliente.enderecos[0].complemento)}">
+					<input type="text" id="complemento" maxlength="100" th:field=*{cliente.enderecos[0].complemento} readonly>
+					<label for="complemento">Complemento</label>
+				</div>
 				<div class="input-field tc-form-endereco-compra">
-					<input type="text" id="bairro" value="Jardim Guedala" maxlength="100" readonly>
-					<label for="bairro">Número</label>
+					<input type="text" id="bairro" maxlength="100" th:field=*{cliente.enderecos[0].bairro} readonly>
+					<label for="bairro">Bairro</label>
 				</div>
 				<div class="input-field tc-cep-carrinho tc-form-endereco-compra">
-					<input type="text" id="cep" class="js-cep" th:value="${@carrinhoCompraController.cep}" readonly>
+					<input type="text" id="cep" class="js-cep" th:field=*{cliente.enderecos[0].cep} readonly>
 					<label for="cep">CEP</label>
 				</div>
 				<div class="input-field tc-form-endereco-compra">
-					<input type="text" id="cidade" value="São Paulo" maxlength="100" readonly>
+					<input type="text" id="cidade" maxlength="100" th:field=*{cliente.enderecos[0].cidade} readonly>
 					<label for="cidade">Cidade</label>
 				</div>
 				<div class="input-field tc-form-endereco-compra">
-					<input type="text" id="uf" value="SP" maxlength="2" readonly>
+					<input type="text" id="uf" maxlength="2" th:field=*{cliente.enderecos[0].uf} readonly>
 					<label for="uf">Estado</label>
 				</div>
 				<div class="input-field tc-form-endereco-compra">
-					<textarea id="referencia" class="materialize-textarea" readonly>Praça Alfredo Volpi</textarea>
+					<textarea id="referencia" class="materialize-textarea" rows="1" readonly
+						th:field=*{cliente.enderecos[0].referencia}></textarea>
 					<label for="referencia">Referência</label>
 				</div>
 				<br>
@@ -74,51 +90,55 @@
 				<div class="col s12 gif-carregando hide">
 					<img class="responsive-img" alt="Carregando" th:src="@{/images/carregando.gif}">
 				</div>
+				<input type="hidden" class="js-dias-entrega" th:field=*{diasEntrega}>
 				<div class="col s12 texto-frete"></div>
 				<div class="col s12 black white-text tc-forma-pagamento">
 					<h6>FORMA DE PAGAMENTO</h6>
 				</div>
 				<p>
-					<input class="with-gap tc-radio-site" type="radio" id="cartao" name="forma-pagamento" value="cartao-credito" />
-					<label for="cartao">Cartão de crédito</label>
+					<input class="with-gap tc-radio-site" type="radio" id="cartao" th:value="${tiposPagamento[0]}"
+						th:field="*{tipoPagamento}" />
+					<label for="cartao" th:text="${tiposPagamento[0].descricao}"></label>
 				</p>
 				<div class="tc-pagamento-cartao js-pagamento-cartao hide">
 					<div class="input-field tc-form-opcao-pagamento">
-						<select>
+						<select th:field="*{parcelas}">
 							<option value="" disabled selected>Selecione o nº de parcelas</option>
 						</select>
 						<label>Nº de parcelas</label>
 					</div>
 					<div class="input-field tc-form-opcao-pagamento">
-						<input placeholder="Digite como no cartão" id="nome" type="text" maxlength="150">
+						<input placeholder="Digite como no cartão" id="nome" type="text" maxlength="150"
+							th:field="*{dadosPagamento.nomeTitular}">
 						<label for="nome">Nome</label>
 					</div>
 					<div class="input-field tc-form-opcao-pagamento">
-						<input placeholder="0000 0000 0000 0000" id="numero-cartao" type="text" maxlength="20">
+						<input placeholder="0000 0000 0000 0000" id="numero-cartao" type="text" maxlength="20" th:field="*{dadosPagamento.cartao}">
 						<label for="numero-cartao">Nº do Cartão</label>
 					</div>
 					<div class="input-field tc-form-opcao-pagamento">
-						<select id="mes">
+						<select id="mes" th:field="*{dadosPagamento.mesVencimento}">
 							<option value="" disabled selected>Mês</option>
 							<option th:each="mes : ${meses}" th:value="${mes}" th:text="${mes.descricao}"></option>
 						</select>
 						<label>Mês de vencimento</label>
 					</div>
 					<div class="input-field tc-form-opcao-pagamento">
-						<select id="ano">
+						<select id="ano" th:field="*{dadosPagamento.anoVencimento}">
 							<option value="" disabled selected>Ano</option>
 							<option th:each="i : ${#numbers.sequence(0, 10)}" th:value="${ano + i}" th:text="${ano + i}"></option>
 						</select>
 						<label>Ano de vencimento</label>
 					</div>
 					<div class="input-field tc-form-opcao-pagamento">
-						<input placeholder="000" id="codigo-seguranca" type="text" class="validate" maxlength="3">
+						<input placeholder="000" id="codigo-seguranca" class="js-int" type="text" maxlength="3" th:field="*{dadosPagamento.codigoSeguranca}">
 						<label for="codigo-seguranca">Código de segurança</label>
 					</div>
 				</div>
 				<p>
-					<input class="with-gap tc-radio-site" type="radio" id="boleto" name="forma-pagamento" value="boleto" />
-					<label for="boleto">Boleto</label>
+					<input class="with-gap tc-radio-site" type="radio" id="boleto" th:value="${tiposPagamento[1]}"
+						th:field="*{tipoPagamento}" />
+					<label for="boleto" th:text="${tiposPagamento[1].descricao}"></label>
 				</p>
 			</div>
 			<div class="col m4 s12">
@@ -139,15 +159,16 @@
 				<div class="col s12">
 					<div class="input-field">
 						<input type="text" th:value="${#numbers.formatCurrency(@carrinhoCompraController.subTotalCarrinho)}"
-							name="subtotal" id="subtotal" readonly>
+							name="valorSubTotal" id="subtotal" readonly>
 						<label for="subtotal">Subtotal</label>
 					</div>
 					<div class="input-field">
-						<input type="text" th:value="${valorFrete}" name="valor-frete" id="valor-frete" placeholder="R$ 0,00" readonly>
+						<input type="text" name="valorFrete" th:value="${#numbers.formatCurrency(pedido.valorFrete)}" id="valor-frete"
+							placeholder="R$ 0,00" readonly>
 						<label for="valor-frete">Frete</label>
 					</div>
 					<div class="input-field">
-						<input type="text" th:value="${#numbers.formatCurrency(@carrinhoCompraController.subTotalCarrinho)}" name="total"
+						<input type="text" th:value="${#numbers.formatCurrency(@carrinhoCompraController.subTotalCarrinho)}" name="valorTotal"
 							id="total" readonly>
 						<label for="total">Total</label>
 					</div>
@@ -162,6 +183,8 @@
 	</div>
 	</main>
 	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/vendors/jquery.maskMoney.min.js}"></script>
+		<script th:src="@{/javascripts/formatar-numeros.js}"></script>
 		<script th:src="@{/javascripts/vendors/jquery.mask.min.js}"></script>
 		<script th:src="@{/javascripts/calcular-frete.js}"></script>
 		<script th:src="@{/javascripts/finalizar-compra.js}"></script>
