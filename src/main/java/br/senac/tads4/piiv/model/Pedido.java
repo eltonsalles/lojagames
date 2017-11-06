@@ -3,7 +3,7 @@ package br.senac.tads4.piiv.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -44,8 +44,8 @@ public class Pedido implements Serializable {
 	@JoinColumn(name = "id_cliente")
 	private Cliente cliente;
 
-	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	private List<ItemPedido> itensPedido;
+	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	private Set<ItemPedido> itensPedido;
 
 	@NotNull(message = "O campo tipo de pagamento é obrigatório")
 	@Column(name = "tipo_pagamento")
@@ -119,12 +119,22 @@ public class Pedido implements Serializable {
 		this.cliente = cliente;
 	}
 
-	public List<ItemPedido> getItensPedido() {
+	public Set<ItemPedido> getItensPedido() {
 		return itensPedido;
 	}
 
-	public void setItensPedido(List<ItemPedido> itensPedido) {
+	public void setItensPedido(Set<ItemPedido> itensPedido) {
 		this.itensPedido = itensPedido;
+	}
+	
+	public Integer getQuantidadeItensPedido() {
+		Integer quantidade = 0;
+		
+		for (ItemPedido itemPedido : itensPedido) {
+			quantidade += itemPedido.getQuantidade();
+		}
+		
+		return quantidade;
 	}
 
 	public TipoPagamento getTipoPagamento() {

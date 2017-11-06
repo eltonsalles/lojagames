@@ -10,26 +10,31 @@
 		<div class="col s12">
 			<div class="row">
 				<div class="col s12">
-					<a href="#"><i class="material-icons">arrow_back</i></a>
+					<a href="#">
+						<i class="material-icons">arrow_back</i>
+					</a>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col s12  grey lighten-4">
 					<div class="col s5 offset-s1">
-						<p>Pedido nº: 0001</p>
-						<p>Data: 02/11/2017</p>
-						<p>Total: R$ 2599,99</p>
+						<p th:text="|Pedido nº: ${pedido.id}|"></p>
+						<p th:text="|Data: ${pedido.dataPedido.dayOfMonth}/${pedido.dataPedido.monthValue}/${pedido.dataPedido.year}|"></p>
+						<p th:text="|Total: ${#numbers.formatCurrency(pedido.valorTotal)}|"></p>
 					</div>
 					<div class="col s5 offeset-s1">
-						<p>Quantidade de produtos: 33</p>
-						<p>Pagamento: Boleto bancário</p>
-						<div class="row">
+						<p th:text="|Quantidade de produtos: ${pedido.quantidadeItensPedido}|"></p>
+						<p th:text="|Pagamento: ${pedido.tipoPagamento.descricao}|"></p>
+						<div class="row" th:if="${#strings.equals('BOLETO', pedido.tipoPagamento)}">
 							<div class="col m6 s12">
-								<button class="btn waves-effect waves-light amber darken-2 col s12" type="submit" name="boleto">Ver
-									Boleto</button>
+								<button class="btn waves-effect waves-light amber darken-2 col s12" type="button">Ver Boleto</button>
 							</div>
 						</div>
 					</div>
+				</div>
+				<div class="col s12  grey lighten-4">
+					<p th:text="|Prazo de entrega após a confirmação de pagamento: ${pedido.diasEntrega} dia(s)|"></p>
+					<p th:text="|Previsão de Entrega: ${previsaoEntrega.dayOfMonth}/${previsaoEntrega.monthValue}/${previsaoEntrega.year}|" th:if="${!#strings.isEmpty(previsaoEntrega)}"></p>
 				</div>
 			</div>
 			<div class="row">
@@ -43,40 +48,33 @@
 								<tr>
 									<th>Fase</th>
 									<th>Data</th>
-									<th>Horário</th>
 									<th>Status</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
-									<td>Pedido</td>
-									<td>25/10/2017</td>
-									<td>10:00</td>
-									<td>Concluído</td>
-								</tr>
-								<tr>
 									<td>Pagamento</td>
-									<td>28/10/2017</td>
-									<td>16:00</td>
-									<td>Concluído</td>
+									<td
+										th:text="(${!#strings.isEmpty(pedido.dataPagamento)} ? (${pedido.dataPagamento.dayOfMonth}/${pedido.dataPagamento.monthValue}/${pedido.dataPagamento.year}) : '---')"></td>
+									<td th:text="(${!#strings.isEmpty(pedido.dataPagamento)} ? 'Concluído' : 'Pendente')"></td>
 								</tr>
 								<tr>
 									<td>Separação</td>
-									<td>29/10/2017</td>
-									<td>09:00</td>
-									<td>Concluído</td>
+									<td
+										th:text="(${!#strings.isEmpty(pedido.dataSeparacao)} ? (${pedido.dataSeparacao.dayOfMonth}/${pedido.dataSeparacao.monthValue}/${pedido.dataSeparacao.year}) : '---')"></td>
+									<td th:text="(${!#strings.isEmpty(pedido.dataSeparacao)} ? 'Concluído' : 'Pendente')"></td>
 								</tr>
 								<tr>
 									<td>Transporte</td>
-									<td>31/10/2017</td>
-									<td>09:00</td>
-									<td>Concluído</td>
+									<td
+										th:text="(${!#strings.isEmpty(pedido.dataTransporte)} ? (${pedido.dataTransporte.dayOfMonth}/${pedido.dataTransporte.monthValue}/${pedido.dataTransporte.year}) : '---')"></td>
+									<td th:text="(${!#strings.isEmpty(pedido.dataTransporte)} ? 'Concluído' : 'Pendente')"></td>
 								</tr>
 								<tr>
 									<td>Entrega</td>
-									<td>01/11/2017</td>
-									<td>14:00</td>
-									<td>Concluído</td>
+									<td
+										th:text="(${!#strings.isEmpty(pedido.dataEntrega)} ? (${pedido.dataEntrega.dayOfMonth}/${pedido.dataEntrega.monthValue}/${pedido.dataEntrega.year}) : '---')"></td>
+									<td th:text="(${!#strings.isEmpty(pedido.dataEntrega)} ? 'Concluído' : 'Pendente')"></td>
 								</tr>
 							</tbody>
 						</table>
@@ -88,36 +86,20 @@
 					<div class="col s12 black white-text">
 						<h6>PRODUTO(S)</h6>
 					</div>
-					<div class="col s12 m6 offset-m3">
-						<div class="col s6">
-							<img class="responsive-img" th:src="@{/imagens/thumbnail.8.jpg}" alt="Terra Média: Sombras de Mordor">
+					<th:block th:each="item : ${pedido.itensPedido}">
+						<div class="col s12 m6">
+							<div class="col s6">
+								<img class="responsive-img"
+									th:src="(${#lists.isEmpty(item.produto.imagens)} ? (@{/imagens/thumbnail.produto-mock.png}) : (@{/imagens/thumbnail.{nome}(nome=${item.produto.imagens[0].nome})}))"
+									th:alt="(${#lists.isEmpty(item.produto.imagens)} ? 'Imagem padrão do produto' : (${item.produto.imagens[0].descricao}))">
+							</div>
+							<div class="col s6">
+								<p th:text="${item.produto.nome}"></p>
+								<p th:text="|Qtde: ${item.quantidade}|"></p>
+								<p th:text="${#numbers.formatCurrency(item.valorUnitario)}"></p>
+							</div>
 						</div>
-						<div class="col s6">
-							<p>Terra Média: Sombras de Mordor</p>
-							<p>Qtde: 1</p>
-							<p>R$ 199,99</p>
-						</div>
-					</div>
-					<div class="col col s12 m6 offset-m3">
-						<div class="col s6">
-							<img class="responsive-img" th:src="@{/imagens/thumbnail.1.jpg}" alt="Skyrim">
-						</div>
-						<div class="col s6">
-							<p>Skyrim</p>
-							<p>Qtde: 1</p>
-							<p>R$ 199,99
-						</div>
-					</div>
-					<div class="col col s12 m6 offset-m3">
-						<div class="col s6">
-							<img class="responsive-img" th:src="@{/imagens/thumbnail.27.jpg}" alt="Playstation 4">
-						</div>
-						<div class="col s6">
-							<p>Playstation 4</p>
-							<p>Qtde: 1</p>
-							<p>R$ 2199,99</p>
-						</div>
-					</div>
+					</th:block>
 				</div>
 			</div>
 			<div class="row">
@@ -127,14 +109,18 @@
 					</div>
 					<div class="col s12 grey lighten-4">
 						<p>
-							<strong>Fillipe Pinheiro</strong>
+							<strong th:text="${pedido.cliente.nome}"></strong>
 						</p>
-						<p>Av. Lopes de Azevedo, 702
-						<p>Jardim Guedala
-						<p>05603-001</p>
-
-						<p>São Paulo - SP</p>
-						<p>Ref.: Praça Alfredo Volpi</p>
+						<p th:text="|${pedido.enderecoEntrega.logradouro}, ${pedido.enderecoEntrega.numero}|">
+						<p th:text="${pedido.enderecoEntrega.complemento}"
+							th:if="${!#strings.isEmpty(pedido.enderecoEntrega.complemento)}"></p>
+						<p th:text="${pedido.enderecoEntrega.bairro}"></p>
+						<p
+							th:text="|${#strings.substring(pedido.enderecoEntrega.cep,0,5)}-${#strings.substring(pedido.enderecoEntrega.cep,5,8)}|"></p>
+						<p th:text="|${pedido.enderecoEntrega.cidade} - ${#strings.toUpperCase(pedido.enderecoEntrega.uf)}|">São Paulo
+							- SP</p>
+						<p th:text="|Ref.: ${pedido.enderecoEntrega.referencia}|"
+							th:if="${!#strings.isEmpty(pedido.enderecoEntrega.referencia)}"></p>
 					</div>
 				</div>
 				<div class="col m6 s12">
@@ -142,10 +128,10 @@
 						<h6>RESUMO DE VALORES</h6>
 					</div>
 					<div class="col s12 grey lighten-4">
-						<p>Subtotal: R$ 2.599,97</p>
-						<p>Frete: R$ 39,99</p>
+						<p th:text="|SubTotal: ${#numbers.formatCurrency(pedido.valorSubTotal)}|"></p>
+						<p th:text="|Frete: ${#numbers.formatCurrency(pedido.valorFrete)}|"></p>
 						<p>
-							<strong>Total: R$ 2.639,96</strong>
+							<strong th:text="|Total: ${#numbers.formatCurrency(pedido.valorTotal)}|"></strong>
 						</p>
 					</div>
 				</div>

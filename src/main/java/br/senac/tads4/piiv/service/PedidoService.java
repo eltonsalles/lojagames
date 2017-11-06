@@ -1,8 +1,9 @@
 package br.senac.tads4.piiv.service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -28,12 +29,12 @@ public class PedidoService {
 	@Autowired
 	private ApplicationEventPublisher publisher;
 
-	public void salvar(Pedido pedido, List<ItemProdutoDto> carrinho) {
+	public Long salvar(Pedido pedido, List<ItemProdutoDto> carrinho) {
 		// Data do pedido
 		pedido.setDataPedido(LocalDate.now());
 
 		// Carrinho de compra
-		List<ItemPedido> itensPedido = new ArrayList<>();
+		Set<ItemPedido> itensPedido = new HashSet<>();
 		for (ItemProdutoDto itemProdutoDto : carrinho) {
 			Produto produto = new Produto();
 			produto.setIdProduto(itemProdutoDto.getId());
@@ -77,8 +78,10 @@ public class PedidoService {
 		// Status do pedido
 		pedido.setStatus(StatusPedido.PENDENTE_PAGTO);
 
-		pedidoRepository.save(pedido);
+		pedidoRepository.saveAndFlush(pedido);
 		
-		publisher.publishEvent(new PedidoSalvoEvent(pedido));
+		publisher.publishEvent(new PedidoSalvoEvent(pedido)); // Pegar o número de parcelas
+		
+		return pedido.getId();
 	}
 }

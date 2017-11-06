@@ -162,7 +162,7 @@ public class CarrinhoCompraController {
 		}
 
 		if (pedido.getTipoPagamento().toString().equalsIgnoreCase("CARTAO_CREDITO")) {
-			if (pedido.getDadosPagamento().getParcelas() == null
+			if (pedido.getParcelas() == null
 					|| StringUtils.isEmpty(pedido.getDadosPagamento().getNomeTitular())
 					|| StringUtils.isEmpty(pedido.getDadosPagamento().getCartao())
 					|| StringUtils.isEmpty(pedido.getDadosPagamento().getMesVencimento())
@@ -179,9 +179,11 @@ public class CarrinhoCompraController {
 		Cliente cliente = clienteRepository.findOne(1L);
 		pedido.setCliente(cliente);
 
-		pedidoService.salvar(pedido, this.getCarrinho());
+		Long id = pedidoService.salvar(pedido, this.getCarrinho());
+		this.carrinho.removeAll(carrinho);
+		this.cep = "";
 
-		return new ModelAndView("redirect:/pedidos");
+		return new ModelAndView("redirect:/pedidos/" + id);
 	}
 
 	public List<ItemProdutoDto> getCarrinho() {
