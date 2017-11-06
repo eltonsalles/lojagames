@@ -30,6 +30,7 @@
 								<button class="btn waves-effect waves-light amber darken-2 col s12" type="button">Ver Boleto</button>
 							</div>
 						</div>
+						<p th:if="${#strings.equals('CARTAO_CREDITO', pedido.tipoPagamento)}" th:text="|Pagamento realizado em: ${pedido.parcelas}x de ${#numbers.formatCurrency(pedido.valorTotal / pedido.parcelas)}|"></p>
 					</div>
 				</div>
 				<div class="col s12  grey lighten-4">
