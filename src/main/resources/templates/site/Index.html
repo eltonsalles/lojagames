@@ -29,7 +29,9 @@
 				<article class="col col-content z-depth-2">
 					<div class="col s12 m12">
 						<a th:href="@{/detalhes-do-produto/} + ${produto.idProduto}">
-							<img class="responsive-img" th:src="(${#lists.isEmpty(produto.imagens)} ? (@{/imagens/thumbnail.produto-mock.png}) : (@{/imagens/thumbnail.{nome}(nome=${produto.imagens[0].nome})}))" th:alt="(${#lists.isEmpty(produto.imagens)} ? 'Imagem padrão do produto' : (${produto.imagens[0].descricao}))">
+							<img class="responsive-img"
+								th:src="(${#lists.isEmpty(produto.imagens)} ? (@{/imagens/thumbnail.produto-mock.png}) : (@{/imagens/thumbnail.{nome}(nome=${produto.imagens[0].nome})}))"
+								th:alt="(${#lists.isEmpty(produto.imagens)} ? 'Imagem padrão do produto' : (${produto.imagens[0].descricao}))">
 						</a>
 					</div>
 					<div class="col s12 m12">
@@ -44,9 +46,13 @@
 							</p>
 						</div>
 						<div class="col s4 m4 add-carrinho">
-							<a href="#">
-								<i class="material-icons">add_shopping_cart</i>
-							</a>
+							<form th:action="@{/carrinho-compra/adicionar-item-carrinho}" method="post">
+								<input type="hidden" name="id" th:value="${produto.idProduto}">
+								<input type="hidden" name="cep">
+								<button type="submit" class="btn-comprar tc-btn-index">
+									<i class="material-icons">add_shopping_cart</i>
+								</button>
+							</form>
 						</div>
 					</div>
 				</article>

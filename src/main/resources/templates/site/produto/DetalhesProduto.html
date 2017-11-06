@@ -18,9 +18,9 @@
 			<div class="nav-wrapper">
 				<div class="col s12">
 					<a th:href="@{/}" class="breadcrumb">Início</a>
-					<a th:href="@{/categoria}" class="breadcrumb"
-						th:text="|${produto.tipoProduto.descricao} - ${produto.tipoConsole.nome}|"></a>
-					<a href="#" class="breadcrumb" th:text="${produto.nome}"></a>
+					<a th:href="|@{/lista-produto/}${produto.tipoConsole.id}/${produto.tipoProduto}|" class="breadcrumb"
+						th:text="|${produto.tipoConsole.nome}: ${produto.tipoProduto.descricao}|"></a>
+					<a href="" class="breadcrumb" th:text="${produto.nome}"></a>
 				</div>
 			</div>
 		</nav>

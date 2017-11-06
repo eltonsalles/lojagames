@@ -10,23 +10,33 @@
 		<nav class="z-depth-0 white breadcrumb-site breadcrumb-site-detalhes-produto">
 			<div class="nav-wrapper">
 				<div class="col s12">
-					<a th:href="@{/}" class="breadcrumb">Início</a> <a href="#" class="breadcrumb">Lista de Produtos</a>
+					<a th:href="@{/}" class="breadcrumb">Início</a>
+					<a href="#" class="breadcrumb">Lista de Produtos</a>
 				</div>
 			</div>
 		</nav>
 	</div>
 	<div class="row">
 		<div class="col s12 m12 l2">
-			<h5 class="left-align"><strong>CATEGORIA</strong></h5>
+			<h5 class="left-align">
+				<strong>CATEGORIA</strong>
+			</h5>
 			<ul>
 				<th:block th:each="tipoProduto : ${tiposProduto}">
-					<li><a class="black-text" th:href="|@{/lista-produto/}${idConsole}/${tipoProduto}|" th:text="${tipoProduto.descricao}"></a></li>
+					<li>
+						<a class="black-text" th:href="|@{/lista-produto/}${idConsole}/${tipoProduto}|" th:text="${tipoProduto.descricao}"></a>
+					</li>
 				</th:block>
 			</ul>
-			<h5 class="left-align hide js-genero"><strong>GÊNEROS</strong></h5>
+			<h5 class="left-align hide js-genero">
+				<strong>GÊNEROS</strong>
+			</h5>
 			<ul class="hide js-genero">
 				<th:block th:each="genero : ${generos}">
-					<li><a class="black-text" th:href="|@{/lista-produto/}${idConsole}/${tipoProduto}/${genero.id}|" th:text="${genero.nome}"></a></li>
+					<li>
+						<a class="black-text" th:href="|@{/lista-produto/}${idConsole}/${tipoProduto}/${genero.id}|"
+							th:text="${genero.nome}"></a>
+					</li>
 				</th:block>
 			</ul>
 		</div>
@@ -40,7 +50,8 @@
 							<option value="2">Mais vendidos</option>
 							<option value="3">Menor preço</option>
 							<option value="4">Maior preço</option>
-						</select> <label>Ordenar por:</label>
+						</select>
+						<label>Ordenar por:</label>
 					</div>
 				</div>
 			</form>
@@ -48,9 +59,10 @@
 				<div class="col s6 m3 produto">
 					<article class="col col-content z-depth-2">
 						<div class="col s12 m12">
-							<a th:href="@{/detalhes-do-produto/} + ${produto.idProduto}"> <img class="responsive-img"
-								th:src="(${#lists.isEmpty(produto.imagens)} ? (@{/imagens/thumbnail.produto-mock.png}) : (@{/imagens/thumbnail.{nome}(nome=${produto.imagens[0].nome})}))"
-								th:alt="(${#lists.isEmpty(produto.imagens)} ? 'Imagem padrão do produto' : (${produto.imagens[0].descricao}))">
+							<a th:href="@{/detalhes-do-produto/} + ${produto.idProduto}">
+								<img class="responsive-img"
+									th:src="(${#lists.isEmpty(produto.imagens)} ? (@{/imagens/thumbnail.produto-mock.png}) : (@{/imagens/thumbnail.{nome}(nome=${produto.imagens[0].nome})}))"
+									th:alt="(${#lists.isEmpty(produto.imagens)} ? 'Imagem padrão do produto' : (${produto.imagens[0].descricao}))">
 							</a>
 						</div>
 						<div class="col s12 m12">
@@ -59,13 +71,19 @@
 						<div class="col s12 m12">
 							<div class="col s8 m8">
 								<p class="preco a-vista">
-									<span th:text="${#numbers.formatCurrency(produto.precoVenda)}"></span> <br> <span
-										th:text="${#numbers.formatCurrency(produto.precoVenda * percentualDesconto)}"></span>
+									<span th:text="${#numbers.formatCurrency(produto.precoVenda)}"></span>
+									<br>
+									<span th:text="${#numbers.formatCurrency(produto.precoVenda * percentualDesconto)}"></span>
 								</p>
 							</div>
 							<div class="col s4 m4 add-carrinho">
-								<a href="#"> <i class="material-icons">add_shopping_cart</i>
-								</a>
+								<form th:action="@{/carrinho-compra/adicionar-item-carrinho}" method="post">
+									<input type="hidden" name="id" th:value="${produto.idProduto}">
+									<input type="hidden" name="cep">
+									<button type="submit" class="btn-comprar tc-btn-index">
+										<i class="material-icons">add_shopping_cart</i>
+									</button>
+								</form>
 							</div>
 						</div>
 					</article>

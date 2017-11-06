@@ -10,11 +10,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.senac.tads4.piiv.model.Pedido;
 import br.senac.tads4.piiv.repository.PedidoRepository;
+import br.senac.tads4.piiv.repository.TipoConsoleRepository;
 
 @Controller
 @RequestMapping("/pedidos")
 public class PedidoController {
 
+	@Autowired
+	private TipoConsoleRepository tipoConsoleRepository;
+	
 	@Autowired
 	private PedidoRepository pedidoRepository;
 
@@ -24,6 +28,7 @@ public class PedidoController {
 
 		Pedido pedido = pedidoRepository.findOne(id);
 		mv.addObject("pedido", pedido);
+		mv.addObject("tiposConsole", tipoConsoleRepository.findAll());
 
 		if (pedido.getDataPagamento() != null) {
 			LocalDate previsaoEntrega = pedido.getDataPagamento().plusDays(pedido.getDiasEntrega());

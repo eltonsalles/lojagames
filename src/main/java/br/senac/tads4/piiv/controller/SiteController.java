@@ -44,6 +44,7 @@ public class SiteController {
 		Pageable limit = new PageRequest(0, 16);
 		mv.addObject("produtos", produtoRepository.findAll(limit));
 		percentualDesconto(mv);
+		menu(mv);
 		return mv;
 	}
 
@@ -53,6 +54,7 @@ public class SiteController {
 
 		tiposProduto(mv);
 		percentualDesconto(mv);
+		menu(mv);
 		mv.addObject("produto", produtoRepository.findOne(id));
 		mv.addObject("maximoParcelas", produtoService.getMaximoParcelas());
 		return mv;

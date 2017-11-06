@@ -1,5 +1,19 @@
 /* Index */
 
+.tc-btn-index {
+	background: white;
+	border: 0;
+}
+
+.tc-btn-index i {
+	font-size: 2em !important;
+}
+
+.tc-btn-index:active,
+.tc-btn-index:focus {
+	background: white;
+}
+
 /* Tira a borda de active na página index */
 .remove-indicator .indicator {
 	background-color: #000 !important;
