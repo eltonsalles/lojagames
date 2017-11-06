@@ -88,6 +88,8 @@ $(function() {
 					valorFrete.val('R$ ' + $(this).val().split('|')[0]);
 					diasEntrega.val($(this).val().split('|')[1]);
 					total.val('R$ ' + converterParaReal(converterParaDecimal(subtotal.val()) + converterParaDecimal($(this).val())));
+					
+					atualizarValoresParcelas();
 				});
 			},
 			error: function () {

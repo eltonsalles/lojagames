@@ -15,6 +15,8 @@ $(function() {
 			camposPagtoCartao.each(function(index, c) {
 				$(c).attr('required', 'required');
 			})
+			
+			atualizarValoresParcelas();
 		} else {
 			pagamentoCartao.addClass('hide');
 			camposPagtoCartao.each(function(index, c) {

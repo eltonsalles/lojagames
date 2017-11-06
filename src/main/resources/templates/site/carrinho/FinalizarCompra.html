@@ -102,9 +102,8 @@
 				</p>
 				<div class="tc-pagamento-cartao js-pagamento-cartao hide">
 					<div class="input-field tc-form-opcao-pagamento">
-						<select th:field="*{parcelas}" class="js-pagto-cartao-credito">
-							<option value="" disabled selected>Selecione o nº de parcelas</option>
-							<option th:each="parcela : ${#numbers.sequence(1, maximoParcelas)}" th:value="${parcela}" th:text="|${parcela}x sem juros|"></option>
+						<select th:field="*{parcelas}" class="js-pagto-cartao-credito js-parcelas"
+							th:attr="data-maximo-parcelas=${maximoParcelas}">
 						</select>
 						<label>Nº de parcelas</label>
 					</div>
@@ -114,7 +113,8 @@
 						<label for="nome">Nome</label>
 					</div>
 					<div class="input-field tc-form-opcao-pagamento">
-						<input placeholder="0000 0000 0000 0000" id="numero-cartao" type="text" maxlength="20" class="js-pagto-cartao-credito" th:field="*{dadosPagamento.cartao}">
+						<input placeholder="0000 0000 0000 0000" id="numero-cartao" type="text" maxlength="20"
+							class="js-pagto-cartao-credito" th:field="*{dadosPagamento.cartao}">
 						<label for="numero-cartao">Nº do Cartão</label>
 					</div>
 					<div class="input-field tc-form-opcao-pagamento">
@@ -132,7 +132,8 @@
 						<label>Ano de vencimento</label>
 					</div>
 					<div class="input-field tc-form-opcao-pagamento">
-						<input placeholder="000" id="codigo-seguranca" class="js-int js-pagto-cartao-credito" type="text" maxlength="3" th:field="*{dadosPagamento.codigoSeguranca}">
+						<input placeholder="000" id="codigo-seguranca" class="js-int js-pagto-cartao-credito" type="text" maxlength="3"
+							th:field="*{dadosPagamento.codigoSeguranca}">
 						<label for="codigo-seguranca">Código de segurança</label>
 					</div>
 				</div>
@@ -159,8 +160,8 @@
 				</div>
 				<div class="col s12">
 					<div class="input-field">
-						<input type="text" th:value="${#numbers.formatCurrency(pedido.valorSubTotal)}"
-							name="valorSubTotal" id="subtotal" readonly>
+						<input type="text" th:value="${#numbers.formatCurrency(pedido.valorSubTotal)}" name="valorSubTotal" id="subtotal"
+							readonly>
 						<label for="subtotal">Subtotal</label>
 					</div>
 					<div class="input-field">
@@ -169,8 +170,7 @@
 						<label for="valor-frete">Frete</label>
 					</div>
 					<div class="input-field">
-						<input type="text" th:value="${#numbers.formatCurrency(pedido.valorTotal)}" name="valorTotal"
-							id="total" readonly>
+						<input type="text" th:value="${#numbers.formatCurrency(pedido.valorTotal)}" name="valorTotal" id="total" readonly>
 						<label for="total">Total</label>
 					</div>
 				</div>

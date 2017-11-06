@@ -163,3 +163,19 @@ function converterParaReal(valor) {
 	valor = inteiro + "," + decimal; //.substring(0, 2);
 	return valor;
 }
+
+// Atualizar valores das parcelas
+function atualizarValoresParcelas() {
+	var parcelas = $('.js-parcelas');
+	var maximoParcelas = $('#parcelas').data('maximo-parcelas');
+	var total = converterParaDecimal($('#total').val());
+	
+	parcelas.material_select('destroy');
+	parcelas.html('');
+	parcelas.append("<option value='' disabled selected>Selecione o nº de parcelas</option>");
+	for (var i = 1; i <= maximoParcelas; i++) {
+		parcelas.append("<option value='" + i + "'>" + i + "x de R$ " + converterParaReal(total / i) + " sem juros</option>");
+	}
+	
+	parcelas.material_select();
+}
