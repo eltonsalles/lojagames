@@ -39,18 +39,21 @@
 					</div>
 					<div class="col s12 m12">
 						<div class="col s8 m8">
-							<p class="preco a-vista">
+							<p class="preco a-vista js-preco-avista-add-carrinho">
 								<span th:text="${#numbers.formatCurrency(produto.precoVenda)}"></span>
 								<br>
 								<span th:text="${#numbers.formatCurrency(produto.precoVenda * percentualDesconto)}"></span>
 							</p>
+							<p class="tc-texto-add-carrinho js-texto-add-carrinho hide">
+								ADICIONAR AO CARRINHO
+							</p>
 						</div>
-						<div class="col s4 m4 add-carrinho">
-							<form th:action="@{/carrinho-compra/adicionar-item-carrinho}" method="post">
+						<div class="col s4 m4 tc-container-form-add-carrinho js-container-form-add-carrinho">
+							<form th:action="@{/carrinho-compra/adicionar-item-carrinho}" method="post" class="grey lighten-2 js-form-add-carrinho">
 								<input type="hidden" name="id" th:value="${produto.idProduto}">
 								<input type="hidden" name="cep">
 								<button type="submit" class="btn-comprar tc-btn-index">
-									<i class="material-icons">add_shopping_cart</i>
+									<i class="material-icons js-icon-add-carrinho">add_shopping_cart</i>
 								</button>
 							</form>
 						</div>

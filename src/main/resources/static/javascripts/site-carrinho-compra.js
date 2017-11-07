@@ -4,6 +4,7 @@ $(document).ready(function() {
 	var carrinho = $("div[class^='produto-id']");
 	var msgProdutoCarrinho = $('.mensagem-produto-carrinho');
 
+	// Verifica a necessidade de apresentar uma mensagem de que o produto foi adicionado ao carrinho
 	if (msgProdutoCarrinho.length) {
 		Materialize.toast(msgProdutoCarrinho.text(), 4000, 'green');
 	}
@@ -33,19 +34,38 @@ $(document).ready(function() {
 			scrollTop : 0
 		}, 2000);
 	});
+	
+	// Código para fechar os alertas do materialize
+	$('body').on('click', '.tc-alert .tc-close', function() {
+		$(this).parent().fadeOut(300, function() {
+			$(this).remove();
+		});
+	});
+	
+	// Arruma a string para a submissão
+	$('.js-arrumar-valor-frete').submit(function() {
+		var subTotal = $('#subtotal');
+		var valorFrete = $('#valor-frete');
+		var total = $('#total');
+		
+		subTotal.val(subTotal.val().replace('R$ ', ''));
+		valorFrete.val(valorFrete.val().replace('R$ ', ''));
+		total.val(total.val().replace('R$ ', ''));
+	});
 
-	// Verifica a quantidade em estoque do produto
+	// Verifica a quantidade em estoque do produto quando o cliente clica
 	$('.js-quantidade').on('click', function() {
 		var id = $(this).attr('id').split('-')[2];
 		verificarEstoque(id, $(this).val(), $(this));
 	});
 	
-	// Verifica a quantidade em estoque do produto
+	// Verifica a quantidade em estoque do produto quando o cliente digita
 	$('.js-quantidade').on('change', function() {
 		var id = $(this).attr('id').split('-')[2];
 		verificarEstoque(id, $(this).val(), $(this));
 	});
 
+	// Função que verifica a quantidade em estoque do produto
 	function verificarEstoque(id, quantidade, input) {
 		var url = input.data('alterar-quantidade');
 		
@@ -71,6 +91,7 @@ $(document).ready(function() {
 		});
 	}
 	
+	// Função que atualiza a quantidade do item conforme o estoque
 	function atualizarValores(id, quantidade) {
 		var produtos = $('.js-container-item-carrinho');
 		var preco = $('#preco-produto-' + id).val();
@@ -91,24 +112,6 @@ $(document).ready(function() {
 			total.val('R$ ' + converterParaReal(subTotal));
 		}
 	}
-	
-	// Arruma a string para a submissão
-	$('.js-arrumar-valor-frete').submit(function() {
-		var subTotal = $('#subtotal');
-		var valorFrete = $('#valor-frete');
-		var total = $('#total');
-		
-		subTotal.val(subTotal.val().replace('R$ ', ''));
-		valorFrete.val(valorFrete.val().replace('R$ ', ''));
-		total.val(total.val().replace('R$ ', ''));
-	});
-	
-	// Código para fechar os alertas do materialize
-	$('body').on('click', '.tc-alert .tc-close', function() {
-		$(this).parent().fadeOut(300, function() {
-			$(this).remove();
-		});
-	});
 });
 
 // Converte string em decimal

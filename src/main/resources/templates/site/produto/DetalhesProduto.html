@@ -3,6 +3,7 @@
 	layout:decorator="layout/site/LayoutDetalhesProduto" xlmns:thecode="http://thecode.com.br">
 <head>
 <title>Detalhes do produto</title>
+<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/site-detalhes-produto.css}" />
 </head>
 <body>
 	<div class="parallax-container" layout:fragment="paralax-detalhes-produto">
@@ -112,64 +113,70 @@
 							<p th:case="${tiposProduto[0]}">
 								<span>
 									<strong>Fabricante: </strong>
-									<i th:text="${produto.fabricante}"> </i>
+									<i th:text="${produto.fabricante}"></i>
 									<br>
 									<strong>Modelo: </strong>
-									<i th:text="${produto.modelo}"> </i>
+									<i th:text="${produto.modelo}"></i>
 									<br>
 									<strong>Capacidade: </strong>
-									<i th:text="${produto.capacidade}"> </i>
+									<i th:text="${produto.capacidade.descricao}"></i>
+									<br>
 									<strong>Voltagem: </strong>
-									<i th:text="${produto.voltagem}"> </i>
+									<i th:text="${produto.voltagem.descricao}"></i>
+									<br>
 									<strong>Cor: </strong>
-									<i th:text="${produto.cor}"> </i>
+									<i th:text="${produto.cor.descricao}"></i>
+									<br>
 									<strong>Resolução: </strong>
-									<i th:text="${produto.resolucao}"> </i>
+									<i th:text="${produto.resolucao.descricao}"></i>
+									<br>
 									<strong>Midia: </strong>
-									<i th:text="${produto.midia}"> </i>
+									<i th:text="${produto.midia.descricao}"></i>
 								</span>
 							</p>
 							<p th:case="${tiposProduto[1]}">
 								<span>
 									<strong>Fabricante: </strong>
-									<i th:text="${produto.fabricante}"> </i>
+									<i th:text="${produto.fabricante}"></i>
 									<br>
 									<strong>Conexao: </strong>
-									<i th:text="${produto.conexao}"> </i>
+									<i th:text="${produto.conexao.descricao}"></i>
 									<br>
 									<strong>Alimentação: </strong>
-									<i th:text="${produto.alimentacao}"> </i>
+									<i th:text="${produto.alimentacao.descricao}"></i>
+									<br>
 									<strong>Alcance: </strong>
-									<i th:text="${produto.alcance}"> </i>
+									<i th:text="${produto.alcance}"></i>
+									<br>
 									<strong>Cor: </strong>
-									<i th:text="${produto.cor}"> </i>
+									<i th:text="${produto.cor.descricao}"></i>
 								</span>
 							</p>
 							<p th:case="${tiposProduto[2]}">
 								<span>
 									<strong>Produtora: </strong>
-									<i th:text="${produto.produtora}"> </i>
+									<i th:text="${produto.produtora}"></i>
 									<br>
 									<strong>Ano de lançamento: </strong>
-									<i th:text="${produto.lancamento}"> </i>
+									<i th:text="|${produto.lancamento.dayOfMonth}/${produto.lancamento.monthValue}/${produto.lancamento.year}|"></i>
 									<br>
 									<strong>Idiomas: </strong>
-									<i th:text="${produto.idioma}"> </i>
+									<i th:text="${produto.idioma.descricao}"></i>
 									<br>
 									<strong>Legendas: </strong>
-									<i th:text="${produto.legenda}"> </i>
+									<i th:text="${produto.legenda.descricao}"></i>
 									<br>
 									<strong>Idade Recomendada: </strong>
-									<i th:text="${produto.idade}"> </i>
+									<i th:text="${produto.idade}"></i>
 									<br>
 									<strong>Número de jogadores offline: </strong>
-									<i th:text="${produto.qtdeJogadoresOff}"> </i>
+									<i th:text="${produto.qtdeJogadoresOff}"></i>
 									<br>
 									<strong>Número de jogadores online:</strong>
-									<i th:text="${produto.qtdeJogadoresOn}"> </i>
+									<i th:text="${produto.qtdeJogadoresOn}"></i>
 									<br>
 									<strong>Resolução: </strong>
-									<i th:text="${produto.resolucao}"> </i>
+									<i th:text="${produto.resolucao.descricao}"></i>
 								</span>
 							</p>
 						</div>
@@ -181,7 +188,7 @@
 						Requisitos
 					</div>
 					<div class="collapsible-body">
-						<span th:text="${produto.tipoConsole.nome}"> </span>
+						<span th:text="${produto.tipoConsole.nome}"></span>
 					</div>
 				</li>
 				<li>
@@ -190,7 +197,7 @@
 						Itens Inclusos
 					</div>
 					<div class="collapsible-body">
-						<span th:text="${produto.itensInclusos}"> </span>
+						<span th:text="${produto.itensInclusos}"></span>
 					</div>
 				</li>
 				<li>
@@ -200,7 +207,7 @@
 					</div>
 					<div class="collapsible-body">
 						<strong>
-							<span th:text="${produto.garantia}"> </span>
+							<span th:text="${produto.garantia}"></span>
 							Meses
 						</strong>
 					</div>

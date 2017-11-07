@@ -1,0 +1,56 @@
+/***********************************************************************************************************************/
+/* Detalhes de Produto */
+
+/* Aumenta o tamanho da fonte do preço */
+.detalhes-produto {
+	font-size: 2.5rem;
+}
+
+/* Alterar o tamanho da fonte dos dizeres de boleto bancário */
+.boleto-bancario {
+	font-size: 0.9rem;
+}
+
+/* Garante que no botão comprar as letras sempre serão maiúsculas */
+.btn-comprar {
+	text-transform: uppercase;
+}
+
+/* Form para calcular o frete */
+#form-frete {
+	margin-top: 3%;
+	border: 1px solid #e0e0e0;
+}
+
+/* Altera o tamanho da fonte do texto para o frete */
+.texto-frete {
+	font-weight: bold;
+	font-size: 0.8rem;
+}
+
+/* Coloca margem no topo para ficar visualmente melhor */
+label[for="calcular-frete"], input[name="calcular-frete"] {
+	margin-top: 13% !important;
+}
+
+/* Deixa a font da collections em negrito */
+.valores-parcela * {
+	color: black !important;
+}
+
+/* Deixa a font das lis menores */
+.valores-parcela li {
+	font-size: 0.8rem;
+}
+
+/* Forma e tamanho para a drase meramente ilustrativa */
+.ilustrativa {
+	font-style: italic;
+	font-size: 0.7rem;
+	color: #9e9e9e;
+}
+
+/* Alura para o parallax */
+.parallax-container {
+	height: 300px;
+}

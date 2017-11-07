@@ -70,7 +70,7 @@ $(document).ready(function() {
 
 	// Atribui ao botão a função de voltar ao topo
 	$('.btn-voltar-topo').click(function() {
-		$('html, boby').animate({
+		$('html, body').animate({
 			scrollTop : 0
 		}, 2000);
 	});
@@ -81,4 +81,37 @@ $(document).ready(function() {
 			$(this).remove();
 		});
 	});
+	
+
+	// Função para destacar que o cliente pode adicionar o produto direto no carrinho
+	btnAddCarrinhoDireto();
 });
+
+// Função para destacar que o cliente pode adicionar o produto direto no carrinho
+function btnAddCarrinhoDireto() {
+	var produto = $('.produto');
+	
+	produto.on('mouseover', function() {
+		var precoAvista = $(this).find('.js-preco-avista-add-carrinho');
+		var textoAddCarrinho = $(this).find('.js-texto-add-carrinho');
+		var formAddCarrinho = $(this).find('.js-form-add-carrinho');
+		var iconAddCarrinho =  $(this).find('.js-icon-add-carrinho');
+		
+		precoAvista.addClass('hide');
+		textoAddCarrinho.removeClass('hide');
+		formAddCarrinho.removeClass('grey lighten-2').addClass('orange lighten-2');
+		iconAddCarrinho.text('add');
+	});
+	
+	produto.on('mouseout', function() {
+		var precoAvista = $(this).find('.js-preco-avista-add-carrinho');
+		var textoAddCarrinho = $(this).find('.js-texto-add-carrinho');
+		var formAddCarrinho = $(this).find('.js-form-add-carrinho');
+		var iconAddCarrinho =  $(this).find('.js-icon-add-carrinho');
+		
+		precoAvista.removeClass('hide');
+		textoAddCarrinho.addClass('hide');
+		formAddCarrinho.removeClass('orange lighten-2').addClass('grey lighten-2');
+		iconAddCarrinho.text('add_shopping_cart');
+	});
+}

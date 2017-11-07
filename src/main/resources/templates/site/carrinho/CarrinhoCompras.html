@@ -3,6 +3,7 @@
 	layout:decorator="layout/site/LayoutCarrinhoCompra" xlmns:thecode="http://thecode.com.br">
 <head>
 <title>Carrinho de compra</title>
+<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/site-carrinho-compra.css}" />
 </head>
 <body>
 	<main class="container" layout:fragment="conteudo">
@@ -95,9 +96,5 @@
 		</div>
 	</div>
 	</main>
-	<th:block layout:fragment="javascript-extra">
-		<script th:src="@{/javascripts/vendors/jquery.mask.min.js}"></script>
-		<script th:src="@{/javascripts/calcular-frete.js}"></script>
-	</th:block>
 </body>
 </html>

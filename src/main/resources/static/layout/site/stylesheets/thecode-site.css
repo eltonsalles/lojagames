@@ -1,32 +1,9 @@
-/* Index */
+/***********************************************************************************************************************/
+/* Geral do site */
 
-.tc-btn-index {
-	background: white;
-	border: 0;
-}
-
-.tc-btn-index i {
-	font-size: 2em !important;
-}
-
-.tc-btn-index:active,
-.tc-btn-index:focus {
-	background: white;
-}
-
-/* Tira a borda de active na página index */
-.remove-indicator .indicator {
-	background-color: #000 !important;
-}
-
-/* Altera a cor da fonte do breadcrumb */
-.breadcrumb-site a, .breadcrumb-site a:before {
-	color: #000 !important;
-}
-
-/* Margem para a página de detalhes de produto */
-.breadcrumb-site-detalhes-produto {
-	
+/* Altura mínima para o header */
+header {
+	min-height: 112px;
 }
 
 /* Margem no topo dos containers */
@@ -34,61 +11,11 @@ main[class="container"] {
 	margin-top: 1%;
 }
 
-/* Margem nas divs de produto */
-.produto {
-	margin-bottom: 2%;
-}
-
-/* Muda a cor do icone de carrinho no produto */
-.produto:hover i {
-	color: #e65100;
-}
-
-/* Da um espaço em baixo no título do jogo */
-.produto h6 {
-	padding-bottom: 5%;
-	min-height: 41px;
-}
-
-/* Tira a margem e deixa em negrito o preço */
-.preco {
-	margin: 0;
-	font-weight: bold;
-}
-
-/* Tira o padding da div que recebe os preços, os dizeres á vista e o carrinho */
-.col-content>.col:nth-child(3) {
-	padding: 0;
-}
-
-/* Muda o tamanho da font do preço */
-.preco {
-	font-size: 0.7rem;
-}
-
-/* Colocar a linha no meio do preço antigo e deixa ele um rem menor */
-.preco span:first-child {
-	text-decoration: line-through;
-	font-size: 0.8rem;
-}
-
-/* Muda o tamanho e a cor do icone de carrinho no produto  */
-.add-carrinho a i {
-	font-size: 3rem;
-	color: #009688;
-}
-
 /* Posiciona o botão voltar ao topo */
 .btn-voltar-topo {
 	position: fixed;
 	top: 80%;
 	left: 90%;
-}
-
-/* Footer */
-.footer-copyright p {
-	width: 100%;
-	text-align: center;
 }
 
 /* Borda da div que contém o form do search para dar mais destaque */
@@ -100,16 +27,15 @@ main[class="container"] {
 	border-image-slice: 1;
 }
 
-/* Altura mínima para o header */
-header {
-	min-height: 112px;
-}
-
-@media ( max-width : 667px) {
-	/* Quebra de linha */
-	.a-vista:after {
-		display: block;
-	}
+/* Mostra a quantidade de itens no carrinho */
+.contar-produtos-carrinho {
+	position: absolute;
+	top: 8px;
+	right: 55px;
+	background: #ff9800;
+	border-radius: 100%;
+	line-height: 20px;
+	padding: 0 6px;
 }
 
 @media ( max-width : 768px) {
@@ -118,15 +44,135 @@ header {
 		min-height: 57px;
 	}
 
-	/* Diminui o tamanho da fonto do breadcrumb */
+	/* Posiciona o botão voltar ao topo */
+	.btn-voltar-topo {
+		top: 85%;
+		left: 80%;
+	}
+
+	/* Número de itens no carrinho */
+	.contar-produtos-carrinho {
+		right: 10px;
+	}
+}
+
+@media ( max-width : 1024px) {
+	/* Número de itens no carrinho */
+	.contar-produtos-carrinho {
+		right: 32px;
+	}
+}
+
+/***********************************************************************************************************************/
+/* Menu e Breadcrumb */
+
+/* Tira a borda de active na página index */
+.remove-indicator .indicator {
+	background-color: #000 !important;
+}
+
+/* Altera a cor da fonte do breadcrumb */
+.breadcrumb-site a, .breadcrumb-site a:before {
+	color: #000 !important;
+}
+
+@media ( max-width : 768px) {
+	/* Diminui o tamanho da fonte do breadcrumb */
 	.breadcrumb-site a, .breadcrumb-site a:before {
 		font-size: 1rem;
 	}
+}
 
+/***********************************************************************************************************************/
+/* Produtos */
+
+/* Margem nas divs de produto */
+.produto {
+	margin-bottom: 2%;
+}
+
+/* Espaçamento dos article que contém os produtos */
+.produto article {
+	padding-bottom: 20px !important;
+}
+
+/* Da um espaço em baixo no título do jogo */
+.produto h6 {
+	padding-bottom: 5%;
+	min-height: 41px;
+}
+
+/* Tira o padding da div que recebe os preços, os dizeres á vista e o carrinho */
+.col-content>.col:nth-child(3) {
+	padding: 0;
+}
+
+/* Tira a margem, deixa em negrito o preço e altera a font */
+.preco {
+	margin: 0;
+	font-size: 0.7rem;
+	font-weight: bold;
+}
+
+/* Colocar a linha no meio do preço antigo e deixa ele um rem menor */
+.preco span:first-child {
+	text-decoration: line-through;
+	font-size: 0.8rem;
+}
+
+/* Formatação para os dizeres à vista */
+.a-vista:after {
+	content: " à vista ";
+	color: #fb8c00;
+}
+
+.tc-container-form-add-carrinho {
+	position: relative;
+}
+
+.tc-container-form-add-carrinho form {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: auto;
+	width: 100%;
+}
+
+/* botão para comprar sem passar por detalhes do produto */
+.tc-btn-index {
+	background: transparent;
+	border: 0;
+	padding: 1px 0;
+	height: auto;
+	width: 100%;
+}
+
+/* botão para comprar sem passar por detalhes do produto */
+.tc-btn-index i {
+	font-size: 2em !important;
+	margin-top: 5px;
+}
+
+/* botão para comprar sem passar por detalhes do produto */
+.tc-btn-index:active, .tc-btn-index:focus {
+	background: transparent;
+}
+
+/* Parte que aparece quando o mouse passar por cima */
+.tc-texto-add-carrinho {
+	margin-top: 3px;
+	margin-bottom: -6px; text-align : center;
+	font-size: 0.8em;
+	text-align: center;
+}
+
+@media ( max-width : 768px) {
 	/* Tira o padding da div que recebe o preço */
 	.produto article div:nth-child(3) div:first-child {
 		padding: 0;
 	}
+
+	/* Tamanho do título do produto */
 	.produto h6 {
 		height: 35px;
 	}
@@ -141,214 +187,17 @@ header {
 		font-size: 0.8rem;
 	}
 
-	/* Muda o tamanho e a cor do icone de carrinho no produto  */
-	.add-carrinho a i {
-		font-size: 2.2rem;
+	/* Quebra de linha */
+	.a-vista:after {
+		display: block;
 	}
-
-	/* Posiciona o botão voltar ao topo */
-	.btn-voltar-topo {
-		top: 85%;
-		left: 80%;
-	}
-}
-
-/****************************************************************************************************************/
-/* Detalhes de Produto */
-
-/* Aumenta o tamanho da fonte do preço */
-.detalhes-produto {
-	font-size: 2.5rem;
-}
-
-/* Formatação para os dizeres à vista */
-.a-vista:after {
-	content: " à vista ";
-	color: #fb8c00;
-}
-
-/* Alterar o tamanho da fonte dos dizeres de boleto bancário */
-.boleto-bancario {
-	font-size: 0.9rem;
-}
-
-/* Garante que no botão comprar as letras sempre serão maiúsculas */
-.btn-comprar {
-	text-transform: uppercase;
-}
-
-/* Form para calcular o frete */
-#form-frete {
-	margin-top: 3%;
-	border: 1px solid #e0e0e0;
-}
-
-/* Altera o tamanho da fonte do texto para o frete */
-.texto-frete {
-	font-weight: bold;
-	font-size: 0.8rem;
-}
-
-/* Coloca margem no topo para ficar visualmente melhor */
-label[for="calcular-frete"], input[name="calcular-frete"] {
-	margin-top: 13% !important;
-}
-
-/* Deixa a font da collections em negrito */
-.valores-parcela * {
-	color: black !important;
-}
-
-/* Deixa a font das lis menores */
-.valores-parcela li {
-	font-size: 0.8rem;
-}
-
-/* Forma e tamanho para a drase meramente ilustrativa */
-.ilustrativa {
-	font-style: italic;
-	font-size: 0.7rem;
-	color: #9e9e9e;
-}
-
-/* Alura para o parallax */
-.parallax-container {
-	height: 300px;
 }
 
 /***********************************************************************************************************************/
-/* Lista de Produtos */
-
-/* Altera a cor e o tamanho dos span usados ne select do materialize */
-.ordenar ul li span {
-	color: #000;
-	font-size: 0.9rem
-}
-
-/* Altera o tamanho da fonte dos filtros */
-.filtro, #dropdown-ps3 a, #dropdown-ps4 a, #dropdown-xbox-one a {
-	font-size: 0.9rem;
-}
-
-/* Tira o padding do div que recebe o nome do produto na página lista-produto */
-.lista-produto-nome {
-	padding: 0
-}
-
-/* Mantém a altura em 35px como padrão e diminui o tamanho da font */
-.lista-produto-nome h6 {
-	height: 35px;
-	font-size: 0.9rem;
-}
-
-/* Tira o padding da primeira div que contém as informações de preço */
-.col-content>.col:nth-child(3) div:first-child {
-	padding: 0;
-}
-
-.lista-produto-add-carrinho a i {
-	font-size: 2rem;
-}
-
-/***********************************************************************************************************************/
-/* Carrinho de compras */
-
-/* Tira o padding da col que tem o botão de finalizar a compra para alinhar com as outras colunas */
-.finalizar-compra {
-	padding: 0 !important;
-	padding-top: 1% !important;
-}
-
-/* Muda a cor das lebels do formulário de carrinho de compra */
-#carrinho-compra label {
-	color: #000;
-}
-
-/* Aumenta um pouco as linhas subtotal, calcular frete e total no carrinho de compras */
-#carrinho-compra .grey {
-	padding: 1% 0;
-}
-
-/* Altera o tamanho do texto das linhas subtotal e total no carrinho de comprass */
-#carrinho-compra .valign-wrapper p {
-	font-size: 1.3rem;
-}
-
-/* Altera o tamanho do botão de finalizar da navbar de carrinho de compras */
-.btn-nav-finalizar-compra, .btn-nav-finalizar-compra i {
-	font-size: 0.9rem !important;
-}
-
-#carrinho-vazio {
-	height: 400px !important;
-}
-
-#carrinho-vazio strong {
-	font-size: 2em;
-}
-
-.contar-produtos-carrinho {
-	position: absolute;
-	top: 8px;
-	right: 55px;
-	background: #ff9800;
-	border-radius: 100%;
-	line-height: 20px;
-	padding: 0 6px;
-}
-
-.tc-form-endereco-compra,
-.tc-form-opcao-pagamento {
-	height: 50px;
-}
-
-.tc-forma-pagamento {
-	margin: 5% 0;
-}
-
-.tc-pagamento-cartao {
-	margin-top: 10%;
-}
-
-/* Pra esse tamanho de tela é necessário da margem em baixo */
-@media ( max-width : 500px) {
-	.btn-excluir-produto {
-		margin-bottom: 5%;
-	}
-}
-
-@media ( max-width : 768px) {
-	/* Muda o tamanho da font para o botão comprar mais */
-	.btn-escolher-mais-produtos * {
-		font-size: 0.8rem;
-	}
-
-	/* Muda o tamanho da font do texto carrinho de compras */
-	.titulo-carrinho-compras * {
-		font-size: 1.5rem;
-	}
-
-	/* Tira o padding para esse tamanho de tela do botão remover produto */
-	.btn-excluir-produto {
-		padding: 0 !important;
-	}
-
-	/* Altera o tamanho da font dos campos do formulário para esse tamanho de tela */
-	form input {
-		font-size: 0.9rem !important;
-	}
-	
-	/* Número de itens no carrinho */
-	.contar-produtos-carrinho {
-		right: 10px;
-	}
-}
-
-@media ( max-width : 1024px) {
-	/* Número de itens no carrinho */	
-	.contar-produtos-carrinho {
-		right: 32px;
-	}
+/* Footer */
+.footer-copyright p {
+	width: 100%;
+	text-align: center;
 }
 
 /***********************************************************************************************************************/

@@ -20,7 +20,9 @@
 	<div th:replace="layout/site/fragments/Footer :: layout-site-footer"></div>
 	<script th:src="@{/layout/site/vendors/jquery/jquery-3.2.1.min.js}"></script>
 	<script th:src="@{/layout/site/vendors/materialize/js/materialize.min.js}"></script>
-	<script th:src="@{/javascripts/carrinho-compra.js}"></script>
+	<script th:src="@{/javascripts/vendors/jquery.mask.min.js}"></script>
+	<script th:src="@{/javascripts/site-carrinho-compra.js}"></script>
+	<script th:src="@{/javascripts/site-calcular-frete.js}"></script>
 
 	<th:block layout:fragment="javascript-extra"></th:block>
 </body>

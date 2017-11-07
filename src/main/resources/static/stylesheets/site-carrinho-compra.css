@@ -1,0 +1,85 @@
+/***********************************************************************************************************************/
+/* Carrinho de compras */
+
+/* Tira o padding da col que tem o botão de finalizar a compra para alinhar com as outras colunas */
+.finalizar-compra {
+	padding: 0 !important;
+	padding-top: 1% !important;
+}
+
+/* Muda a cor das lebels do formulário de carrinho de compra */
+#carrinho-compra label {
+	color: #000;
+}
+
+/* Aumenta um pouco as linhas subtotal, calcular frete e total no carrinho de compras */
+#carrinho-compra .grey {
+	padding: 1% 0;
+}
+
+/* Altera o tamanho do texto das linhas subtotal e total no carrinho de comprass */
+#carrinho-compra .valign-wrapper p {
+	font-size: 1.3rem;
+}
+
+/* Altera o tamanho do botão de finalizar da navbar de carrinho de compras */
+.btn-nav-finalizar-compra, .btn-nav-finalizar-compra i {
+	font-size: 0.9rem !important;
+}
+
+/* Tamanho da div quando não houver itens no carrinho de compra */
+#carrinho-vazio {
+	height: 400px !important;
+}
+
+/* Texto para quando não têm itens no carrinho de compra */
+#carrinho-vazio strong {
+	font-size: 2em;
+}
+
+/***********************************************************************************************************************/
+/* Finalizar Compra */
+
+/* Manter a altura menos nos inputs */
+.tc-form-endereco-compra, .tc-form-opcao-pagamento {
+	height: 50px;
+}
+
+/* Margem para melhorar o espaçamento */
+.tc-forma-pagamento {
+	margin: 5% 0;
+}
+
+/* Margem para melhorar o espaçamento */
+.tc-pagamento-cartao {
+	margin-top: 10%;
+}
+
+/* Pra esse tamanho de tela é necessário da margem em baixo */
+@media ( max-width : 500px) {
+	.btn-excluir-produto {
+		margin-bottom: 5%;
+	}
+}
+
+@media ( max-width : 768px) {
+	/* Muda o tamanho da font para o botão comprar mais */
+	.btn-escolher-mais-produtos * {
+		font-size: 0.8rem;
+	}
+
+	/* Muda o tamanho da font do texto carrinho de compras */
+	.titulo-carrinho-compras * {
+		font-size: 1.5rem;
+	}
+
+	/* Tira o padding para esse tamanho de tela do botão remover produto */
+	.btn-excluir-produto {
+		padding: 0 !important;
+	}
+
+	/* Altera o tamanho da font dos campos do formulário para esse tamanho de tela */
+	form input {
+		font-size: 0.9rem !important;
+	}
+}

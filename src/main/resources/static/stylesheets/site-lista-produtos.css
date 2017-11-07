@@ -1,0 +1,17 @@
+/***********************************************************************************************************************/
+/* Lista de Produtos */
+
+/* Padroniza o tamanho to título do produto */
+.produto h6 {
+	min-height: 55px;
+}
+
+/* Parte que aparece quando o mouse passar por cima */
+.tc-texto-add-carrinho {
+	margin-bottom: 9px;
+}
+
+/* Quebra de linha */
+.a-vista:after {
+	display: block;
+}
