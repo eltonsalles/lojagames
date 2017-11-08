@@ -164,6 +164,7 @@
 				</div>
 				<div class="col s12">
 					<div class="input-field">
+						<input type="hidden" th:value="${#numbers.formatCurrency(pedido.valorSubTotal)}" id="subtotal-hidden">
 						<input type="text" th:value="${#numbers.formatCurrency(pedido.valorSubTotal)}" name="valorSubTotal" id="subtotal"
 							readonly>
 						<label for="subtotal">Subtotal</label>

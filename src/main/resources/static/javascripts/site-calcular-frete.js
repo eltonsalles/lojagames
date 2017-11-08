@@ -90,6 +90,8 @@ $(function() {
 					total.val('R$ ' + converterParaReal(converterParaDecimal(subtotal.val()) + converterParaDecimal($(this).val())));
 					
 					atualizarValoresParcelas();
+					
+					console.log('frete');
 				});
 			},
 			error: function () {
