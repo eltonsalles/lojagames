@@ -27,7 +27,7 @@
 						<p th:text="|Pagamento: ${pedido.tipoPagamento.descricao}|"></p>
 						<div class="row" th:if="${#strings.equals('BOLETO', pedido.tipoPagamento)}">
 							<div class="col m6 s12">
-								<button class="btn waves-effect waves-light amber darken-2 col s12" type="button">Ver Boleto</button>
+								<a class="btn waves-effect waves-light amber darken-2 col s12" th:href="@{/boleto/visualizar/{codigo}(codigo=${pedido.id})}" target="_blank">Ver Boleto</a>
 							</div>
 						</div>
 						<p th:if="${#strings.equals('CARTAO_CREDITO', pedido.tipoPagamento)}" th:text="|Pagamento realizado em: ${pedido.parcelas}x de ${#numbers.formatCurrency(pedido.valorTotal / pedido.parcelas)}|"></p>
