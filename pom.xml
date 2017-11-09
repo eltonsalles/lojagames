@@ -233,5 +233,17 @@
 	    <version>${thumbnailator.version}</version>
   		<scope>compile</scope>
   	</dependency>
+  	
+  	<dependency>
+		<groupId>com.google.code.gson</groupId>
+		<artifactId>gson</artifactId>
+		<version>2.6</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.apache.httpcomponents</groupId>
+		<artifactId>httpclient</artifactId>
+		<version>4.5.2</version>
+	</dependency>
   </dependencies>
 </project>

@@ -80,8 +80,12 @@ public class PedidoService {
 
 		pedidoRepository.saveAndFlush(pedido);
 		
-		publisher.publishEvent(new PedidoSalvoEvent(pedido)); // Pegar o número de parcelas
+		publisher.publishEvent(new PedidoSalvoEvent(pedido));
 		
 		return pedido.getId();
+	}
+	
+	public void alterar(Pedido pedido) {
+		pedidoRepository.save(pedido);
 	}
 }

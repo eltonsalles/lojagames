@@ -56,25 +56,25 @@
 								<tr>
 									<td>Pagamento</td>
 									<td
-										th:text="(${!#strings.isEmpty(pedido.dataPagamento)} ? (${pedido.dataPagamento.dayOfMonth}/${pedido.dataPagamento.monthValue}/${pedido.dataPagamento.year}) : '---')"></td>
+										th:text="(${!#strings.isEmpty(pedido.dataPagamento)} ? (|${pedido.dataPagamento.dayOfMonth}/${pedido.dataPagamento.monthValue}/${pedido.dataPagamento.year}|) : '---')"></td>
 									<td th:text="(${!#strings.isEmpty(pedido.dataPagamento)} ? 'Concluído' : 'Pendente')"></td>
 								</tr>
 								<tr>
 									<td>Separação</td>
 									<td
-										th:text="(${!#strings.isEmpty(pedido.dataSeparacao)} ? (${pedido.dataSeparacao.dayOfMonth}/${pedido.dataSeparacao.monthValue}/${pedido.dataSeparacao.year}) : '---')"></td>
+										th:text="(${!#strings.isEmpty(pedido.dataSeparacao)} ? (|${pedido.dataSeparacao.dayOfMonth}/${pedido.dataSeparacao.monthValue}/${pedido.dataSeparacao.year}|) : '---')"></td>
 									<td th:text="(${!#strings.isEmpty(pedido.dataSeparacao)} ? 'Concluído' : 'Pendente')"></td>
 								</tr>
 								<tr>
 									<td>Transporte</td>
 									<td
-										th:text="(${!#strings.isEmpty(pedido.dataTransporte)} ? (${pedido.dataTransporte.dayOfMonth}/${pedido.dataTransporte.monthValue}/${pedido.dataTransporte.year}) : '---')"></td>
+										th:text="(${!#strings.isEmpty(pedido.dataTransporte)} ? (|${pedido.dataTransporte.dayOfMonth}/${pedido.dataTransporte.monthValue}/${pedido.dataTransporte.year}|) : '---')"></td>
 									<td th:text="(${!#strings.isEmpty(pedido.dataTransporte)} ? 'Concluído' : 'Pendente')"></td>
 								</tr>
 								<tr>
 									<td>Entrega</td>
 									<td
-										th:text="(${!#strings.isEmpty(pedido.dataEntrega)} ? (${pedido.dataEntrega.dayOfMonth}/${pedido.dataEntrega.monthValue}/${pedido.dataEntrega.year}) : '---')"></td>
+										th:text="(${!#strings.isEmpty(pedido.dataEntrega)} ? (|${pedido.dataEntrega.dayOfMonth}/${pedido.dataEntrega.monthValue}/${pedido.dataEntrega.year}|) : '---')"></td>
 									<td th:text="(${!#strings.isEmpty(pedido.dataEntrega)} ? 'Concluído' : 'Pendente')"></td>
 								</tr>
 							</tbody>

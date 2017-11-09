@@ -13,4 +13,12 @@ public class PedidoSalvoEvent {
 	public Pedido getPedido() {
 		return pedido;
 	}
+	
+	public boolean pagamentoCartaoCredito() {
+		return this.pedido.getTipoPagamento().name().equalsIgnoreCase("CARTAO_CREDITO");
+	}
+	
+	public boolean pagamentoBoleto() {
+		return this.pedido.getTipoPagamento().name().equalsIgnoreCase("BOLETO");
+	}
 }
