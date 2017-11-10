@@ -9,71 +9,66 @@
 	<main class="container" layout:fragment="conteudo">
 	<div class="row">
 		<div class="col s12">
-			<div class="col s12">
-				<div>
-					<h4 class="left-align">Criar Conta</h4>
-				</div>
-			</div>
-			<form method="post" th:object="${cliente}">
-				<thecode:messagesite />
-				<div class="row">
-					<div class="input-field col s8">
-						<i class="material-icons prefix">account_circle</i>
-						<input id="nome" type="text" class="validate" th:field="*{nome}" />
-						<label for="nome">Nome completo</label>
-					</div>
-					<div class="col s3">
-						<p>
-							<th:block th:each="sexo : ${sexos}">
-								<input class="with-gap" th:id="|id_${sexo}|" type="radio" th:value="${sexo}"  th:field="*{sexo}" />
-								<label th:for="|id_${sexo}|" th:text="${sexo.descricao}"></label>
-							</th:block>
-						</p>
-					</div>
-					<div class="input-field col s6">
-						<i class="material-icons prefix">account_box</i>
-						<input id="cpf" type="text" class="validate" th:field="*{cpf}" />
-						<label for="cpf">CPF</label>
-					</div>
-					<div class="input-field col s6">
-						<i class="material-icons prefix">date_range</i>
-						<input id="dataNascimento" type="text" class="datepicker" th:field="*{dataNascimento}" />
-						<label for="dataNascimento">Data de Nascimento</label>
-					</div>
-					<div class="input-field col s6">
-						<i class="material-icons prefix">phone</i>
-						<input id="telefone" type="text" class="validate" th:field="*{telefone}" />
-						<label for="telefone">Telefone</label>
-					</div>
-					<div class="input-field col s6">
-						<i class="material-icons prefix">smartphone</i>
-						<input id="celular" type="text" class="validate" th:field="*{celular}" />
-						<label for="celular">Celular</label>
-					</div>
-					<div class="input-field col s12">
-						<i class="material-icons prefix">email</i>
-						<input id="email" type="text" class="validate" th:field="*{email}" />
-						<label for="email">E-mail</label>
-					</div>
-					<div class="input-field col s6">
-						<i class="material-icons prefix">vpn_key</i>
-						<input id="senha" type="password" class="validate" th:field="*{senha}" />
-						<label for="senha">Senha</label>
-					</div>
-					<div class="input-field col s6">
-						<i class="material-icons prefix">vpn_key</i>
-						<input id="repitir-senha" type="password" class="validate" th:field="*{senha}" />
-						<label for="repitir-senha">Repita senha</label>
-					</div>
-					<div class="col offset-s9 s3">
-						<button class="btn waves-effect waves-light amber darken-2" type="submit" name="enviar">
-							Enviar
-							<i class="material-icons left">send</i>
-						</button>
-					</div>
-				</div>
-			</form>
+			<h4 class="left-align">Criar Conta</h4>
 		</div>
+	</div>
+	<div class="row">
+		<form method="post" th:object="${cliente}">
+			<thecode:messagesite />
+			<div class="input-field col s8">
+				<i class="material-icons prefix">account_circle</i>
+				<input id="nome" name=“text” type="text" class="validate" th:field="*{nome}" />
+				<label for="nome">Nome completo</label>
+			</div>
+			<div class="col s3">
+				<th:block th:each="sexo : ${sexos}">
+					<input class="with-gap" th:id="|id_${sexo}|" type="radio" th:value="${sexo}" th:field="*{sexo}" />
+					<label th:for="|id_${sexo}|" th:text="${sexo.descricao}"></label>
+				</th:block>
+			</div>
+			<div class="input-field col s6">
+				<i class="material-icons prefix">account_box</i>
+				<input id="cpf" type="text" class="validate" th:field="*{cpf}" />
+				<label for="cpf">CPF</label>
+			</div>
+			<div class="input-field col s6">
+				<i class="material-icons prefix">date_range</i>
+				<input id="data_nascimento" type="text" class="datepicker" th:field="*{dataNascimento}" />
+				<label for="data_nascimento">Data de Nascimento</label>
+			</div>
+			<div class="input-field col s6">
+				<i class="material-icons prefix">phone</i>
+				<input id="telefone" maxlength=“15” type="text" class="validate" th:field="*{telefone}" />
+				<label for="telefone">Telefone</label>
+			</div>
+			<div class="input-field col s6">
+				<i class="material-icons prefix">smartphone</i>
+				<input id="celular" maxlength=“15” type="text" class="validate" th:field="*{celular}" />
+				<label for="celular">Celular</label>
+			</div>
+			<div class="input-field col s12">
+				<i class="material-icons prefix">email</i>
+				<input id="email" type="text" class="validate" th:field="*{email}" />
+				<label for="email">E-mail</label>
+			</div>
+			<div class="input-field col s6">
+				<i class="material-icons prefix">vpn_key</i>
+				<input id="senha" type="password" class="validate" th:field="*{senha}" />
+				<label for="senha">Senha</label>
+
+			</div>
+			<div class="input-field col s6">
+				<i class="material-icons prefix">vpn_key</i>
+				<input id="repitir-senha" type="password" class="validate" th:field="*{senha}" />
+				<label for="repitir-senha">Repita senha</label>
+			</div>
+			<div class="col offset-s10">
+				<button class="btn waves-effect waves-light amber darken-2" type="submit" name="enviar">
+					Enviar
+					<i class="material-icons left">send</i>
+				</button>
+			</div>
+		</form>
 	</div>
 	</main>
 	<th:block layout:fragment="javascript-extra">

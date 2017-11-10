@@ -41,8 +41,8 @@ public class ClienteController {
 			return novo(cliente);
 		}
 		
-		attributes.addFlashAttribute("message", "Bem vindo a The Code Games!");
-		return new ModelAndView("redirect:/clientes/conta"); // Redireciona para a página central do cliente
+		attributes.addFlashAttribute("messagem", "Bem vindo a The Code Games!");
+		return new ModelAndView("redirect:/clientes/novo"); // Redireciona para a página central do cliente
 	}
 	
 	@RequestMapping(value = "/conta")
