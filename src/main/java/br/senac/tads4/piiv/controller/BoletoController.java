@@ -28,12 +28,27 @@ import br.senac.tads4.piiv.repository.PedidoRepository;
 @RequestMapping("/boleto")
 public class BoletoController {
 
+	public static final Long VENCIMENTO_BOLETO = 5L;
+	
+	public static final Long PAGO_ATE = 30L;
+	
 	@Autowired
 	private PedidoRepository pedidoRepository;
 	
+	/**
+	 * Método para visualizar o boleto bancário
+	 * 
+	 * @param codigo
+	 * @return
+	 */
 	@RequestMapping(value = "/visualizar/{codigo}")
 	public ResponseEntity<byte[]> visualizarBoleto(@PathVariable Long codigo) {
 		Pedido pedido = pedidoRepository.findOne(codigo);
+		
+		// Não gerar boleto se já tiver passado o prazo de pagamento
+		if (pedido.getDataPedido().plusDays(VENCIMENTO_BOLETO + PAGO_ATE).isBefore(LocalDate.now())) {
+			return null;
+		}
 		
 		byte[] boleto = this.gerarBoletoPedido(pedido);
 		
@@ -43,8 +58,14 @@ public class BoletoController {
 		return new ResponseEntity<byte[]>(boleto, headers, HttpStatus.CREATED);
 	}
 	
+	/**
+	 * Gera um boleto bancário com as informações do pedido
+	 * 
+	 * @param pedido
+	 * @return
+	 */
 	private byte[] gerarBoletoPedido(Pedido pedido) {
-		LocalDate vencimento = pedido.getDataPedido().plusDays(5L);
+		LocalDate vencimento = pedido.getDataPedido().plusDays(VENCIMENTO_BOLETO);
 		
 		Datas datas = Datas.novasDatas()
                 .comDocumento(pedido.getDataPedido().getDayOfMonth(), pedido.getDataPedido().getMonthValue(), pedido.getDataPedido().getYear())
@@ -93,8 +114,8 @@ public class BoletoController {
 
         Banco banco = new BancoDoBrasil();
         
-        LocalDate pagoAte = vencimento.plusDays(30L);
-
+        LocalDate pagoAte = vencimento.plusDays(PAGO_ATE);
+        
         Boleto boleto = Boleto.novoBoleto()
                 .comBanco(banco)
                 .comDatas(datas)
@@ -107,10 +128,12 @@ public class BoletoController {
 
         GeradorDeBoleto gerador = new GeradorDeBoleto(boleto);
         
-        gerador.geraPDF("BancoDoBrasil.pdf");  
+        gerador.geraPDF("BancoDoBrasil.pdf");
   
         byte[] bPDF = gerador.geraPDF();
         
         return bPDF;
 	}
+	
+	
 }

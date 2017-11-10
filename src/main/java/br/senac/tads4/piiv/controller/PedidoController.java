@@ -18,10 +18,16 @@ public class PedidoController {
 
 	@Autowired
 	private TipoConsoleRepository tipoConsoleRepository;
-	
+
 	@Autowired
 	private PedidoRepository pedidoRepository;
 
+	/**
+	 * Permite visualizar o pedido em detalhes do cliente
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "/{id}")
 	public ModelAndView pedido(@PathVariable Long id) {
 		ModelAndView mv = new ModelAndView("site/pedido/VisualizarPedido");
@@ -30,9 +36,16 @@ public class PedidoController {
 		mv.addObject("pedido", pedido);
 		mv.addObject("tiposConsole", tipoConsoleRepository.findAll());
 
+		// Se constar pagamento é informado a data de previsão de entrega
 		if (pedido.getDataPagamento() != null) {
 			LocalDate previsaoEntrega = pedido.getDataPagamento().plusDays(pedido.getDiasEntrega());
 			mv.addObject("previsaoEntrega", previsaoEntrega);
+		}
+
+		// Só exibe o botão para visualizar o boleto se não tiver passado o prazo de pagamento
+		if (!pedido.getDataPedido().plusDays(BoletoController.VENCIMENTO_BOLETO + BoletoController.PAGO_ATE)
+				.isBefore(LocalDate.now())) {
+			mv.addObject("botaoBoleto", true);
 		}
 
 		return mv;

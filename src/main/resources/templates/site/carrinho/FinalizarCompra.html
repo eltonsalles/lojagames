@@ -40,6 +40,10 @@
 					<input type="text" id="nome" maxlength="150" th:field=*{cliente.nome} readonly>
 					<label for="nome">Nome</label>
 				</div>
+				<div class="input-field tc-cep-carrinho tc-form-endereco-compra">
+					<input type="text" id="cep" class="js-cep" th:field=*{cliente.enderecos[0].cep} readonly>
+					<label for="cep">CEP</label>
+				</div>
 				<div class="input-field tc-form-endereco-compra">
 					<input type="text" id="endereco" maxlength="150" th:field=*{cliente.enderecos[0].logradouro} readonly>
 					<label for="endereco">Endereço</label>
@@ -55,10 +59,6 @@
 				<div class="input-field tc-form-endereco-compra">
 					<input type="text" id="bairro" maxlength="100" th:field=*{cliente.enderecos[0].bairro} readonly>
 					<label for="bairro">Bairro</label>
-				</div>
-				<div class="input-field tc-cep-carrinho tc-form-endereco-compra">
-					<input type="text" id="cep" class="js-cep" th:field=*{cliente.enderecos[0].cep} readonly>
-					<label for="cep">CEP</label>
 				</div>
 				<div class="input-field tc-form-endereco-compra">
 					<input type="text" id="cidade" maxlength="100" th:field=*{cliente.enderecos[0].cidade} readonly>
@@ -112,7 +112,7 @@
 						<label>Nº de parcelas</label>
 					</div>
 					<div class="input-field tc-form-opcao-pagamento">
-						<input placeholder="Digite como no cartão" id="nome" type="text" maxlength="150"
+						<input placeholder="Digite como no cartão" id="nome" type="text" maxlength="20"
 							th:field="*{dadosPagamento.nomeTitular}" class="js-pagto-cartao-credito">
 						<label for="nome">Nome</label>
 					</div>

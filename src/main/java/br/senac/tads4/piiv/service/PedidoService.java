@@ -19,6 +19,9 @@ import br.senac.tads4.piiv.model.enumerated.FormaPagamento;
 import br.senac.tads4.piiv.model.enumerated.StatusPedido;
 import br.senac.tads4.piiv.repository.PedidoRepository;
 import br.senac.tads4.piiv.service.event.pedido.PedidoSalvoEvent;
+import br.senac.tads4.piiv.service.exception.PagamentoCartaoCreditoException;
+import br.senac.tads4.piiv.service.exception.PagamentoException;
+import br.senac.tads4.piiv.service.exception.TransacaoCieloExcepetion;
 
 @Service
 public class PedidoService {
@@ -80,7 +83,11 @@ public class PedidoService {
 
 		pedidoRepository.saveAndFlush(pedido);
 		
-		publisher.publishEvent(new PedidoSalvoEvent(pedido));
+		try {
+			publisher.publishEvent(new PedidoSalvoEvent(pedido));
+		} catch (TransacaoCieloExcepetion | PagamentoCartaoCreditoException | PagamentoException e) {
+			// Erro com a transação na cielo
+		}
 		
 		return pedido.getId();
 	}

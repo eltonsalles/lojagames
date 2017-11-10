@@ -17,8 +17,4 @@ public class PedidoSalvoEvent {
 	public boolean pagamentoCartaoCredito() {
 		return this.pedido.getTipoPagamento().name().equalsIgnoreCase("CARTAO_CREDITO");
 	}
-	
-	public boolean pagamentoBoleto() {
-		return this.pedido.getTipoPagamento().name().equalsIgnoreCase("BOLETO");
-	}
 }
