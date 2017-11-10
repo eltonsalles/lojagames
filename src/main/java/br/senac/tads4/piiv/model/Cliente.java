@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -68,7 +70,7 @@ public class Cliente implements Serializable {
 	
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos;
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -92,7 +94,7 @@ public class Cliente implements Serializable {
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
-
+	
 	public String getCpf() {
 		return cpf;
 	}
@@ -180,5 +182,13 @@ public class Cliente implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+	
+	@PrePersist
+	@PreUpdate
+	private void prePersistUpdate() {
+		this.cpf = this.cpf.replaceAll("\\D", "");
+		this.telefone = this.telefone.replaceAll("\\D", "");
+		this.celular = this.celular.replaceAll("\\D", "");
 	}
 }

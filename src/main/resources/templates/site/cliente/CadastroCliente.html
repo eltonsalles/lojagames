@@ -9,57 +9,59 @@
 	<main class="container" layout:fragment="conteudo">
 	<div class="row">
 		<div class="col s12">
-			<h4 class="left-align">Criar Conta</h4>
+			<div>
+				<h4 class="left-align">Criar Conta</h4>
+			</div>
 		</div>
 	</div>
 	<div class="row">
-		<form method="post" th:object="${cliente}">
+		<form method="post" th:object="${cliente}" class="js-form-cadastro-cliente">
 			<thecode:messagesite />
 			<div class="input-field col s8">
 				<i class="material-icons prefix">account_circle</i>
-				<input id="nome" name=“text” type="text" class="validate" th:field="*{nome}" />
+				<input id="nome" type="text" th:field="*{nome}" maxlength="150" />
 				<label for="nome">Nome completo</label>
 			</div>
 			<div class="col s3">
 				<th:block th:each="sexo : ${sexos}">
-					<input class="with-gap" th:id="|id_${sexo}|" type="radio" th:value="${sexo}" th:field="*{sexo}" />
+					<input class="with-gap tc-radio-site" th:id="|id_${sexo}|" type="radio" th:value="${sexo}" th:field="*{sexo}" />
 					<label th:for="|id_${sexo}|" th:text="${sexo.descricao}"></label>
 				</th:block>
 			</div>
 			<div class="input-field col s6">
 				<i class="material-icons prefix">account_box</i>
-				<input id="cpf" type="text" class="validate" th:field="*{cpf}" />
+				<input id="cpf" type="text" class="js-cpf" th:field="*{cpf}" />
 				<label for="cpf">CPF</label>
 			</div>
 			<div class="input-field col s6">
 				<i class="material-icons prefix">date_range</i>
-				<input id="data_nascimento" type="text" class="datepicker" th:field="*{dataNascimento}" />
-				<label for="data_nascimento">Data de Nascimento</label>
-			</div>
-			<div class="input-field col s6">
-				<i class="material-icons prefix">phone</i>
-				<input id="telefone" maxlength=“15” type="text" class="validate" th:field="*{telefone}" />
-				<label for="telefone">Telefone</label>
+				<input id="data-nascimento" type="text" class="datepicker" th:field="*{dataNascimento}" />
+				<label for="data-nascimento">Data de Nascimento</label>
 			</div>
 			<div class="input-field col s6">
 				<i class="material-icons prefix">smartphone</i>
-				<input id="celular" maxlength=“15” type="text" class="validate" th:field="*{celular}" />
+				<input id="celular" type="text" class="js-telefone" th:field="*{celular}" />
 				<label for="celular">Celular</label>
+			</div>
+			<div class="input-field col s6">
+				<i class="material-icons prefix">phone</i>
+				<input id="telefone" type="text" class="js-telefone" th:field="*{telefone}" />
+				<label for="telefone">Telefone</label>
 			</div>
 			<div class="input-field col s12">
 				<i class="material-icons prefix">email</i>
-				<input id="email" type="text" class="validate" th:field="*{email}" />
+				<input id="email" type="email" th:field="*{email}" maxlength="150" />
 				<label for="email">E-mail</label>
 			</div>
 			<div class="input-field col s6">
 				<i class="material-icons prefix">vpn_key</i>
-				<input id="senha" type="password" class="validate" th:field="*{senha}" />
+				<input id="senha" type="password" th:field="*{senha}" maxlength="15" />
 				<label for="senha">Senha</label>
 
 			</div>
 			<div class="input-field col s6">
 				<i class="material-icons prefix">vpn_key</i>
-				<input id="repitir-senha" type="password" class="validate" th:field="*{senha}" />
+				<input id="repitir-senha" type="password" maxlength="15"/>
 				<label for="repitir-senha">Repita senha</label>
 			</div>
 			<div class="col offset-s10">
@@ -72,6 +74,7 @@
 	</div>
 	</main>
 	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/vendors/jquery.mask.min.js}"></script>
 		<script th:src="@{/javascripts/site-novo-cliente.js}"></script>
 	</th:block>
 </body>
