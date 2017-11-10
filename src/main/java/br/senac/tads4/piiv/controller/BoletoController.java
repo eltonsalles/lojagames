@@ -104,12 +104,10 @@ public class BoletoController {
         		.comCidade(pedido.getCliente().getEnderecos().get(0).getCidade())
         		.comUf(pedido.getCliente().getEnderecos().get(0).getUf());
         
-        String cpf = pedido.getCliente().getCpf();
-        
         // Quem paga o boleto
         Pagador pagador = Pagador.novoPagador()
                 .comNome(pedido.getCliente().getNome())
-                .comDocumento(String.format("%s.%s.%s-%s", cpf.substring(0, 3), cpf.substring(3,  6), cpf.substring(6, 9), cpf.substring(9, 11)))
+                .comDocumento(pedido.getCliente().getCpf())
                 .comEndereco(enderecoPagador);
 
         Banco banco = new BancoDoBrasil();

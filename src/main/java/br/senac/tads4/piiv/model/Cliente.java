@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -190,5 +191,10 @@ public class Cliente implements Serializable {
 		this.cpf = this.cpf.replaceAll("\\D", "");
 		this.telefone = this.telefone.replaceAll("\\D", "");
 		this.celular = this.celular.replaceAll("\\D", "");
+	}
+	
+	@PostLoad
+	private void postLoad() {
+		this.cpf = String.format("%s.%s.%s-%s", this.cpf.substring(0, 3), this.cpf.substring(3,  6), this.cpf.substring(6, 9), this.cpf.substring(9, 11));
 	}
 }
