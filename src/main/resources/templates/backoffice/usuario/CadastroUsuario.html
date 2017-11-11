@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/backoffice/LayoutPadrao" xlmns:thecode="http://thecode.com.br">
+<head>
+<title>Cadastro de usuário</title>
+</head>
+<body>
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" layout:fragment="conteudo">
+		<h1 class="page-header">Cadastro de usuário</h1>
+		<div class="row">
+			<form method="post" th:object="${usuario}">
+				<thecode:messagebackoffice />
+				<div class="row">
+					<div class="col-sm-12 form-group tc-required" thecode:classforerror="nome">
+						<label for="nome" class="control-label">Nome</label>
+						<input id="nome" type="text" class="form-control" maxlength="50" required th:field="*{nome}" />
+					</div>
+					<div class="col-sm-6 form-group tc-required" thecode:classforerror="email">
+						<label for="email" class="control-label">Email</label>
+						<input id="email" type="email" class="form-control" maxlength="150" required th:field="*{email}" />
+					</div>
+					<div class="col-sm-4 form-group tc-required" thecode:classforerror="dataNascimento">
+						<label for="data-nascimento" class="control-label">Data de Nascimento</label>
+						<input id="data-nascimento" type="date" class="form-control" required th:field="*{dataNascimento}" />
+					</div>
+					<div class="col-sm-3 form-group" thecode:classforerror="senha">
+						<label for="senha" class="control-label">Senha</label>
+						<input id="senha" type="password" class="form-control" required th:field="*{senha}" />
+					</div>
+					<div class="col-sm-3 form-group" thecode:classforerror="confirmacaoSenha">
+						<label for="confirmacao-senha" class="control-label">Confirmação de Senha</label>
+						<input id="confirmacao-senha" type="password" class="form-control" required th:field="*{confirmacaoSenha}" />
+					</div>
+					<div class="col-lg-3 col-sm-6 form-group tc-required" thecode:classforerror="status">
+						<label for="status" class="control-label">Status</label>
+						<div>
+							<label class="tc-radio radio-inline">
+								<input id="ativo" type="radio" value="true" th:field="*{status}" required>
+								Ativo
+							</label>
+							<label class="tc-radio radio-inline">
+								<input id="inativo" type="radio" value="false" th:field="*{status}" required>
+								Inativo
+							</label>
+						</div>
+					</div>
+					<div class="col-sm-12 form-group tc-required" thecode:classforerror="grupos">
+						<label class="control-label">Grupos</label>
+						<div>
+							<div class="checkbox-inline">
+								<input type="checkbox">
+								<label>Administrador</label>
+							</div>
+							<div class="checkbox-inline">
+								<input type="checkbox">
+								<label>Gerente</label>
+							</div>
+							<div class="checkbox-inline">
+								<input type="checkbox">
+								<label>Operador</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<button class="btn  btn-primary" type="submit">Salvar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<th:block layout:fragment="javascript-extra"></th:block>
+</body>
+</html>

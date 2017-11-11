@@ -47,12 +47,24 @@
   	<!-- Jackson - JSON -->
   	<jackson-core.version>2.7.9</jackson-core.version>
   	
-  	<!-- Stella -->
-  	<stella.version>2.1.2</stella.version>
-  	
  	<!-- Thumbnailator - Gerar Thumbnail -->
   	<!-- https://github.com/coobird/thumbnailator -->
   	<thumbnailator.version>0.4.8</thumbnailator.version>
+  	
+  	<!-- Thymeleaf extras data attribute -->
+	<thymeleaf-extras-data-attribute.version>2.0.1</thymeleaf-extras-data-attribute.version>
+	
+	<!-- Apache Bean Utils -->
+	<commons-beanutils.version>1.9.2</commons-beanutils.version>
+  	
+  	<!-- Stella -->
+  	<stella.version>2.1.2</stella.version>
+  	
+  	<!-- GSon - Dependência da API da Cielo -->
+  	<gson.version>2.6</gson.version>
+  	
+  	<!-- GSon - Dependência da API da Cielo -->
+  	<httpclient.version>4.5.2</httpclient.version>
   </properties>
   
   <build>
@@ -204,6 +216,37 @@
 	    <version>${jackson-core.version}</version>
   		<scope>compile</scope>
   	</dependency>
+	
+	<!-- Thumbnailator - Gerar Thumbnail -->
+  	<dependency>
+  		<groupId>net.coobird</groupId>
+	    <artifactId>thumbnailator</artifactId>
+	    <version>${thumbnailator.version}</version>
+  		<scope>compile</scope>
+  	</dependency>
+  	
+  	<!-- Thymeleaf extras data attribute -->
+	<dependency>
+   		<groupId>com.github.mxab.thymeleaf.extras</groupId>
+   		<artifactId>thymeleaf-extras-data-attribute</artifactId>
+   		<version>${thymeleaf-extras-data-attribute.version}</version>
+   		<scope>compile</scope>
+	</dependency>
+	
+	<!-- Spring Context Support -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context-support</artifactId>
+		<scope>compile</scope>
+	</dependency>
+	
+	<!-- Apache Bean Utils -->
+	<dependency>
+   		<groupId>commons-beanutils</groupId>
+   		<artifactId>commons-beanutils</artifactId>
+   		<version>${commons-beanutils.version}</version>
+   		<scope>compile</scope>
+	</dependency>
   	
   	<!-- Stella Core -->
   	<dependency>
@@ -225,25 +268,19 @@
 	    <artifactId>caelum-stella-boleto</artifactId>
 	    <version>${stella.version}</version>
 	</dependency>
-	
-	<!-- Thumbnailator - Gerar Thumbnail -->
-  	<dependency>
-  		<groupId>net.coobird</groupId>
-	    <artifactId>thumbnailator</artifactId>
-	    <version>${thumbnailator.version}</version>
-  		<scope>compile</scope>
-  	</dependency>
   	
+  	<!-- GSon - Dependência da API da Cielo -->
   	<dependency>
 		<groupId>com.google.code.gson</groupId>
 		<artifactId>gson</artifactId>
-		<version>2.6</version>
+		<version>${gson.version}</version>
 	</dependency>
 	
+	<!-- HttpClient - Dependência da API da Cielo -->
 	<dependency>
 		<groupId>org.apache.httpcomponents</groupId>
 		<artifactId>httpclient</artifactId>
-		<version>4.5.2</version>
+		<version>${httpclient.version}</version>
 	</dependency>
   </dependencies>
 </project>
