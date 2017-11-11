@@ -17,6 +17,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import br.senac.tads4.piiv.validation.AtributoConfirmacao;
 
@@ -43,12 +44,13 @@ public class Usuario implements Serializable {
 	@Transient
 	private String confirmacaoSenha;
 
+	@NotNull(message = "O campo status é obrigatório")
 	private Boolean status;
 
 	@Column(name = "data_nascimento")
 	private LocalDate dataNascimento;
 
-	@NotNull(message = "O campo grupo é obrigatório")
+	@Size(min = 1, message = "Selecione pelo menos um grupo")
 	@ManyToMany
 	@JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_grupo"))
 	List<Grupo> grupos;
@@ -115,6 +117,10 @@ public class Usuario implements Serializable {
 
 	public void setGrupos(List<Grupo> grupos) {
 		this.grupos = grupos;
+	}
+	
+	public boolean getNovo() {
+		return this.id == null;
 	}
 
 	@Override

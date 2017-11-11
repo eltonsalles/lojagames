@@ -23,11 +23,11 @@
 						<label for="data-nascimento" class="control-label">Data de Nascimento</label>
 						<input id="data-nascimento" type="date" class="form-control" required th:field="*{dataNascimento}" />
 					</div>
-					<div class="col-sm-3 form-group" thecode:classforerror="senha">
+					<div class="col-sm-3 form-group" thecode:classforerror="senha" th:classappend="${usuario.novo} ? tc-required">
 						<label for="senha" class="control-label">Senha</label>
 						<input id="senha" type="password" class="form-control" th:field="*{senha}" />
 					</div>
-					<div class="col-sm-3 form-group" thecode:classforerror="confirmacaoSenha">
+					<div class="col-sm-3 form-group" thecode:classforerror="confirmacaoSenha" th:classappend="${usuario.novo} ? tc-required">
 						<label for="confirmacao-senha" class="control-label">Confirmação de Senha</label>
 						<input id="confirmacao-senha" type="password" class="form-control" th:field="*{confirmacaoSenha}" />
 					</div>
@@ -47,18 +47,12 @@
 					<div class="col-sm-12 form-group tc-required" thecode:classforerror="grupos">
 						<label class="control-label">Grupos</label>
 						<div>
-							<div class="checkbox-inline">
-								<input type="checkbox">
-								<label>Administrador</label>
-							</div>
-							<div class="checkbox-inline">
-								<input type="checkbox">
-								<label>Gerente</label>
-							</div>
-							<div class="checkbox-inline">
-								<input type="checkbox">
-								<label>Operador</label>
-							</div>
+							<th:block th:each="grupo : ${grupos}">
+								<div class="checkbox-inline">
+									<input type="checkbox" th:value="${grupo.id}" th:field="*{grupos}">
+									<label th:for="${#ids.prev('grupos')}" th:text="${grupo.nome}"></label>
+								</div>
+							</th:block>
 						</div>
 					</div>
 				</div>

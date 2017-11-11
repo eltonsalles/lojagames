@@ -29,6 +29,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import br.senac.tads4.piiv.controller.ClienteController;
 import br.senac.tads4.piiv.controller.converter.GeneroConverter;
+import br.senac.tads4.piiv.controller.converter.GrupoConverter;
 import br.senac.tads4.piiv.controller.converter.TipoConsoleConverter;
 import br.senac.tads4.piiv.thymeleaf.TheCodeDialect;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
@@ -89,6 +90,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService();
 		conversionService.addConverter(new TipoConsoleConverter());
 		conversionService.addConverter(new GeneroConverter());
+		conversionService.addConverter(new GrupoConverter());
 		
 		NumberStyleFormatter bigDecimalFomatter = new NumberStyleFormatter("#,##0.00");
 		conversionService.addFormatterForFieldType(BigDecimal.class, bigDecimalFomatter);
