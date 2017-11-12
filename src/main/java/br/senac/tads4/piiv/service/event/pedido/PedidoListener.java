@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import br.senac.tads4.piiv.model.Pedido;
@@ -36,6 +37,7 @@ public class PedidoListener {
 	 * 
 	 * @param evento
 	 */
+	@Async
 	@EventListener(condition = "#evento.pagamentoCartaoCredito()")
 	public void pedidoPagamentoCartaoCredito(PedidoSalvoEvent evento) {
 		Merchant merchant = new Merchant(MERCHANT_ID, MERCHANT_KEY);

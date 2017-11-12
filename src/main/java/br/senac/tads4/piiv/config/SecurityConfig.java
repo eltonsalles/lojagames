@@ -40,7 +40,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/detalhes-do-produto/**")
 			.antMatchers("/lista-produto/**")
 			.antMatchers("/carrinho-compra/**")
-			.antMatchers("/clientes/novo");
+			.antMatchers("/clientes/novo")
+			.antMatchers("/pedidos/**");
 	}
 	
 	@Override
