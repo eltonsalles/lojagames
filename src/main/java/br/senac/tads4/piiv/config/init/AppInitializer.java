@@ -7,6 +7,7 @@ import javax.servlet.ServletRegistration.Dynamic;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import br.senac.tads4.piiv.config.JpaConfig;
+import br.senac.tads4.piiv.config.MailConfig;
 import br.senac.tads4.piiv.config.SecurityConfig;
 import br.senac.tads4.piiv.config.ServiceConfig;
 import br.senac.tads4.piiv.config.WebConfig;
@@ -20,7 +21,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		return new Class<?>[] { WebConfig.class, ServiceConfig.class };
+		return new Class<?>[] { WebConfig.class, ServiceConfig.class, MailConfig.class };
 	}
 
 	@Override

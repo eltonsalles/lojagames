@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.senac.tads4.piiv.dto.ItemProdutoDto;
+import br.senac.tads4.piiv.mail.Mailer;
 import br.senac.tads4.piiv.model.Cliente;
 import br.senac.tads4.piiv.model.Pedido;
 import br.senac.tads4.piiv.model.Produto;
@@ -54,6 +55,9 @@ public class CarrinhoCompraController {
 	// #MOCK
 	@Autowired
 	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private Mailer mailder;
 
 	@RequestMapping
 	public ModelAndView carrinhoCompra() {
@@ -180,6 +184,7 @@ public class CarrinhoCompraController {
 		pedido.setCliente(cliente);
 
 		Long id = pedidoService.salvar(pedido, this.getCarrinho());
+		this.mailder.enviar(pedido);
 		this.carrinho.removeAll(carrinho);
 		this.cep = "";
 
