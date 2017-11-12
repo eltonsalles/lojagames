@@ -17,6 +17,11 @@
 				<a th:href="@{/logout}" class="btn btn-default navbar-btn navbar-right tc-btn-logout">
 					<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
 				</a>
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<a href="#" th:text="${#authentication.principal.usuario.nome}">Dashboard</a>
+					</li>
+				</ul>
 			</div>
 		</div>
 	</nav>
