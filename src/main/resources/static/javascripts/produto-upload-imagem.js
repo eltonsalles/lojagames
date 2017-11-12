@@ -18,7 +18,8 @@ TheCode.UploadImagem = (function() {
 			filelimit : 1,
 			allow : '*.(jpg|jpeg|png)',
 			action : this.container.data('url-imagens'),
-			complete : onUploadCompleto.bind(this)
+			complete : onUploadCompleto.bind(this),
+			beforeSend: addCsrfToken
 		}
 
 		UIkit.uploadSelect($('#upload-select'), settings);
@@ -50,6 +51,13 @@ TheCode.UploadImagem = (function() {
 		this.uploadDrop.removeClass('hidden');
 		this.inputNomeImagem.val('');
 		this.inputContentType.val('');
+	}
+	
+	function addCsrfToken(xhr) {
+		var token = $('input[name=_csrf]').val();
+		var header = $('input[name=_csrf_header]').val();
+		
+		xhr.setRequestHeader(header, token);
 	}
 
 	return UploadImagem;

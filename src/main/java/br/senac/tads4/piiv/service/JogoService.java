@@ -7,6 +7,7 @@ import org.springframework.util.StringUtils;
 
 import br.senac.tads4.piiv.model.Jogo;
 import br.senac.tads4.piiv.model.enumerated.TipoProduto;
+import br.senac.tads4.piiv.repository.JogoRepository;
 import br.senac.tads4.piiv.service.event.produto.ProdutoSalvoEvent;
 import br.senac.tads4.piiv.service.exception.DescricaoDaImagemPassaLimiteCaractesException;
 import br.senac.tads4.piiv.service.exception.DescricaoDaImagemVaziaException;
@@ -21,6 +22,9 @@ import br.senac.tads4.piiv.service.exception.ListaDeImagensVaziasException;
 @Service
 public class JogoService extends ProdutoService {
 
+	@Autowired
+	private JogoRepository jogoRepository;
+	
 	@Autowired
 	private ApplicationEventPublisher publisher;
 	
@@ -39,6 +43,8 @@ public class JogoService extends ProdutoService {
 		
 		jogo.setTipoProduto(TipoProduto.JOGO);
 		jogo.getImagens().get(0).setProduto(jogo);
+		
+		jogoRepository.save(jogo);
 		
 		publisher.publishEvent(new ProdutoSalvoEvent(jogo));
 	}
