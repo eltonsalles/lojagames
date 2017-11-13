@@ -50,11 +50,11 @@ public class Cliente implements Serializable {
 	private LocalDate dataNascimento;
 
 	@NotBlank(message = "O telefone é obrigatório")
-	@Telefone
+	@Telefone(message = "Telefone inválido")
 	private String telefone;
 
 	@NotBlank(message = "O celular é obrigatório")
-	@Telefone(message = "Celular inválido")
+	@Telefone
 	private String celular;
 
 	@NotBlank(message = "O e-mail é obrigatório")
