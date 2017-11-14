@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/backoffice/LayoutPadrao" xlmns:thecode="http://thecode.com.br">
+<head>
+<title>Lista de Contatos</title>
+</head>
+<body>
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" layout:fragment="conteudo">
+		<h1 class="page-header">Suporte de Chamados</h1>
+		<div class="row">
+			<div class="table-responsive">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Status</th>
+							<th>Nome</th>
+							<th>Email</th>
+							<th>Tipo</th>
+							<th>Mensagem</th>
+							<th>Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="contato : ${contatos}">
+							<td th:text="${contato.id}"></td>
+							<td th:text="${contato.status}"></td>
+							<td th:text="|${contato.nome} ${contato.sobrenome}|"></td>
+							<td th:text="${contato.email}"></td>
+							<td th:text="${contato.tipo}"></td>
+							<td th:text="${contato.mensagem}"></td>
+							<td class="text-center">
+								<a class="btn btn-link btn-xs" title="Atender" th:href="@{/resposta/contato/{id}(id=${contato.id})}">
+									<i class="glyphicon glyphicon-remove"></i>
+								</a>
+							</td>
+						</tr>
+						<tr th:if="${#lists.isEmpty(contatos)}">
+							<td colspan="8">Nenhuma chamado encontrado</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/formatar-numeros.js}"></script>
+	</th:block>
+</body>
+</html>
