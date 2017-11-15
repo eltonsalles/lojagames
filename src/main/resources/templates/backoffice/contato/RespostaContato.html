@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/backoffice/LayoutPadrao" xlmns:thecode="http://thecode.com.br">
+<head>
+<title>Resposta Contato</title>
+</head>
+<body>
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" layout:fragment="conteudo">
+		<h1 class="page-header">Resposta de Contato</h1>
+		<div class="row">
+			<form method="post" th:object="${contato}" th:action="@{/resposta/contato}">
+				<thecode:messagebackoffice />
+				<input type="hidden" th:field="*{id}">
+				<div class="row">
+					<div class="col-sm-4 form-group tc-required" thecode:classforerror="nome">
+						<label for=nome class="control-label">Nome:</label>
+						<input id="nome" type="text" class="form-control" maxlength="150" readonly th:field="*{nome}"/>
+					</div>
+					<div class="col-sm-4 form-group tc-required" thecode:classforerror="email">
+						<label for="email" class="control-label">Email:</label>
+						<input id="email" type="text" class="form-control" maxlength="150" readonly th:field="*{email}" />
+					</div>
+					<div class="col-sm-3 form-group tc-required" thecode:classforerror="tipo">
+						<label for="idioma" class="control-label">Idioma</label>
+						<select class="col-sm-3 form-control" id="idioma" th:field="*{tipo}" readonly>
+							<option value="">Tipo de Mensagem</option>
+							<option value="elogio" th:value="${tipo}">Elogio</option>
+							<option value="sugestao" th:value="${tipo}">Sugestão</option>
+							<option value="reclamacao" th:value="${tipo}">Reclamação</option>
+						</select>
+					</div>
+					<div class="col-sm-12 form-group tc-required" thecode:classforerror="mensagem">
+						<label for="mensagem" class="control-label">Mensagem</label>
+						<textarea id="mensagem" rows="3" class="form-control" maxlength="2000" readonly th:field="*{mensagem}"></textarea>
+					</div>
+					<div class="col-sm-12 form-group tc-required" thecode:classforerror="resposta">
+						<label for="resposta" class="control-label">Resposta</label>
+						<textarea id="resposta" rows="3" class="form-control" maxlength="2000" required th:field="*{resposta}"></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<button class="btn  btn-primary" type="submit">Salvar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/formatar-numeros.js}"></script>
+	</th:block>
+</body>
+</html>
