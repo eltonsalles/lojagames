@@ -12,7 +12,7 @@ $(function() {
 				selectMonths : true,
 				selectYears : 100,
 				clear : false,
-				format : 'dd/mm/yyyy',
+				format : 'yyyy-mm-dd',
 				today : "Hoje",
 				close : "X",
 				max : new Date(),
@@ -25,6 +25,12 @@ $(function() {
 	});
 	
 	$('.js-cpf').mask('000.000.000-00');
+	
+	$('.js-cep').mask('00000-000');
+	
+	$('.js-numero-endereco').mask('099999999');
+	
+	$('.js-uf').mask('SS');
 	
 	var maskTelefone = function (val) {
 		return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
