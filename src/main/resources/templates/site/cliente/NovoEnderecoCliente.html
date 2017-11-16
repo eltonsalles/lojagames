@@ -10,7 +10,7 @@
 	<div class="row">
 		<thecode:menucliente />
 		<div class="col s12 m9">
-			<form method="post" th:object="${endereco}" class="js-form-cadastro-cliente" th:action="(${index != null} ? (@{/clientes/conta/editar/endereco-adicional}) : @{/clientes/conta/editar/endereco-principal})">
+			<form method="post" th:object="${endereco}" class="js-form-cadastro-cliente" th:action="@{/clientes/conta/cadastrar/endereco-adicional}">
 				<thecode:messagesite />
 				<input type="hidden" th:value="${index}" name="index">
 				<input type="hidden" th:field="*{cliente.id}">

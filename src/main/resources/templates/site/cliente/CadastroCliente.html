@@ -19,55 +19,91 @@
 			<thecode:messagesite />
 			<div class="input-field col s12 l8">
 				<i class="material-icons prefix">account_circle</i>
-				<input id="nome" type="text" pattern="^([a-zA-Zà-úÀ-Ú])([a-zA-Zà-úÀ-Ú]|\.|\s)+$" th:field="*{nome}" maxlength="150" required="required"/>
+				<input id="nome" type="text" th:field="*{nome}" maxlength="150" required />
 				<label for="nome">Nome completo</label>
 			</div>
-			<div class="col s12 l3">
+			<div class="col s12 l4">
+				<br>
 				<th:block th:each="sexo : ${sexos}">
-					<input class="with-gap tc-radio-site" th:id="|id_${sexo}|" type="radio" th:value="${sexo}" th:field="*{sexo}" required="required"/>
+					<input class="with-gap tc-radio-site" th:id="|id_${sexo}|" type="radio" th:value="${sexo}" th:field="*{sexo}" required />
 					<label th:for="|id_${sexo}|" th:text="${sexo.descricao}"></label>
 				</th:block>
 			</div>
 			<div class="input-field col s12 l6">
 				<i class="material-icons prefix">account_box</i>
-				<input id="cpf" type="text" pattern="^\d{3}.\d{3}.\d{3}-\d{2}$" class="js-cpf" maxlength="12" th:field="*{cpf}" required="required"/>
+				<input id="cpf" type="text" class="js-cpf" maxlength="14" th:field="*{cpf}" required />
 				<label for="cpf">CPF</label>
 			</div>
 			<div class="input-field col s12 l6">
 				<i class="material-icons prefix">date_range</i>
-				<input id="data-nascimento" type="text" class="datepicker" min="1900-01-01" th:field="*{dataNascimento}" required="required"/>
+				<input id="data-nascimento" type="text" class="datepicker" min="1900-01-01" th:field="*{dataNascimento}" required />
 				<label for="data-nascimento">Data de Nascimento</label>
 			</div>
 			<div class="input-field col s6 l6">
 				<i class="material-icons prefix">smartphone</i>
-				<input id="celular" type="text" maxlength="11" pattern="\(\d{2}\) \d{4,5}-\d{4}$" class="js-telefone" th:field="*{celular}" required="required"/>
+				<input id="celular" type="text" maxlength="15" class="js-telefone" th:field="*{celular}" required />
 				<label for="celular">Celular</label>
 			</div>
 			<div class="input-field col s6 l6">
 				<i class="material-icons prefix">phone</i>
-				<input id="telefone" type="text" maxlength="11" pattern="\(\d{2}\) \d{4,5}-\d{4}$" class="js-telefone" th:field="*{telefone}" required="required"/>
+				<input id="telefone" type="text" maxlength="15" class="js-telefone" th:field="*{telefone}" required />
 				<label for="telefone">Telefone</label>
 			</div>
 			<div class="input-field col s12 l12">
 				<i class="material-icons prefix">email</i>
-				<input id="email" type="email" th:field="*{email}" maxlength="150" required="required"/>
+				<input id="email" type="email" th:field="*{email}" maxlength="150" required />
 				<label for="email">E-mail</label>
 			</div>
-			<div class="input-field col s12 l6">
-				<i class="material-icons prefix">vpn_key</i>
-				<input id="senha" type="password" th:field="*{senha}" minlength="3" maxlength="15" required="required"/>
-				<label for="senha">Senha</label>
-
+			<div class="col s12">
+				<h5>EndereÃ§o</h5>
+				<div class="divider"></div>
 			</div>
-			<div class="input-field col s12 l6">
-				<i class="material-icons prefix">vpn_key</i>
-				<input id="repitir-senha" type="password" minlength="3" maxlength="15" required="required"/>
-				<label for="repitir-senha">Repita senha</label>
+			<div class="input-field col s12 m3">
+				<i class="material-icons prefix">place</i>
+				<input id="numero" type="text" th:field="*{enderecos[0].cep}" maxlength="9" class="js-cep" />
+				<label for="numero">CEP</label>
 			</div>
-			<div class="col offset-s6 offset-l10">
-				<button class="btn waves-effect waves-light amber darken-2" type="submit" name="enviar">
-					Enviar
-					<i class="material-icons left">send</i>
+			<div class="input-field col s2 m1 gif-carregando hide">
+				<img class="responsive-img" alt="Carregando" th:src="@{/images/carregando.gif}">
+			</div>
+			<div class="input-field col s12 m9">
+				<i class="material-icons prefix">home</i>
+				<input id="logradouro" type="text" th:field="*{enderecos[0].logradouro}" maxlength="150" required />
+				<label for="logradouro">Logradouro</label>
+			</div>
+			<div class="input-field col s12 m3">
+				<i class="material-icons prefix">home</i>
+				<input id="numero" type="text" th:field="*{enderecos[0].numero}" maxlength="10" class="js-numero-endereco" required />
+				<label for="numero">NÃºmero</label>
+			</div>
+			<div class="input-field col s12 m4">
+				<i class="material-icons prefix">home</i>
+				<input id="complemento" type="text" th:field="*{enderecos[0].complemento}" maxlength="100" />
+				<label for="complemento">Complemento</label>
+			</div>
+			<div class="input-field col s12 m5">
+				<i class="material-icons prefix">person_pin_circle</i>
+				<input id="bairro" type="text" th:field="*{enderecos[0].bairro}" maxlength="100" required />
+				<label for="bairro">Bairro</label>
+			</div>
+			<div class="input-field col s12 m4">
+				<i class="material-icons prefix">person_pin_circle</i>
+				<input id="cidade" type="text" th:field="*{enderecos[0].cidade}" maxlength="100" required />
+				<label for="cidade">Cidade</label>
+			</div>
+			<div class="input-field col s12 m2">
+				<i class="material-icons prefix">person_pin_circle</i>
+				<input id="uf" type="text" th:field="*{enderecos[0].uf}" maxlength="2" class="js-uf" required />
+				<label for="uf">UF</label>
+			</div>
+			<div class="input-field col s12 m12">
+				<i class="material-icons prefix">person_pin_circle</i>
+				<textarea id="referencia" class="materialize-textarea" rows="1" th:field=*{enderecos[0].referencia} required></textarea>
+				<label for="referencia">ReferÃªncia</label>
+			</div>
+			<div class="col s12">
+				<button class="btn waves-effect waves-light orange right" type="submit">Enviar
+				    <i class="material-icons left">send</i>
 				</button>
 			</div>
 		</form>

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body>
+	<div class="col s12 tc-alert" th:if="${not #strings.isEmpty(mensagem)}">
+		<div class="card-panel green lighten-4">
+			<button class="btn-flat btn-floating green lighten-4 right tc-close" type="button">
+				<i class="material-icons green-text text-darken-4">close</i>
+			</button>
+			<span th:text="${mensagem}"></span>
+		</div>
+	</div>
+</body>
+</html>
