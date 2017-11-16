@@ -10,6 +10,7 @@ import org.thymeleaf.standard.StandardDialect;
 import br.senac.tads4.piiv.thymeleaf.processor.ClassForErrorAttributeTagProcessor;
 import br.senac.tads4.piiv.thymeleaf.processor.FormImagemProdutoElementTagProcessor;
 import br.senac.tads4.piiv.thymeleaf.processor.FormProdutoElementTagProcessor;
+import br.senac.tads4.piiv.thymeleaf.processor.MenuClienteElementTagProcessor;
 import br.senac.tads4.piiv.thymeleaf.processor.MessageBackofficeElementTagProcessor;
 import br.senac.tads4.piiv.thymeleaf.processor.MessageSiteElementTagProcessor;
 
@@ -24,6 +25,7 @@ public class TheCodeDialect extends AbstractProcessorDialect {
 		final Set<IProcessor> processadores = new HashSet<>();
 		processadores.add(new ClassForErrorAttributeTagProcessor(dialectPrefix));
 		processadores.add(new FormProdutoElementTagProcessor(dialectPrefix));
+		processadores.add(new MenuClienteElementTagProcessor(dialectPrefix));
 		processadores.add(new FormImagemProdutoElementTagProcessor(dialectPrefix));
 		processadores.add(new MessageBackofficeElementTagProcessor(dialectPrefix));
 		processadores.add(new MessageSiteElementTagProcessor(dialectPrefix));
