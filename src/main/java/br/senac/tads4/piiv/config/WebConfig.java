@@ -104,7 +104,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		
 		DateTimeFormatterRegistrar dateTimeFomatter = new DateTimeFormatterRegistrar();
 		dateTimeFomatter.setDateFormatter(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-		dateTimeFomatter.setTimeFormatter(DateTimeFormatter.ofPattern("HH:mm"));
+		dateTimeFomatter.setTimeFormatter(DateTimeFormatter.ofPattern("HH:mm:ss"));
 		dateTimeFomatter.registerFormatters(conversionService);
 		
 		return conversionService;
