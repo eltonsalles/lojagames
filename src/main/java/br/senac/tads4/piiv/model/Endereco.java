@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -52,7 +54,7 @@ public class Endereco implements Serializable {
 	private String uf;
 
 	@NotBlank(message = "O campo CEP é obrigatório")
-	@Size(max = 8, message = "O campo CEP deve ter no máximo 8 caracteres")
+	@Size(max = 9, message = "O campo CEP deve ter no máximo 8 caracteres")
 	private String cep;
 
 	@NotBlank(message = "O campo referência é obrigatório")
@@ -126,6 +128,10 @@ public class Endereco implements Serializable {
 	public String getCep() {
 		return cep;
 	}
+	
+	public String getCepFormatado() {
+		return cep.substring(0, 5) + "-" + cep.substring(5);
+	}
 
 	public void setCep(String cep) {
 		this.cep = cep;
@@ -137,6 +143,13 @@ public class Endereco implements Serializable {
 
 	public void setReferencia(String referencia) {
 		this.referencia = referencia;
+	}
+
+	@PrePersist
+	@PreUpdate
+	private void prePersistUpdate() {
+		this.cep = this.cep.replaceAll("\\D", "");
+		this.uf = this.uf.toUpperCase();
 	}
 
 	@Override

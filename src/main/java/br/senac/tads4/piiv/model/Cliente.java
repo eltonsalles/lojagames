@@ -16,6 +16,7 @@ import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -54,7 +55,7 @@ public class Cliente implements Serializable {
 	private String telefone;
 
 	@NotBlank(message = "O celular é obrigatório")
-	@Telefone
+	@Telefone(message = "Celular inválido")
 	private String celular;
 
 	@NotBlank(message = "O e-mail é obrigatório")
@@ -62,8 +63,7 @@ public class Cliente implements Serializable {
 	@Size(max = 150, message = "O campo e-mail deve ter no máximo 150 caracteres")
 	private String email;
 
-	@NotBlank(message = "A senha é obrigatória")
-	@Size(min = 3, max = 15, message = "O campo senha deve ter entre 3 e 15 caracteres")
+	@Transient
 	private String senha;
 	
 	@OneToMany(mappedBy = "cliente", targetEntity = Endereco.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -115,6 +115,14 @@ public class Cliente implements Serializable {
 	public String getTelefone() {
 		return telefone;
 	}
+	
+	public String getTelefoneFormatado() {
+		if (telefone.length() > 10) {
+			return "(" + telefone.substring(0, 2) + ") " + telefone.substring(2, 7) + "-" + telefone.substring(7);
+		} else {
+			return "(" + telefone.substring(0, 2) + ") " + telefone.substring(2, 6) + "-" + telefone.substring(6);
+		}
+	}
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
@@ -122,6 +130,14 @@ public class Cliente implements Serializable {
 
 	public String getCelular() {
 		return celular;
+	}
+	
+	public String getCelularFormatado() {
+		if (celular.length() > 10) {
+			return "(" + celular.substring(0, 2) + ") " + celular.substring(2, 7) + "-" + celular.substring(7);
+		} else {
+			return "(" + celular.substring(0, 2) + ") " + celular.substring(2, 6) + "-" + celular.substring(6);
+		}
 	}
 
 	public void setCelular(String celular) {
