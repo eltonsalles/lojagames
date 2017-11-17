@@ -7,6 +7,11 @@
 <body>
 	<main class="container" layout:fragment="conteudo">
 	<div class="row">
+		<div class="col s12 m6 offset-m3" th:if="${#bools.isTrue(param.error)}">
+			<div>
+				<p class="center-align red-text">O e-mail e/ou senha não conferem</p>
+			</div>
+		</div>
 		<form class="col s12 m6 offset-m3" th:action="@{/login/site}" method="post">
 			<div class="row">
 				<div class="col s12">
@@ -32,10 +37,7 @@
 	<div class="row">
 		<div class="col s12 m6 offset-m3">
 			<div class="col s9 offset-s3">
-				<p>
-					Não tem cadastro?
-					<a href="#">cadastre-se</a>
-				</p>
+				<p>Não tem cadastro?<a href="#"> cadastre-se!</a></p>
 			</div>
 		</div>
 	</div>
