@@ -12,8 +12,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class LoginController {
 
 	@RequestMapping("login/site")
-	public ModelAndView loginSite() {
-		ModelAndView mv = new ModelAndView("site/login/Login");
+	public ModelAndView loginSite(@AuthenticationPrincipal User user) {
+		if (user != null) {
+			return new ModelAndView("redirect:/clientes/conta/index/1");
+		}
+		
+		ModelAndView mv = new ModelAndView("site/Login");
 		return mv;
 	}
 	

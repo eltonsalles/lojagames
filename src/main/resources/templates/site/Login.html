@@ -7,17 +7,17 @@
 <body>
 	<main class="container" layout:fragment="conteudo">
 	<div class="row">
-		<form class="col s12 m6 offset-m3">
+		<form class="col s12 m6 offset-m3" th:action="@{/login/site}" method="post">
 			<div class="row">
 				<div class="col s12">
 					<h5>Já sou cliente</h5>
 				</div>
 				<div class="input-field col s12">
-					<input id="email" type="email" class="validate" maxlength="150" required>
+					<input id="email" type="email" maxlength="150" required name="username">
 					<label for="email">E-mail</label>
 				</div>
 				<div class="input-field col s12">
-					<input id="senha" type="password" class="validate" maxlength="255" required>
+					<input id="senha" type="password" maxlength="20" required name="password">
 					<label for="senha">Senha</label>
 					<a href="#" class="right">Esqueceu a senha?</a>
 				</div>
