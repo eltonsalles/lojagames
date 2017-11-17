@@ -24,6 +24,12 @@ public class SecurityConfig {
 	@Autowired
 	private UserDetailsService userDetailsService;
 	
+	/**
+	 * Método usado pelo spring security para autenticar o usuário
+	 * 
+	 * @param auth
+	 * @throws Exception
+	 */
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(this.passwordEncoder());
@@ -32,6 +38,10 @@ public class SecurityConfig {
 	@Configuration
 	@Order(1)
 	public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
+		
+		/**
+		 * Urls que são ignoradas pelo spring security
+		 */
 		@Override
 		public void configure(WebSecurity web) throws Exception {
 			web
@@ -48,13 +58,25 @@ public class SecurityConfig {
 				.antMatchers("/clientes/novo");
 		}
 		
+		/**
+		 * Configuração para urls do backoffice. Todas as requisições que a url comece com admin serão tratadas aqui
+		 * pelo spring security
+		 */
 		protected void configure(HttpSecurity http) throws Exception {
 			http
-				.antMatcher("/clientes/**")
+				.antMatcher("/admin/**")
 				.authorizeRequests()
-					.anyRequest().hasRole("CLIENTE")
-					.and()
-				.httpBasic();
+					.antMatchers("/admin/produtos/consoles/novo").hasRole("CADASTRAR_PRODUTO")
+					.antMatchers("/admin/produtos/controles/novo").hasRole("CADASTRAR_PRODUTO")
+					.antMatchers("/admin/produtos/jogos/novo").hasRole("CADASTRAR_PRODUTO")
+					.antMatchers("/admin/produtos/pesquisar").hasRole("CONSULTAR_PRODUTO")
+					.antMatchers("/admin/usuarios/novo").hasRole("CADASTRAR_USUARIO")
+					.anyRequest().hasRole("ADMIN")
+				.and()
+					.httpBasic()
+				.and()
+					.exceptionHandling()
+						.accessDeniedPage("/403");
 		}
 	}
 
@@ -62,25 +84,34 @@ public class SecurityConfig {
 	@Order(2)
 	public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
+		/**
+		 * Configuração para as demais urls (cliente)
+		 */
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			http
 				.authorizeRequests()
-					.antMatchers("/produtos/consoles/novo").hasRole("CADASTRAR_PRODUTO")
+					.antMatchers("/clientes/**").hasRole("CLIENTE")
 					.anyRequest().authenticated()
-					.and()
-				.formLogin()
-					.loginPage("/login/backoffice")
+				.and()
+					.formLogin()
+					.loginPage("/login/site")
 					.permitAll()
-					.and()
-				.logout()
+				.and()
+					.logout()
 					.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-					.and()
-				.exceptionHandling()
-					.accessDeniedPage("/403");
+					.logoutSuccessUrl("/")
+				.and()
+					.exceptionHandling()
+						.accessDeniedPage("/403");
 		}
 	}
 	
+	/**
+	 * Método usado para retornar uma instância do BCrypt
+	 * 
+	 * @return
+	 */
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
