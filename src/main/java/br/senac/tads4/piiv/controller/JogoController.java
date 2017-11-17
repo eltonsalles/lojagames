@@ -22,7 +22,7 @@ import br.senac.tads4.piiv.service.exception.DescricaoDaImagemVaziaException;
 import br.senac.tads4.piiv.service.exception.ListaDeImagensVaziasException;
 
 @Controller
-@RequestMapping(value = "/produtos/jogos")
+@RequestMapping(value = "/admin/produtos/jogos")
 public class JogoController {
 
 	@Autowired

@@ -11,7 +11,7 @@ import br.senac.tads4.piiv.repository.ProdutoRepository;
 import br.senac.tads4.piiv.repository.filter.ProdutoFilter;
 
 @Controller
-@RequestMapping(value = "/produtos")
+@RequestMapping(value = "/admin/produtos")
 public class ProdutoController {
 	
 	@Autowired

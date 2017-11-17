@@ -55,7 +55,8 @@ public class SecurityConfig {
 				.antMatchers("/detalhes-do-produto/**")
 				.antMatchers("/lista-produto/**")
 				.antMatchers("/carrinho-compra/**")
-				.antMatchers("/clientes/novo");
+				.antMatchers("/clientes/novo")
+				.antMatchers("/contato/novo");
 		}
 		
 		/**
@@ -92,6 +93,8 @@ public class SecurityConfig {
 			http
 				.authorizeRequests()
 					.antMatchers("/clientes/**").hasRole("CLIENTE")
+					.antMatchers("/pedidos/**").hasRole("CLIENTE")
+					.antMatchers("/boleto/**").hasRole("CLIENTE")
 					.anyRequest().authenticated()
 				.and()
 					.formLogin()

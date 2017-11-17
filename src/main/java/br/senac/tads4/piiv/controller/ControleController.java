@@ -21,7 +21,7 @@ import br.senac.tads4.piiv.service.exception.DescricaoDaImagemVaziaException;
 import br.senac.tads4.piiv.service.exception.ListaDeImagensVaziasException;
 
 @Controller
-@RequestMapping(value = "/produtos/controles")
+@RequestMapping(value = "/admin/produtos/controles")
 public class ControleController {
 
 	@Autowired

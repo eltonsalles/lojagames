@@ -17,7 +17,7 @@ import br.senac.tads4.piiv.service.exception.EmailUsuarioJaCadastradoException;
 import br.senac.tads4.piiv.service.exception.SenhaUsuarioObrigatoriaException;
 
 @Controller
-@RequestMapping(value = "/usuarios")
+@RequestMapping(value = "/admin/usuarios")
 public class UsuarioController {
 
 	@Autowired

@@ -132,6 +132,4 @@ public class BoletoController {
         
         return bPDF;
 	}
-	
-	
 }

@@ -23,7 +23,7 @@ import br.senac.tads4.piiv.service.exception.DescricaoDaImagemVaziaException;
 import br.senac.tads4.piiv.service.exception.ListaDeImagensVaziasException;
 
 @Controller
-@RequestMapping(value = "/produtos/consoles")
+@RequestMapping(value = "/admin/produtos/consoles")
 public class ConsoleController {
 
 	@Autowired

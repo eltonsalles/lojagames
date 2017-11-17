@@ -16,7 +16,7 @@ import br.senac.tads4.piiv.repository.ContatoRepository;
 import br.senac.tads4.piiv.service.ContatoService;
 
 @Controller
-@RequestMapping(value = "/")
+@RequestMapping(value = "/admin/contato")
 public class RespostaContatoController {
 
 	@Autowired
