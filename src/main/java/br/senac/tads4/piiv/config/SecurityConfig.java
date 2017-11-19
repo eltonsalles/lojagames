@@ -103,7 +103,6 @@ public class SecurityConfig {
 				.and()
 					.logout()
 					.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-					.logoutSuccessUrl("/")
 				.and()
 					.exceptionHandling()
 						.accessDeniedPage("/403");

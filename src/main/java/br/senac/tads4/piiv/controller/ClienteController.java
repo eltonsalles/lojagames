@@ -34,6 +34,9 @@ public class ClienteController {
 
 	@Autowired
 	private ClienteService clienteService;
+	
+	@Autowired
+	private LoginController login;
 
 	/**
 	 * Exibe o formulário para cadastro de um novo cliente
@@ -101,7 +104,8 @@ public class ClienteController {
 	public ModelAndView conta(@PathVariable Long id) {
 		ModelAndView mv = new ModelAndView("site/cliente/PainelCliente");
 
-		// #MOCK
+		this.conferirId(id);
+		
 		Cliente cliente = clienteRepository.findOne(id);
 		mv.addObject("cliente", cliente);
 
@@ -118,7 +122,8 @@ public class ClienteController {
 	public ModelAndView editarDadosCadastrais(@PathVariable Long id) {
 		ModelAndView mv = new ModelAndView("site/cliente/DadosCadastraisCliente");
 
-		// #MOCK
+		this.conferirId(id);
+		
 		Cliente cliente = clienteRepository.findOne(id);
 		mv.addObject("cliente", cliente);
 		mv.addObject("sexos", Sexo.values());
@@ -152,6 +157,8 @@ public class ClienteController {
 	 */
 	@RequestMapping(value = "/conta/editar/dados-cadastrais", method = RequestMethod.POST)
 	public ModelAndView salvarDadosCadastrais(@Valid Cliente cliente, BindingResult result, RedirectAttributes attributes) {
+		this.conferirId(cliente.getId());
+		
 		if (result.hasErrors()) {
 			return editarDadosCadastrais(cliente);
 		}
@@ -176,7 +183,8 @@ public class ClienteController {
 	public ModelAndView editarEnderecoPrincipal(@PathVariable Long id) {
 		ModelAndView mv = new ModelAndView("site/cliente/EnderecoCliente");
 
-		// #MOCK
+		this.conferirId(id);
+		
 		Cliente cliente = clienteRepository.findOne(id);
 		mv.addObject("cliente", cliente);
 		mv.addObject("endereco", cliente.getEnderecos().get(0));
@@ -194,7 +202,8 @@ public class ClienteController {
 	public ModelAndView editarEnderecoPrincipal(Endereco endereco) {
 		ModelAndView mv = new ModelAndView("site/cliente/EnderecoCliente");
 		
-		// #MOCK
+		this.conferirId(endereco.getCliente().getId());
+		
 		Cliente cliente = clienteRepository.findOne(endereco.getCliente().getId());
 		mv.addObject("cliente", cliente);
 		mv.addObject("endereco", endereco);
@@ -212,6 +221,8 @@ public class ClienteController {
 	 */
 	@RequestMapping(value = "/conta/editar/endereco-principal", method = RequestMethod.POST)
 	public ModelAndView salvarEnderecoPrincipal(@Valid Endereco endereco, BindingResult result, RedirectAttributes attributes) {
+		this.conferirId(endereco.getCliente().getId());
+		
 		if (result.hasErrors()) {
 			return editarEnderecoPrincipal(endereco);
 		}
@@ -237,7 +248,8 @@ public class ClienteController {
 	public ModelAndView editarEnderecoAdicional(@PathVariable Long id, @PathVariable Integer index) {
 		ModelAndView mv = new ModelAndView("site/cliente/EnderecoCliente");
 
-		// #MOCK
+		this.conferirId(id);
+		
 		Cliente cliente = clienteRepository.findOne(id);
 		mv.addObject("cliente", cliente);
 		mv.addObject("endereco", cliente.getEnderecos().get(index));
@@ -256,7 +268,8 @@ public class ClienteController {
 	public ModelAndView editarEnderecoAdicional(Endereco endereco, @RequestParam Integer index) {
 		ModelAndView mv = new ModelAndView("site/cliente/EnderecoCliente");
 		
-		// #MOCK
+		this.conferirId(endereco.getCliente().getId());
+		
 		Cliente cliente = clienteRepository.findOne(endereco.getCliente().getId());
 		mv.addObject("cliente", cliente);
 		mv.addObject("endereco", endereco);
@@ -275,6 +288,8 @@ public class ClienteController {
 	 */
 	@RequestMapping(value = "/conta/editar/endereco-adicional", method = RequestMethod.POST)
 	public ModelAndView salvarEnderecoAdicional(@Valid Endereco endereco, @RequestParam Integer index, BindingResult result, RedirectAttributes attributes) {
+		this.conferirId(endereco.getCliente().getId());
+		
 		if (result.hasErrors()) {
 			return editarEnderecoAdicional(endereco, index);
 		}
@@ -298,6 +313,8 @@ public class ClienteController {
 	 */
 	@DeleteMapping(value = "/conta/remover-endereco-adicional/{id}/{index}")
 	public @ResponseBody ResponseEntity<?> removerEnderecoAdicional(@PathVariable Long id, @PathVariable Integer index) {
+		this.conferirId(id);
+		
 		try {
 			clienteService.removerEnderecoAdicional(id, index);
 		} catch (Exception e) {
@@ -318,7 +335,8 @@ public class ClienteController {
 	public ModelAndView cadastrarEnderecoAdicional(@PathVariable Long id, @PathVariable Integer index) {
 		ModelAndView mv = new ModelAndView("site/cliente/NovoEnderecoCliente");
 
-		// #MOCK
+		this.conferirId(id);
+		
 		Cliente cliente = clienteRepository.findOne(id);
 		Endereco endereco = new Endereco();
 		endereco.setCliente(cliente);
@@ -339,7 +357,8 @@ public class ClienteController {
 	public ModelAndView cadastrarEnderecoAdicional(Endereco endereco, @RequestParam Integer index) {
 		ModelAndView mv = new ModelAndView("site/cliente/NovoEnderecoCliente");
 		
-		// #MOCK
+		this.conferirId(endereco.getCliente().getId());
+		
 		Cliente cliente = clienteRepository.findOne(endereco.getCliente().getId());
 		mv.addObject("cliente", cliente);
 		mv.addObject("endereco", endereco);
@@ -358,6 +377,8 @@ public class ClienteController {
 	 */
 	@RequestMapping(value = "/conta/cadastrar/endereco-adicional", method = RequestMethod.POST)
 	public ModelAndView cadastrarEnderecoAdicional(@Valid Endereco endereco, @RequestParam Integer index, BindingResult result, RedirectAttributes attributes) {
+		this.conferirId(endereco.getCliente().getId());
+		
 		if (result.hasErrors()) {
 			return editarEnderecoAdicional(endereco, index);
 		}
@@ -370,5 +391,19 @@ public class ClienteController {
 
 		attributes.addFlashAttribute("mensagem", "Endereço adicional adicionado com sucesso!");
 		return new ModelAndView("redirect:/clientes/conta/index/" + endereco.getCliente().getId());
+	}
+	
+	/**
+	 * Método para garantir que a manipulação dos dados do cliente sejam apenas para o cliente logado no sistema
+	 * 
+	 * @param id
+	 * @return
+	 */
+	private ModelAndView conferirId(Long id) {
+		if (id != login.recuperarUsuario().getCliente().getId()) {
+			return new ModelAndView("redirect:/logout");
+		}
+		
+		return null;
 	}
 }

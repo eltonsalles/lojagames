@@ -36,7 +36,8 @@ TheCode.DialogoExcluir = (function() {
 			url: url,
 			method: 'DELETE',
 			success: onExcluidoSucesso.bind(this),
-			error: onErroExcluir.bind(this)
+			error: onErroExcluir.bind(this),
+			beforeSend: addCsrfToken
 		});
 	}
 	
@@ -50,6 +51,13 @@ TheCode.DialogoExcluir = (function() {
 	
 	function onErroExcluir(e) {
 		console.log('Deu ruim!');
+	}
+	
+	function addCsrfToken(xhr) {
+		var token = $('input[name=_csrf]').val();
+		var header = $('input[name=_csrf_header]').val();
+		
+		xhr.setRequestHeader(header, token);
 	}
 	
 	return DialogoExcluir;
