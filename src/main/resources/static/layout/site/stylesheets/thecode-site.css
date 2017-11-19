@@ -1,6 +1,11 @@
 /***********************************************************************************************************************/
 /* Geral do site */
 
+/* Campos obrigatórios */
+.tc-required label:first-of-type:before {
+	content: "*";
+}
+
 /* Altura mínima para o header */
 header {
 	min-height: 112px;

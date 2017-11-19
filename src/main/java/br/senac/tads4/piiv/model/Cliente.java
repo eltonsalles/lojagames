@@ -23,8 +23,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import br.com.caelum.stella.bean.validation.CPF;
+import br.senac.tads4.piiv.validation.AtributoConfirmacao;
 import br.senac.tads4.piiv.validation.Telefone;
 
+@AtributoConfirmacao(atributo = "senha", atributoConfirmacao = "confirmacaoSenha", message = "O campo senha não é igual ao confirmação de senha")
 @Entity
 @Table(name = "cliente")
 public class Cliente implements Serializable {
@@ -65,6 +67,9 @@ public class Cliente implements Serializable {
 
 	@Transient
 	private String senha;
+	
+	@Transient
+	private String confirmacaoSenha;
 	
 	@OneToMany(mappedBy = "cliente", targetEntity = Endereco.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Endereco> enderecos;
@@ -158,6 +163,14 @@ public class Cliente implements Serializable {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public String getConfirmacaoSenha() {
+		return confirmacaoSenha;
+	}
+
+	public void setConfirmacaoSenha(String confirmacaoSenha) {
+		this.confirmacaoSenha = confirmacaoSenha;
 	}
 
 	public List<Endereco> getEnderecos() {

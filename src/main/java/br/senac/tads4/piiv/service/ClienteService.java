@@ -1,12 +1,20 @@
 package br.senac.tads4.piiv.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.senac.tads4.piiv.model.Cliente;
 import br.senac.tads4.piiv.model.Endereco;
 import br.senac.tads4.piiv.repository.ClienteRepository;
+import br.senac.tads4.piiv.service.event.cliente.ClienteSalvoEvent;
+import br.senac.tads4.piiv.service.exception.CpfClienteJaCadastradoException;
+import br.senac.tads4.piiv.service.exception.EmailClienteJaCadastradoException;
 
 /**
  * Classe responsável por persistir os dados no banco de dados na tabela cliente
@@ -20,14 +28,48 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository clientes;
 	
-	public Long salvar(Cliente cliente) {
-		cliente.getEnderecos().get(0).setCliente(cliente);
+	@Autowired
+	private ApplicationEventPublisher publisher;
+	
+	/**
+	 * Salva um novo cliente na base de dados
+	 * 
+	 * @param cliente
+	 * @return
+	 */
+	public Long salvar(Cliente cliente, Endereco endereco) {
+		String cpf = cliente.getCpf().replaceAll("\\D", "");
+		Optional<Cliente> clienteCpfOptional = clientes.findByCpf(cpf);
+		
+		if (clienteCpfOptional.isPresent()) {
+			throw new CpfClienteJaCadastradoException("O CPF informado já está cadastrado");
+		}
+		
+		Optional<Cliente> clienteEmailOptional = clientes.findByEmailIgnoreCase(cliente.getEmail());
+		
+		if (clienteEmailOptional.isPresent()) {
+			throw new EmailClienteJaCadastradoException("O e-mail informado já está cadastrado");
+		}
+
+		List<Endereco> listaEndereco = new ArrayList<>();
+		
+		endereco.setCliente(cliente);
+		listaEndereco.add(endereco);
+
+		cliente.setEnderecos(listaEndereco);
+		
+		publisher.publishEvent(new ClienteSalvoEvent(cliente));
 		
 		clientes.saveAndFlush(cliente);
 		
 		return cliente.getId();
 	}
 	
+	/**
+	 * Método para alterar os dados cadastrais do cliente
+	 * 
+	 * @param cliente
+	 */
 	public void alterar(Cliente cliente) {
 		Cliente c = clientes.findOne(cliente.getId());
 		c.setNome(cliente.getNome());
@@ -41,6 +83,11 @@ public class ClienteService {
 		clientes.save(c);
 	}
 	
+	/**
+	 * Método para alterar o endereço principal
+	 * 
+	 * @param endereco
+	 */
 	public void alterarEnderecoPrincipal(Endereco endereco) {
 		Cliente c = clientes.findOne(endereco.getCliente().getId());
 		c.getEnderecos().get(0).setCep(endereco.getCep());
@@ -55,6 +102,12 @@ public class ClienteService {
 		clientes.save(c);
 	}
 	
+	/**
+	 * Método para alterar o endereço adicional
+	 * 
+	 * @param endereco
+	 * @param index
+	 */
 	public void alterarEnderecoAdicional(Endereco endereco, Integer index) {
 		Cliente c = clientes.findOne(endereco.getCliente().getId());
 		c.getEnderecos().get(index).setCep(endereco.getCep());
@@ -69,6 +122,12 @@ public class ClienteService {
 		clientes.save(c);
 	}
 	
+	/**
+	 * Método para remover um endereço adicional do cliente 
+	 * 
+	 * @param id
+	 * @param index
+	 */
 	@Transactional
 	public void removerEnderecoAdicional(Long id, Integer index) {
 		Cliente cliente = clientes.findOne(id);
@@ -78,6 +137,11 @@ public class ClienteService {
 		clientes.save(cliente);
 	}
 	
+	/**
+	 * Método para salvar um novo endereço adicional
+	 * 
+	 * @param endereco
+	 */
 	public void salvarEnderecoAdicional(Endereco endereco) {
 		Cliente cliente = clientes.findOne(endereco.getCliente().getId());
 		cliente.getEnderecos().add(endereco);

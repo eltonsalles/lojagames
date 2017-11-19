@@ -16,21 +16,21 @@ public class LoginController {
 		if (user != null) {
 			return new ModelAndView("redirect:/clientes/conta/index/1");
 		}
-		
+
 		ModelAndView mv = new ModelAndView("site/Login");
 		return mv;
 	}
-	
+
 	@RequestMapping("login/backoffice")
 	public ModelAndView loginBackoffice(@AuthenticationPrincipal User user) {
 		if (user != null) {
 			return new ModelAndView("redirect:/usuarios/novo");
 		}
-		
+
 		ModelAndView mv = new ModelAndView("backoffice/Login");
 		return mv;
 	}
-	
+
 	@GetMapping("403")
 	public ModelAndView acessoNegado() {
 		return new ModelAndView("backoffice/error/403");
