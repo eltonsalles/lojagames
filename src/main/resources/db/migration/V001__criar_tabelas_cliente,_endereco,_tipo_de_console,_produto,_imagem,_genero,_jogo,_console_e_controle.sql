@@ -7,7 +7,9 @@ CREATE TABLE cliente (
     telefone VARCHAR(11) NOT NULL,
     email VARCHAR(150) NOT NULL,
     sexo VARCHAR(9) NOT NULL,
-    senha VARCHAR(255) NOT NULL
+    senha VARCHAR(255) NOT NULL,
+    UNIQUE INDEX cpf_UNIQUE (cpf ASC),
+    UNIQUE INDEX email_UNIQUE (email ASC)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE endereco (
@@ -63,7 +65,8 @@ INSERT INTO endereco (id_cliente, cep, logradouro, numero, complemento, referenc
 
 CREATE TABLE tipo_console (
 	id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50) NOT NULL
+	nome VARCHAR(50) NOT NULL,
+	UNIQUE INDEX nome_UNIQUE (nome ASC)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE produto (
@@ -91,7 +94,8 @@ CREATE TABLE imagem (
 
 CREATE TABLE genero (
 	id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50) NOT NULL
+	nome VARCHAR(50) NOT NULL,
+	UNIQUE INDEX nome_UNIQUE (nome ASC)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE jogo (

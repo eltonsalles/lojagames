@@ -4,17 +4,20 @@ CREATE TABLE usuario (
     email VARCHAR(150) NOT NULL,
     senha VARCHAR(255) NOT NULL,
     status BOOLEAN DEFAULT true,
-    data_nascimento DATE
+    data_nascimento DATE,
+    UNIQUE INDEX email_UNIQUE (email ASC)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE grupo (
     id BIGINT(20) PRIMARY KEY,
-    nome VARCHAR(50) NOT NULL
+    nome VARCHAR(50) NOT NULL,
+    UNIQUE INDEX nome_UNIQUE (nome ASC)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE permissao (
     id BIGINT(20) PRIMARY KEY,
-    nome VARCHAR(50) NOT NULL
+    nome VARCHAR(50) NOT NULL,
+    UNIQUE INDEX nome_UNIQUE (nome ASC)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE usuario_grupo (
