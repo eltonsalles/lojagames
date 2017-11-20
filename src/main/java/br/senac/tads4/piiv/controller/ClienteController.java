@@ -93,7 +93,7 @@ public class ClienteController {
 		attributes.addFlashAttribute("mensagem", "Bem vindo a The Code Games!");
 		return new ModelAndView("redirect:/clientes/conta/index/" + id);
 	}
-
+	
 	/**
 	 * Exibe a page home do cliente
 	 * 
