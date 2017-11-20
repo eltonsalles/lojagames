@@ -2,37 +2,37 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="layout/site/LayoutPadrao" xlmns:thecode="http://thecode.com.br">
 <head>
-<title>The Code - Loja de Games</title>
+<title>Contato</title>
 </head>
 <body>
 	<main class="container" layout:fragment="conteudo">
-	<h1 class="page-header">Contato</h1>
+	<h4 class="page-header">Contato</h4>
 	<div class="row">
-		<form class="col s12">
-			<div class="input-field col s12 m3">
-				<select>
-					<option value="" disabled selected required>Selecione o tipo</option>
-					<option value="duvidas">Dúvidas</option>
-					<option value="reclamacoes">Reclamações</option>
-					<option value="sugestoes">Sugestões</option>
-				</select> <label>Tipo</label>
-			</div>
+		<form class="col s12" th:object="${contato}" th:action="@{/contatos/novo}" method="post">
+			<thecode:messagesite />
 			<div class="input-field col s12 m4">
-				<input id="first_name" type="text" class="validate" required> <label for="first_name" required>Nome</label>
+				<select id="tipo-contato" th:field="*{tipo}" required>
+					<option value="" disabled selected>Selecione o tipo</option>
+					<option th:each="tipoContato : ${tiposContato}" th:value="${tipoContato}" th:text="${tipoContato.descricao}"></option>
+				</select>
+				<label>Tipo</label>
 			</div>
-			<div class="input-field col s12 m5">
-				<input id="last_name" type="text" class="validate" required> <label for="last_name">Sobrenome</label>
+			<div class="input-field col s12 m8">
+				<input id="nome" type="text" maxlength="150" th:field="*{nome}" required>
+				<label for="nome">Nome</label>
 			</div>
 			<div class="input-field col s12 col-sm-offset-2">
-				<input id="email" type="email" class="validate" required> <label for="email">Email</label>
+				<input id="email" type="email" maxlength="150" th:field="*{email}" required>
+				<label for="email">Email</label>
 			</div>
 			<div class="input-field col s12">
-				<textarea id="textarea1" class="materialize-textarea" required></textarea>
-				<label for="textarea1">Mensagem</label>
+				<textarea id="mensagem" class="materialize-textarea" row="1" maxlength="1000" th:field="*{mensagem}" required></textarea>
+				<label for="mensagem">Mensagem</label>
 			</div>
-			<div class="col s6 m12 enviar-email">
-				<button class="btn-large waves-effect waves-light orange right js-enviar-email" type="submit">
-					Enviar<i class="material-icons right">send</i>
+			<div class="col s6 m12">
+				<button class="btn waves-effect waves-light orange right" type="submit">
+					Enviar
+					<i class="material-icons right">send</i>
 				</button>
 			</div>
 		</form>

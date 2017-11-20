@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,49 +13,70 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.senac.tads4.piiv.model.Contato;
+import br.senac.tads4.piiv.model.enumerated.TipoContato;
 import br.senac.tads4.piiv.repository.ContatoRepository;
+import br.senac.tads4.piiv.repository.filter.ContatoFilter;
 import br.senac.tads4.piiv.service.ContatoService;
 
 @Controller
-@RequestMapping(value = "/admin/contato")
+@RequestMapping(value = "/admin/contatos")
 public class RespostaContatoController {
 
 	@Autowired
 	private ContatoService contatoService;
-	
+
 	@Autowired
 	private ContatoRepository contatoRepository;
-	
-	@RequestMapping(value = "pesquisa/contato")
-	public ModelAndView novo() {
-		ModelAndView mv = new ModelAndView("backoffice/contato/listaDeContato");
-		mv.addObject("contatos", contatoRepository.findAll());
+
+	/**
+	 * Exibe a lista de contato
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/pesquisar")
+	public ModelAndView novo(ContatoFilter contatoFilter, BindingResult result) {
+		ModelAndView mv = new ModelAndView("backoffice/contato/ListaDeContato");
+		mv.addObject("tiposContato", TipoContato.values());
+		mv.addObject("contatos", contatoRepository.filtrar(contatoFilter));
 		return mv;
 	}
-	
-	@RequestMapping(value = "resposta/contato/{id}")
+
+	/**
+	 * Exibe um contato conforme o id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/resposta/{id}")
 	public ModelAndView respostaContato(@PathVariable Long id) {
 		ModelAndView mv = new ModelAndView("backoffice/contato/RespostaContato");
 		mv.addObject("contato", contatoRepository.findOne(id));
+		mv.addObject("tiposContato", TipoContato.values());
 		return mv;
 	}
-	
-	@RequestMapping(value = "resposta/contato", method = RequestMethod.POST)
+
+	/**
+	 * Método responsável por cuidar da submissão do formulário de resposta de contato
+	 * 
+	 * @param contato
+	 * @param result
+	 * @param attributes
+	 * @return
+	 */
+	@RequestMapping(value = "/resposta", method = RequestMethod.POST)
 	public ModelAndView respota(@Valid Contato contato, BindingResult result, RedirectAttributes attributes) {
-//		if (result.hasErrors()) {
-//			return respostaContato(contato.getId());
-//		}
-		
-		System.out.println(">>>>>>>>>>");
-		
+		if (StringUtils.isEmpty(contato.getResposta())) {
+			attributes.addFlashAttribute("erroCampoResposta", "O campo resposta é obrigatório");
+			return new ModelAndView("redirect:/admin/contatos/resposta/" + contato.getId());
+		}
+
 		try {
-			contatoService.salvar(contato);
-		} catch (Exception e) { // Trocar por uma exceção mais especifica
-			// result.rejectValue();
+			contatoService.alterar(contato);
+		} catch (Exception e) {
 			return respostaContato(contato.getId());
 		}
-		
-		attributes.addFlashAttribute("messagem", "Contato respondido com sucesso");
-		return new ModelAndView("redirect:/pesquisa/contato");
+
+		attributes.addFlashAttribute("mensagem", "Contato respondido com sucesso");
+		return new ModelAndView("redirect:/admin/contatos/pesquisar");
 	}
 }

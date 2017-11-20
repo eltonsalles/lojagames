@@ -25,7 +25,7 @@ public class LoginController {
 	public ModelAndView loginSite(@AuthenticationPrincipal User user) {
 		if (user != null) {
 			UsuarioSistema usuarioSistema = this.recuperarUsuario();
-			
+
 			return new ModelAndView("redirect:/clientes/conta/index/" + usuarioSistema.getCliente().getId());
 		}
 
@@ -39,7 +39,7 @@ public class LoginController {
 	 * @param user
 	 * @return
 	 */
-	@RequestMapping("login/backoffice")
+	@RequestMapping("admin/login/backoffice")
 	public ModelAndView loginBackoffice(@AuthenticationPrincipal User user) {
 		if (user != null) {
 			return new ModelAndView("redirect:/admin/usuarios/novo");
@@ -58,7 +58,7 @@ public class LoginController {
 	public ModelAndView acessoNegado() {
 		return new ModelAndView("backoffice/error/403");
 	}
-	
+
 	/**
 	 * Recupera o usuário logado
 	 * 
