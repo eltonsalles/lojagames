@@ -60,16 +60,9 @@ public class PedidoController {
 	public ModelAndView pedidos() {
 		ModelAndView mv = new ModelAndView("site/pedido/MeusPedidos");
 		
-		List<Pedido> pedidos = pedidoRepository.findAll();
-		Cliente cliente = login.recuperarUsuario().getCliente();
 		
-		for(int i =0; i<pedidos.size();i++) {
-			long idClient =pedidos.get(i).getCliente().getId();
-			
-			if( idClient != cliente.getId()) {
-				pedidos.remove(i);
-			}
-		}
+		Cliente cliente = login.recuperarUsuario().getCliente();
+		List<Pedido> pedidos = pedidoRepository.findByCliente(cliente);
 		
 		mv.addObject("pedidos", pedidos);
 		mv.addObject("cliente", cliente);

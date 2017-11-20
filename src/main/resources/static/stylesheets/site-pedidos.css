@@ -1,10 +1,11 @@
 
-
 .pedido {
-	 border: 2px solid;
+	 border: 1px solid;
 	 border-color: black;
-	 
-	 .div {
-	 	text-align: center;
-	 }
+	 padding: 8px;
+	 text-align: center;
+}
+
+.buttonDetalhes {
+	color: white;
 }

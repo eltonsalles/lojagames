@@ -15,13 +15,16 @@
 				<h3> Meus pedidos </h3>
 				<div th:each="pedido : ${pedidos}" class="row pedido">
 					<div class="col m6 s6">
-						Status da entrega: <strong th:text="${pedido.status}"></strong></br> 
+						Status do pedido: <strong th:text="${pedido.status}"></strong></br>
+						Previsão de entrega: <strong th:text="|${pedido.dataEntrega.dayOfMonth}/${pedido.dataEntrega.monthValue}/${pedido.dataEntrega.year}|">
 					</div>
 					 <div class="col m6 s6">
 						 Pedido numero: <span th:text="${pedido.id}"> </span><br>
-						 Data do pedido: <span th:text="${pedido.dataPedido}"> </span><br>
-						 Total do pedido: <span th:text="${pedido.valorTotal}"> </span><br>
-						 <button>Detalhes</button>
+						 Data do pedido: <span th:text="|${pedido.dataPedido.dayOfMonth}/${pedido.dataPedido.monthValue}/${pedido.dataPedido.year}|"> </span><br>
+						 Total do pedido: <span th:text="${#numbers.formatCurrency(pedido.valorTotal)}"> </span><br>
+						 <button class="waves-effect waves-light btn orange white-text">
+						 	<a th:href="@{/pedidos/{id}(id=${pedido.id})}" class="buttonDetalhes">Detalhes</a>
+						 </button>
 					</div>
 				</div>
 			</div>
