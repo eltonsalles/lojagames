@@ -1,9 +1,11 @@
 package br.senac.tads4.piiv.model;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +14,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import br.senac.tads4.piiv.model.enumerated.TipoContato;
 
 @Entity
 @Table(name = "contato")
@@ -22,32 +26,28 @@ public class Contato implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	private LocalDateTime data;
 
-	@NotNull(message = "O tipo de contato é obrigatóio")
-	private String tipo;
+	private String status;
 
-	@NotBlank(message = "O nome é obrigatório")
-	@Size(max = 255, message = "O campo nome deve ter no máximo 255 caracteres")
+	private LocalDate data;
+
+	@NotNull(message = "O campo tipo de contato é obrigatóio")
+	@Enumerated(EnumType.STRING)
+	private TipoContato tipo;
+
+	@NotBlank(message = "O campo nome é obrigatório")
+	@Size(max = 150, message = "O campo nome deve ter no máximo 150 caracteres")
 	private String nome;
 
-	@NotBlank(message = "O sobrenome é obrigatório")
-	@Size(max = 255, message = "O campo sobrenome deve ter no máximo 255 caracteres")
-	private String sobrenome;
-
-	@NotBlank(message = "O e-mail é obrigatório")
 	@Email(message = "E-mail inválido")
-	@Size(max = 255, message = "O campo e-mail deve ter no máximo 255 caracteres")
+	@Size(max = 150, message = "O campo e-mail deve ter no máximo 150 caracteres")
 	private String email;
 
-	@NotBlank(message = "A mensagem é obrigatória")
+	@NotBlank(message = "O campo mensagem é obrigatório")
 	@Size(max = 1000, message = "Tamanho máximo de 1000 caracteres!")
 	private String mensagem;
-	
+
 	private String resposta;
-	
-	private String status;
 
 	public Long getId() {
 		return id;
@@ -57,19 +57,27 @@ public class Contato implements Serializable {
 		this.id = id;
 	}
 
-	public LocalDateTime getData() {
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public LocalDate getData() {
 		return data;
 	}
 
-	public void setData(LocalDateTime data) {
+	public void setData(LocalDate data) {
 		this.data = data;
 	}
-	
-	public String getTipo() {
+
+	public TipoContato getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(String tipo) {
+	public void setTipo(TipoContato tipo) {
 		this.tipo = tipo;
 	}
 
@@ -79,14 +87,6 @@ public class Contato implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public String getSobrenome() {
-		return sobrenome;
-	}
-
-	public void setSobrenome(String sobrenome) {
-		this.sobrenome = sobrenome;
 	}
 
 	public String getEmail() {
@@ -104,21 +104,13 @@ public class Contato implements Serializable {
 	public void setMensagem(String mensagem) {
 		this.mensagem = mensagem;
 	}
-	
+
 	public String getResposta() {
 		return resposta;
 	}
-	
+
 	public void setResposta(String resposta) {
 		this.resposta = resposta;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 
 	@Override
@@ -144,5 +136,5 @@ public class Contato implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}	
+	}
 }
