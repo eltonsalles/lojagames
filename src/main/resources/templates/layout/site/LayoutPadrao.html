@@ -15,8 +15,6 @@
 <link rel="stylesheet" type="text/css" th:href="@{/layout/site/stylesheets/thecode-site.css}" />
 </head>
 <body>
-	<input type="hidden" name="_csrf" th:value=${_csrf.token}>
-	<input type="hidden" name="_csrf_header" th:value=${_csrf.headerName}>
 	<div th:replace="layout/site/fragments/BarraSuperior :: layout-site-barra-superior"></div>
 	<div th:replace="layout/site/fragments/Menu :: layout-site-menu"></div>
 	<div th:replace="layout/site/fragments/BarraSuperiorMobile :: layout-site-barra-superior-mobile"></div>
