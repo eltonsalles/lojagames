@@ -57,6 +57,6 @@ public class ControleController {
 		}
 		
 		attributes.addFlashAttribute("mensagem", "Controle cadastrado com sucesso!");
-		return new ModelAndView("redirect:/produtos/controles/novo");
+		return new ModelAndView("redirect:/admin/produtos/controles/novo");
 	}
 }

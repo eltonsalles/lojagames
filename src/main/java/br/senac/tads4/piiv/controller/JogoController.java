@@ -62,6 +62,6 @@ public class JogoController {
 		}
 
 		attributes.addFlashAttribute("mensagem", "Jogo cadastrado com sucesso!");
-		return new ModelAndView("redirect:/produtos/jogos/novo");
+		return new ModelAndView("redirect:/admin/produtos/jogos/novo");
 	}
 }

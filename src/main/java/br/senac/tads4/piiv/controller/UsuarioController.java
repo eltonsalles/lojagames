@@ -50,6 +50,6 @@ public class UsuarioController {
 		}
 
 		attributes.addFlashAttribute("mensagem", "Usuário cadastrado com sucesso!");
-		return new ModelAndView("redirect:/usuarios/novo");
+		return new ModelAndView("redirect:/admin/usuarios/novo");
 	}
 }

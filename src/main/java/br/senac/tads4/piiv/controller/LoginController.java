@@ -42,7 +42,7 @@ public class LoginController {
 	@RequestMapping("login/backoffice")
 	public ModelAndView loginBackoffice(@AuthenticationPrincipal User user) {
 		if (user != null) {
-			return new ModelAndView("redirect:/usuarios/novo");
+			return new ModelAndView("redirect:/admin/usuarios/novo");
 		}
 
 		ModelAndView mv = new ModelAndView("backoffice/Login");
