@@ -7,5 +7,8 @@
 }
 
 .buttonDetalhes {
-	color: white;
+	border: 1px solid;
+	background-color: orange;
+	color: black;
+	padding: 4px;
 }

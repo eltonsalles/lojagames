@@ -7,15 +7,9 @@
 <body>
 	<main class="container" layout:fragment="conteudo">
 	<div class="row">
-		<div class="col s12">
-			<div class="row">
-				<div class="col s12">
-					<a th:href="@{/pedidos/pedidos}">
-						<i class="material-icons">arrow_back</i>
-					</a>
-				</div>
-			</div>
-			<div class="row">
+	<thecode:menucliente />		
+	<div class="col s12 m9">
+		<div class="col s12 m12">
 				<div class="col s12  grey lighten-4">
 					<div class="col s5 offset-s1">
 						<p th:text="|Pedido nº: ${pedido.id}|"></p>
@@ -138,7 +132,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+		</div>
 	</main>
 </body>
 </html>

@@ -15,24 +15,18 @@
 				<h3> Meus pedidos </h3>
 				<div th:each="pedido : ${pedidos}" class="row pedido">
 					<div class="col m6 s6">
-						Status do pedido: <strong th:text="${pedido.status}"></strong></br>
-						Previsão de entrega: <strong th:text="|${pedido.dataEntrega.dayOfMonth}/${pedido.dataEntrega.monthValue}/${pedido.dataEntrega.year}|">
+						Status do pedido: <strong th:text="${pedido.status.descricao}"></strong><br>
+						Previsão de entrega: <strong th:text="|${pedido.dataEntrega.dayOfMonth}/${pedido.dataEntrega.monthValue}/${pedido.dataEntrega.year}|"></strong>
 					</div>
 					 <div class="col m6 s6">
 						 Pedido numero: <span th:text="${pedido.id}"> </span><br>
 						 Data do pedido: <span th:text="|${pedido.dataPedido.dayOfMonth}/${pedido.dataPedido.monthValue}/${pedido.dataPedido.year}|"> </span><br>
-						 Total do pedido: <span th:text="${#numbers.formatCurrency(pedido.valorTotal)}"> </span><br>
-						 <button class="waves-effect waves-light btn orange white-text">
-						 	<a th:href="@{/pedidos/{id}(id=${pedido.id})}" class="buttonDetalhes">Detalhes</a>
-						 </button>
+						 Total do pedido: <br><span th:text="${#numbers.formatCurrency(pedido.valorTotal)}"> </span><br>
+						 	<a th:href="@{/pedidos/{id}(id=${pedido.id})}" class="">Detalhes</a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</main>
-	<th:block layout:fragment="javascript-extra">
-		<script th:src="@{/javascripts/vendors/sweetalert.min.js}"></script>
-		<script th:src="@{/javascripts/dialogo-excluir.js}"></script>
-	</th:block>
 </body>
 </html>

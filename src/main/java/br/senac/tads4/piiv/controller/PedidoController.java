@@ -38,7 +38,10 @@ public class PedidoController {
 		ModelAndView mv = new ModelAndView("site/pedido/VisualizarPedido");
 
 		Pedido pedido = pedidoRepository.findOne(id);
+		Cliente cliente = login.recuperarUsuario().getCliente();
+
 		mv.addObject("pedido", pedido);
+		mv.addObject("cliente", cliente);
 		mv.addObject("tiposConsole", tipoConsoleRepository.findAll());
 
 		// Se constar pagamento é informado a data de previsão de entrega
