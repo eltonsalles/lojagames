@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/backoffice/LayoutPadrao" xlmns:thecode="http://thecode.com.br">
+<head>
+<title>Lista de contatos</title>
+</head>
+<body>
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" layout:fragment="conteudo">
+		<h1 class="page-header">Contatos do Site</h1>
+		<div class="row">
+			<form method="post" th:object="${contatoFilter}" th:action="@{/admin/contatos/pesquisar}">
+				<div class="row">
+					<div class="col-sm-2 form-group">
+						<label for="codigo" class="control-label">Código</label>
+						<input id="codigo" type="text" class="form-control js-int" th:field="*{id}" />
+					</div>
+					<div class="col-sm-3 form-group">
+						<label for="tipo-contato" class="control-label">Tipo de Contato</label>
+						<select class="col-sm-3 form-control" id="tipo-contato" th:field="*{tipo}">
+							<option value="">Todos os tipos de contato</option>
+							<option th:each="tipoContato : ${tiposContato}" th:value="${tipoContato}" th:text="${tipoContato.descricao}"></option>
+						</select>
+					</div>
+					<div class="col-sm-7 form-group">
+						<label class="control-label">Status</label>
+						<div>
+							<label class="radio-inline">
+								<input id="pendente" type="radio" value="Pendente" th:field="*{status}" />
+								Pendentes
+							</label>
+							<label class="radio-inline">
+								<input id="respondida" type="radio" value="Respondida" th:field="*{status}" />
+								Respondidas
+							</label>
+							<label class="radio-inline">
+								<input id="todos-status" type="radio" value="todos" th:checked="*{status} == null or *{status} == 'todos'" name="status" />
+								Todos
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-3 col-sm-6 form-group">
+						<button class="btn  btn-primary" type="submit">Pesquisar</button>
+					</div>
+				</div>
+			</form>
+			<div class="alert  alert-success  alert-dismissible" role="alert" th:if="${not #strings.isEmpty(mensagem)}">
+				<button type="button" class="close" data-dismiss="alert">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<span th:text="${mensagem}"></span>
+			</div>
+			<div class="table-responsive">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Status</th>
+							<th>Nome</th>
+							<th>Email</th>
+							<th>Tipo</th>
+							<th>Mensagem</th>
+							<th>Atender</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="contato : ${contatos}" th:class="${(contato.status == 'Pendente') ? 'warning' : 'success'}">
+							<td th:text="${contato.id}"></td>
+							<td th:text="${contato.status}"></td>
+							<td th:text="${contato.nome}"></td>
+							<td th:text="${contato.email}"></td>
+							<td th:text="${contato.tipo.descricao}"></td>
+							<td th:text="${contato.mensagem}"></td>
+							<td class="text-center">
+								<a class="btn btn-default" title="Atender" th:href="@{/admin/contatos/resposta/{id}(id=${contato.id})}">
+									<i class="glyphicon glyphicon-envelope"></i>
+								</a>
+							</td>
+						</tr>
+						<tr th:if="${#lists.isEmpty(contatos)}">
+							<td colspan="7">Nenhuma chamado encontrado</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/formatar-numeros.js}"></script>
+	</th:block>
+</body>
+</html>

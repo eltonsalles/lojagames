@@ -56,7 +56,7 @@ public class SecurityConfig {
 				.antMatchers("/lista-produto/**")
 				.antMatchers("/carrinho-compra/**")
 				.antMatchers("/clientes/novo")
-				.antMatchers("/contato/novo");
+				.antMatchers("/contatos/novo");
 		}
 		
 		/**
@@ -72,9 +72,19 @@ public class SecurityConfig {
 					.antMatchers("/admin/produtos/jogos/novo").hasRole("CADASTRAR_PRODUTO")
 					.antMatchers("/admin/produtos/pesquisar").hasRole("CONSULTAR_PRODUTO")
 					.antMatchers("/admin/usuarios/novo").hasRole("CADASTRAR_USUARIO")
+					.antMatchers("/admin/contatos/resposta/**").hasRole("RESPONDER_CONTATO")
+					.antMatchers("/admin/contatos/pesquisar").hasRole("CONSULTAR_CONTATO")
 					.anyRequest().hasRole("ADMIN")
 				.and()
-					.httpBasic()
+					.formLogin()
+					.loginPage("/admin/login/backoffice")
+					.permitAll()
+				.and()
+					.logout()
+					.logoutUrl("/admin/logout")
+				.and()
+					.logout()
+					.logoutRequestMatcher(new AntPathRequestMatcher("/admin/logout"))
 				.and()
 					.exceptionHandling()
 						.accessDeniedPage("/403");
