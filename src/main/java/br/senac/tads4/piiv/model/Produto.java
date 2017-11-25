@@ -83,6 +83,9 @@ public class Produto implements Serializable {
 	
 	@OneToMany(mappedBy = "produto", targetEntity = Imagem.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Imagem> imagens;
+	
+	@OneToMany(mappedBy = "produto", targetEntity = HistoricoProduto.class, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<HistoricoProduto> historicoProdutos;
 
 	public Long getIdProduto() {
 		return id;
