@@ -1,22 +1,39 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <body>
-	<footer class="page-footer black" th:fragment="layout-site-footer">
-		<a class="btn-floating btn-large waves-effect waves-light orange btn-voltar-topo">
-			<i class="large material-icons">expand_less</i>
-		</a>
-		<div class="container">
-			<div class="row">
-				<div class="col 16 s12">
-					<p class="white-text">The Code Comércio Virtual LTDA</p>
-					<p class="grey-text text-lighten-4">CNPJ: 85.755.470/0001-18 Rua Teste, 123, 10º andar - CEP: 12345-678, Bairro
-						Teste São Paulo - SP</p>
-				</div>
-			</div>
-			<div class="footer-copyright">
-				<p>© 2017 Copyright Text</p>
-			</div>
-		</div>
-	</footer>
+	  <footer class="page-footer black" th:fragment="layout-site-footer">
+          <div class="container">
+            <div class="row">
+              <div class="col l4 s12">
+                <h5 class="white-text">Loja The Code</h5>
+                <p class="grey-text text-lighten-4">Informações importantes</p>
+              </div>
+                <div class="col l4 s12">
+                <h5 class="white-text">Metodos de Pagamento</h5>
+                <span><img th:src="@{/images/formasPagamento.png}"/></span>
+                
+              </div>
+              <div class="col l4 s12">
+                <h5 class="white-text">Acessos Rapidos</h5>
+                <ul>
+                  <li><a class="white-text text-white" href="#!"><i class="material-icons">home</i>Inicio</a></li>
+                  <li><a class="white-text text-white" href="#!"><i class="material-icons">question_answer</i>Duvidas Frequentes</a></li>
+                  <li><a class="white-text text-white" href="#!"><i class="material-icons">work</i>Sobre a loja</a></li>
+                </ul>
+              </div>
+              <div class="col l4 s12">
+                <h5 class="white-text">Certificados</h5>
+				<span><img th:src="@{/images/siteBlindado.png}"></span>
+				<span><img th:src="@{/images/ebit.png}"></span>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright grey darken-3">
+            <div class="container">
+            © 2017 Copyright - Todos os direitos Reservados
+            <a class="grey-text text-lighten-4 right" href="#/">THE CODE</a>
+            </div>
+          </div>
+        </footer>
 </body>
 </html>
