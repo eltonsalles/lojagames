@@ -10,7 +10,10 @@
 					</div>
 				</div>
 				<div class="col offset-s2 s7 offset-m5 m4 offset-l6 l3">
-					<form method="post" th:action=@{/carrinho-compra/finalizar-compra} th:if="${!#lists.isEmpty(@carrinhoCompraController.carrinho)}">
+					<form method="post" id="carrinho-compra-barra-superior" th:action=@{/carrinho-compra/finalizar-compra} th:if="${!#lists.isEmpty(@carrinhoCompraController.carrinho)}">
+						<input type="hidden" name="dias-entrega" value="" id="dias-entrega-barra-superior">
+						<input type="hidden" name="cep" th:value="${@carrinhoCompraController.cep}" id="cep-barra-superior">
+						<input type="hidden" name="valor-frete" value="" id="valor-frete-barra-superior">
 						<button class="btn-large waves-effect waves-light orange btn-nav-finalizar-compra" type="submit" name="action">
 							Finalizar Compra<i class="material-icons left">done</i>
 						</button>
