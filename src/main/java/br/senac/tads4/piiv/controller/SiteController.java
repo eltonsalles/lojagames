@@ -1,5 +1,8 @@
 package br.senac.tads4.piiv.controller;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -9,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.senac.tads4.piiv.model.Genero;
+import br.senac.tads4.piiv.model.Jogo;
+import br.senac.tads4.piiv.model.Produto;
 import br.senac.tads4.piiv.model.TipoConsole;
 import br.senac.tads4.piiv.model.enumerated.TipoProduto;
 import br.senac.tads4.piiv.repository.GeneroRepository;
@@ -47,15 +52,22 @@ public class SiteController {
 		menu(mv);
 		return mv;
 	}
-
 	@RequestMapping("/detalhes-do-produto/{id}")
 	public ModelAndView detalheProduto(@PathVariable Long id) {
 		ModelAndView mv = new ModelAndView("site/produto/DetalhesProduto");
-
+		Pageable limit = new PageRequest(0, 4);
+		Produto produto = produtoRepository.findOne(id);
+		List<Jogo> listaJogo = new ArrayList<>();
+		if (produto.getTipoProduto().name().equalsIgnoreCase("jogo")) {
+			Jogo jogo = (Jogo) produto;
+			Genero genero = jogo.getGenero();
+			listaJogo = jogoRepository.findByGenero(genero, limit);
+		}
+		mv.addObject("produtos", listaJogo);
 		tiposProduto(mv);
 		percentualDesconto(mv);
 		menu(mv);
-		mv.addObject("produto", produtoRepository.findOne(id));
+		mv.addObject("produto", produto);
 		mv.addObject("maximoParcelas", produtoService.getMaximoParcelas());
 		return mv;
 	}

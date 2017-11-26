@@ -72,8 +72,8 @@
 				</div>
 				<div class="input-field col s12 m3 tc-required">
 					<i class="material-icons prefix">place</i>
-					<input id="numero" type="text" th:field="*{cep}" maxlength="9" class="js-cep" />
-					<label for="numero">CEP</label>
+					<input id="cep" type="text" th:field="*{cep}" maxlength="9" class="js-cep" />
+					<label for="cep">CEP</label>
 				</div>
 				<div class="input-field col s2 m1 gif-carregando hide">
 					<img class="responsive-img" alt="Carregando" th:src="@{/images/carregando.gif}">
@@ -123,6 +123,7 @@
 	</div>
 	</main>
 	<th:block layout:fragment="javascript-extra">
+			<script th:src="@{/javascripts/site-buscar-endereco.js}"></script>
 		<script th:src="@{/javascripts/vendors/jquery.mask.min.js}"></script>
 		<script th:src="@{/javascripts/site-novo-cliente.js}"></script>
 	</th:block>
