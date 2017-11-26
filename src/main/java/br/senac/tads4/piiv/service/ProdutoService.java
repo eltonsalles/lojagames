@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import br.senac.tads4.piiv.model.Produto;
 import br.senac.tads4.piiv.repository.ProdutoRepository;
 import br.senac.tads4.piiv.service.exception.DescontoAteAntesDeHojeException;
+import br.senac.tads4.piiv.service.exception.DescontoAteInvalidoException;
+import br.senac.tads4.piiv.service.exception.PercentualDescontoInvalidoException;
 import br.senac.tads4.piiv.service.exception.PercentualDescontoMaiorQueCemException;
 
 @Service
@@ -48,6 +50,14 @@ public class ProdutoService {
 	 * @param data
 	 */
 	public void salvarDescontos(List<Produto> produtos, BigDecimal desconto, LocalDate data) {
+		if (desconto == null) {
+			throw new PercentualDescontoInvalidoException("O campo percentual de desconto é obrigatório");
+		}
+		
+		if (data == null) {
+			throw new DescontoAteInvalidoException("O campo desconto até é obrigatório");
+		}
+		
 		if (desconto.compareTo(new BigDecimal(100)) >= 0) {
 			throw new PercentualDescontoMaiorQueCemException("O valor do desconto não pode ser igual ou maior que 100%");
 		}

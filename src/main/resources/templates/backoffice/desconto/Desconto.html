@@ -115,13 +115,13 @@
 					<div class="col-sm-3 form-group">
 						<label for="desconto" class="control-label">Desconto</label>
 						<div class="input-group">
-						<input id="desconto" type="text" class="form-control js-decimal" th:field="*{percentualDesconto}" />
+						<input id="desconto" type="text" class="form-control js-decimal" th:field="*{percentualDesconto}" required />
 							<div class="input-group-addon">%</div>
 						</div>
 					</div>
 					<div class="col-sm-3 form-group">
 						<label for="data" class="control-label">Desconto Até</label>
-						<input id="data" type="date" class="form-control" th:field="*{descontoAte}" />
+						<input id="data" type="date" class="form-control" th:field="*{descontoAte}" required />
 					</div>
 				</div>
 				<div class="row">

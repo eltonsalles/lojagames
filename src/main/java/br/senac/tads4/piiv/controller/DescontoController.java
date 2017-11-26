@@ -17,6 +17,8 @@ import br.senac.tads4.piiv.repository.TipoConsoleRepository;
 import br.senac.tads4.piiv.repository.filter.DescontoFilter;
 import br.senac.tads4.piiv.service.ProdutoService;
 import br.senac.tads4.piiv.service.exception.DescontoAteAntesDeHojeException;
+import br.senac.tads4.piiv.service.exception.DescontoAteInvalidoException;
+import br.senac.tads4.piiv.service.exception.PercentualDescontoInvalidoException;
 import br.senac.tads4.piiv.service.exception.PercentualDescontoMaiorQueCemException;
 
 @Controller
@@ -66,10 +68,10 @@ public class DescontoController {
 	public ModelAndView salvarDesconto(DescontoFilter descontoFilter, BindingResult result, RedirectAttributes attributes) {
 		try {
 			produtoService.salvarDescontos(this.listaProdutosDesconto, descontoFilter.getPercentualDesconto(), descontoFilter.getDescontoAte());
-		} catch (PercentualDescontoMaiorQueCemException e) {
+		} catch (PercentualDescontoInvalidoException | PercentualDescontoMaiorQueCemException e) {
 			result.rejectValue("percentualDesconto", e.getMessage(), e.getMessage());
 			return pesquisar(descontoFilter, result);
-		} catch (DescontoAteAntesDeHojeException e) {
+		} catch (DescontoAteInvalidoException | DescontoAteAntesDeHojeException e) {
 			result.rejectValue("descontoAte", e.getMessage(), e.getMessage());
 			return pesquisar(descontoFilter, result);
 		}
