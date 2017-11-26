@@ -1,5 +1,6 @@
 package br.senac.tads4.piiv.repository.helper.produto;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -124,9 +125,18 @@ public class ProdutoRepositoryImpl implements ProdutosQueries {
 		if (id != null) {
 			criteria.add(Restrictions.eq("id", id));
 			Produto produto = (Produto) criteria.uniqueResult();
+			
+			BigDecimal precoVenda = produto.getPrecoVenda();
+			
+			// Calcula o desconto quando houver
+			if (produto.getPercentualDesconto() != null) {
+				BigDecimal desconto = new BigDecimal(100).subtract(produto.getPercentualDesconto()).divide(new BigDecimal(100));
+				precoVenda = precoVenda.multiply(desconto);
+			}
+			
 			ItemProdutoDto itemProduto = new ItemProdutoDto(produto.getIdProduto(),
 					produto.getImagens().get(0).getNome(), produto.getImagens().get(0).getDescricao(),
-					produto.getNome(), produto.getPrecoVenda(), 1, produto.getPrecoVenda());
+					produto.getNome(), precoVenda, 1, precoVenda);
 
 			return itemProduto;
 		}

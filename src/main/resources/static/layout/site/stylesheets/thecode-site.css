@@ -1,6 +1,21 @@
 /***********************************************************************************************************************/
 /* Geral do site */
 
+/* Container de desconto */
+.container-produto-desconto {
+	position: relative;
+}
+
+/* Span de desconto */
+.produto-desconto {
+	position: absolute;
+	background: orange;
+	border-radius: 100%;
+	padding: 5px;
+	right: -10px;
+	font-weight: bold;
+}
+
 /* Campos obrigatórios */
 .tc-required label:first-of-type:before {
 	content: "*";
