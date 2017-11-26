@@ -10,4 +10,4 @@ create table contato (
 );
 
 INSERT INTO contato (status, data, tipo, nome, email, mensagem) 
-VALUES ('Pendente', now(), 'Elogio', 'Elton Rodrigues', 'eltonrms.leite@gmail.com', 'Contato feito pelo formulário do site');
+VALUES ('Pendente', now(), 'DUVIDAS', 'Elton Rodrigues', 'eltonrms.leite@gmail.com', 'Contato feito pelo formulário do site');

@@ -14,6 +14,7 @@ import org.springframework.util.StringUtils;
 
 import br.senac.tads4.piiv.dto.ItemProdutoDto;
 import br.senac.tads4.piiv.model.Produto;
+import br.senac.tads4.piiv.repository.filter.DescontoFilter;
 import br.senac.tads4.piiv.repository.filter.ProdutoFilter;
 
 public class ProdutoRepositoryImpl implements ProdutosQueries {
@@ -21,6 +22,9 @@ public class ProdutoRepositoryImpl implements ProdutosQueries {
 	@PersistenceContext
 	private EntityManager manager;
 
+	/**
+	 * Pesquisa o estoque dos produtos conforme o filtro
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(readOnly = true)
@@ -63,7 +67,56 @@ public class ProdutoRepositoryImpl implements ProdutosQueries {
 
 		return criteria.list();
 	}
+	
+	/**
+	 * Pesquisa uma lista de produtos conforme o filtro para aplicar os descontos
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(readOnly = true)
+	public List<Produto> produtosDesconto(DescontoFilter filtro) {
+		Criteria criteria = manager.unwrap(Session.class).createCriteria(Produto.class);
 
+		if (filtro != null) {
+			if (!StringUtils.isEmpty(filtro.getIdProduto())) {
+				criteria.add(Restrictions.eq("id", filtro.getIdProduto()));
+			}
+
+			if (!StringUtils.isEmpty(filtro.getNomeProduto())) {
+				criteria.add(Restrictions.ilike("nome", filtro.getNomeProduto(), MatchMode.ANYWHERE));
+			}
+			
+			if (filtro.getTipoConsole() != null) {
+				criteria.add(Restrictions.eq("tipoConsole", filtro.getTipoConsole()));
+			}
+			
+			if (filtro.getTipoProduto() != null) {
+				criteria.add(Restrictions.eq("tipoProduto", filtro.getTipoProduto()));
+			}
+
+			if (filtro.getPrecoVendaDe() != null) {
+				criteria.add(Restrictions.ge("precoVenda", filtro.getPrecoVendaDe()));
+			}
+
+			if (filtro.getPrecoVendaAte() != null) {
+				criteria.add(Restrictions.le("precoVenda", filtro.getPrecoVendaAte()));
+			}
+			
+			if (filtro.getPercentualDesconto() != null) {
+				criteria.add(Restrictions.eq("percentualDesconto", filtro.getPercentualDesconto()));
+			}
+			
+			if (filtro.getDescontoAte() != null) {
+				criteria.add(Restrictions.eq("descontoAte", filtro.getDescontoAte()));
+			}
+		}
+
+		return criteria.list();
+	}
+
+	/**
+	 * Monta um item para o carrinho
+	 */
 	@Override
 	@Transactional(readOnly = true)
 	public ItemProdutoDto itemProduto(Long id) {

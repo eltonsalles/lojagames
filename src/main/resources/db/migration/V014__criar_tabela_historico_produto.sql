@@ -1,0 +1,8 @@
+CREATE TABLE historico_produto (
+    id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
+    id_produto  BIGINT(20) NOT NULL,
+    data DATE NOT NULL,
+    tipo VARCHAR(20) NOT NULL,
+    quantidade INTEGER NOT NULL,
+	FOREIGN KEY (id_produto) REFERENCES produto(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

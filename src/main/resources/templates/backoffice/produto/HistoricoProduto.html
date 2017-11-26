@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/backoffice/LayoutPadrao" xlmns:thecode="http://thecode.com.br">
+<head>
+<title>Histórico</title>
+</head>
+<body>
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" layout:fragment="conteudo">
+		<h1 class="page-header">Pesquisar histórico</h1>
+		<div class="row">
+			<form method="post" th:object="${historicoProdutoFilter}" th:action="@{/admin/produtos/historico}">
+				<div class="row">
+					<div class="col-sm-3 form-group">
+						<label for="tipo-movimentacao" class="control-label">Tipo de Movimentação</label>
+						<select class="col-sm-3 form-control" id="tipo-movimentacao" th:field="*{tipoMovimentacao}">
+							<option value="">Todos os tipos de movimentação</option>
+							<option th:each="tipoMovimentacao : ${tiposMovimentacao}" th:value="${tipoMovimentacao}" th:text="${tipoMovimentacao.descricao}"></option>
+						</select>
+					</div>
+					<div class="col-sm-3 form-group">
+						<label for="codigo-produto" class="control-label">Código do Produto</label>
+						<input id="codigo-produto" type="text" class="form-control js-int" th:field="*{idProduto}" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-3 col-sm-6 form-group">
+						<button class="btn  btn-primary" type="submit">Pesquisar</button>
+					</div>
+				</div>
+			</form>
+			<div class="table-responsive">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Código do Produto</th>
+							<th>Nome do Produto</th>
+							<th>Tipo de Movimentação</th>
+							<th>Quantidade</th>
+							<th>Data</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="historicoProduto : ${historicosProduto}">
+							<td th:text="${historicoProduto.produto.idProduto}"></td>
+							<td th:text="${historicoProduto.produto.nome}"></td>
+							<td th:text="${historicoProduto.tipoMovimentacao.descricao}"></td>
+							<td th:text="${historicoProduto.quantidade}"></td>
+							<td th:text="|${historicoProduto.data.dayOfMonth}/${historicoProduto.data.monthValue}/${historicoProduto.data.year}|"></td>
+							<td class="text-center">
+						</tr>
+						<tr th:if="${#lists.isEmpty(historicosProduto)}">
+							<td colspan="8">Nenhum histórico encontrado</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/formatar-numeros.js}"></script>
+	</th:block>
+</body>
+</html>
