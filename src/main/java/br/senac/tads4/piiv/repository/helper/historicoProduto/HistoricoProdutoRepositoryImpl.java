@@ -27,7 +27,7 @@ public class HistoricoProdutoRepositoryImpl implements HistoricoProdutoQueries {
 
 		if (filtro != null) {
 			if (!StringUtils.isEmpty(filtro.getIdProduto())) {
-				criteria.add(Restrictions.eq("id", filtro.getIdProduto()));
+				criteria.add(Restrictions.eq("produto.id", filtro.getIdProduto()));
 			}
 
 			if (filtro.getTipoMovimentacao() != null) {
