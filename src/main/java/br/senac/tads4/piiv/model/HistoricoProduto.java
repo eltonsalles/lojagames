@@ -21,24 +21,24 @@ import br.senac.tads4.piiv.model.enumerated.TipoMovimentacao;
 @Entity
 @Table(name = "historico_produto")
 public class HistoricoProduto implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
-	
+
 	private LocalDate data;
-	
-		@ManyToOne
+
+	@ManyToOne
 	@JoinColumn(name = "id_produto")
 	private Produto produto;
-	
+
 	@Column(name = "tipo")
 	@Enumerated(EnumType.STRING)
 	private TipoMovimentacao tipoMovimentacao;
-	
+
 	@NotNull(message = "A quantidade é obrigatória")
 	@Max(value = 9999, message = "A quantidade deve ser menor que 9.999")
 	private Integer quantidade;
@@ -50,7 +50,7 @@ public class HistoricoProduto implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public LocalDate getData() {
 		return data;
 	}
