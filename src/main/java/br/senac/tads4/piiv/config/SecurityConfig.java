@@ -74,6 +74,7 @@ public class SecurityConfig {
 					.antMatchers("/admin/usuarios/novo").hasRole("CADASTRAR_USUARIO")
 					.antMatchers("/admin/contatos/resposta/**").hasRole("RESPONDER_CONTATO")
 					.antMatchers("/admin/contatos/pesquisar").hasRole("CONSULTAR_CONTATO")
+					.antMatchers("/admin/descontos/**").hasRole("CADASTRAR_DESCONTO")
 					.anyRequest().hasRole("ADMIN")
 				.and()
 					.formLogin()

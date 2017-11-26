@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/backoffice/LayoutPadrao" xlmns:thecode="http://thecode.com.br">
+<head>
+<title>Desconto</title>
+</head>
+<body>
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" layout:fragment="conteudo">
+		<h1 class="page-header">Pesquisar produtos para desconto</h1>
+		<div class="row">
+			<form method="post" th:object="${descontoFilter}" th:action="@{/admin/descontos/pesquisar}">
+				<div class="alert  alert-success  alert-dismissible" role="alert" th:if="${not #strings.isEmpty(mensagem)}">
+					<button type="button" class="close" data-dismiss="alert">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<span th:text="${mensagem}"></span>
+				</div>
+				<div class="row">
+					<div class="col-sm-3 form-group">
+						<label for="codigo" class="control-label">Código</label>
+						<input id="codigo" type="text" class="form-control js-int" th:field="*{idProduto}" />
+					</div>
+					<div class="col-sm-9 form-group">
+						<label for="nome" class="control-label">Nome</label>
+						<input id="nome" type="text" class="form-control" maxlength="150" th:field="*{nomeProduto}" />
+					</div>
+					<div class="col-sm-3 form-group">
+						<label for="tipo-console" class="control-label">Tipo de Console</label>
+						<select class="col-sm-3 form-control" id="tipo-console" th:field="*{tipoConsole}">
+							<option value="">Todos os tipos de console</option>
+							<option th:each="tipoConsole : ${tiposConsole}" th:value="${tipoConsole.id}" th:text="${tipoConsole.nome}"></option>
+						</select>
+					</div>
+					<div class="col-sm-3 form-group">
+						<label for="tipo-produto" class="control-label">Tipo de Produto</label>
+						<select class="col-sm-3 form-control" id="tipo-produto" th:field="*{tipoProduto}">
+							<option value="">Todos os tipos de produto</option>
+							<option th:each="tipoProduto : ${tiposProduto}" th:value="${tipoProduto}" th:text="${tipoProduto.descricao}"></option>
+						</select>
+					</div>
+					<div class="col-sm-5 form-group">
+						<label for="precoVendaDe">Preço de Venda</label>
+						<div class="form-inline">
+							<input type="text" class="form-control  js-decimal" id="precoVendaDe" th:field="*{precoVendaDe}" />
+							<label for="precoVendaAte"> até </label>
+							<input type="text" class="form-control  js-decimal" id="precoVendaAte" th:field="*{precoVendaAte}" />
+						</div>
+					</div>
+					<div class="col-sm-3 form-group">
+						<label for="desconto" class="control-label">Desconto</label>
+						<div class="input-group">
+						<input id="desconto" type="text" class="form-control js-decimal" th:field="*{percentualDesconto}" />
+							<div class="input-group-addon">%</div>
+						</div>
+					</div>
+					<div class="col-sm-3 form-group">
+						<label for="data" class="control-label">Desconto Até</label>
+						<input id="data" type="date" class="form-control" th:field="*{descontoAte}" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-3 col-sm-6 form-group">
+						<button class="btn  btn-primary" type="submit">Pesquisar</button>
+					</div>
+				</div>
+			</form>
+			<div class="table-responsive">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Código</th>
+							<th>Nome</th>
+							<th>Tipo de Produto</th>
+							<th>Console</th>
+							<th>Preço de Venda</th>
+							<th>% Desconto</th>
+							<th>Desconto Até</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="produto : ${produtos}">
+							<td th:text="${produto.idProduto}"></td>
+							<td th:text="${produto.nome}"></td>
+							<td th:text="${produto.tipoProduto.descricao}"></td>
+							<td th:text="${produto.tipoConsole.nome}"></td>
+							<td th:text="${#numbers.formatCurrency(produto.precoVenda)}"></td>
+							<td th:text="(${!#strings.isEmpty(produto.percentualDesconto)} ? (|${#numbers.formatDecimal(produto.percentualDesconto, 2, 2, 'COMMA')}%|) : '0,00%')"></td>
+							<td th:text="(${!#strings.isEmpty(produto.descontoAte)} ? (|${produto.descontoAte.dayOfMonth}/${produto.descontoAte.monthValue}/${produto.descontoAte.year}|) : '--/--/----')"></td>
+						</tr>
+						<tr th:if="${#lists.isEmpty(produtos)}">
+							<td colspan="8">Nenhuma produto encontrado</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<form method="post" th:action="@{/admin/descontos/salvar}" th:object="${descontoFilter}">
+				<input type="hidden" th:field="*{idProduto}">
+				<input type="hidden" th:field="*{nomeProduto}">
+				<input type="hidden" th:field="*{tipoConsole}">
+				<input type="hidden" th:field="*{tipoProduto}">
+				<input type="hidden" th:field="*{precoVendaDe}">
+				<input type="hidden" th:field="*{precoVendaAte}">
+				<div class="alert  alert-danger  alert-dismissible" role="alert" th:if="${#fields.hasAnyErrors()}">
+					<button type="button" class="close" data-dismiss="alert">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<th:block th:each="detailedError : ${#fields.detailedErrors()}">
+						<div>
+							<i class="fa  fa-exclamation-circle"></i>
+							[[${detailedError.message}]]
+						</div>
+					</th:block>
+				</div>
+				<div class="row">
+					<div class="col-sm-3 form-group">
+						<label for="desconto" class="control-label">Desconto</label>
+						<div class="input-group">
+						<input id="desconto" type="text" class="form-control js-decimal" th:field="*{percentualDesconto}" />
+							<div class="input-group-addon">%</div>
+						</div>
+					</div>
+					<div class="col-sm-3 form-group">
+						<label for="data" class="control-label">Desconto Até</label>
+						<input id="data" type="date" class="form-control" th:field="*{descontoAte}" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-3 col-sm-6 form-group">
+						<button class="btn  btn-primary" type="submit">Aplicar Desconto</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/formatar-numeros.js}"></script>
+	</th:block>
+</body>
+</html>

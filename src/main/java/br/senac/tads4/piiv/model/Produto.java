@@ -2,6 +2,7 @@ package br.senac.tads4.piiv.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -83,6 +84,12 @@ public class Produto implements Serializable {
 	
 	@OneToMany(mappedBy = "produto", targetEntity = Imagem.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Imagem> imagens;
+	
+	@Column(name = "percentual_desconto")
+	private BigDecimal percentualDesconto;
+	
+	@Column(name = "desconto_ate")
+	private LocalDate descontoAte;
 
 	public Long getIdProduto() {
 		return id;
@@ -178,6 +185,22 @@ public class Produto implements Serializable {
 
 	public void setImagens(List<Imagem> imagens) {
 		this.imagens = imagens;
+	}
+
+	public BigDecimal getPercentualDesconto() {
+		return percentualDesconto;
+	}
+
+	public void setPercentualDesconto(BigDecimal percentualDesconto) {
+		this.percentualDesconto = percentualDesconto;
+	}
+
+	public LocalDate getDescontoAte() {
+		return descontoAte;
+	}
+
+	public void setDescontoAte(LocalDate descontoAte) {
+		this.descontoAte = descontoAte;
 	}
 
 	@Override
