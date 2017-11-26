@@ -91,6 +91,9 @@ public class Produto implements Serializable {
 	@Column(name = "desconto_ate")
 	private LocalDate descontoAte;
 
+	@OneToMany(mappedBy = "produto", targetEntity = HistoricoProduto.class, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<HistoricoProduto> historicoProdutos;
+
 	public Long getIdProduto() {
 		return id;
 	}
