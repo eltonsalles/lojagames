@@ -1,5 +1,7 @@
 package br.senac.tads4.piiv.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,9 +24,10 @@ public class LoginController {
 	 * @return
 	 */
 	@RequestMapping("login/site")
-	public ModelAndView loginSite(@AuthenticationPrincipal User user) {
+	public ModelAndView loginSite(@AuthenticationPrincipal User user, HttpSession session) {
 		if (user != null) {
 			UsuarioSistema usuarioSistema = this.recuperarUsuario();
+			session.setAttribute("usuarioLogado", usuarioSistema);
 
 			return new ModelAndView("redirect:/clientes/conta/index/" + usuarioSistema.getCliente().getId());
 		}

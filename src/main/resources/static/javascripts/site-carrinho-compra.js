@@ -48,6 +48,16 @@ $(document).ready(function() {
 	// Arruma a string para a submissão
 	$('.js-arrumar-valor-frete').submit(submeterForm);
 	
+	$('.js-arrumar-valor-frete-finalizar-compra').submit(function() {
+		var subTotal = $('#subtotal');
+		var valorFrete = $('#valor-frete');
+		var total = $('#total');
+		
+		subTotal.val(subTotal.val().replace('R$ ', ''));
+		valorFrete.val(valorFrete.val().replace('R$ ', ''));
+		total.val(total.val().replace('R$ ', ''));
+	});
+	
 	function submeterForm() {
 		var parametros = $(this).serializeArray();
 		var submeter = true;
