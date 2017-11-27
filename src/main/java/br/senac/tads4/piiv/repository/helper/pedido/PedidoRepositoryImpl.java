@@ -29,6 +29,11 @@ public class PedidoRepositoryImpl implements PedidosQueries {
 			if (filtro.getDataPedidoInicial() != null && filtro.getDataPedidoFinal() != null) {
 				criteria.add(Restrictions.between("dataPedido", filtro.getDataPedidoInicial(), filtro.getDataPedidoFinal()));
 			}
+			
+			if (filtro.getStatus() != null) {
+				criteria.add(Restrictions.eq("status", filtro.getStatus()));
+			}
+			
 		}
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		return criteria.list();
