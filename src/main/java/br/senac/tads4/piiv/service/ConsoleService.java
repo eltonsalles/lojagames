@@ -28,6 +28,11 @@ public class ConsoleService extends ProdutoService {
 	@Autowired
 	private ApplicationEventPublisher publisher;
 	
+	/**
+	 * Salva os dados do produto do tipo console
+	 * 
+	 * @param console
+	 */
 	public void salvar(Console console) {
 		if (StringUtils.isEmpty(console.getImagens().get(0).getNome().trim())) {
 			throw new ListaDeImagensVaziasException("O campo imagem é obrigatório");
@@ -47,5 +52,31 @@ public class ConsoleService extends ProdutoService {
 		consoles.save(console);
 		
 		publisher.publishEvent(new ProdutoSalvoEvent(console));
+	}
+	
+	/**
+	 * Alterar os dados do produto do tipo console
+	 * 
+	 * @param console
+	 */
+	public void alterar(Console console) {
+		if (StringUtils.isEmpty(console.getImagens().get(0).getNome().trim())) {
+			throw new ListaDeImagensVaziasException("O campo imagem é obrigatório");
+		}
+		
+		if (StringUtils.isEmpty(console.getImagens().get(0).getDescricao().trim())) {
+			throw new DescricaoDaImagemVaziaException("O campo descrição é obrigatório");
+		}
+		
+		if (console.getImagens().get(0).getDescricao().trim().length() > 2000) {
+			throw new DescricaoDaImagemPassaLimiteCaractesException("A descrição deve ter no máximo 2000 caracteres");
+		}
+		
+		Console c = consoles.findOne(console.getIdProduto());
+		console.setHistoricoProdutos(c.getHistoricoProdutos());
+		console.setTipoProduto(TipoProduto.CONSOLE);
+		console.getImagens().get(0).setProduto(console);
+		
+		consoles.save(console);
 	}
 }

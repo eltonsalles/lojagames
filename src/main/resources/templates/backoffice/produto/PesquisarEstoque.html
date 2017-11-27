@@ -9,6 +9,12 @@
 		<h1 class="page-header">Pesquisar estoque</h1>
 		<div class="row">
 			<form method="post" th:object="${produtoFilter}" th:action="@{/admin/produtos/pesquisar}">
+				<div class="alert  alert-success  alert-dismissible" role="alert" th:if="${not #strings.isEmpty(mensagem)}">
+					<button type="button" class="close" data-dismiss="alert">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<span th:text="${mensagem}"></span>
+				</div>
 				<div class="row">
 					<div class="col-sm-3 form-group">
 						<label for="tipo-produto" class="control-label">Tipo de Produto</label>
@@ -81,7 +87,7 @@
 							<td th:text="${#numbers.formatCurrency(produto.precoVenda)}"></td>
 							<td th:text="${produto.estoque}"></td>
 							<td class="text-center">
-								<a class="btn btn-link btn-xs" title="Editar">
+								<a class="btn btn-link btn-xs" title="Editar" th:href="|@{/admin/produtos/}${#strings.toLowerCase(produto.tipoProduto.descricao)}s/alterar/${produto.idProduto}|">
 									<i class="glyphicon glyphicon-pencil"></i>
 								</a>
 								<a class="btn btn-link btn-xs" title="Excluir">

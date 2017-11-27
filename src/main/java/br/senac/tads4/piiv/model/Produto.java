@@ -206,6 +206,14 @@ public class Produto implements Serializable {
 		this.descontoAte = descontoAte;
 	}
 
+	public List<HistoricoProduto> getHistoricoProdutos() {
+		return historicoProdutos;
+	}
+
+	public void setHistoricoProdutos(List<HistoricoProduto> historicoProdutos) {
+		this.historicoProdutos = historicoProdutos;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
