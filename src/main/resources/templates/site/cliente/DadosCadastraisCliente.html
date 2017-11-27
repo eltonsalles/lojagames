@@ -42,7 +42,7 @@
 				</div>
 				<div class="input-field col s6 l6">
 					<i class="material-icons prefix">phone</i>
-					<input id="telefone" type="text" maxlength="15" class="js-telefone" th:field="*{telefone}" required />
+					<input id="telefone" type="text" maxlength="15" class="js-telefone" th:field="*{telefone}" />
 					<label for="telefone">Telefone</label>
 				</div>
 				<div class="input-field col s12 l12">
@@ -55,7 +55,7 @@
 					    <i class="material-icons left">send</i>
 					</button>
 					<div class="right">&nbsp;&nbsp;</div>
-					<a class="btn waves-effect waves-light blue darken-4 right" th:href="@{/clientes/conta/index/{id}(id=*{id})}">Cancelar
+					<a class="btn waves-effect waves-light blue darken-4 right" th:href="@{/clientes/conta/index}">Cancelar
 					    <i class="material-icons left">clear</i>
 					</a>
 				</div>

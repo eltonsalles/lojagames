@@ -42,8 +42,13 @@ $(document).ready(function() {
 		});
 	});
 	
+	// Arruma a string para a submissão (Barra Superior)
+	$('#carrinho-compra-barra-superior').submit(submeterForm);
+	
 	// Arruma a string para a submissão
-	$('.js-arrumar-valor-frete').submit(function() {
+	$('.js-arrumar-valor-frete').submit(submeterForm);
+	
+	$('.js-arrumar-valor-frete-finalizar-compra').submit(function() {
 		var subTotal = $('#subtotal');
 		var valorFrete = $('#valor-frete');
 		var total = $('#total');
@@ -52,6 +57,37 @@ $(document).ready(function() {
 		valorFrete.val(valorFrete.val().replace('R$ ', ''));
 		total.val(total.val().replace('R$ ', ''));
 	});
+	
+	function submeterForm() {
+		var parametros = $(this).serializeArray();
+		var submeter = true;
+		
+		parametros.forEach(p => {
+			if(p.value == '') {
+				submeter = false;
+			}
+		});
+		
+		if (!submeter) {
+			return false;
+		}
+		
+		var subTotal = $('#subtotal');
+		var valorFrete = $('#valor-frete');
+		var total = $('#total');
+		
+		subTotal.val(subTotal.val().replace('R$ ', ''));
+		valorFrete.val(valorFrete.val().replace('R$ ', ''));
+		total.val(total.val().replace('R$ ', ''));
+	}
+	
+	var campos = $('.js-preecher-form-barra-superior');
+	
+	for (var i = 0; i < campos.length; i++) {
+		campos.eq(i).on('keyup', function() {
+			$('#' + $(this).attr('id') + '-barra-superior').val($(this).val());
+		});
+	}
 
 	// Verifica a quantidade em estoque do produto quando o cliente clica
 	$('.js-quantidade').on('click', function() {

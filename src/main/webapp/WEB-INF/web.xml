@@ -3,7 +3,7 @@
 	version="3.1">
 	
 	<session-config>
-		<session-timeout>20</session-timeout>
+		<session-timeout>360</session-timeout>
 	</session-config>
 	
 </web-app>

@@ -91,7 +91,8 @@ $(function() {
 					
 					atualizarValoresParcelas();
 					
-					console.log('frete');
+					$('#valor-frete-barra-superior').val($(this).val().split('|')[0]);
+					$('#dias-entrega-barra-superior').val($(this).val().split('|')[1]);
 				});
 			},
 			error: function () {

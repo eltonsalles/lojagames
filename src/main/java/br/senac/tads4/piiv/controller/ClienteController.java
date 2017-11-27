@@ -1,5 +1,7 @@
 package br.senac.tads4.piiv.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import br.senac.tads4.piiv.model.Cliente;
 import br.senac.tads4.piiv.model.Endereco;
 import br.senac.tads4.piiv.model.enumerated.Sexo;
 import br.senac.tads4.piiv.repository.ClienteRepository;
+import br.senac.tads4.piiv.security.UsuarioSistema;
 import br.senac.tads4.piiv.service.ClienteService;
 import br.senac.tads4.piiv.service.exception.CpfClienteJaCadastradoException;
 import br.senac.tads4.piiv.service.exception.EmailClienteJaCadastradoException;
@@ -34,9 +37,6 @@ public class ClienteController {
 
 	@Autowired
 	private ClienteService clienteService;
-	
-	@Autowired
-	private LoginController login;
 
 	/**
 	 * Exibe o formulário para cadastro de um novo cliente
@@ -53,9 +53,9 @@ public class ClienteController {
 	}
 
 	/**
-	 * Método que faz a inserção de um novo cliente e cria um usuário com perfíl de cliente
-	 * para acessar o sistema. Antes de salvar um cliente o sistema dispara o evento para tentar
-	 * criar o perfíl de usuário
+	 * Método que faz a inserção de um novo cliente e cria um usuário com perfíl de
+	 * cliente para acessar o sistema. Antes de salvar um cliente o sistema dispara
+	 * o evento para tentar criar o perfíl de usuário
 	 * 
 	 * @param cliente
 	 * @param result
@@ -63,11 +63,12 @@ public class ClienteController {
 	 * @return
 	 */
 	@RequestMapping(value = "/novo", method = RequestMethod.POST)
-	public ModelAndView novo(@Valid Cliente cliente, BindingResult resultCliente, @Valid Endereco endereco, BindingResult resultEndereco, RedirectAttributes attributes) {
+	public ModelAndView novo(@Valid Cliente cliente, BindingResult resultCliente, @Valid Endereco endereco,
+			BindingResult resultEndereco, RedirectAttributes attributes) {
 		if (resultCliente.hasErrors()) {
 			return novo(cliente, endereco);
 		}
-		
+
 		if (resultEndereco.hasErrors()) {
 			resultCliente.rejectValue("enderecos", "", "Existem campos obrigatórios do endereço sem preenchimento");
 			return novo(cliente, endereco);
@@ -93,22 +94,25 @@ public class ClienteController {
 		attributes.addFlashAttribute("mensagem", "Bem vindo a The Code Games!");
 		return new ModelAndView("redirect:/clientes/conta/index/" + id);
 	}
-	
+
 	/**
 	 * Exibe a page home do cliente
 	 * 
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "/conta/index/{id}")
-	public ModelAndView conta(@PathVariable Long id) {
+	@RequestMapping(value = "/conta/index")
+	public ModelAndView conta(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("site/cliente/PainelCliente");
 
-		this.conferirId(id);
-		
-		Cliente cliente = clienteRepository.findOne(id);
-		mv.addObject("cliente", cliente);
+		Cliente cliente = this.getUsuarioLogado(request);
+		cliente = clienteRepository.findOne(cliente.getId());
 
+		if (cliente == null) {
+			return new ModelAndView("redirect:/logout");
+		}
+
+		mv.addObject("cliente", cliente);
 		return mv;
 	}
 
@@ -118,32 +122,34 @@ public class ClienteController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "/conta/editar/dados-cadastrais/{id}")
-	public ModelAndView editarDadosCadastrais(@PathVariable Long id) {
+	@RequestMapping(value = "/conta/editar/dados-cadastrais")
+	public ModelAndView editarDadosCadastrais(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("site/cliente/DadosCadastraisCliente");
 
-		this.conferirId(id);
-		
-		Cliente cliente = clienteRepository.findOne(id);
+		Cliente cliente = this.getUsuarioLogado(request);
+		cliente = clienteRepository.findOne(cliente.getId());
+
+		if (cliente == null) {
+			return new ModelAndView("redirect:/logout");
+		}
+
 		mv.addObject("cliente", cliente);
 		mv.addObject("sexos", Sexo.values());
-
 		return mv;
 	}
 
 	/**
-	 * Exibe o formulário com os dados cadastrais do cliente quando existe erro no preenchimento
+	 * Exibe o formulário com os dados cadastrais do cliente quando existe erro no
+	 * preenchimento
 	 * 
 	 * @param cliente
 	 * @return
 	 */
-	@RequestMapping(value = "/conta/editar/dados-cadastrais")
-	public ModelAndView editarDadosCadastrais(Cliente cliente) {
+	private ModelAndView editarDadosCadastrais(Cliente cliente) {
 		ModelAndView mv = new ModelAndView("site/cliente/DadosCadastraisCliente");
 
 		mv.addObject("cliente", cliente);
 		mv.addObject("sexos", Sexo.values());
-
 		return mv;
 	}
 
@@ -156,9 +162,8 @@ public class ClienteController {
 	 * @return
 	 */
 	@RequestMapping(value = "/conta/editar/dados-cadastrais", method = RequestMethod.POST)
-	public ModelAndView salvarDadosCadastrais(@Valid Cliente cliente, BindingResult result, RedirectAttributes attributes) {
-		this.conferirId(cliente.getId());
-		
+	public ModelAndView salvarDadosCadastrais(@Valid Cliente cliente, BindingResult result,
+			RedirectAttributes attributes) {
 		if (result.hasErrors()) {
 			return editarDadosCadastrais(cliente);
 		}
@@ -170,7 +175,7 @@ public class ClienteController {
 		}
 
 		attributes.addFlashAttribute("mensagem", "Dados cadastrais alterados com sucesso!");
-		return new ModelAndView("redirect:/clientes/conta/index/" + cliente.getId());
+		return new ModelAndView("redirect:/clientes/conta/index");
 	}
 
 	/**
@@ -179,35 +184,35 @@ public class ClienteController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "/conta/editar/endereco-principal/{id}")
-	public ModelAndView editarEnderecoPrincipal(@PathVariable Long id) {
+	@RequestMapping(value = "/conta/editar/endereco-principal")
+	public ModelAndView editarEnderecoPrincipal(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("site/cliente/EnderecoCliente");
 
-		this.conferirId(id);
-		
-		Cliente cliente = clienteRepository.findOne(id);
+		Cliente cliente = this.getUsuarioLogado(request);
+		cliente = clienteRepository.findOne(cliente.getId());
+
+		if (cliente == null) {
+			return new ModelAndView("redirect:/logout");
+		}
+
 		mv.addObject("cliente", cliente);
 		mv.addObject("endereco", cliente.getEnderecos().get(0));
-
 		return mv;
 	}
 
 	/**
-	 * Exibe o formulário com o endereço principal do cliente quando existem erros de preenchimento
+	 * Exibe o formulário com o endereço principal do cliente quando existem erros
+	 * de preenchimento
 	 * 
 	 * @param endereco
 	 * @return
 	 */
-	@RequestMapping(value = "/conta/editar/endereco-principal")
-	public ModelAndView editarEnderecoPrincipal(Endereco endereco) {
+	private ModelAndView editarEnderecoPrincipal(Endereco endereco) {
 		ModelAndView mv = new ModelAndView("site/cliente/EnderecoCliente");
-		
-		this.conferirId(endereco.getCliente().getId());
-		
+
 		Cliente cliente = clienteRepository.findOne(endereco.getCliente().getId());
 		mv.addObject("cliente", cliente);
 		mv.addObject("endereco", endereco);
-
 		return mv;
 	}
 
@@ -220,9 +225,8 @@ public class ClienteController {
 	 * @return
 	 */
 	@RequestMapping(value = "/conta/editar/endereco-principal", method = RequestMethod.POST)
-	public ModelAndView salvarEnderecoPrincipal(@Valid Endereco endereco, BindingResult result, RedirectAttributes attributes) {
-		this.conferirId(endereco.getCliente().getId());
-		
+	public ModelAndView salvarEnderecoPrincipal(@Valid Endereco endereco, BindingResult result,
+			RedirectAttributes attributes) {
 		if (result.hasErrors()) {
 			return editarEnderecoPrincipal(endereco);
 		}
@@ -234,9 +238,9 @@ public class ClienteController {
 		}
 
 		attributes.addFlashAttribute("mensagem", "Endereço principal alterado com sucesso!");
-		return new ModelAndView("redirect:/clientes/conta/index/" + endereco.getCliente().getId());
+		return new ModelAndView("redirect:/clientes/conta/index");
 	}
-	
+
 	/**
 	 * Exibe o formulário com endereço adicional do cliente
 	 * 
@@ -244,36 +248,36 @@ public class ClienteController {
 	 * @param index
 	 * @return
 	 */
-	@RequestMapping(value = "/conta/editar/endereco-adicional/{id}/{index}")
-	public ModelAndView editarEnderecoAdicional(@PathVariable Long id, @PathVariable Integer index) {
+	@RequestMapping(value = "/conta/editar/endereco-adicional/{index}")
+	public ModelAndView editarEnderecoAdicional(@PathVariable Integer index, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("site/cliente/EnderecoCliente");
 
-		this.conferirId(id);
-		
-		Cliente cliente = clienteRepository.findOne(id);
+		Cliente cliente = this.getUsuarioLogado(request);
+		cliente = clienteRepository.findOne(cliente.getId());
+
+		if (cliente == null) {
+			return new ModelAndView("redirect:/logout");
+		}
+
 		mv.addObject("cliente", cliente);
 		mv.addObject("endereco", cliente.getEnderecos().get(index));
-
 		return mv;
 	}
 
 	/**
-	 * Exibe o formulário com endereço adicional do cliente quando existem erros de preenchimento
+	 * Exibe o formulário com endereço adicional do cliente quando existem erros de
+	 * preenchimento
 	 * 
 	 * @param endereco
 	 * @param index
 	 * @return
 	 */
-	@RequestMapping(value = "/conta/editar/endereco-adicional")
-	public ModelAndView editarEnderecoAdicional(Endereco endereco, @RequestParam Integer index) {
+	private ModelAndView editarEnderecoAdicional(Endereco endereco, @RequestParam Integer index) {
 		ModelAndView mv = new ModelAndView("site/cliente/EnderecoCliente");
-		
-		this.conferirId(endereco.getCliente().getId());
-		
+
 		Cliente cliente = clienteRepository.findOne(endereco.getCliente().getId());
 		mv.addObject("cliente", cliente);
 		mv.addObject("endereco", endereco);
-
 		return mv;
 	}
 
@@ -287,9 +291,8 @@ public class ClienteController {
 	 * @return
 	 */
 	@RequestMapping(value = "/conta/editar/endereco-adicional", method = RequestMethod.POST)
-	public ModelAndView salvarEnderecoAdicional(@Valid Endereco endereco, @RequestParam Integer index, BindingResult result, RedirectAttributes attributes) {
-		this.conferirId(endereco.getCliente().getId());
-		
+	public ModelAndView salvarEnderecoAdicional(@Valid Endereco endereco, @RequestParam Integer index,
+			BindingResult result, RedirectAttributes attributes) {
 		if (result.hasErrors()) {
 			return editarEnderecoAdicional(endereco, index);
 		}
@@ -301,9 +304,9 @@ public class ClienteController {
 		}
 
 		attributes.addFlashAttribute("mensagem", "Endereço adicional alterado com sucesso!");
-		return new ModelAndView("redirect:/clientes/conta/index/" + endereco.getCliente().getId());
+		return new ModelAndView("redirect:/clientes/conta/index");
 	}
-	
+
 	/**
 	 * Método para excluir endereço adicional
 	 * 
@@ -312,18 +315,19 @@ public class ClienteController {
 	 * @return
 	 */
 	@DeleteMapping(value = "/conta/remover-endereco-adicional/{id}/{index}")
-	public @ResponseBody ResponseEntity<?> removerEnderecoAdicional(@PathVariable Long id, @PathVariable Integer index) {
-		this.conferirId(id);
-		
+	public @ResponseBody ResponseEntity<?> removerEnderecoAdicional(@PathVariable Long id,
+			@PathVariable Integer index, HttpServletRequest request) {
+		this.conferirId(id, request);
+
 		try {
 			clienteService.removerEnderecoAdicional(id, index);
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().body("Não foi possível excluir o registro");
 		}
-		
+
 		return ResponseEntity.ok().build();
 	}
-	
+
 	/**
 	 * Exibe o formulário para cadastrar um novo endereço para o cliente
 	 * 
@@ -331,18 +335,22 @@ public class ClienteController {
 	 * @param index
 	 * @return
 	 */
-	@RequestMapping(value = "/conta/cadastrar/endereco-adicional/{id}/{index}")
-	public ModelAndView cadastrarEnderecoAdicional(@PathVariable Long id, @PathVariable Integer index) {
+	@RequestMapping(value = "/conta/cadastrar/endereco-adicional/{index}")
+	public ModelAndView cadastrarEnderecoAdicional(@PathVariable Integer index, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("site/cliente/NovoEnderecoCliente");
 
-		this.conferirId(id);
-		
-		Cliente cliente = clienteRepository.findOne(id);
+		Cliente cliente = this.getUsuarioLogado(request);
+		cliente = clienteRepository.findOne(cliente.getId());
+
+		if (cliente == null) {
+			return new ModelAndView("redirect:/logout");
+		}
+
 		Endereco endereco = new Endereco();
 		endereco.setCliente(cliente);
+		
 		mv.addObject("cliente", cliente);
 		mv.addObject("endereco", endereco);
-
 		return mv;
 	}
 
@@ -353,16 +361,13 @@ public class ClienteController {
 	 * @param index
 	 * @return
 	 */
-	@RequestMapping(value = "/conta/cadastrar/endereco-adicional")
-	public ModelAndView cadastrarEnderecoAdicional(Endereco endereco, @RequestParam Integer index) {
+	private ModelAndView cadastrarEnderecoAdicional(Endereco endereco, @RequestParam Integer index) {
 		ModelAndView mv = new ModelAndView("site/cliente/NovoEnderecoCliente");
-		
-		this.conferirId(endereco.getCliente().getId());
-		
+
 		Cliente cliente = clienteRepository.findOne(endereco.getCliente().getId());
+		
 		mv.addObject("cliente", cliente);
 		mv.addObject("endereco", endereco);
-
 		return mv;
 	}
 
@@ -376,34 +381,57 @@ public class ClienteController {
 	 * @return
 	 */
 	@RequestMapping(value = "/conta/cadastrar/endereco-adicional", method = RequestMethod.POST)
-	public ModelAndView cadastrarEnderecoAdicional(@Valid Endereco endereco, @RequestParam Integer index, BindingResult result, RedirectAttributes attributes) {
-		this.conferirId(endereco.getCliente().getId());
-		
+	public ModelAndView cadastrarEnderecoAdicional(@Valid Endereco endereco, @RequestParam Integer index,
+			BindingResult result, RedirectAttributes attributes) {
 		if (result.hasErrors()) {
-			return editarEnderecoAdicional(endereco, index);
+			return cadastrarEnderecoAdicional(endereco, index);
 		}
 
 		try {
 			clienteService.salvarEnderecoAdicional(endereco);
 		} catch (Exception e) {
-			return editarEnderecoAdicional(endereco, index);
+			return cadastrarEnderecoAdicional(endereco, index);
 		}
 
 		attributes.addFlashAttribute("mensagem", "Endereço adicional adicionado com sucesso!");
-		return new ModelAndView("redirect:/clientes/conta/index/" + endereco.getCliente().getId());
+		return new ModelAndView("redirect:/clientes/conta/index");
 	}
-	
+
 	/**
-	 * Método para garantir que a manipulação dos dados do cliente sejam apenas para o cliente logado no sistema
+	 * Método para garantir que a manipulação dos dados do cliente sejam apenas para
+	 * o cliente logado no sistema
 	 * 
 	 * @param id
 	 * @return
 	 */
-	private ModelAndView conferirId(Long id) {
-		if (id != login.recuperarUsuario().getCliente().getId()) {
-			return new ModelAndView("redirect:/logout");
-		}
+	private ModelAndView conferirId(Long id, HttpServletRequest request) {
+		Cliente cliente = this.getUsuarioLogado(request);
 		
+		try {
+			if (id != cliente.getId()) {
+				return new ModelAndView("redirect:/logout");
+			}
+		} catch (Exception e) {
+			return null;
+		}
+
 		return null;
+	}
+
+	/**
+	 * Retorna o usuário cliente logado
+	 * 
+	 * @param request
+	 * @return
+	 */
+	private Cliente getUsuarioLogado(HttpServletRequest request) {
+		try {
+			HttpSession session = (HttpSession) request.getSession();
+			UsuarioSistema usuarioSistema = (UsuarioSistema) session.getAttribute("usuarioLogado");
+
+			return usuarioSistema.getCliente();
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }

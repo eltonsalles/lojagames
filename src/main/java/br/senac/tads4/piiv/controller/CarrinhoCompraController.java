@@ -6,6 +6,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -30,13 +33,14 @@ import br.senac.tads4.piiv.model.Pedido;
 import br.senac.tads4.piiv.model.Produto;
 import br.senac.tads4.piiv.model.enumerated.Meses;
 import br.senac.tads4.piiv.model.enumerated.TipoPagamento;
-import br.senac.tads4.piiv.repository.ClienteRepository;
 import br.senac.tads4.piiv.repository.ProdutoRepository;
+import br.senac.tads4.piiv.security.UsuarioSistema;
 import br.senac.tads4.piiv.service.PedidoService;
 import br.senac.tads4.piiv.service.ProdutoService;
 
 @Controller
 @RequestMapping("/carrinho-compra")
+@SessionScope
 public class CarrinhoCompraController {
 
 	private List<ItemProdutoDto> carrinho = new ArrayList<>();
@@ -51,10 +55,6 @@ public class CarrinhoCompraController {
 
 	@Autowired
 	private PedidoService pedidoService;
-
-	// #MOCK
-	@Autowired
-	private ClienteRepository clienteRepository;
 	
 	@Autowired
 	private Mailer mailder;
@@ -126,7 +126,14 @@ public class CarrinhoCompraController {
 	@RequestMapping(value = "/finalizar-compra", method = RequestMethod.POST)
 	public ModelAndView finalizarCompra(@RequestParam String cep,
 			@RequestParam(name = "valor-frete") BigDecimal valorFrete,
-			@RequestParam(name = "dias-entrega") Integer diasEntrega, RedirectAttributes attributes) {
+			@RequestParam(name = "dias-entrega") Integer diasEntrega, RedirectAttributes attributes, HttpServletRequest request) {
+
+		Cliente cliente = this.getUsuarioLogado(request);
+		
+		if (cliente == null) {
+			return new ModelAndView("redirect:/login/site");
+		}
+		
 		ModelAndView mv = new ModelAndView("site/carrinho/FinalizarCompra");
 
 		// Informações para o formulário
@@ -136,8 +143,6 @@ public class CarrinhoCompraController {
 		pedido.setValorSubTotal(this.getSubTotalCarrinho());
 		pedido.setValorTotal(this.getSubTotalCarrinho()); // No front tem a soma do frete
 
-		// #MOCK
-		Cliente cliente = clienteRepository.findOne(1L);
 		pedido.setCliente(cliente);
 
 		Calendar hoje = Calendar.getInstance();
@@ -157,12 +162,12 @@ public class CarrinhoCompraController {
 	}
 
 	@RequestMapping(value = "/realizar-pedido", method = RequestMethod.POST)
-	public ModelAndView realizarPedido(@Valid Pedido pedido, BindingResult result, RedirectAttributes attributes) {
+	public ModelAndView realizarPedido(@Valid Pedido pedido, BindingResult result, RedirectAttributes attributes, HttpServletRequest request) {
 		if (result.hasErrors()) {
 			attributes.addFlashAttribute("msgErroRealizarPedido", "Informe os dados de entrega e pagamento");
 
 			return finalizarCompra(pedido.getCliente().getEnderecos().get(0).getCep(), pedido.getValorFrete(),
-					pedido.getDiasEntrega(), attributes);
+					pedido.getDiasEntrega(), attributes, request);
 		}
 
 		if (pedido.getTipoPagamento().toString().equalsIgnoreCase("CARTAO_CREDITO")) {
@@ -175,12 +180,16 @@ public class CarrinhoCompraController {
 				attributes.addFlashAttribute("msgErroRealizarPedido", "Informe os dados para o pagamento");
 				
 				return finalizarCompra(pedido.getCliente().getEnderecos().get(0).getCep(), pedido.getValorFrete(),
-						pedido.getDiasEntrega(), attributes);
+						pedido.getDiasEntrega(), attributes, request);
 			}
 		}
+		
+		Cliente cliente = this.getUsuarioLogado(request);
+		
+		if (cliente == null) {
+			return new ModelAndView("redirect:/login/site");
+		}
 
-		// #MOCK
-		Cliente cliente = clienteRepository.findOne(1L);
 		pedido.setCliente(cliente);
 
 		Long id = pedidoService.salvar(pedido, this.getCarrinho());
@@ -209,5 +218,22 @@ public class CarrinhoCompraController {
 		}
 
 		return subTotal;
+	}
+
+	/**
+	 * Retorna o usuário cliente logado
+	 * 
+	 * @param request
+	 * @return
+	 */
+	private Cliente getUsuarioLogado(HttpServletRequest request) {
+		try {
+			HttpSession session = (HttpSession) request.getSession();
+			UsuarioSistema usuarioSistema = (UsuarioSistema) session.getAttribute("usuarioLogado");
+			
+			return usuarioSistema.getCliente();
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }
