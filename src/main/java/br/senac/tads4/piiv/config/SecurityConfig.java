@@ -54,7 +54,11 @@ public class SecurityConfig {
 				.antMatchers("/")
 				.antMatchers("/detalhes-do-produto/**")
 				.antMatchers("/lista-produto/**")
-				.antMatchers("/carrinho-compra/**")
+				.antMatchers("/carrinho-compra")
+				.antMatchers("/carrinho-compra/adicionar-item-carrinho")
+				.antMatchers("/carrinho-compra/remover-item-carrinho/**")
+				.antMatchers("/carrinho-compra/alterar-quantidade")
+				.antMatchers("/carrinho-compra/finalizar-compra")
 				.antMatchers("/clientes/novo")
 				.antMatchers("/contatos/novo");
 		}
@@ -110,6 +114,7 @@ public class SecurityConfig {
 					.antMatchers("/clientes/**").hasRole("CLIENTE")
 					.antMatchers("/pedidos/**").hasRole("CLIENTE")
 					.antMatchers("/boleto/**").hasRole("CLIENTE")
+					.antMatchers("/carrinho-compra/realizar-pedido").hasRole("CLIENTE")
 					.anyRequest().authenticated()
 				.and()
 					.formLogin()

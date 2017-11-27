@@ -60,6 +60,9 @@ public class CarrinhoCompraController {
 	
 	@Autowired
 	private Mailer mailder;
+	
+	@Autowired
+	private LoginController login;
 
 	@RequestMapping
 	public ModelAndView carrinhoCompra() {
@@ -129,6 +132,15 @@ public class CarrinhoCompraController {
 	public ModelAndView finalizarCompra(@RequestParam String cep,
 			@RequestParam(name = "valor-frete") BigDecimal valorFrete,
 			@RequestParam(name = "dias-entrega") Integer diasEntrega, RedirectAttributes attributes) {
+
+		Long id;
+		try {
+			id = login.recuperarUsuario().getCliente().getId();
+			System.out.println(id);
+		} catch (NullPointerException e) {
+			return new ModelAndView("redirect:/login/site");
+		}
+		
 		ModelAndView mv = new ModelAndView("site/carrinho/FinalizarCompra");
 
 		// Informações para o formulário
