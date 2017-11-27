@@ -2,61 +2,79 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <body>
 	<div class="col-sm-3 col-md-2 sidebar" th:fragment="layout-backoffice-menu-lateral">
-		<ul class="nav nav-sidebar">
-			<li class="active">
-				<a href="#">
-					Cadastrar Cliente
-					<span class="sr-only">(current)</span>
-				</a>
-			</li>
-			<li>
-				<a th:href="@{/admin/CadastroUsuario}">Cadastrar Usuário</a>
-			</li>
-			<li>
-				<a href="#">Cadastrar Controle</a>
-			</li>
-			<li>
-				<a href="#">Cadastrar Console</a>
-			</li>
-			<li>
-				<a href="#">Cadastrar Jogo</a>
-			</li>
-		</ul>
-		<ul class="nav nav-sidebar">
-			<li>
-				<a href="">Consultar Cliente</a>
-			</li>
-			<li>
-				<a href="">Consultar Produto</a>
-			</li>
-			<li>
-				<a href="">Consultar Venda</a>
-			</li>
-			<li>
-				<a href="">Consultar Estoque</a>
-			</li>
-			<ul class="nav nav-sidebar">
+
+		<div class="dropdown">
+			<a class="dropdown-toggle" type="button" data-toggle="dropdown">
+				Usuario
+				<span class="caret"></span>
+			</a>
+			<ul class=" dropdown-menu">
 				<li>
-					<a href="">Nav item again</a>
-				</li>
-				<li>
-					<a href="">One more nav</a>
-				</li>
-				<li>
-					<a href="">Another nav item</a>
+					<a th:href="@{/admin/usuarios/novo}">Novo Usuario</a>
 				</li>
 			</ul>
-			<ul class="nav nav-sidebar">
+		</div>
+
+		<div class="dropdown">
+			<a class="dropdown-toggle" type="button" data-toggle="dropdown">
+				Cadastrar Produto
+				<span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu">
 				<li>
-					<a href="">Relatorio de </a>
+					<a th:href="@{/admin/produtos/jogos/novo}">Cadastrar Jogo</a>
 				</li>
 				<li>
-					<a href="">One more nav</a>
+					<a th:href="@{/admin/produtos/controles/novo}">Cadastrar Controle</a>
 				</li>
 				<li>
-					<a href="">Another nav item</a>
+					<a th:href="@{/admin/produtos/consoles/novo}">Cadastrar Console</a>
 				</li>
 			</ul>
+		</div>
+		<div class="dropdown">
+			<a class="dropdown-toggle" type="button" data-toggle="dropdown">
+				Consultar
+				<span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu">
+				<li>
+					<a th:href="@{/admin/relatorio/vendas}">Consultar Venda</a>
+				</li>
+				<li>
+					<a th:href="@{/admin/produtos/historico}">Consultar Historico de produto</a>
+				</li>
+				<li>
+					<a th:href="@{/admin/produtos/pesquisar}">Consultar Produto</a>
+				</li>
+				<li>
+					<a th:href="@{/admin/produtos/movimentar}">Movimentar Produto</a>
+				</li>
+			</ul>
+		</div>
+		<div class="dropdown">
+			<a class="dropdown-toggle" type="button" data-toggle="dropdown">
+				Descontos
+				<span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu">
+				<li>
+					<a th:href="@{/admin/descontos/pesquisar}">Pesquisar Descontos</a>
+				</li>
+			</ul>
+		</div>
+		<div class="dropdown">
+			<a class="dropdown-toggle" type="button" data-toggle="dropdown">
+				Chamados
+				<span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu">
+				<li>
+					<a th:href="@{/admin/contatos/pesquisar}">Pesquisar Chamado</a>
+				</li>
+			</ul>
+		</div>
+
 	</div>
 </body>
 </html>
