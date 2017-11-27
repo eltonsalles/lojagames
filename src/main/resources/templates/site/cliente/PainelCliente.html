@@ -22,7 +22,7 @@
 					<p class="black-text"><strong>E-mail: </strong><span th:text="${cliente.email}"></span></p>
 					<p class="black-text"><strong>Celular: </strong><span th:text="${cliente.celularFormatado}"></span></p>
 					<p class="black-text"><strong>Telefone: </strong><span th:text="${cliente.telefoneFormatado}"></span></p>
-					<a class="waves-effect waves-light btn orange white-text" th:href="@{/clientes/conta/editar/dados-cadastrais/{id}(id=${cliente.id})}"><i class="material-icons left">edit</i>Alterar Dados Cadastrais</a>
+					<a class="waves-effect waves-light btn orange white-text" th:href="@{/clientes/conta/editar/dados-cadastrais}"><i class="material-icons left">edit</i>Alterar Dados Cadastrais</a>
 				</div>
 			</div>
 			<div class="col s12">
@@ -35,12 +35,12 @@
 					<p class="black-text" th:if="${!#strings.isEmpty(cliente.enderecos[0].complemento)}"><strong>Complemento: </strong><span th:text="${cliente.enderecos[0].complemento}"></span></p>
 					<p class="black-text"><strong>Cidade: </strong><span th:text="${cliente.enderecos[0].cidade}"></span><strong>, UF: </strong><span th:text="${#strings.toUpperCase(cliente.enderecos[0].uf)}"></span></p>
 					<p class="black-text"><strong>Ref.: </strong><span th:text="${cliente.enderecos[0].referencia}"></span></p>
-					<a class="waves-effect waves-light btn orange white-text" th:href="@{/clientes/conta/editar/endereco-principal/{id}(id=${cliente.id})}"><i class="material-icons left">edit</i>Alterar Endereço Principal</a>
+					<a class="waves-effect waves-light btn orange white-text" th:href="@{/clientes/conta/editar/endereco-principal}"><i class="material-icons left">edit</i>Alterar Endereço Principal</a>
 				</div>
 			</div>
 			<div class="col s12" th:if="${#lists.size(cliente.enderecos) >= 2}">
 				<div class="card-panel">
-					<h5><i class="material-icons left">location_on</i>Outros Endereços <a class="btn-flat right" th:href="|@{/clientes/conta/cadastrar/endereco-adicional/{id}(id=${cliente.id})}/${#lists.size(cliente.enderecos)}|"><i class="material-icons left">add</i>Endereço</a></h5>
+					<h5><i class="material-icons left">location_on</i>Outros Endereços <a class="btn-flat right" th:href="|@{/clientes/conta/cadastrar/endereco-adicional/}${#lists.size(cliente.enderecos)}|"><i class="material-icons left">add</i>Endereço</a></h5>
 					<th:block th:each="numeroEnd : ${#numbers.sequence(1, #lists.size(cliente.enderecos) - 1)}">
 						<div class="divider"></div>
 						<p class="black-text"><strong>CEP: </strong><span th:text="${cliente.enderecos[numeroEnd].cepFormatado}"></span></p>
@@ -49,8 +49,8 @@
 						<p class="black-text" th:if="${!#strings.isEmpty(cliente.enderecos[numeroEnd].complemento)}"><strong>Complemento: </strong><span th:text="${cliente.enderecos[numeroEnd].complemento}"></span></p>
 						<p class="black-text"><strong>Cidade: </strong><span th:text="${cliente.enderecos[numeroEnd].cidade}"></span><strong>, UF: </strong><span th:text="${#strings.toUpperCase(cliente.enderecos[numeroEnd].uf)}"></span></p>
 						<p class="black-text"><strong>Ref.: </strong><span th:text="${cliente.enderecos[numeroEnd].referencia}"></span></p>
-						<a class="waves-effect waves-light btn blue darken-4 white-text js-btn-excluir" href="#" th:attr="data-url=|@{/clientes/conta/remover-endereco-adicional/{id}(id=${cliente.id})}/${numeroEnd}|" data-objeto="endereço adicional"><i class="material-icons left">close</i>Excluir</a>
-						<a class="waves-effect waves-light btn orange white-text" th:href="|@{/clientes/conta/editar/endereco-adicional/{id}(id=${cliente.id})}/${numeroEnd}|"><i class="material-icons left">edit</i>Alterar</a>
+						<a class="waves-effect waves-light btn blue darken-4 white-text js-btn-excluir" href="#" th:attr="data-url=|@{/clientes/conta/remover-endereco-adicional/{id}(id=${cliente.id})}/${numeroEnd}|" data-objeto="Endereço Adicional"><i class="material-icons left">close</i>Excluir</a>
+						<a class="waves-effect waves-light btn orange white-text" th:href="|@{/clientes/conta/editar/endereco-adicional}/${numeroEnd}|"><i class="material-icons left">edit</i>Alterar</a>
 					<br><br>
 					</th:block>
 				</div>
@@ -60,7 +60,7 @@
 					<h5><i class="material-icons left">location_on</i>Outros Endereços</h5>
 					<div class="divider"></div>
 					<br>
-					<a class="waves-effect waves-light btn orange white-text" th:href="|@{/clientes/conta/cadastrar/endereco-adicional/{id}(id=${cliente.id})}/1|"><i class="material-icons left">edit</i>Adicionar Novo Endereço</a>
+					<a class="waves-effect waves-light btn orange white-text" th:href="|@{/clientes/conta/cadastrar/endereco-adicional/1}|"><i class="material-icons left">edit</i>Adicionar Novo Endereço</a>
 				</div>
 			</div>
 		</div>

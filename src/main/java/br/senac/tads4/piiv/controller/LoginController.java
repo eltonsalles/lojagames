@@ -29,7 +29,7 @@ public class LoginController {
 			UsuarioSistema usuarioSistema = this.recuperarUsuario();
 			session.setAttribute("usuarioLogado", usuarioSistema);
 
-			return new ModelAndView("redirect:/clientes/conta/index/" + usuarioSistema.getCliente().getId());
+			return new ModelAndView("redirect:/clientes/conta/index");
 		}
 
 		ModelAndView mv = new ModelAndView("site/Login");
