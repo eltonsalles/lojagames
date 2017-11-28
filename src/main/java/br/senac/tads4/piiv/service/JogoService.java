@@ -28,6 +28,11 @@ public class JogoService extends ProdutoService {
 	@Autowired
 	private ApplicationEventPublisher publisher;
 	
+	/**
+	 * Método para salvar um produto do tipo jogo
+	 * 
+	 * @param jogo
+	 */
 	public void salvar(Jogo jogo) {
 		if (StringUtils.isEmpty(jogo.getImagens().get(0).getNome().trim())) {
 			throw new ListaDeImagensVaziasException("O campo imagem é obrigatório");
@@ -47,5 +52,31 @@ public class JogoService extends ProdutoService {
 		jogoRepository.save(jogo);
 		
 		publisher.publishEvent(new ProdutoSalvoEvent(jogo));
+	}
+	
+	/**
+	 * Método para alterar os dados do jogo
+	 * 
+	 * @param jogo
+	 */
+	public void alterar(Jogo jogo) {
+		if (StringUtils.isEmpty(jogo.getImagens().get(0).getNome().trim())) {
+			throw new ListaDeImagensVaziasException("O campo imagem é obrigatório");
+		}
+		
+		if (StringUtils.isEmpty(jogo.getImagens().get(0).getDescricao().trim())) {
+			throw new DescricaoDaImagemVaziaException("O campo descrição é obrigatório");
+		}
+		
+		if (jogo.getImagens().get(0).getDescricao().trim().length() > 2000) {
+			throw new DescricaoDaImagemPassaLimiteCaractesException("A descrição deve ter no máximo 2000 caracteres");
+		}
+		
+		Jogo j = jogoRepository.findOne(jogo.getIdProduto());
+		jogo.setHistoricoProdutos(j.getHistoricoProdutos());
+		jogo.setTipoProduto(TipoProduto.JOGO);
+		jogo.getImagens().get(0).setProduto(jogo);
+		
+		jogoRepository.save(jogo);
 	}
 }
