@@ -1,17 +1,22 @@
 package br.senac.tads4.piiv.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import br.senac.tads4.piiv.model.ItemPedido;
 import br.senac.tads4.piiv.model.Jogo;
 import br.senac.tads4.piiv.model.enumerated.TipoProduto;
+import br.senac.tads4.piiv.repository.ItemPedidoRepository;
 import br.senac.tads4.piiv.repository.JogoRepository;
 import br.senac.tads4.piiv.service.event.produto.ProdutoSalvoEvent;
 import br.senac.tads4.piiv.service.exception.DescricaoDaImagemPassaLimiteCaractesException;
 import br.senac.tads4.piiv.service.exception.DescricaoDaImagemVaziaException;
 import br.senac.tads4.piiv.service.exception.ListaDeImagensVaziasException;
+import br.senac.tads4.piiv.service.exception.ProdutoComPedidoRealizadoExcepetion;
 
 /**
  * Classe responsável por persistir os dados no banco de dados na tabela jogo
@@ -24,6 +29,9 @@ public class JogoService extends ProdutoService {
 
 	@Autowired
 	private JogoRepository jogoRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	@Autowired
 	private ApplicationEventPublisher publisher;
@@ -78,5 +86,22 @@ public class JogoService extends ProdutoService {
 		jogo.getImagens().get(0).setProduto(jogo);
 		
 		jogoRepository.save(jogo);
+	}
+	
+	/**
+	 * Excluir um registro
+	 * 
+	 * @param id
+	 */
+	public void excluir(Long id) {
+		Jogo jogo = jogoRepository.findOne(id);
+				
+		Optional<ItemPedido> itemPedidoOptional = itemPedidoRepository.findByProduto(jogo);
+		
+		if (itemPedidoOptional.isPresent()) {
+			throw new ProdutoComPedidoRealizadoExcepetion("Existem pedidos com este produto, então não é possível excluí-lo!");
+		}
+		
+		jogoRepository.delete(jogo);
 	}
 }

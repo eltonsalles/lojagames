@@ -3,11 +3,14 @@ package br.senac.tads4.piiv.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -22,6 +25,7 @@ import br.senac.tads4.piiv.service.JogoService;
 import br.senac.tads4.piiv.service.exception.DescricaoDaImagemPassaLimiteCaractesException;
 import br.senac.tads4.piiv.service.exception.DescricaoDaImagemVaziaException;
 import br.senac.tads4.piiv.service.exception.ListaDeImagensVaziasException;
+import br.senac.tads4.piiv.service.exception.ProdutoComPedidoRealizadoExcepetion;
 
 @Controller
 @RequestMapping(value = "/admin/produtos/jogos")
@@ -132,5 +136,22 @@ public class JogoController {
 
 		attributes.addFlashAttribute("mensagem", "Jogo alterado com sucesso!");
 		return new ModelAndView("redirect:/admin/produtos/pesquisar");
+	}
+	
+	/**
+	 * Método para excluir
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@DeleteMapping(value = "/excluir/{id}")
+	public @ResponseBody ResponseEntity<?> excluir(@PathVariable Long id) {
+		try {
+			jogoService.excluir(id);
+		} catch (ProdutoComPedidoRealizadoExcepetion e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+
+		return ResponseEntity.ok().build();
 	}
 }

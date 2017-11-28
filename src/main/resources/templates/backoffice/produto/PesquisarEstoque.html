@@ -3,6 +3,7 @@
 	layout:decorator="layout/backoffice/LayoutPadrao" xlmns:thecode="http://thecode.com.br">
 <head>
 <title>Pesquisar estoque</title>
+<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/sweetalert.css}" />
 </head>
 <body>
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" layout:fragment="conteudo">
@@ -90,7 +91,7 @@
 								<a class="btn btn-link btn-xs" title="Editar" th:href="|@{/admin/produtos/}${#strings.toLowerCase(produto.tipoProduto.descricao)}s/alterar/${produto.idProduto}|">
 									<i class="glyphicon glyphicon-pencil"></i>
 								</a>
-								<a class="btn btn-link btn-xs" title="Excluir">
+								<a class="btn btn-link btn-xs js-btn-excluir" title="Excluir" href="#" data:url="|@{/admin/produtos/}${#strings.toLowerCase(produto.tipoProduto.descricao)}s/excluir/${produto.idProduto}|" data:objeto="${produto.nome}">
 									<i class="glyphicon glyphicon-remove"></i>
 								</a>
 							</td>
@@ -105,6 +106,8 @@
 	</div>
 	<th:block layout:fragment="javascript-extra">
 		<script th:src="@{/javascripts/formatar-numeros.js}"></script>
+		<script th:src="@{/javascripts/vendors/sweetalert.min.js}"></script>
+		<script th:src="@{/javascripts/dialogo-excluir.js}"></script>
 	</th:block>
 </body>
 </html>

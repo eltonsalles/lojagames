@@ -29,6 +29,8 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
+import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect;
+
 import br.senac.tads4.piiv.controller.ClienteController;
 import br.senac.tads4.piiv.controller.converter.GeneroConverter;
 import br.senac.tads4.piiv.controller.converter.GrupoConverter;
@@ -71,6 +73,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		
 		engine.addDialect(new LayoutDialect());
 		engine.addDialect(new TheCodeDialect());
+		engine.addDialect(new DataAttributeDialect());
 		engine.addDialect(new SpringSecurityDialect());
 		return engine;
 	}

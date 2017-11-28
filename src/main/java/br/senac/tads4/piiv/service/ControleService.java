@@ -1,17 +1,22 @@
 package br.senac.tads4.piiv.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import br.senac.tads4.piiv.model.Controle;
+import br.senac.tads4.piiv.model.ItemPedido;
 import br.senac.tads4.piiv.model.enumerated.TipoProduto;
 import br.senac.tads4.piiv.repository.ControleRepository;
+import br.senac.tads4.piiv.repository.ItemPedidoRepository;
 import br.senac.tads4.piiv.service.event.produto.ProdutoSalvoEvent;
 import br.senac.tads4.piiv.service.exception.DescricaoDaImagemPassaLimiteCaractesException;
 import br.senac.tads4.piiv.service.exception.DescricaoDaImagemVaziaException;
 import br.senac.tads4.piiv.service.exception.ListaDeImagensVaziasException;
+import br.senac.tads4.piiv.service.exception.ProdutoComPedidoRealizadoExcepetion;
 
 /**
  * Classe responsável por persistir os dados no banco de dados na tabela controle
@@ -24,6 +29,9 @@ public class ControleService extends ProdutoService {
 
 	@Autowired
 	private ControleRepository controles;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	@Autowired
 	private ApplicationEventPublisher publisher;
@@ -77,5 +85,22 @@ public class ControleService extends ProdutoService {
 		controle.getImagens().get(0).setProduto(controle);
 		
 		controles.save(controle);
+	}
+	
+	/**
+	 * Excluir um registro
+	 * 
+	 * @param id
+	 */
+	public void excluir(Long id) {
+		Controle controle = controles.findOne(id);
+				
+		Optional<ItemPedido> itemPedidoOptional = itemPedidoRepository.findByProduto(controle);
+		
+		if (itemPedidoOptional.isPresent()) {
+			throw new ProdutoComPedidoRealizadoExcepetion("Existem pedidos com este produto, então não é possível excluí-lo!");
+		}
+		
+		controles.delete(controle);
 	}
 }
