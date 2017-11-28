@@ -16,7 +16,9 @@
 				<div th:each="pedido : ${pedidos}" class="row pedido">
 					<div class="col m6 s6">
 						Status do pedido: <strong th:text="${pedido.status.descricao}"></strong><br>
+						<p th:if="${pedido.dataEntrega != null}">
 						Previsão de entrega: <strong th:text="|${pedido.dataEntrega.dayOfMonth}/${pedido.dataEntrega.monthValue}/${pedido.dataEntrega.year}|"></strong>
+						</p>
 					</div>
 					 <div class="col m6 s6">
 						 Pedido numero: <span th:text="${pedido.id}"> </span><br>
