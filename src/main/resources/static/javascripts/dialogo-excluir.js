@@ -50,7 +50,14 @@ TheCode.DialogoExcluir = (function() {
 	}
 	
 	function onErroExcluir(e) {
-		console.log('Deu ruim!');
+		setTimeout(() => {
+			if (e.responseText != "") {
+				swal('Erro!', e.responseText, 'error');
+			} else {
+				swal('Erro!', 'Não foi possível excluir!', 'error');
+			}
+			
+		}, 1000);
 	}
 	
 	function addCsrfToken(xhr) {
