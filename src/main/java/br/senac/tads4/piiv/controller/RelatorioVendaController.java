@@ -22,7 +22,7 @@ public class RelatorioVendaController {
 		/**
 		 * Permite visualizar o relatorio de vendas
 		 * 
-		 * @param id
+		 * @param pedidoFilter
 		 * @return
 		 */
 		@RequestMapping(value = "/vendas")
@@ -30,7 +30,7 @@ public class RelatorioVendaController {
 			ModelAndView mv = new ModelAndView("backoffice/relatorio/RelatorioVendas");
 			BigDecimal total = BigDecimal.ZERO;
 
-			List<Pedido> pedidos =   this.pedidoRepository.filtrar(pedidoFilter);
+			List<Pedido> pedidos = this.pedidoRepository.filtrar(pedidoFilter);
 			total = this.CalcularTotal(pedidos);
 			
 			mv.addObject("statusAll", StatusPedido.values());
@@ -40,6 +40,12 @@ public class RelatorioVendaController {
 			return mv;
 		}
 		
+		/**
+		 * Calcula valor total dos pedidos
+		 * 
+		 * @param pedidos
+		 * @return
+		 */
 		private BigDecimal CalcularTotal(List<Pedido> pedidos) {
 			BigDecimal total = BigDecimal.ZERO;
 			

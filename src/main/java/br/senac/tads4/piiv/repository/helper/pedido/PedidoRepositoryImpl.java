@@ -35,6 +35,7 @@ public class PedidoRepositoryImpl implements PedidosQueries {
 			}
 			
 		}
+		// usando Distinct no sql.
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		return criteria.list();
 		
