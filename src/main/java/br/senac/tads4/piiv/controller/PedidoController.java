@@ -20,7 +20,7 @@ import br.senac.tads4.piiv.service.PedidoService;
 import br.senac.tads4.piiv.service.exception.StatusNaoSelecionadoException;
 
 @Controller
-@RequestMapping(value = "/admin/pedidos")
+@RequestMapping(value = "/")
 public class PedidoController {
 
 	@Autowired
@@ -41,7 +41,7 @@ public class PedidoController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "/{id}")
+	@RequestMapping(value = "pedidos/pedido/{id}")
 	public ModelAndView pedido(@PathVariable Long id) {
 		ModelAndView mv = new ModelAndView("site/pedido/VisualizarPedido");
 
@@ -68,7 +68,7 @@ public class PedidoController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/pedidos")
+	@RequestMapping(value = "pedidos/pedido")
 	public ModelAndView pedidos() {
 		ModelAndView mv = new ModelAndView("site/pedido/MeusPedidos");
 
@@ -86,7 +86,7 @@ public class PedidoController {
 	 * @param pedido
 	 * @return
 	 */
-	@RequestMapping(value = "/pesquisar")
+	@RequestMapping(value = "/admin/pedidos/pesquisar")
 	public ModelAndView pesquisar(Pedido pedido) {
 		return new ModelAndView("backoffice/pedido/LiberarPedido");
 	}
@@ -111,7 +111,7 @@ public class PedidoController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "/pesquisar", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/pedidos/pesquisar", method = RequestMethod.POST)
 	public ModelAndView pesquisar(@RequestParam Long id) {
 		ModelAndView mv = new ModelAndView("backoffice/pedido/LiberarPedido");
 
@@ -154,7 +154,7 @@ public class PedidoController {
 	 * @param attributes
 	 * @return
 	 */
-	@RequestMapping(value = "/liberar", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/pedidos/liberar", method = RequestMethod.POST)
 	public ModelAndView liberar(@RequestParam Long id, @RequestParam String status, RedirectAttributes attributes) {
 
 		try {

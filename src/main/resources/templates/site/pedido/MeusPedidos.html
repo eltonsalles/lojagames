@@ -6,29 +6,42 @@
 <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/site-pedidos.css}" />
 </head>
 <body>
-	<main class="container" layout:fragment="conteudo">
-		<input type="hidden" name="_csrf" th:value=${_csrf.token}>
-		<input type="hidden" name="_csrf_header" th:value=${_csrf.headerName}>	
-		<div class="row">
-				<thecode:menucliente />		
-			<div class= "col s12 m9">
-				<h3> Meus pedidos </h3>
-				<div th:each="pedido : ${pedidos}" class="row pedido">
-					<div class="col m6 s6">
-						Status do pedido: <strong th:text="${pedido.status.descricao}"></strong><br>
+	<main class="container" layout:fragment="conteudo"> <input type="hidden" name="_csrf" th:value=${_csrf.token}>
+	<input type="hidden" name="_csrf_header" th:value=${_csrf.headerName}>
+	<div class="row">
+		<thecode:menucliente />
+		<div class="col s12 m9">
+			<th:block th:each="pedido : ${pedidos}">
+				<div class="col s12">
+					<div class="card-panel">
+						<h5>
+							<i class="material-icons left">check</i>
+							<span th:text="|Dados do Pedido Número: ${pedido.id}|"></span>
+						</h5>
+						<div class="divider"></div>
+						<p class="black-text">
+							Data: <span th:text="|${pedido.dataPedido.dayOfMonth}/${pedido.dataPedido.monthValue}/${pedido.dataPedido.year}|"></span>
+						</p>
+						<p class="black-text">
+							Status: <strong th:text="${pedido.status.descricao}"></strong>
+						</p>
 						<p th:if="${pedido.dataEntrega != null}">
-						Previsão de entrega: <strong th:text="|${pedido.dataEntrega.dayOfMonth}/${pedido.dataEntrega.monthValue}/${pedido.dataEntrega.year}|"></strong>
+							Previsão de entrega: <strong th:text="|${pedido.dataEntrega.dayOfMonth}/${pedido.dataEntrega.monthValue}/${pedido.dataEntrega.year}|"></strong>
+						</p>
+						<p class="black-text">
+							Total de Itens: <span th:text="${pedido.quantidadeItensPedido}"></span>
+						</p>
+						<p class="black-text">
+							Valor Total: <span th:text="${#numbers.formatCurrency(pedido.valorTotal)}"></span>
+						</p>
+						<p>
+							<a class="btn waves-effect waves-light amber darken-2" th:href="@{/pedidos/pedido/{id}(id=${pedido.id})}">Detalhes do Pedido</a>
 						</p>
 					</div>
-					 <div class="col m6 s6">
-						 Pedido numero: <span th:text="${pedido.id}"> </span><br>
-						 Data do pedido: <span th:text="|${pedido.dataPedido.dayOfMonth}/${pedido.dataPedido.monthValue}/${pedido.dataPedido.year}|"> </span><br>
-						 Total do pedido: <br><span th:text="${#numbers.formatCurrency(pedido.valorTotal)}"> </span><br>
-						 	<a th:href="@{/pedidos/{id}(id=${pedido.id})}" class="">Detalhes</a>
-					</div>
 				</div>
-			</div>
+			</th:block>
 		</div>
+	</div>
 	</main>
 </body>
 </html>

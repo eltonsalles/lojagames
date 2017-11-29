@@ -197,7 +197,7 @@ public class CarrinhoCompraController {
 		this.carrinho.removeAll(carrinho);
 		this.cep = "";
 
-		return new ModelAndView("redirect:/pedidos/" + id);
+		return new ModelAndView("redirect:/pedidos/pedido/" + id);
 	}
 
 	public List<ItemProdutoDto> getCarrinho() {
