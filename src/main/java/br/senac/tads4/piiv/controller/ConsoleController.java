@@ -26,7 +26,7 @@ import br.senac.tads4.piiv.service.ConsoleService;
 import br.senac.tads4.piiv.service.exception.DescricaoDaImagemPassaLimiteCaractesException;
 import br.senac.tads4.piiv.service.exception.DescricaoDaImagemVaziaException;
 import br.senac.tads4.piiv.service.exception.ListaDeImagensVaziasException;
-import br.senac.tads4.piiv.service.exception.ProdutoComPedidoRealizadoExcepetion;
+import br.senac.tads4.piiv.service.exception.ProdutoComPedidoRealizadoException;
 
 @Controller
 @RequestMapping(value = "/admin/produtos/consoles")
@@ -163,7 +163,7 @@ public class ConsoleController {
 	public @ResponseBody ResponseEntity<?> excluir(@PathVariable Long id) {
 		try {
 			consoleService.excluir(id);
-		} catch (ProdutoComPedidoRealizadoExcepetion e) {
+		} catch (ProdutoComPedidoRealizadoException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 

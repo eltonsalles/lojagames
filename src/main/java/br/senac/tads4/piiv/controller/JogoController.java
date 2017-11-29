@@ -25,7 +25,7 @@ import br.senac.tads4.piiv.service.JogoService;
 import br.senac.tads4.piiv.service.exception.DescricaoDaImagemPassaLimiteCaractesException;
 import br.senac.tads4.piiv.service.exception.DescricaoDaImagemVaziaException;
 import br.senac.tads4.piiv.service.exception.ListaDeImagensVaziasException;
-import br.senac.tads4.piiv.service.exception.ProdutoComPedidoRealizadoExcepetion;
+import br.senac.tads4.piiv.service.exception.ProdutoComPedidoRealizadoException;
 
 @Controller
 @RequestMapping(value = "/admin/produtos/jogos")
@@ -148,7 +148,7 @@ public class JogoController {
 	public @ResponseBody ResponseEntity<?> excluir(@PathVariable Long id) {
 		try {
 			jogoService.excluir(id);
-		} catch (ProdutoComPedidoRealizadoExcepetion e) {
+		} catch (ProdutoComPedidoRealizadoException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 
