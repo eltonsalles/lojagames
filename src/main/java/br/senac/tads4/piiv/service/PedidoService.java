@@ -21,6 +21,7 @@ import br.senac.tads4.piiv.repository.PedidoRepository;
 import br.senac.tads4.piiv.service.event.pedido.PedidoSalvoEvent;
 import br.senac.tads4.piiv.service.exception.PagamentoCartaoCreditoException;
 import br.senac.tads4.piiv.service.exception.PagamentoException;
+import br.senac.tads4.piiv.service.exception.StatusNaoSelecionadoException;
 import br.senac.tads4.piiv.service.exception.TransacaoCieloExcepetion;
 
 @Service
@@ -28,7 +29,7 @@ public class PedidoService {
 
 	@Autowired
 	private PedidoRepository pedidoRepository;
-	
+
 	@Autowired
 	private ApplicationEventPublisher publisher;
 
@@ -77,22 +78,54 @@ public class PedidoService {
 			enderecoEntrega.setReferencia(pedido.getCliente().getEnderecos().get(0).getReferencia());
 		}
 		pedido.setEnderecoEntrega(enderecoEntrega);
-
 		// Status do pedido
 		pedido.setStatus(StatusPedido.PENDENTE_PAGTO);
 
 		pedidoRepository.saveAndFlush(pedido);
-		
+
 		try {
 			publisher.publishEvent(new PedidoSalvoEvent(pedido));
 		} catch (TransacaoCieloExcepetion | PagamentoCartaoCreditoException | PagamentoException e) {
 			// Erro com a transação na cielo
 		}
-		
+
 		return pedido.getId();
 	}
-	
+
 	public void alterar(Pedido pedido) {
+		pedidoRepository.save(pedido);
+	}
+
+	/**
+	 * Altera o status do pedido pesquisado 
+	 * 
+	 * @param id
+	 * @param status
+	 * @return
+	 */
+	public void alterarStatus(Long id, String status) {
+
+		Pedido pedido = pedidoRepository.findOne(id);
+		
+		try {
+			if (status.equals("CANCELADO")) {
+				pedido.setStatus(StatusPedido.CANCELADO);
+			} else if (status.equals("SEPARACAO")) {
+				pedido.setStatus(StatusPedido.SEPARANDO);
+				pedido.setDataPagamento(LocalDate.now());
+			} else if (status.equals("TRANSPORTE")) {
+				pedido.setStatus(StatusPedido.TRANSPORTE);
+				pedido.setDataSeparacao(LocalDate.now());
+			} else if (status.equals("ENTREGA")) {
+				pedido.setStatus(StatusPedido.ENTREGUE);
+				pedido.setDataTransporte(LocalDate.now());
+			} else {
+				pedido.setDataEntrega(LocalDate.now());
+			}
+		} catch (Exception e) {
+			throw new StatusNaoSelecionadoException("Status não selecionado");
+		}
+		 
 		pedidoRepository.save(pedido);
 	}
 }
