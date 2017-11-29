@@ -18,7 +18,7 @@ import br.senac.tads4.piiv.repository.ProdutoRepository;
 import br.senac.tads4.piiv.repository.filter.HistoricoProdutoFilter;
 import br.senac.tads4.piiv.repository.filter.ProdutoFilter;
 import br.senac.tads4.piiv.service.HistoricoProdutoService;
-import br.senac.tads4.piiv.service.exception.CodigoProdutoNaoExiste;
+import br.senac.tads4.piiv.service.exception.CodigoProdutoNaoExisteException;
 
 @Controller
 @RequestMapping(value = "/admin/produtos")
@@ -94,7 +94,7 @@ public class ProdutoController {
 
 		try {
 			historicoProdutoService.salvar(historicoProduto);
-		} catch (CodigoProdutoNaoExiste e) {
+		} catch (CodigoProdutoNaoExisteException e) {
 			result.rejectValue("produto", e.getMessage(), e.getMessage());
 			return movimentar(historicoProduto, result);
 		}

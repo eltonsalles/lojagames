@@ -90,9 +90,9 @@ public class PedidoController {
 	public ModelAndView pesquisar(Pedido pedido) {
 		return new ModelAndView("backoffice/pedido/LiberarPedido");
 	}
-	
+
 	/**
-	 * Exibe o formulário de pesquisa de pedido com a mensagem de erro 
+	 * Exibe o formulário de pesquisa de pedido com a mensagem de erro
 	 * 
 	 * @param pedido
 	 * @return
@@ -118,22 +118,22 @@ public class PedidoController {
 		Pedido pedido;
 		try {
 			pedido = pedidoRepository.findOne(id);
-			
+
 			if (pedido == null) {
 				return pesquisarComErro(new Pedido());
 			}
-			
+
 			mv.addObject("pedido", pedido);
 			mv.addObject("id", id);
 			return mv;
-			
+
 		} catch (Exception e) {
 			return pesquisarComErro(new Pedido());
 		}
 	}
 
 	/**
-	 * Exibe o formulário de status do pedido com a mensagem de erro 
+	 * Exibe o formulário de status do pedido com a mensagem de erro
 	 * 
 	 * @param pedido
 	 * @return
@@ -145,9 +145,9 @@ public class PedidoController {
 		mv.addObject("id", pedido.getId());
 		return mv;
 	}
-	
+
 	/**
-	 * Permite atualizar o status do pedido pesquisado 
+	 * Permite atualizar o status do pedido pesquisado
 	 * 
 	 * @param id
 	 * @param status

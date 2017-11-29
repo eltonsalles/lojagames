@@ -8,6 +8,5 @@ import br.senac.tads4.piiv.repository.filter.PedidoFilter;
 public interface PedidosQueries {
 
 	public List<Pedido> filtrar(PedidoFilter filtro);
-}
 
-	
+}

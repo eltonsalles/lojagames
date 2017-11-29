@@ -12,7 +12,8 @@ import br.senac.tads4.piiv.repository.helper.produto.ProdutosQueries;
 
 @Repository
 public interface ProdutoRepository extends JpaRepository<Produto, Long>, ProdutosQueries {
-	
+
 	List<Produto> findByTipoConsole(TipoConsole tipoConsole);
+
 	List<Produto> findByTipoConsoleAndTipoProduto(TipoConsole tipoConsole, TipoProduto tipoProduto);
 }

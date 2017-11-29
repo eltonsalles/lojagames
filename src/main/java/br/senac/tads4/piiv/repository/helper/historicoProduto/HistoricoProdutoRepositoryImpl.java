@@ -19,6 +19,9 @@ public class HistoricoProdutoRepositoryImpl implements HistoricoProdutoQueries {
 	@PersistenceContext
 	private EntityManager manager;
 
+	/**
+	 * Retorna uma lista do histório do produto conforme o filtro
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(readOnly = true)
@@ -33,11 +36,8 @@ public class HistoricoProdutoRepositoryImpl implements HistoricoProdutoQueries {
 			if (filtro.getTipoMovimentacao() != null) {
 				criteria.add(Restrictions.eq("tipoMovimentacao", filtro.getTipoMovimentacao()));
 			}
-
 		}
 
 		return criteria.list();
 	}
-
-	
 }

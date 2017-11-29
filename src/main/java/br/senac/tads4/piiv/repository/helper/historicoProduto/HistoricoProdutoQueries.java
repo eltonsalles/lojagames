@@ -8,5 +8,5 @@ import br.senac.tads4.piiv.repository.filter.HistoricoProdutoFilter;
 public interface HistoricoProdutoQueries {
 
 	public List<HistoricoProduto> filtrar(HistoricoProdutoFilter filtro);
-	
+
 }
