@@ -66,7 +66,7 @@ public class PedidoController {
 		
 		Cliente cliente = login.recuperarUsuario().getCliente();
 		List<Pedido> pedidos = pedidoRepository.findByCliente(cliente);
-		
+
 		mv.addObject("pedidos", pedidos);
 		mv.addObject("cliente", cliente);
 		

@@ -3,12 +3,14 @@
 	layout:decorator="layout/backoffice/LayoutPadrao" xlmns:thecode="http://thecode.com.br">
 	<head>
 	<title>Relatório de Vendas</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/backoffice-relatorio.css}" />
+
 	</head>
 	<body>
 		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" layout:fragment="conteudo">
 			<h1 class="page-header">Pesquisar Venda</h1>
 			<form method="post" th:object="${pedidoFilter}" th:action="@{/admin/relatorio/vendas}">
-				<div class="col-sm-5 form-group">
+				<div class="col-sm-4 col-md-4 form-group">
 					<label for="*{dataPedidoInicial}">Datas</label>
 					<div class="form-inline">
 						<input type="date" class="form-control" id="dataInicial" th:field="*{dataPedidoInicial}" />
@@ -16,19 +18,30 @@
 						<input type="date" class="form-control" id="dataFinal" th:field="*{dataPedidoFinal}" />
 					</div>
 				</div>
+				<div class="col-sm-4 col-md-4 form-group">
+					<label for="status" class="control-label">Status</label>
+					<select class="col-sm-3 form-control" id="status" th:field="*{status}">
+						<option value="">Todos os status</option>
+						<option th:each="status : ${statusAll}" th:value="${status}" th:text="${status.descricao}"></option>
+					</select>
+				</div>
 				<div class="row">
-					<div class="col-lg-3 col-sm-6 form-group">
+					<div class="col-lg-4 col-sm-4 col-md-4 form-group button">
 						<button class="btn  btn-primary" type="submit">Pesquisar</button>
 					</div>
 				</div>
 			</form>
+			<div class="col-md-offset-8 col-sm-offset-8 lucro">
+				<label> Valor total das vendas: </label>
+				<strong th:text="${#numbers.formatCurrency(total)}"> </strong>
+			</div>
 			<div class="table-responsive">
 				<table class="table table-striped">
 					<thead>
 						<tr>
 							<th>Código</th>
-							<th>Status</th>
 							<th>Data do Pedido</th>
+							<th>Status</th>
 							<th> Cliente </th>
 							<th> Itens do Pedido </th>
 							<th>Valor Total</th>
@@ -38,8 +51,8 @@
 					<tbody>
 						<tr th:each="pedido : ${listaPedidos}">
 							<td th:text="${pedido.id}"></td>
-							<td th:text="${pedido.status}"></td>
 							<td th:text="|${pedido.dataPedido.dayOfMonth}/${pedido.dataPedido.monthValue}/${pedido.dataPedido.year}|"></td>
+							<td th:text="${pedido.status.descricao}"></td>
 							<td th:text="${pedido.cliente.nome}"></td>
 							<td>
 								<th:block th:each="itemPedido: ${pedido.itensPedido}">
@@ -53,9 +66,6 @@
 						</tr>
 					</tbody>
 				</table>
-				<div th:each="pedido : ${listaPedidos}">
-				<label th:text="${#numbers.formatCurrency(pedido.valorSubTotal)}"> </label>
-				</div>
 			</div>
 		</div>
 	</body>
