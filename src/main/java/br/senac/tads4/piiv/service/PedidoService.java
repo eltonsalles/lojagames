@@ -17,7 +17,9 @@ import br.senac.tads4.piiv.model.Pedido;
 import br.senac.tads4.piiv.model.Produto;
 import br.senac.tads4.piiv.model.enumerated.FormaPagamento;
 import br.senac.tads4.piiv.model.enumerated.StatusPedido;
+import br.senac.tads4.piiv.model.enumerated.TipoMovimentacao;
 import br.senac.tads4.piiv.repository.PedidoRepository;
+import br.senac.tads4.piiv.service.event.historico.GerarHistoricoEvent;
 import br.senac.tads4.piiv.service.event.pedido.PedidoSalvoEvent;
 import br.senac.tads4.piiv.service.exception.PagamentoCartaoCreditoException;
 import br.senac.tads4.piiv.service.exception.PagamentoException;
@@ -85,6 +87,7 @@ public class PedidoService {
 
 		try {
 			publisher.publishEvent(new PedidoSalvoEvent(pedido));
+			publisher.publishEvent(new GerarHistoricoEvent(itensPedido, TipoMovimentacao.VENDA));
 		} catch (TransacaoCieloExcepetion | PagamentoCartaoCreditoException | PagamentoException e) {
 			// Erro com a transação na cielo
 		}

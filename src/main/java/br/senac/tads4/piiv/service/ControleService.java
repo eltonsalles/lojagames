@@ -9,9 +9,11 @@ import org.springframework.util.StringUtils;
 
 import br.senac.tads4.piiv.model.Controle;
 import br.senac.tads4.piiv.model.ItemPedido;
+import br.senac.tads4.piiv.model.enumerated.TipoMovimentacao;
 import br.senac.tads4.piiv.model.enumerated.TipoProduto;
 import br.senac.tads4.piiv.repository.ControleRepository;
 import br.senac.tads4.piiv.repository.ItemPedidoRepository;
+import br.senac.tads4.piiv.service.event.historico.GerarHistoricoEvent;
 import br.senac.tads4.piiv.service.event.produto.ProdutoSalvoEvent;
 import br.senac.tads4.piiv.service.exception.DescricaoDaImagemPassaLimiteCaractesException;
 import br.senac.tads4.piiv.service.exception.DescricaoDaImagemVaziaException;
@@ -59,6 +61,7 @@ public class ControleService extends ProdutoService {
 		controles.save(controle);
 		
 		publisher.publishEvent(new ProdutoSalvoEvent(controle));
+		publisher.publishEvent(new GerarHistoricoEvent(controle, TipoMovimentacao.ENTRADA));
 	}
 	
 	/**

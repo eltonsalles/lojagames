@@ -2,11 +2,12 @@ package br.senac.tads4.piiv.model.enumerated;
 
 public enum TipoMovimentacao {
 	ENTRADA("Entrada"),
-	QUEBRA("Quebra");
-	
+	QUEBRA("Quebra"),
+	VENDA("Venda");
+
 	private String descricao;
-	
-	TipoMovimentacao (String descricao) {
+
+	TipoMovimentacao(String descricao) {
 		this.descricao = descricao;
 	}
 
