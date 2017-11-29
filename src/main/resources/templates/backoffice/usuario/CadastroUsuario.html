@@ -8,7 +8,8 @@
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" layout:fragment="conteudo">
 		<h1 class="page-header">Cadastro de usuário</h1>
 		<div class="row">
-			<form method="post" th:object="${usuario}" th:action="@{/admin/usuarios/novo}">
+			<form method="post" th:object="${usuario}" th:action="(${usuario.id != null} ? (@{/admin/usuarios/alterar}) : @{/admin/usuarios/novo})">
+				<input type="hidden" th:field="*{id}" th:if="*{id != null}">
 				<thecode:messagebackoffice />
 				<div class="row">
 					<div class="col-sm-12 form-group tc-required" thecode:classforerror="nome">
@@ -17,11 +18,11 @@
 					</div>
 					<div class="col-sm-6 form-group tc-required" thecode:classforerror="email">
 						<label for="email" class="control-label">Email</label>
-						<input id="email" type="email" class="form-control" maxlength="150" required th:field="*{email}" />
+						<input id="email" type="email" class="form-control" maxlength="150" required th:field="*{email}" th:readonly="*{id != null}"/>
 					</div>
 					<div class="col-sm-4 form-group tc-required" thecode:classforerror="dataNascimento">
 						<label for="data-nascimento" class="control-label">Data de Nascimento</label>
-						<input id="data-nascimento" type="date" class="form-control" required th:field="*{dataNascimento}" />
+						<input id="data-nascimento" type="date" class="form-control" th:field="*{dataNascimento}" />
 					</div>
 					<div class="col-sm-3 form-group" thecode:classforerror="senha" th:classappend="${usuario.novo} ? tc-required">
 						<label for="senha" class="control-label">Senha</label>

@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import br.senac.tads4.piiv.model.Usuario;
+import br.senac.tads4.piiv.repository.filter.UsuarioFilter;
 
 public interface UsuariosQueries {
 
-	public Optional<Usuario> emailEStatus(String email);
+	Optional<Usuario> emailEStatus(String email);
 	
-	public List<String> permissoes(Usuario usuario);
+	List<String> permissoes(Usuario usuario);
+	
+	List<Usuario> filtrar(UsuarioFilter filtro);
 }

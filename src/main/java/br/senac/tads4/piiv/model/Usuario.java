@@ -6,12 +6,14 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
@@ -51,7 +53,7 @@ public class Usuario implements Serializable {
 	private LocalDate dataNascimento;
 
 	@Size(min = 1, message = "Selecione pelo menos um grupo")
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_grupo"))
 	List<Grupo> grupos;
 
@@ -121,6 +123,11 @@ public class Usuario implements Serializable {
 	
 	public boolean getNovo() {
 		return this.id == null;
+	}
+	
+	@PreUpdate
+	private void preUpdate() {
+		this.confirmacaoSenha = senha;
 	}
 
 	@Override

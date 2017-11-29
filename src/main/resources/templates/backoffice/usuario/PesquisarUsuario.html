@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/backoffice/LayoutPadrao" xlmns:thecode="http://thecode.com.br">
+<head>
+<title>Pesquisar usuário</title>
+<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/sweetalert.css}" />
+</head>
+<body>
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" layout:fragment="conteudo">
+		<h1 class="page-header">Pesquisar usuário</h1>
+		<div class="row">
+			<form method="post" th:object="${usuarioFilter}" th:action="@{/admin/usuarios/pesquisar}">
+				<div class="alert  alert-success  alert-dismissible" role="alert" th:if="${not #strings.isEmpty(mensagem)}">
+					<button type="button" class="close" data-dismiss="alert">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<span th:text="${mensagem}"></span>
+				</div>
+				<div class="row">
+					<div class="col-sm-4 form-group">
+						<label for="codigo" class="control-label">Código</label>
+						<input id="codigo" type="text" class="form-control js-int" th:field="*{id}" maxlength="15" />
+					</div>
+					<div class="col-sm-8 form-group">
+						<label for="nome" class="control-label">Nome</label>
+						<input id="nome" type="text" class="form-control" maxlength="150" th:field="*{nome}" />
+					</div>
+					<div class="col-sm-7 form-group">
+						<label for="email" class="control-label">Email</label>
+						<input id="email" type="text" class="form-control" maxlength="150" th:field="*{email}" />
+					</div>
+					<div class="col-lg-5 col-sm-5 form-group">
+						<label for="status" class="control-label">Status</label>
+						<div>
+							<label class="tc-radio radio-inline">
+								<input id="ativo" type="radio" value="true" th:field="*{status}">
+								Ativo
+							</label>
+							<label class="tc-radio radio-inline">
+								<input id="inativo" type="radio" value="false" th:field="*{status}">
+								Inativo
+							</label>
+						</div>
+					</div>
+					<div class="col-sm-12 form-group">
+						<label class="control-label">Grupos</label>
+						<div>
+							<th:block th:each="grupo : ${grupos}">
+								<div class="checkbox-inline">
+									<input type="checkbox" th:value="${grupo.id}" th:field="*{grupos}">
+									<label th:for="${#ids.prev('grupos')}" th:text="${grupo.nome}"></label>
+								</div>
+							</th:block>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-3 col-sm-6 form-group">
+						<button class="btn  btn-primary" type="submit">Pesquisar</button>
+					</div>
+				</div>
+			</form>
+			<div class="table-responsive">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Código</th>
+							<th>Status</th>
+							<th>Nome</th>
+							<th>Email</th>
+							<th>Data Nascimento</th>
+							<th>Grupo</th>
+							<th>Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="usuario : ${usuarios}">
+							<td th:text="${usuario.id}"></td>
+							<td th:text="(${#bools.isTrue(usuario.status)} ? 'Ativo' : 'Inativo')"></td>
+							<td th:text="${usuario.nome}"></td>
+							<td th:text="${usuario.email}"></td>							
+							<td th:text="(${!#strings.isEmpty(usuario.dataNascimento)} ? (|${usuario.dataNascimento.dayOfMonth}/${usuario.dataNascimento.monthValue}/${usuario.dataNascimento.year}|) : '---')"></td>
+							<td>
+								<span th:each="grupo : ${usuario.grupos}" th:text="|${grupo.nome}${grupoStat.last ? '' : ', '}|"></span>
+							</td>
+							<td class="text-center">
+								<a class="btn btn-link btn-xs" title="Editar" th:href="@{/admin/usuarios/alterar/{id}(id=${usuario.id})}">
+									<i class="glyphicon glyphicon-pencil"></i>
+								</a>
+								<a class="btn btn-link btn-xs js-btn-excluir" title="Excluir" href="#" data:url="@{/admin/usuarios/excluir/{id}(id=${usuario.id})}" data:objeto="${usuario.email}">
+									<i class="glyphicon glyphicon-remove"></i>
+								</a>
+							</td>
+						</tr>
+						<tr th:if="${#lists.isEmpty(usuarios)}">
+							<td colspan="7">Nenhum usuário encontrado</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/formatar-numeros.js}"></script>
+		<script th:src="@{/javascripts/vendors/sweetalert.min.js}"></script>
+		<script th:src="@{/javascripts/dialogo-excluir.js}"></script>
+	</th:block>
+</body>
+</html>
