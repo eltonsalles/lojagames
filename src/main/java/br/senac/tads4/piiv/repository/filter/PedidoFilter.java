@@ -1,6 +1,8 @@
 package br.senac.tads4.piiv.repository.filter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+
 import br.senac.tads4.piiv.model.enumerated.StatusPedido;
 
 public class PedidoFilter {
@@ -8,18 +10,17 @@ public class PedidoFilter {
 	private StatusPedido status;
 	private LocalDate dataPedidoInicial;
 	private LocalDate dataPedidoFinal;
-	private Double lucro;
-	
+	private BigDecimal lucro;
 
 	public StatusPedido getStatus() {
 		return status;
 	}
 
-	public Double getLucro() {
+	public BigDecimal getLucro() {
 		return lucro;
 	}
 
-	public void setLucro(Double lucro) {
+	public void setLucro(BigDecimal lucro) {
 		this.lucro = lucro;
 	}
 
@@ -42,9 +43,4 @@ public class PedidoFilter {
 	public void setDataPedidoFinal(LocalDate dataPedidoFinal) {
 		this.dataPedidoFinal = dataPedidoFinal;
 	}
-
-	
-
-
-	
 }

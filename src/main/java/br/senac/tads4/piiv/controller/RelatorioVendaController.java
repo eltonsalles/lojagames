@@ -1,4 +1,5 @@
 package br.senac.tads4.piiv.controller;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -16,44 +17,42 @@ import br.senac.tads4.piiv.repository.filter.PedidoFilter;
 @RequestMapping("/admin/relatorio")
 public class RelatorioVendaController {
 
-		@Autowired
-		private PedidoRepository pedidoRepository;
+	@Autowired
+	private PedidoRepository pedidoRepository;
 
-		/**
-		 * Permite visualizar o relatorio de vendas
-		 * 
-		 * @param pedidoFilter
-		 * @return
-		 */
-		@RequestMapping(value = "/vendas")
-		public ModelAndView pedido(PedidoFilter pedidoFilter) {
-			ModelAndView mv = new ModelAndView("backoffice/relatorio/RelatorioVendas");
-			BigDecimal total = BigDecimal.ZERO;
+	/**
+	 * Permite visualizar o relatorio de vendas
+	 * 
+	 * @param pedidoFilter
+	 * @return
+	 */
+	@RequestMapping(value = "/vendas")
+	public ModelAndView pedido(PedidoFilter pedidoFilter) {
+		ModelAndView mv = new ModelAndView("backoffice/relatorio/RelatorioVendas");
+		BigDecimal total = BigDecimal.ZERO;
 
-			List<Pedido> pedidos = this.pedidoRepository.filtrar(pedidoFilter);
-			total = this.CalcularTotal(pedidos);
-			
-			mv.addObject("statusAll", StatusPedido.values());
-			mv.addObject("total", total);
-			mv.addObject("listaPedidos",pedidos);
-			
-			return mv;
-		}
-		
-		/**
-		 * Calcula valor total dos pedidos
-		 * 
-		 * @param pedidos
-		 * @return
-		 */
-		private BigDecimal CalcularTotal(List<Pedido> pedidos) {
-			BigDecimal total = BigDecimal.ZERO;
-			
-			for (Pedido p : pedidos)
-				total = total.add(p.getValorSubTotal());
-			
-			return total;
-		}
-	
-	
+		List<Pedido> pedidos = this.pedidoRepository.filtrar(pedidoFilter);
+		total = this.CalcularTotal(pedidos);
+
+		mv.addObject("statusAll", StatusPedido.values());
+		mv.addObject("total", total);
+		mv.addObject("listaPedidos", pedidos);
+
+		return mv;
+	}
+
+	/**
+	 * Calcula valor total dos pedidos
+	 * 
+	 * @param pedidos
+	 * @return
+	 */
+	private BigDecimal CalcularTotal(List<Pedido> pedidos) {
+		BigDecimal total = BigDecimal.ZERO;
+
+		for (Pedido p : pedidos)
+			total = total.add(p.getValorSubTotal());
+
+		return total;
+	}
 }

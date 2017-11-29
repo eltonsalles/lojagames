@@ -18,6 +18,9 @@ public class PedidoRepositoryImpl implements PedidosQueries {
 	@PersistenceContext
 	private EntityManager manager;
 
+	/**
+	 * Retorna uma lista dos pedidos conforme o filtro
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(readOnly = true)
@@ -25,19 +28,16 @@ public class PedidoRepositoryImpl implements PedidosQueries {
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Pedido.class);
 
 		if (filtro != null) {
-
 			if (filtro.getDataPedidoInicial() != null && filtro.getDataPedidoFinal() != null) {
 				criteria.add(Restrictions.between("dataPedido", filtro.getDataPedidoInicial(), filtro.getDataPedidoFinal()));
 			}
-			
+
 			if (filtro.getStatus() != null) {
 				criteria.add(Restrictions.eq("status", filtro.getStatus()));
 			}
-			
 		}
-		// usando Distinct no sql.
+
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		return criteria.list();
-		
 	}
 }
