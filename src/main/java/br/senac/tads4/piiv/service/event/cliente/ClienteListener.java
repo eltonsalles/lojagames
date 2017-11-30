@@ -60,8 +60,9 @@ public class ClienteListener {
 		if (usuarioOptional.isPresent()) {
 			Usuario usuario = usuarioOptional.get();
 			usuario.setEmail(evento.getCliente().getEmail());
+			usuario.setConfirmacaoSenha(usuario.getSenha());
 			
-			usuarioService.alterar(usuario);
+			usuarioRepository.save(usuario);
 		}
 	}
 }

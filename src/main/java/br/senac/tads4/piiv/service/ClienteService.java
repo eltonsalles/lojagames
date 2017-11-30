@@ -69,9 +69,10 @@ public class ClienteService {
 	 * @param cliente
 	 */
 	public void alterar(Cliente cliente) {
-		String emailAntigo = cliente.getEmail();
-		
 		Cliente c = clientes.findOne(cliente.getId());
+		
+		String emailAntigo = c.getEmail();
+		
 		c.setNome(cliente.getNome());
 		c.setSexo(cliente.getSexo());
 		c.setCpf(cliente.getCpf());
