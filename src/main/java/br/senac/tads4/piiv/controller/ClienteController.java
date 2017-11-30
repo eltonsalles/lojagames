@@ -74,9 +74,8 @@ public class ClienteController {
 			return novo(cliente, endereco);
 		}
 
-		Long id;
 		try {
-			id = clienteService.salvar(cliente, endereco);
+			clienteService.salvar(cliente, endereco);
 		} catch (CpfClienteJaCadastradoException e) {
 			resultCliente.rejectValue("cpf", e.getMessage(), e.getMessage());
 			return novo(cliente, endereco);
@@ -92,7 +91,7 @@ public class ClienteController {
 		}
 
 		attributes.addFlashAttribute("mensagem", "Bem vindo a The Code Games!");
-		return new ModelAndView("redirect:/clientes/conta/index/" + id);
+		return new ModelAndView("redirect:/clientes/conta/index");
 	}
 
 	/**

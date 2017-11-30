@@ -88,6 +88,12 @@ public class Cliente implements Serializable {
 	public String getNome() {
 		return nome;
 	}
+	
+	public String getPrimeiroNome() {
+		String[] partesNome = this.nome.split(" ");
+		String result = partesNome[0].substring(0, 1).toUpperCase() + partesNome[0].substring(1);
+		return result;
+	}
 
 	public void setNome(String nome) {
 		this.nome = nome;

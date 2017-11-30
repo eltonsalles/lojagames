@@ -37,7 +37,7 @@ public class ClienteService {
 	 * @param cliente
 	 * @return
 	 */
-	public Long salvar(Cliente cliente, Endereco endereco) {
+	public void salvar(Cliente cliente, Endereco endereco) {
 		String cpf = cliente.getCpf().replaceAll("\\D", "");
 		Optional<Cliente> clienteCpfOptional = clientes.findByCpf(cpf);
 		
@@ -61,8 +61,6 @@ public class ClienteService {
 		publisher.publishEvent(new ClienteSalvoEvent(cliente));
 		
 		clientes.saveAndFlush(cliente);
-		
-		return cliente.getId();
 	}
 	
 	/**
