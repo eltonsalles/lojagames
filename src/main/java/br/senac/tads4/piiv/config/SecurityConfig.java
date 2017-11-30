@@ -67,6 +67,7 @@ public class SecurityConfig {
 			http
 				.antMatcher("/admin/**")
 				.authorizeRequests()
+					.antMatchers("/admin").hasRole("INDEX")
 					.antMatchers("/admin/produtos/consoles/novo").hasRole("CADASTRAR_PRODUTO")
 					.antMatchers("/admin/produtos/controles/novo").hasRole("CADASTRAR_PRODUTO")
 					.antMatchers("/admin/produtos/jogos/novo").hasRole("CADASTRAR_PRODUTO")
@@ -92,6 +93,7 @@ public class SecurityConfig {
 				.and()
 					.formLogin()
 					.loginPage("/admin/login/backoffice")
+					.defaultSuccessUrl("/admin")
 					.permitAll()
 				.and()
 					.logout()
@@ -123,6 +125,7 @@ public class SecurityConfig {
 				.and()
 					.formLogin()
 					.loginPage("/login/site")
+					.defaultSuccessUrl("/login/site")
 					.permitAll()
 				.and()
 					.logout()
