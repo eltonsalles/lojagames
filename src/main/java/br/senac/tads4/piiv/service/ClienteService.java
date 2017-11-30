@@ -69,6 +69,8 @@ public class ClienteService {
 	 * @param cliente
 	 */
 	public void alterar(Cliente cliente) {
+		String emailAntigo = cliente.getEmail();
+		
 		Cliente c = clientes.findOne(cliente.getId());
 		c.setNome(cliente.getNome());
 		c.setSexo(cliente.getSexo());
@@ -79,6 +81,10 @@ public class ClienteService {
 		c.setEmail(cliente.getEmail());
 		
 		clientes.save(c);
+		
+		if (!c.getEmail().equalsIgnoreCase(emailAntigo)) {
+			publisher.publishEvent(new ClienteSalvoEvent(c, emailAntigo));
+		}
 	}
 	
 	/**
