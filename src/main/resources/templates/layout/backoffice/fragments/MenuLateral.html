@@ -2,79 +2,80 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <body>
 	<div class="col-sm-3 col-md-2 sidebar" th:fragment="layout-backoffice-menu-lateral">
+		<ul class="nav nav-sidebar">
+			<li class="active">
+				<a class="dropdown-toggle" type="button" data-toggle="dropdown">
+					Usuario
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li>
+						<a th:href="@{/admin/usuarios/novo}">Novo Usuario</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a class="dropdown-toggle" type="button" data-toggle="dropdown">
+					Cadastrar Produto
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu nav">
+					<li>
+						<a th:href="@{/admin/produtos/jogos/novo}">Cadastrar Jogo</a>
+					</li>
+					<li>
+						<a th:href="@{/admin/produtos/controles/novo}">Cadastrar Controle</a>
+					</li>
+					<li>
+						<a th:href="@{/admin/produtos/consoles/novo}">Cadastrar Console</a>
+					</li>
+				</ul>
+			</li>
 
-		<div class="dropdown">
-			<a class="dropdown-toggle" type="button" data-toggle="dropdown">
-				Usuario
-				<span class="caret"></span>
-			</a>
-			<ul class=" dropdown-menu">
-				<li>
-					<a th:href="@{/admin/usuarios/novo}">Novo Usuario</a>
-				</li>
-			</ul>
-		</div>
+			<li>
+				<a class="dropdown-toggle" type="button" data-toggle="dropdown">
+					Consultar
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li>
+						<a th:href="@{/admin/relatorio/vendas}">Consultar Venda</a>
+					</li>
+					<li>
+						<a th:href="@{/admin/produtos/historico}">Consultar Historico de produto</a>
+					</li>
+					<li>
+						<a th:href="@{/admin/produtos/pesquisar}">Consultar Produto</a>
+					</li>
+					<li>
+						<a th:href="@{/admin/produtos/movimentar}">Movimentar Produto</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a class="dropdown-toggle" type="button" data-toggle="dropdown">
+					Descontos
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li>
+						<a th:href="@{/admin/descontos/pesquisar}">Pesquisar Descontos</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a class="dropdown-toggle" type="button" data-toggle="dropdown">
+					Chamados
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li>
+						<a th:href="@{/admin/contatos/pesquisar}">Pesquisar Chamado</a>
+					</li>
+				</ul>
 
-		<div class="dropdown">
-			<a class="dropdown-toggle" type="button" data-toggle="dropdown">
-				Cadastrar Produto
-				<span class="caret"></span>
-			</a>
-			<ul class="dropdown-menu">
-				<li>
-					<a th:href="@{/admin/produtos/jogos/novo}">Cadastrar Jogo</a>
-				</li>
-				<li>
-					<a th:href="@{/admin/produtos/controles/novo}">Cadastrar Controle</a>
-				</li>
-				<li>
-					<a th:href="@{/admin/produtos/consoles/novo}">Cadastrar Console</a>
-				</li>
-			</ul>
-		</div>
-		<div class="dropdown">
-			<a class="dropdown-toggle" type="button" data-toggle="dropdown">
-				Consultar
-				<span class="caret"></span>
-			</a>
-			<ul class="dropdown-menu">
-				<li>
-					<a th:href="@{/admin/relatorio/vendas}">Consultar Venda</a>
-				</li>
-				<li>
-					<a th:href="@{/admin/produtos/historico}">Consultar Historico de produto</a>
-				</li>
-				<li>
-					<a th:href="@{/admin/produtos/pesquisar}">Consultar Produto</a>
-				</li>
-				<li>
-					<a th:href="@{/admin/produtos/movimentar}">Movimentar Produto</a>
-				</li>
-			</ul>
-		</div>
-		<div class="dropdown">
-			<a class="dropdown-toggle" type="button" data-toggle="dropdown">
-				Descontos
-				<span class="caret"></span>
-			</a>
-			<ul class="dropdown-menu">
-				<li>
-					<a th:href="@{/admin/descontos/pesquisar}">Pesquisar Descontos</a>
-				</li>
-			</ul>
-		</div>
-		<div class="dropdown">
-			<a class="dropdown-toggle" type="button" data-toggle="dropdown">
-				Chamados
-				<span class="caret"></span>
-			</a>
-			<ul class="dropdown-menu">
-				<li>
-					<a th:href="@{/admin/contatos/pesquisar}">Pesquisar Chamado</a>
-				</li>
-			</ul>
-		</div>
-
+			</li>
+		</ul>
 	</div>
 </body>
 </html>
