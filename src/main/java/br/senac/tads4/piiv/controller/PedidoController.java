@@ -77,6 +77,7 @@ public class PedidoController {
 
 		mv.addObject("pedidos", pedidos);
 		mv.addObject("cliente", cliente);
+		mv.addObject("tiposConsole", tipoConsoleRepository.findAll());
 		return mv;
 	}
 

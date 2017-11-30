@@ -40,6 +40,16 @@
 					</div>
 				</div>
 			</th:block>
+			<div class="col s12" th:if="${#lists.isEmpty(pedidos)}">
+					<div class="card-panel">
+						<h5>
+							<i class="material-icons left">check</i>
+							<span>Sem pedidos</span>
+						</h5>
+						<div class="divider"></div>
+						<p>Nenhum pedido encontrado</p>
+					</div>
+				</div>
 		</div>
 	</div>
 	</main>

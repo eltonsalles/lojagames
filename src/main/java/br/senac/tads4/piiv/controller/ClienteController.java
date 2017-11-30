@@ -21,6 +21,7 @@ import br.senac.tads4.piiv.model.Cliente;
 import br.senac.tads4.piiv.model.Endereco;
 import br.senac.tads4.piiv.model.enumerated.Sexo;
 import br.senac.tads4.piiv.repository.ClienteRepository;
+import br.senac.tads4.piiv.repository.TipoConsoleRepository;
 import br.senac.tads4.piiv.security.UsuarioSistema;
 import br.senac.tads4.piiv.service.ClienteService;
 import br.senac.tads4.piiv.service.exception.CpfClienteJaCadastradoException;
@@ -34,6 +35,9 @@ public class ClienteController {
 
 	@Autowired
 	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private TipoConsoleRepository tipoConsoleRepository;
 
 	@Autowired
 	private ClienteService clienteService;
@@ -48,6 +52,7 @@ public class ClienteController {
 	@RequestMapping(value = "/novo")
 	public ModelAndView novo(Cliente cliente, Endereco endereco) {
 		ModelAndView mv = new ModelAndView("site/cliente/CadastroCliente");
+		this.menu(mv);
 		mv.addObject("sexos", Sexo.values());
 		return mv;
 	}
@@ -112,6 +117,7 @@ public class ClienteController {
 		}
 
 		mv.addObject("cliente", cliente);
+		this.menu(mv);
 		return mv;
 	}
 
@@ -134,6 +140,7 @@ public class ClienteController {
 
 		mv.addObject("cliente", cliente);
 		mv.addObject("sexos", Sexo.values());
+		this.menu(mv);
 		return mv;
 	}
 
@@ -149,6 +156,7 @@ public class ClienteController {
 
 		mv.addObject("cliente", cliente);
 		mv.addObject("sexos", Sexo.values());
+		this.menu(mv);
 		return mv;
 	}
 
@@ -196,6 +204,7 @@ public class ClienteController {
 
 		mv.addObject("cliente", cliente);
 		mv.addObject("endereco", cliente.getEnderecos().get(0));
+		this.menu(mv);
 		return mv;
 	}
 
@@ -212,6 +221,7 @@ public class ClienteController {
 		Cliente cliente = clienteRepository.findOne(endereco.getCliente().getId());
 		mv.addObject("cliente", cliente);
 		mv.addObject("endereco", endereco);
+		this.menu(mv);
 		return mv;
 	}
 
@@ -260,6 +270,7 @@ public class ClienteController {
 
 		mv.addObject("cliente", cliente);
 		mv.addObject("endereco", cliente.getEnderecos().get(index));
+		this.menu(mv);
 		return mv;
 	}
 
@@ -277,6 +288,7 @@ public class ClienteController {
 		Cliente cliente = clienteRepository.findOne(endereco.getCliente().getId());
 		mv.addObject("cliente", cliente);
 		mv.addObject("endereco", endereco);
+		this.menu(mv);
 		return mv;
 	}
 
@@ -350,6 +362,7 @@ public class ClienteController {
 		
 		mv.addObject("cliente", cliente);
 		mv.addObject("endereco", endereco);
+		this.menu(mv);
 		return mv;
 	}
 
@@ -367,6 +380,7 @@ public class ClienteController {
 		
 		mv.addObject("cliente", cliente);
 		mv.addObject("endereco", endereco);
+		this.menu(mv);
 		return mv;
 	}
 
@@ -394,6 +408,15 @@ public class ClienteController {
 
 		attributes.addFlashAttribute("mensagem", "Endereço adicional adicionado com sucesso!");
 		return new ModelAndView("redirect:/clientes/conta/index");
+	}
+	
+	/**
+	 * Monta o menu superior
+	 * 
+	 * @param mv
+	 */
+	private void menu(ModelAndView mv) {
+		mv.addObject("tiposConsole", tipoConsoleRepository.findAll());
 	}
 
 	/**

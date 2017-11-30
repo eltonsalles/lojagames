@@ -2,6 +2,7 @@ package br.senac.tads4.piiv.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,11 +12,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.senac.tads4.piiv.repository.TipoConsoleRepository;
 import br.senac.tads4.piiv.security.UsuarioSistema;
 
 @Controller
 @RequestMapping("/")
 public class LoginController {
+	
+	@Autowired
+	private TipoConsoleRepository tipoConsoleRepository;
 
 	/**
 	 * Login para cliente
@@ -33,6 +38,7 @@ public class LoginController {
 		}
 
 		ModelAndView mv = new ModelAndView("site/Login");
+		mv.addObject("tiposConsole", tipoConsoleRepository.findAll());
 		return mv;
 	}
 

@@ -12,12 +12,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.senac.tads4.piiv.model.Contato;
 import br.senac.tads4.piiv.model.enumerated.TipoContato;
+import br.senac.tads4.piiv.repository.TipoConsoleRepository;
 import br.senac.tads4.piiv.service.ContatoService;
 
 @Controller
 @RequestMapping(value = "/contatos")
 public class ContatoController {
 
+	@Autowired
+	private TipoConsoleRepository tipoConsoleRepository;
+	
 	@Autowired
 	private ContatoService contatoService;
 
@@ -30,6 +34,7 @@ public class ContatoController {
 	@RequestMapping(value = "/novo")
 	public ModelAndView novo(Contato contato) {
 		ModelAndView mv = new ModelAndView("site/contato/Contato");
+		mv.addObject("tiposConsole", tipoConsoleRepository.findAll());
 		mv.addObject("tiposContato", TipoContato.values());
 		return mv;
 	}
