@@ -8,8 +8,10 @@ import org.springframework.stereotype.Component;
 
 import br.senac.tads4.piiv.model.HistoricoProduto;
 import br.senac.tads4.piiv.model.ItemPedido;
+import br.senac.tads4.piiv.model.Pedido;
 import br.senac.tads4.piiv.model.Produto;
 import br.senac.tads4.piiv.model.enumerated.TipoMovimentacao;
+import br.senac.tads4.piiv.repository.PedidoRepository;
 import br.senac.tads4.piiv.service.HistoricoProdutoService;
 
 @Component
@@ -17,6 +19,9 @@ public class HistoricoListener {
 
 	@Autowired
 	private HistoricoProdutoService historicoProdutoService;
+	
+	@Autowired
+	private PedidoRepository pedidoRepository;
 
 	/**
 	 * Evento para gerar um histórico ao cadastrar um novo produto
@@ -24,7 +29,7 @@ public class HistoricoListener {
 	 * @param evento
 	 */
 	@EventListener(condition = "#evento.getEntrada()")
-	public void gerarHistoricoProduto(GerarHistoricoEvent evento) {
+	public void gerarHistoricoProduto(HistoricoEvent evento) {
 		this.salvarHistorico(evento.getProduto(), evento.getProduto().getEstoque(), evento.getTipoMovimentacao());
 	}
 
@@ -34,8 +39,22 @@ public class HistoricoListener {
 	 * @param evento
 	 */
 	@EventListener(condition = "#evento.getVenda()")
-	public void gerarHistoricoVenda(GerarHistoricoEvent evento) {
+	public void gerarHistoricoVenda(HistoricoEvent evento) {
 		for (ItemPedido item : evento.getItensPedido()) {
+			this.salvarHistorico(item.getProduto(), item.getQuantidade(), evento.getTipoMovimentacao());
+		}
+	}
+	
+	/**
+	 * Evento para gerar um histórico ao cancelar uma nova venda
+	 * 
+	 * @param evento
+	 */
+	@EventListener(condition = "#evento.getCancelamento()")
+	public void gerarHistoricoVendaCancelada(HistoricoEvent evento) {
+		Pedido pedido = pedidoRepository.findOne(evento.getIdPedido());
+		
+		for (ItemPedido item : pedido.getItensPedido()) {
 			this.salvarHistorico(item.getProduto(), item.getQuantidade(), evento.getTipoMovimentacao());
 		}
 	}

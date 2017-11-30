@@ -13,7 +13,7 @@ import br.senac.tads4.piiv.model.enumerated.TipoMovimentacao;
 import br.senac.tads4.piiv.model.enumerated.TipoProduto;
 import br.senac.tads4.piiv.repository.ConsoleRepository;
 import br.senac.tads4.piiv.repository.ItemPedidoRepository;
-import br.senac.tads4.piiv.service.event.historico.GerarHistoricoEvent;
+import br.senac.tads4.piiv.service.event.historico.HistoricoEvent;
 import br.senac.tads4.piiv.service.event.produto.ProdutoSalvoEvent;
 import br.senac.tads4.piiv.service.exception.DescricaoDaImagemPassaLimiteCaractesException;
 import br.senac.tads4.piiv.service.exception.DescricaoDaImagemVaziaException;
@@ -62,7 +62,7 @@ public class ConsoleService extends ProdutoService {
 		consoles.save(console);
 		
 		publisher.publishEvent(new ProdutoSalvoEvent(console));
-		publisher.publishEvent(new GerarHistoricoEvent(console, TipoMovimentacao.ENTRADA));
+		publisher.publishEvent(new HistoricoEvent(console, TipoMovimentacao.ENTRADA));
 	}
 	
 	/**

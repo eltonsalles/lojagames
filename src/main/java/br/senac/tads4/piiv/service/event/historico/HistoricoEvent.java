@@ -6,21 +6,28 @@ import br.senac.tads4.piiv.model.ItemPedido;
 import br.senac.tads4.piiv.model.Produto;
 import br.senac.tads4.piiv.model.enumerated.TipoMovimentacao;
 
-public class GerarHistoricoEvent {
+public class HistoricoEvent {
 
 	private Produto produto;
 
 	private Set<ItemPedido> itensPedido;
 
+	private Long idPedido;
+
 	private TipoMovimentacao tipoMovimentacao;
 
-	public GerarHistoricoEvent(Produto produto, TipoMovimentacao tipoMovimentacao) {
+	public HistoricoEvent(Produto produto, TipoMovimentacao tipoMovimentacao) {
 		this.produto = produto;
 		this.tipoMovimentacao = tipoMovimentacao;
 	}
 
-	public GerarHistoricoEvent(Set<ItemPedido> itensPedido, TipoMovimentacao tipoMovimentacao) {
+	public HistoricoEvent(Set<ItemPedido> itensPedido, TipoMovimentacao tipoMovimentacao) {
 		this.itensPedido = itensPedido;
+		this.tipoMovimentacao = tipoMovimentacao;
+	}
+
+	public HistoricoEvent(Long id, TipoMovimentacao tipoMovimentacao) {
+		this.idPedido = id;
 		this.tipoMovimentacao = tipoMovimentacao;
 	}
 
@@ -30,6 +37,10 @@ public class GerarHistoricoEvent {
 
 	public Set<ItemPedido> getItensPedido() {
 		return itensPedido;
+	}
+	
+	public Long getIdPedido() {
+		return idPedido;
 	}
 
 	public TipoMovimentacao getTipoMovimentacao() {
@@ -42,5 +53,9 @@ public class GerarHistoricoEvent {
 
 	public Boolean getVenda() {
 		return this.tipoMovimentacao.equals(TipoMovimentacao.VENDA);
+	}
+
+	public Boolean getCancelamento() {
+		return this.tipoMovimentacao.equals(TipoMovimentacao.CANCELAMENTO);
 	}
 }

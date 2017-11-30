@@ -20,7 +20,7 @@
 						<label for="tipo-movimentacao" class="control-label">Tipo de Movimentação</label>
 						<select id="tipo-movimentacao" class="form-control" required th:field="*{tipoMovimentacao}">
 							<option value="">Selecione o tipo de movimentação</option>
-							<option th:each="tipo : ${tiposMovimentacao}" th:value="${tipo}" th:text="${tipo.descricao}"></option>
+							<option th:each="tipo : ${tiposMovimentacao}" th:value="${tipo}" th:text="${tipo.descricao}" th:if="${!#strings.equals(tipo ,'VENDA') && !#strings.equals(tipo ,'CANCELAMENTO')}"></option>
 						</select>
 					</div>
 					<div class="col-sm-4 form-group tc-required">

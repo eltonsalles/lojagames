@@ -3,7 +3,6 @@
 	layout:decorator="layout/backoffice/LayoutPadrao" xlmns:thecode="http://thecode.com.br">
 <head>
 <title>Liberação de Pedidos</title>
-<link rel="stylesheet" th:href="@{/stylesheets/backoffice-liberacao-pedidos.css}" />
 </head>
 <body>
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" layout:fragment="conteudo">
@@ -56,28 +55,28 @@
 					<div th:if="*{!#strings.equals('CANCELADO', status)}">
 						<div class="checkbox">
 							<label>
-								<input type="checkbox" value="SEPARACAO" name="status" th:checked="*{dataPagamento != null}"
+								<input class="js-cancelar-pedido" type="checkbox" value="SEPARACAO" name="status" th:checked="*{dataPagamento != null}"
 									th:disabled="*{dataPagamento != null}" required>
 								Pagamento
 							</label>
 						</div>
 						<div class="checkbox" th:if="*{dataPagamento != null}">
 							<label>
-								<input type="checkbox" value="TRANSPORTE" name="status" th:checked="*{dataSeparacao != null}"
+								<input class="js-cancelar-pedido" type="checkbox" value="TRANSPORTE" name="status" th:checked="*{dataSeparacao != null}"
 									th:disabled="*{dataSeparacao != null}" required>
 								Separação
 							</label>
 						</div>
 						<div class="checkbox" th:if="*{dataSeparacao != null}">
 							<label>
-								<input type="checkbox" value="ENTREGA" name="status" th:checked="*{dataTransporte != null}"
+								<input class="js-cancelar-pedido" type="checkbox" value="ENTREGA" name="status" th:checked="*{dataTransporte != null}"
 									th:disabled="*{dataTransporte != null}" required>
 								Transporte
 							</label>
 						</div>
 						<div class="checkbox" th:if="*{dataTransporte != null}">
 							<label>
-								<input type="checkbox" value="FINALIZADO" name="status" th:checked="*{dataEntrega != null}"
+								<input class="js-cancelar-pedido" type="checkbox" value="FINALIZADO" name="status" th:checked="*{dataEntrega != null}"
 									th:disabled="*{dataEntrega != null}" required>
 								Entrega
 							</label>
@@ -85,7 +84,7 @@
 					</div>
 					<div class="checkbox">
 						<label>
-							<input type="checkbox" value="CANCELADO" name="status" th:checked="*{#strings.equals('CANCELADO', status)}"
+							<input class="js-opcao-cancelar-pedido" type="checkbox" value="CANCELADO" name="status" th:checked="*{#strings.equals('CANCELADO', status)}"
 								th:disabled="*{#strings.equals('CANCELADO', status)}">
 							Cancelado
 						</label>
@@ -99,5 +98,8 @@
 			</div>
 		</div>
 	</div>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/liberar-pedido.js}"></script>
+	</th:block>
 </body>
 </html>
