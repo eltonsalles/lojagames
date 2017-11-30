@@ -74,6 +74,13 @@ public class CarrinhoCompraController {
 			RedirectAttributes attributes) {
 		for (ItemProdutoDto item : carrinho) {
 			if (item.getId() == id) {
+				Integer novaQtde = item.getQtde() + 1;
+				
+				Produto produto = produtoRepository.findOne(id);
+				if (novaQtde <= produto.getEstoque()) {
+					item.setQtde(novaQtde);
+				}
+				
 				return new ModelAndView("redirect:/carrinho-compra");
 			}
 		}
