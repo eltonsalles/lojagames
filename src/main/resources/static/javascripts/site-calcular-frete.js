@@ -96,7 +96,7 @@ $(function() {
 				});
 			},
 			error: function () {
-				console.log("Deu erro!!");
+				alert("CEP inválido!");
 			},
 			beforeSend: function () {
 				// Apresenta o gif até o fim da requisição
