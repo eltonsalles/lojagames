@@ -13,39 +13,40 @@
 			<form method="post" th:object="${cliente}" class="js-form-cadastro-cliente" th:action="@{/clientes/conta/editar/dados-cadastrais}">
 				<thecode:messagesite />
 				<input type="hidden" th:field="*{id}">
-				<div class="input-field col s12 l8">
+				<div class="input-field col s12 l8 tc-required">
 					<i class="material-icons prefix">account_circle</i>
 					<input id="nome" type="text" th:field="*{nome}" maxlength="150" required />
 					<label for="nome">Nome completo</label>
 				</div>
-				<div class="col s12 l4">
+				<div class="col s12 l4 tc-required">
+					<label>Sexo</label>
 					<br>
 					<th:block th:each="sexo : ${sexos}">
 						<input class="with-gap tc-radio-site" th:id="|id_${sexo}|" type="radio" th:value="${sexo}" th:field="*{sexo}" required />
 						<label th:for="|id_${sexo}|" th:text="${sexo.descricao}"></label>
 					</th:block>
 				</div>
-				<div class="input-field col s12 l6">
+				<div class="input-field col s12 l6 tc-required">
 					<i class="material-icons prefix">account_box</i>
 					<input id="cpf" type="text" class="js-cpf" maxlength="14" th:field="*{cpf}" required />
 					<label for="cpf">CPF</label>
 				</div>
-				<div class="input-field col s12 l6">
+				<div class="input-field col s12 l6 tc-required">
 					<i class="material-icons prefix">date_range</i>
 					<input id="data-nascimento" type="text" class="datepicker" min="1900-01-01" th:field="*{dataNascimento}" required />
 					<label for="data-nascimento">Data de Nascimento</label>
 				</div>
-				<div class="input-field col s6 l6">
+				<div class="input-field col s6 l6 tc-required">
 					<i class="material-icons prefix">smartphone</i>
 					<input id="celular" type="text" maxlength="15" class="js-telefone" th:field="*{celular}" required />
 					<label for="celular">Celular</label>
 				</div>
-				<div class="input-field col s6 l6">
+				<div class="input-field col s6 l6 tc-required">
 					<i class="material-icons prefix">phone</i>
 					<input id="telefone" type="text" maxlength="15" class="js-telefone" th:field="*{telefone}" />
 					<label for="telefone">Telefone</label>
 				</div>
-				<div class="input-field col s12 l12">
+				<div class="input-field col s12 l12 tc-required">
 					<i class="material-icons prefix">email</i>
 					<input id="email" type="email" th:field="*{email}" maxlength="150" required />
 					<label for="email">E-mail</label>

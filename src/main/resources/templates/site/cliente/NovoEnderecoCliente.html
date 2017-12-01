@@ -14,7 +14,7 @@
 				<thecode:messagesite />
 				<input type="hidden" th:value="${index}" name="index">
 				<input type="hidden" th:field="*{cliente.id}">
-				<div class="input-field col s12 m3">
+				<div class="input-field col s12 m3 tc-required">
 					<i class="material-icons prefix">place</i>
 					<input id="cep" type="text" th:field="*{cep}" maxlength="9" class="js-cep" />
 					<label for="cep">CEP</label>
@@ -22,12 +22,12 @@
 				<div class="input-field col s2 m1 gif-carregando hide">
 					<img class="responsive-img" alt="Carregando" th:src="@{/images/carregando.gif}">
 				</div>
-				<div class="input-field col s12 m9">
+				<div class="input-field col s12 m9 tc-required">
 					<i class="material-icons prefix">home</i>
 					<input id="logradouro" type="text" th:field="*{logradouro}" maxlength="150" required />
 					<label for="logradouro">Logradouro</label>
 				</div>
-				<div class="input-field col s12 m3">
+				<div class="input-field col s12 m3 tc-required">
 					<i class="material-icons prefix">home</i>
 					<input id="numero" type="text" th:field="*{numero}" maxlength="10" class="js-numero-endereco" required />
 					<label for="numero">Número</label>
@@ -37,22 +37,22 @@
 					<input id="complemento" type="text" th:field="*{complemento}" maxlength="100" />
 					<label for="complemento">Complemento</label>
 				</div>
-				<div class="input-field col s12 m5">
+				<div class="input-field col s12 m5 tc-required">
 					<i class="material-icons prefix">person_pin_circle</i>
 					<input id="bairro" type="text" th:field="*{bairro}" maxlength="100" required />
 					<label for="bairro">Bairro</label>
 				</div>
-				<div class="input-field col s12 m4">
+				<div class="input-field col s12 m4 tc-required">
 					<i class="material-icons prefix">person_pin_circle</i>
 					<input id="cidade" type="text" th:field="*{cidade}" maxlength="100" required />
 					<label for="cidade">Cidade</label>
 				</div>
-				<div class="input-field col s12 m2">
+				<div class="input-field col s12 m2 tc-required">
 					<i class="material-icons prefix">person_pin_circle</i>
 					<input id="uf" type="text" th:field="*{uf}" maxlength="2" class="js-uf" required />
 					<label for="uf">UF</label>
 				</div>
-				<div class="input-field col s12 m12">
+				<div class="input-field col s12 m12 tc-required">
 					<i class="material-icons prefix">person_pin_circle</i>
 					<textarea id="referencia" class="materialize-textarea" rows="1" th:field=*{referencia} required></textarea>
 					<label for="referencia">Referência</label>

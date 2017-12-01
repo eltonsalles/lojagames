@@ -10,22 +10,22 @@
 	<div class="row">
 		<form class="col s12" th:object="${contato}" th:action="@{/contatos/novo}" method="post">
 			<thecode:messagesite />
-			<div class="input-field col s12 m4">
+			<div class="input-field col s12 m4 tc-required">
 				<select id="tipo-contato" th:field="*{tipo}" required>
 					<option value="" disabled selected>Selecione o tipo</option>
 					<option th:each="tipoContato : ${tiposContato}" th:value="${tipoContato}" th:text="${tipoContato.descricao}"></option>
 				</select>
 				<label>Tipo</label>
 			</div>
-			<div class="input-field col s12 m8">
+			<div class="input-field col s12 m8 tc-required">
 				<input id="nome" type="text" maxlength="150" th:field="*{nome}" required>
 				<label for="nome">Nome</label>
 			</div>
-			<div class="input-field col s12 col-sm-offset-2">
+			<div class="input-field col s12 col-sm-offset-2 tc-required">
 				<input id="email" type="email" maxlength="150" th:field="*{email}" required>
 				<label for="email">Email</label>
 			</div>
-			<div class="input-field col s12">
+			<div class="input-field col s12 tc-required">
 				<textarea id="mensagem" class="materialize-textarea" row="1" maxlength="1000" th:field="*{mensagem}" required></textarea>
 				<label for="mensagem">Mensagem</label>
 			</div>
