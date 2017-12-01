@@ -13,6 +13,7 @@ import br.senac.tads4.piiv.repository.HistoricoProdutoRepository;
 import br.senac.tads4.piiv.repository.ProdutoRepository;
 import br.senac.tads4.piiv.service.event.estoque.AtualizarEstoqueEvent;
 import br.senac.tads4.piiv.service.exception.CodigoProdutoNaoExisteException;
+import br.senac.tads4.piiv.service.exception.ProdutoSemEstoqueException;
 
 /**
  * Classe responsável por persistir os dados no banco de dados na tabela
@@ -44,6 +45,15 @@ public class HistoricoProdutoService {
 		}
 		
 		Produto produto = produtoRepository.findOne(historicoProduto.getProduto().getIdProduto());
+		
+		if (historicoProduto.getQuantidade() > produto.getEstoque() && TipoMovimentacao.QUEBRA.equals(historicoProduto.getTipoMovimentacao())) {
+			throw new ProdutoSemEstoqueException("O produto não possui a quantidade desejada para ess tipo de movimentação");
+		}
+		
+		if (historicoProduto.getQuantidade() <= 0 && TipoMovimentacao.ENTRADA.equals(historicoProduto.getTipoMovimentacao())) {
+			throw new ProdutoSemEstoqueException("A quantidade informada é inválida");
+		}
+		
 		historicoProduto.setProduto(produto);
 		historicoProduto.setData(LocalDate.now());
 
