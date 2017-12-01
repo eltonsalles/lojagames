@@ -9,15 +9,15 @@
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" layout:fragment="conteudo">
 		<h1 class="page-header">Pesquisar Venda</h1>
 		<form method="post" th:object="${pedidoFilter}" th:action="@{/admin/relatorio/vendas}">
-			<div class="col-sm-4 col-md-4 form-group">
+			<div class="col-sm-5 col-md-5 form-group">
 				<label for="*{dataPedidoInicial}">Datas</label>
 				<div class="form-inline">
 					<input type="date" class="form-control" id="dataInicial" th:field="*{dataPedidoInicial}" />
-					<label for="*{dataPedidoFinal}"> à </label>
+					<label for="*{dataPedidoFinal}">até</label>
 					<input type="date" class="form-control" id="dataFinal" th:field="*{dataPedidoFinal}" />
 				</div>
 			</div>
-			<div class="col-sm-4 col-md-4 form-group">
+			<div class="col-sm-3 col-md-3 form-group">
 				<label for="status" class="control-label">Status</label>
 				<select class="col-sm-3 form-control" id="status" th:field="*{status}">
 					<option value="">Todos os status</option>

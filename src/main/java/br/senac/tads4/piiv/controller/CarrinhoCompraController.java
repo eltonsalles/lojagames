@@ -171,7 +171,7 @@ public class CarrinhoCompraController {
 	@RequestMapping(value = "/realizar-pedido", method = RequestMethod.POST)
 	public ModelAndView realizarPedido(@Valid Pedido pedido, BindingResult result, RedirectAttributes attributes, HttpServletRequest request) {
 		if (result.hasErrors()) {
-			attributes.addFlashAttribute("msgErroRealizarPedido", "Informe os dados de entrega e pagamento");
+			attributes.addFlashAttribute("msgErroRealizarPedido", "Informe os dados de entrega e/ou pagamento");
 
 			return finalizarCompra(pedido.getCliente().getEnderecos().get(0).getCep(), pedido.getValorFrete(),
 					pedido.getDiasEntrega(), attributes, request);
