@@ -3,7 +3,7 @@
 <body>
 	<div class="col-sm-3 col-md-2 sidebar" th:fragment="layout-backoffice-menu-lateral">
 		<ul class="nav nav-sidebar">
-			<li class="active">
+			<li>
 				<a class="dropdown-toggle" type="button" data-toggle="dropdown">
 					Usuario
 					<span class="caret"></span>
@@ -31,7 +31,17 @@
 					</li>
 				</ul>
 			</li>
-
+			<li>
+				<a class="dropdown-toggle" type="button" data-toggle="dropdown">
+					Movimentar Produto
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+										<li>
+						<a th:href="@{/admin/produtos/movimentar}">Movimentar</a>
+					</li>				</ul>
+			</li>
+			<li>
 			<li>
 				<a class="dropdown-toggle" type="button" data-toggle="dropdown">
 					Consultar
@@ -46,9 +56,6 @@
 					</li>
 					<li>
 						<a th:href="@{/admin/produtos/pesquisar}">Consultar Produto</a>
-					</li>
-					<li>
-						<a th:href="@{/admin/produtos/movimentar}">Movimentar Produto</a>
 					</li>
 				</ul>
 			</li>
@@ -73,7 +80,20 @@
 						<a th:href="@{/admin/contatos/pesquisar}">Pesquisar Chamado</a>
 					</li>
 				</ul>
-
+			</li>
+				<li>
+				<a class="dropdown-toggle" type="button" data-toggle="dropdown">
+					Pedidos
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li>
+						<a th:href="@{/admin/pedidos/pesquisar}">Visualizar pedido</a>
+					</li>
+					<li>
+						<a th:href="@{/admin/pedidos/liberar}">Liberar pedido</a>
+					</li>
+				</ul>
 			</li>
 		</ul>
 	</div>
