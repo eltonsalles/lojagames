@@ -70,7 +70,7 @@
 						<div class="col s12 m12">
 							<h6 class="center-align" th:text="${produto.nome}"></h6>
 						</div>
-						<div class="col s12 m12">
+						<div class="col s12 m12" th:if="${produto.estoque > 0}">
 							<div class="col s8 m8">
 								<p class="preco a-vista js-preco-avista-add-carrinho">
 									<span th:text="${#numbers.formatCurrency(produto.precoVenda)}"></span>
@@ -88,6 +88,11 @@
 										<i class="material-icons js-icon-add-carrinho">add_shopping_cart</i>
 									</button>
 								</form>
+							</div>
+						</div>
+						<div class="col s12 m12 tc-produto-sem-saldo" th:if="${produto.estoque == 0}">
+							<div>
+								<div class="center-align">Produto Indisponível</div>
 							</div>
 						</div>
 					</article>

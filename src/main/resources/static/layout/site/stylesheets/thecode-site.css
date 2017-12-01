@@ -1,6 +1,22 @@
 /***********************************************************************************************************************/
 /* Geral do site */
 
+@media ( max-width : 768px) {
+	.produto > article {
+		height: 244px;
+	}
+}
+
+@media ( min-width : 769px) {
+	.produto > article {
+		height: 288px;
+	}
+}
+
+.tc-produto-sem-saldo > div {
+	width: 100%;
+}
+
 /* Container de desconto */
 .container-produto-desconto {
 	position: relative;

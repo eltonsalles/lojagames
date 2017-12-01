@@ -51,7 +51,7 @@
 		</div>
 		<div class="col-sm-3 form-group tc-required" thecode:classforerror="estoque">
 			<label for="estoque" class="control-label">Estoque</label>
-			<input id="estoque" type="text" class="form-control js-int" th:field="*{estoque}" required/>
+			<input id="estoque" type="text" class="form-control js-int" th:field="*{estoque}" required th:readonly="*{idProduto != null}"/>
 		</div>
 		<div class="col-sm-2 form-group tc-required" thecode:classforerror="garantia">
 			<label for="garantia" class="control-label">Garantia em Meses</label>

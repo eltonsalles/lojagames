@@ -96,7 +96,7 @@ public class ClienteController {
 		}
 
 		attributes.addFlashAttribute("mensagem", "Bem vindo a The Code Games!");
-		return new ModelAndView("redirect:/clientes/conta/index");
+		return new ModelAndView("redirect:/login/site");
 	}
 
 	/**
