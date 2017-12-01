@@ -4,4 +4,7 @@ $(function() {
 	
 	var int = $('.js-int');
 	int.maskMoney({precision: 0, thousands: '.', allowEmpty: true});
+	
+	var codigo = $('.js-codigo');
+	codigo.maskMoney({precision: 0, thousands: '', allowEmpty: true});
 });

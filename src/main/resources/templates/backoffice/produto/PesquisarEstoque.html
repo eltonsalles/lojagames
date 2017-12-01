@@ -26,7 +26,7 @@
 					</div>
 					<div class="col-sm-3 form-group">
 						<label for="codigo" class="control-label">Código</label>
-						<input id="codigo" type="text" class="form-control js-int" th:field="*{id}" />
+						<input id="codigo" type="text" class="form-control js-codigo" th:field="*{id}" maxlength="15" />
 					</div>
 					<div class="col-sm-6 form-group">
 						<label for="nome" class="control-label">Nome</label>
@@ -35,17 +35,17 @@
 					<div class="col-sm-5 form-group">
 						<label for="precoCompraDe">Preço de Compra</label>
 						<div class="form-inline">
-							<input type="text" class="form-control  js-decimal" id="precoCompraDe" th:field="*{precoCompraDe}" />
+							<input type="text" class="form-control  js-decimal" id="precoCompraDe" th:field="*{precoCompraDe}" maxlength="10" />
 							<label for="precoCompraAte"> até </label>
-							<input type="text" class="form-control  js-decimal" id="precoCompraAte" th:field="*{precoCompraAte}" />
+							<input type="text" class="form-control  js-decimal" id="precoCompraAte" th:field="*{precoCompraAte}" maxlength="10" />
 						</div>
 					</div>
 					<div class="col-sm-5 form-group">
 						<label for="precoVendaDe">Preço de Venda</label>
 						<div class="form-inline">
-							<input type="text" class="form-control  js-decimal" id="precoVendaDe" th:field="*{precoVendaDe}" />
+							<input type="text" class="form-control  js-decimal" id="precoVendaDe" th:field="*{precoVendaDe}" maxlength="10" />
 							<label for="precoVendaAte"> até </label>
-							<input type="text" class="form-control  js-decimal" id="precoVendaAte" th:field="*{precoVendaAte}" />
+							<input type="text" class="form-control  js-decimal" id="precoVendaAte" th:field="*{precoVendaAte}" maxlength="10" />
 						</div>
 					</div>
 					<div class="col-sm-2 form-group">
