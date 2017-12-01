@@ -52,21 +52,27 @@ public class SiteController {
 		menu(mv);
 		return mv;
 	}
+
 	@RequestMapping("/detalhes-do-produto/{id}")
 	public ModelAndView detalheProduto(@PathVariable Long id) {
 		ModelAndView mv = new ModelAndView("site/produto/DetalhesProduto");
+		tiposProduto(mv);
+		percentualDesconto(mv);
+		menu(mv);
+		
 		Pageable limit = new PageRequest(0, 4);
 		Produto produto = produtoRepository.findOne(id);
-		List<Jogo> listaJogo = new ArrayList<>();
+		
+		List<?> listaJogo = new ArrayList<>();
 		if (produto.getTipoProduto().name().equalsIgnoreCase("jogo")) {
 			Jogo jogo = (Jogo) produto;
 			Genero genero = jogo.getGenero();
 			listaJogo = jogoRepository.findByGenero(genero, limit);
+		} else {
+			listaJogo = produtoRepository.findByTipoConsole(produto.getTipoConsole(), limit);
 		}
+		
 		mv.addObject("produtos", listaJogo);
-		tiposProduto(mv);
-		percentualDesconto(mv);
-		menu(mv);
 		mv.addObject("produto", produto);
 		mv.addObject("maximoParcelas", produtoService.getMaximoParcelas());
 		return mv;
@@ -75,45 +81,92 @@ public class SiteController {
 	@RequestMapping("/lista-produto/{id}")
 	public ModelAndView listaProdutoConsole(@PathVariable Long id) {
 		ModelAndView mv = new ModelAndView("site/produto/ListaProduto");
-
 		tiposProduto(mv);
 		percentualDesconto(mv);
-		generos(mv);
 		menu(mv);
+		
 		mv.addObject("produtos", produtoRepository.findByTipoConsole(idTipoConsole(id)));
 		mv.addObject("idConsole", id);
 		return mv;
 	}
-
-	@RequestMapping("/lista-produto/{idConsole}/{tipoProduto}")
-	public ModelAndView listaProdutoCategoria(@PathVariable Long idConsole, @PathVariable TipoProduto tipoProduto) {
+	
+	@RequestMapping("/lista-produto/{id}/{ordenar}")
+	public ModelAndView listaProdutoConsole(@PathVariable Long id, @PathVariable String ordenar) {
 		ModelAndView mv = new ModelAndView("site/produto/ListaProduto");
-
 		tiposProduto(mv);
 		percentualDesconto(mv);
-		generos(mv);
 		menu(mv);
-		mv.addObject("produtos",
-				produtoRepository.findByTipoConsoleAndTipoProduto(idTipoConsole(idConsole), tipoProduto));
+		
+		mv.addObject("produtos", this.produtos(this.idTipoConsole(id), ordenar));
+		mv.addObject("idConsole", id);
+		return mv;
+	}
+
+	@RequestMapping("/lista-produtos/{idConsole}/{tipoProduto}")
+	public ModelAndView listaProdutoCategoria(@PathVariable Long idConsole, @PathVariable TipoProduto tipoProduto) {
+		ModelAndView mv = new ModelAndView("site/produto/ListaProduto");
+		tiposProduto(mv);
+		percentualDesconto(mv);
+		menu(mv);
+		
+		if (tipoProduto.equals(TipoProduto.JOGO)) {
+			generos(mv);
+		}
+		
+		mv.addObject("produtos", produtoRepository.findByTipoConsoleAndTipoProduto(idTipoConsole(idConsole), tipoProduto));
 		mv.addObject("idConsole", idConsole);
 		mv.addObject(idTipoConsole(idConsole));
 		return mv;
 	}
 
-	@RequestMapping("/lista-produto/{idConsole}/{tipoProduto}/{idGenero}")
-	public ModelAndView listaProdutoCategoriaGenero(@PathVariable Long idConsole, @PathVariable TipoProduto tipoProduto,
-			@PathVariable Long idGenero) {
+	@RequestMapping("/lista-produtos/{idConsole}/{tipoProduto}/{ordenar}")
+	public ModelAndView listaProdutoCategoria(@PathVariable Long idConsole, @PathVariable TipoProduto tipoProduto, @PathVariable String ordenar) {
 		ModelAndView mv = new ModelAndView("site/produto/ListaProduto");
+		tiposProduto(mv);
+		percentualDesconto(mv);
+		menu(mv);
+		
+		if (tipoProduto.equals(TipoProduto.JOGO)) {
+			generos(mv);
+		}
+		
+		mv.addObject("produtos", this.produtos(this.idTipoConsole(idConsole), tipoProduto, ordenar));
+		mv.addObject("idConsole", idConsole);
+		mv.addObject(idTipoConsole(idConsole));
+		return mv;
+	}
 
+	@RequestMapping("/lista-produto/genero/{idConsole}/{tipoProduto}/{idGenero}")
+	public ModelAndView listaProdutoCategoriaGenero(@PathVariable Long idConsole, @PathVariable TipoProduto tipoProduto, @PathVariable Long idGenero) {
+		ModelAndView mv = new ModelAndView("site/produto/ListaProduto");
 		tiposProduto(mv);
 		percentualDesconto(mv);
 		generos(mv);
 		menu(mv);
-		mv.addObject("idConsole", idConsole);
-		mv.addObject(tipoProduto);
+		
 		Genero genero = new Genero();
 		genero.setId(idGenero);
+		
+		mv.addObject("idConsole", idConsole);
+		mv.addObject(tipoProduto);
 		mv.addObject("produtos", jogoRepository.findByGeneroAndTipoConsole(idGenero, idConsole));
+		return mv;
+	}
+
+	@RequestMapping("/lista-produto/genero/{idConsole}/{tipoProduto}/{idGenero}/{ordenar}")
+	public ModelAndView listaProdutoCategoriaGenero(@PathVariable Long idConsole, @PathVariable TipoProduto tipoProduto, @PathVariable Long idGenero, @PathVariable String ordenar) {
+		ModelAndView mv = new ModelAndView("site/produto/ListaProduto");
+		tiposProduto(mv);
+		percentualDesconto(mv);
+		generos(mv);
+		menu(mv);
+		
+		Genero genero = new Genero();
+		genero.setId(idGenero);
+		
+		mv.addObject("idConsole", idConsole);
+		mv.addObject(tipoProduto);
+		mv.addObject("produtos", this.jogos(idGenero, idConsole, ordenar));
 		return mv;
 	}
 
@@ -137,5 +190,71 @@ public class SiteController {
 		TipoConsole tipoConsole = new TipoConsole();
 		tipoConsole.setId(idConsole);
 		return tipoConsole;
+	}
+	
+	private List<Produto> produtos(TipoConsole tipoConsole, String ordenar) {
+		List<Produto> produtos;
+		switch (ordenar.toLowerCase()) {
+		case "ordem-alfabetica":
+			produtos = produtoRepository.findByTipoConsoleOrderByNome(tipoConsole);
+			break;
+
+		case "menor-preco":
+			produtos = produtoRepository.findByTipoConsoleOrderByPrecoVenda(tipoConsole);
+			break;
+
+		case "maior-preco":
+			produtos = produtoRepository.findByTipoConsoleOrderByPrecoVendaDesc(tipoConsole);
+			break;
+
+		default:
+			produtos = produtoRepository.findByTipoConsole(tipoConsole);
+		}
+
+		return produtos;
+	}
+
+	private List<Produto> produtos(TipoConsole tipoConsole, TipoProduto tipoProduto, String ordenar) {
+		List<Produto> produtos;
+		switch (ordenar.toLowerCase()) {
+		case "ordem-alfabetica":
+			produtos = produtoRepository.findByTipoConsoleAndTipoProdutoOrderByNome(tipoConsole, tipoProduto);
+			break;
+
+		case "menor-preco":
+			produtos = produtoRepository.findByTipoConsoleAndTipoProdutoOrderByPrecoVenda(tipoConsole, tipoProduto);
+			break;
+
+		case "maior-preco":
+			produtos = produtoRepository.findByTipoConsoleAndTipoProdutoOrderByPrecoVendaDesc(tipoConsole, tipoProduto);
+			break;
+
+		default:
+			produtos = produtoRepository.findByTipoConsoleAndTipoProduto(tipoConsole, tipoProduto);
+		}
+
+		return produtos;
+	}
+
+	private List<Jogo> jogos(Long idGenero, Long idConsole, String ordenar) {
+		List<Jogo> jogos;
+		switch (ordenar.toLowerCase()) {
+		case "ordem-alfabetica":
+			jogos = jogoRepository.findByGeneroAndTipoConsoleOrderByNome(idGenero, idConsole);
+			break;
+
+		case "menor-preco":
+			jogos = jogoRepository.findByGeneroAndTipoConsoleOrderByPrecoVenda(idGenero, idConsole);
+			break;
+
+		case "maior-preco":
+			jogos = jogoRepository.findByGeneroAndTipoConsoleOrderByPrecoVendaDesc(idGenero, idConsole);
+			break;
+
+		default:
+			jogos = jogoRepository.findByGeneroAndTipoConsole(idGenero, idConsole);
+		}
+
+		return jogos;
 	}
 }

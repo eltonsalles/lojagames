@@ -54,6 +54,7 @@ public class SecurityConfig {
 				.antMatchers("/")
 				.antMatchers("/detalhes-do-produto/**")
 				.antMatchers("/lista-produto/**")
+				.antMatchers("/lista-produtos/**")
 				.antMatchers("/carrinho-compra/**")
 				.antMatchers("/clientes/novo")
 				.antMatchers("/contatos/novo");

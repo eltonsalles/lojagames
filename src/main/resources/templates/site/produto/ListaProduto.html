@@ -25,37 +25,35 @@
 			<ul>
 				<th:block th:each="tipoProduto : ${tiposProduto}">
 					<li>
-						<a class="black-text" th:href="|@{/lista-produto/}${idConsole}/${tipoProduto}|" th:text="${tipoProduto.descricao}"></a>
+						<a class="black-text" th:href="|@{/lista-produtos/}${idConsole}/${tipoProduto}|" th:text="${tipoProduto.descricao}"></a>
 					</li>
 				</th:block>
 			</ul>
-			<h5 class="left-align hide js-genero">
+			<h5 class="left-align" th:if="${!#strings.isEmpty(generos)}">
 				<strong>GÊNEROS</strong>
 			</h5>
-			<ul class="hide js-genero">
+			<ul th:if="${!#strings.isEmpty(generos)}">
 				<th:block th:each="genero : ${generos}">
 					<li>
-						<a class="black-text" th:href="|@{/lista-produto/}${idConsole}/${tipoProduto}/${genero.id}|"
-							th:text="${genero.nome}"></a>
+						<a class="black-text" th:href="|@{/lista-produto/genero/}${idConsole}/${tipoProduto}/${genero.id}|" th:text="${genero.nome}"></a>
 					</li>
 				</th:block>
 			</ul>
 		</div>
 		<div class="col s12 m12 l10">
-			<form class="col s12 m12">
+			<div class="col s12 m12">
 				<div class="row">
 					<div class="input-field col s12 offset-m8 m4 ordenar">
 						<select>
 							<option value="" selected>Selecione</option>
-							<option value="1">Ordem alfabética</option>
-							<option value="2">Mais vendidos</option>
-							<option value="3">Menor preço</option>
-							<option value="4">Maior preço</option>
+							<option class="js-option-ordenar" value="ordem-alfabetica" th:selected="${!#strings.isEmpty(ordenar) && #strings.equals('ordem-alfabetica', ordenar)}">Ordem alfabética</option>
+							<option class="js-option-ordenar" value="menor-preco" th:selected="${!#strings.isEmpty(ordenar) && #strings.equals('menor-preco', ordenar)}">Menor preço</option>
+							<option class="js-option-ordenar" value="maior-preco" th:selected="${!#strings.isEmpty(ordenar) && #strings.equals('maior-preco', ordenar)}">Maior preço</option>
 						</select>
 						<label>Ordenar por:</label>
 					</div>
 				</div>
-			</form>
+			</div>
 			<th:block th:each="produto : ${produtos}">
 				<div class="col s6 m3 produto">
 					<article class="col col-content z-depth-2">
@@ -95,11 +93,17 @@
 					</article>
 				</div>
 			</th:block>
+			<div class="col s12" th:if="${#lists.isEmpty(produtos)}">
+				<div>
+					<h5 class="left-align">Nenhum produto encontrado</h5>
+				</div>
+			</div>
 		</div>
 	</div>
 	</main>
 	<th:block layout:fragment="javascript-extra">
 		<script th:src="@{/javascripts/lista-produto.js}"></script>
+		<script th:src="@{/javascripts/site-ordenar-lista-produto.js}"></script>
 	</th:block>
 </body>
 </html>
