@@ -1,6 +1,10 @@
 /***********************************************************************************************************************/
 /* Detalhes de Produto */
 
+.tc-10-deconto-padrao {
+	font-size: 0.8em;
+}
+
 /* Aumenta o tamanho da fonte do preço */
 .detalhes-produto {
 	font-size: 2.5rem;

@@ -46,6 +46,7 @@
 						<span class="a-vista"></span>
 						<strong class="boleto-bancario">via Boleto Bancário</strong>
 					</p>
+					<i class="tc-10-deconto-padrao">Preço já com desconto de 10% para pagamento no boleto bancário</i>
 					<p class="pagamento-parcelado">
 						<span th:if="${!#strings.isEmpty(produto.percentualDesconto)}" th:text="|ou ${#numbers.formatCurrency(produto.precoVenda * (100 - produto.percentualDesconto) / 100)}|"></span>
 						<span th:if="${#strings.isEmpty(produto.percentualDesconto)}" th:text="|ou ${#numbers.formatCurrency(produto.precoVenda)}|"></span>

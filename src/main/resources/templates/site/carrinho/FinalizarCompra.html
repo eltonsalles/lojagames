@@ -144,7 +144,7 @@
 				<p>
 					<input class="with-gap tc-radio-site" type="radio" id="boleto" th:value="${tiposPagamento[1]}"
 						th:field="*{tipoPagamento}" />
-					<label for="boleto" th:text="${tiposPagamento[1].descricao}"></label>
+					<label for="boleto" th:text="|${tiposPagamento[1].descricao} 10% de desconto|"></label>
 				</p>
 			</div>
 			<div class="col m4 s12">
