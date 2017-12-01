@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.senac.tads4.piiv.model.Cliente;
 import br.senac.tads4.piiv.model.Pedido;
+import br.senac.tads4.piiv.model.enumerated.StatusPedido;
 import br.senac.tads4.piiv.repository.PedidoRepository;
 import br.senac.tads4.piiv.repository.TipoConsoleRepository;
 import br.senac.tads4.piiv.service.PedidoService;
@@ -46,6 +47,11 @@ public class PedidoController {
 		ModelAndView mv = new ModelAndView("site/pedido/VisualizarPedido");
 
 		Pedido pedido = pedidoRepository.findOne(id);
+		
+		if (pedido.getStatus().equals(StatusPedido.CANCELADO)) {
+			return new ModelAndView("redirect:/pedidos/pedido");
+		}
+		
 		Cliente cliente = login.recuperarUsuario().getCliente();
 
 		mv.addObject("pedido", pedido);

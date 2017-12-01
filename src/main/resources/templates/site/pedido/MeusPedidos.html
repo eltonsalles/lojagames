@@ -34,7 +34,7 @@
 						<p class="black-text">
 							Valor Total: <span th:text="${#numbers.formatCurrency(pedido.valorTotal)}"></span>
 						</p>
-						<p>
+						<p th:if="${!#strings.equals(pedido.status, 'CANCELADO')}">
 							<a class="btn waves-effect waves-light amber darken-2" th:href="@{/pedidos/pedido/{id}(id=${pedido.id})}">Detalhes do Pedido</a>
 						</p>
 					</div>
