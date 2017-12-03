@@ -4,6 +4,10 @@
 	margin-right: 25px;
 }
 
+.tc-menu-lateral li {
+	cursor: pointer;
+}
+
 /* Campos obrigatórios */
 .tc-required>.control-label:after {
 	content: "*";
