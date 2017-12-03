@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<body style="font-family: Arial; font-size: 14px;">
+
+	<p style="text-align: right; font-size: 30px; font-weight: bold">The Code</p>
+
+	<h1 style="font-size: 22px" th:text="|Olá ${pedido.cliente.primeiroNome}|">Olá Maria!</h1>
+
+	<p>Estamos enviando para você a atualização do status do seu pedido.</p>
+
+	<p style="font-size: 18px">
+		*O status do seu pedido é:
+		<strong style="color: darkorange">
+			<span th:text="${pedido.status.descricao}">orçamento</span>
+		</strong>
+		.
+	</p>
+
+	<div th:switch="${pedido.status}">
+		<!-- PENDENTE_PAGTO -->
+		<p th:case="${statusPedido[0]}">Falta só o nosso sistema contabilizar o pagamento ;)</p>
+		<!-- SEPARANDO -->
+		<p th:case="${statusPedido[1]}">O nosso sistema já registrou o pagamento e agora vamos embrulhar com carinho os
+			seus produtos!</p>
+		<!-- TRANSPORTE -->
+		<p th:case="${statusPedido[2]}">Nós já colocamos os seus produtos nos correios \o/</p>
+		<!-- CANCELADO -->
+		<p th:case="${statusPedido[4]}">Seu pedido foi cancelado :(</p>
+	</div>
+
+	<div th:if="${#strings.equals(pedido.status, 'ENTREGUE') && !#strings.isEmpty(pedido.dataEntrega)}">
+		<!-- ENTREGUE -->
+		<p>Entregamos os seus produtos, tudo certo?!</p>
+	</div>
+
+	<table style="width: 100%; border-collapse: collapse; margin: 20px 0">
+		<th:block th:each="item : ${pedido.itensPedido}">
+			<tr style="border-bottom: 1px solid #ccc; border-top: 1px solid #ccc">
+				<td style="width: 50px; padding-bottom: 10px; padding-top: 10px">
+					<img style="width: 40px" th:src="|cid:imagem-${item.produto.idProduto}|" />
+				</td>
+				<td style="vertical-align: top; padding-bottom: 10px; padding-top: 10px">
+					<div style="display: block; font-weight: bold; font-size: 16px" th:text="${item.produto.nome}">Bhrama Lata
+						350 ml</div>
+					<div style="color: #8e8e8e" th:text="${item.produto.tipoConsole.nome}">Nacional</div>
+					<div style="color: #8e8e8e" th:text="|${item.quantidade} x ${#numbers.formatCurrency(item.valorUnitario)}|">1
+						x R$1,90</div>
+				</td>
+				<td style="vertical-align: top; text-align: right; padding-bottom: 10px; padding-top: 10px">
+					<span style="display: block; font-weight: bold; font-size: 16px"
+						th:text="${#numbers.formatCurrency(item.valorTotal)}">R$1,90</span>
+				</td>
+			</tr>
+		</th:block>
+	</table>
+
+	<table style="width: 100%;">
+		<tr>
+			<td style="text-align: right; font-weight: bold">Subtotal:</td>
+			<td style="width: 120px; text-align: right" th:text="${#numbers.formatCurrency(pedido.valorSubTotal)}">R$1.200,50</td>
+		</tr>
+		<tr>
+			<td style="text-align: right; font-weight: bold">Frete:</td>
+			<td style="width: 100px; text-align: right">
+				<span th:text="${#numbers.formatCurrency(pedido.valorFrete)}">R$8,00</span>
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align: right; font-weight: bold; font-size: 16px">Total final:</td>
+			<td style="width: 100px; text-align: right; font-weight: bold; font-size: 16px">
+				<span th:text="${#numbers.formatCurrency(pedido.valorTotal)}">R$1.200,50</span>
+			</td>
+		</tr>
+	</table>
+
+	<p>Obrigado.</p>
+	<p>Equipe The Code!</p>
+</body>
+</html>

@@ -83,6 +83,11 @@ public class ImagemStorageLocal implements ImagemStorage {
 		}
 	}
 	
+	@Override
+	public byte[] recuperarThumbnail(String imagemProduto) {
+		return this.recuperar("thumbnail." + imagemProduto);
+	}
+	
 	private void criarPastas() {
 		try {
 			Files.createDirectories(this.local);

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import br.senac.tads4.piiv.dto.ItemProdutoDto;
+import br.senac.tads4.piiv.mail.Mailer;
 import br.senac.tads4.piiv.model.EnderecoEntrega;
 import br.senac.tads4.piiv.model.ItemPedido;
 import br.senac.tads4.piiv.model.Pedido;
@@ -35,6 +36,9 @@ public class PedidoService {
 
 	@Autowired
 	private ApplicationEventPublisher publisher;
+	
+	@Autowired
+	private Mailer mailer;
 
 	public Long salvar(Pedido pedido, List<ItemProdutoDto> carrinho) {
 		// Data do pedido
@@ -109,21 +113,26 @@ public class PedidoService {
 	 * @return
 	 */
 	public void alterarStatus(Long id, String status) {
-
+		Boolean enviarEmail = true;
 		Pedido pedido = pedidoRepository.findOne(id);
 		
 		try {
 			if (status.equals("CANCELADO")) {
 				pedido.setStatus(StatusPedido.CANCELADO);
+				
 			} else if (status.equals("SEPARACAO")) {
 				pedido.setStatus(StatusPedido.SEPARANDO);
 				pedido.setDataPagamento(LocalDate.now());
+				
 			} else if (status.equals("TRANSPORTE")) {
 				pedido.setStatus(StatusPedido.TRANSPORTE);
 				pedido.setDataSeparacao(LocalDate.now());
+				
 			} else if (status.equals("ENTREGA")) {
 				pedido.setStatus(StatusPedido.ENTREGUE);
 				pedido.setDataTransporte(LocalDate.now());
+				enviarEmail = false;
+				
 			} else {
 				pedido.setDataEntrega(LocalDate.now());
 			}
@@ -132,6 +141,10 @@ public class PedidoService {
 		}
 		 
 		pedidoRepository.save(pedido);
+		
+		if (enviarEmail) {
+			this.mailer.enviarAtualizaoStatus(pedido);
+		}
 		
 		if (status.equals("CANCELADO")) {
 			publisher.publishEvent(new HistoricoEvent(id, TipoMovimentacao.CANCELAMENTO));

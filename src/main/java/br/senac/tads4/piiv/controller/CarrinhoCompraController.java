@@ -57,7 +57,7 @@ public class CarrinhoCompraController {
 	private PedidoService pedidoService;
 	
 	@Autowired
-	private Mailer mailder;
+	private Mailer mailer;
 
 	@RequestMapping
 	public ModelAndView carrinhoCompra() {
@@ -200,7 +200,7 @@ public class CarrinhoCompraController {
 		pedido.setCliente(cliente);
 
 		Long id = pedidoService.salvar(pedido, this.getCarrinho());
-		this.mailder.enviar(pedido);
+		this.mailer.enviarPedido(pedido);
 		this.carrinho.removeAll(carrinho);
 		this.cep = "";
 

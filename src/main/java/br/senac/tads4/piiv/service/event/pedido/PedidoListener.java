@@ -8,6 +8,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
+import br.senac.tads4.piiv.mail.Mailer;
 import br.senac.tads4.piiv.model.Pedido;
 import br.senac.tads4.piiv.model.enumerated.StatusPedido;
 import br.senac.tads4.piiv.service.PedidoService;
@@ -30,6 +31,9 @@ public class PedidoListener {
 	
 	@Autowired
 	private PedidoService pedidoService;
+	
+	@Autowired
+	private Mailer mailer;
 
 	/**
 	 * Método disparado quando um pedido pago com cartão de crédito é salvo no sistema.
@@ -70,6 +74,7 @@ public class PedidoListener {
 			// Código 4 = Transação aprovada
 			if (sale.getPayment().getReturnCode().equalsIgnoreCase("4")) {
 				this.atualizarPagamentoPedido(evento.getPedido());
+				this.mailer.enviarAtualizaoStatus(evento.getPedido());
 			} else {
 				throw new TransacaoCieloExcepetion("Erro na transação de pagamento na cielo. Erro: " + sale.getPayment().getReturnCode());
 			}

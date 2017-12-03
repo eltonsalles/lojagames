@@ -11,4 +11,6 @@ public interface ImagemStorage {
 	public byte[] recuperar(String imagem);
 	
 	public void salvar(String imagem);
+
+	public byte[] recuperarThumbnail(String imagemProduto);
 }

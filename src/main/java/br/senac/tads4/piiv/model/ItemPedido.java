@@ -75,6 +75,10 @@ public class ItemPedido implements Serializable {
 	public BigDecimal getValorUnitario() {
 		return valorUnitario;
 	}
+	
+	public BigDecimal getValorTotal() {
+		return valorUnitario.multiply(new BigDecimal(quantidade));
+	}
 
 	public void setValorUnitario(BigDecimal valorUnitario) {
 		this.valorUnitario = valorUnitario;
