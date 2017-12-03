@@ -53,6 +53,11 @@ $(function() {
 			dataType: "xml",
 			contentType: "application/xml",
 			success: function (xml) {
+				if ($(xml).find('cServico').find('Valor').eq(0).text() == '0,00') {
+					alert('CEP inválido!');
+					return false;
+				}
+				
 				var finalizarCompra = $('.js-finalizar-compra');
 				
 				textoFrete.html('');
