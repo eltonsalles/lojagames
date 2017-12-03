@@ -141,6 +141,10 @@ public class CarrinhoCompraController {
 			return new ModelAndView("redirect:/login/site");
 		}
 		
+		if (this.getCarrinho().size() <= 0) {
+			return new ModelAndView("redirect:/carrinho-compra");
+		}
+		
 		ModelAndView mv = new ModelAndView("site/carrinho/FinalizarCompra");
 
 		// Informações para o formulário
@@ -189,6 +193,10 @@ public class CarrinhoCompraController {
 				return finalizarCompra(pedido.getCliente().getEnderecos().get(0).getCep(), pedido.getValorFrete(),
 						pedido.getDiasEntrega(), attributes, request);
 			}
+		}
+		
+		if (this.getCarrinho().size() <= 0) {
+			return new ModelAndView("redirect:/carrinho-compra");
 		}
 		
 		Cliente cliente = this.getUsuarioLogado(request);
