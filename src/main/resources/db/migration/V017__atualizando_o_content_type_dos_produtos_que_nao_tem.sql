@@ -1,0 +1,1 @@
+UPDATE imagem SET content_type = 'image/jpeg' where id >= 1;
