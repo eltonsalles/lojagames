@@ -46,6 +46,10 @@ public class CarrinhoCompraController {
 	private List<ItemProdutoDto> carrinho = new ArrayList<>();
 
 	private String cep;
+	
+	private BigDecimal valorFrete;
+	
+	private Integer diasEntrega;
 
 	@Autowired
 	private ProdutoRepository produtoRepository;
@@ -129,15 +133,70 @@ public class CarrinhoCompraController {
 
 		return ResponseEntity.ok("Ok");
 	}
-
-	@RequestMapping(value = "/finalizar-compra", method = RequestMethod.POST)
-	public ModelAndView finalizarCompra(@RequestParam String cep,
-			@RequestParam(name = "valor-frete") BigDecimal valorFrete,
-			@RequestParam(name = "dias-entrega") Integer diasEntrega, RedirectAttributes attributes, HttpServletRequest request) {
-
+	
+	@RequestMapping(value = "/finalizar-compra")
+	public ModelAndView finalizarCompra(
+			RedirectAttributes attributes,
+			HttpSession session,
+			HttpServletRequest request) {
+		
+		session.setAttribute("carrinhoCompras", this.getCarrinho().size());
+		
 		Cliente cliente = this.getUsuarioLogado(request);
 		
 		if (cliente == null) {
+			return new ModelAndView("redirect:/login/site");
+		}
+		
+		if (this.getCarrinho().size() <= 0) {
+			return new ModelAndView("redirect:/carrinho-compra");
+		}
+		
+		ModelAndView mv = new ModelAndView("site/carrinho/FinalizarCompra");
+
+		// Informações para o formulário
+		Pedido pedido = new Pedido();
+		pedido.setValorFrete(this.valorFrete);
+		pedido.setDiasEntrega(this.diasEntrega);
+		pedido.setValorSubTotal(this.getSubTotalCarrinho());
+		pedido.setValorTotal(this.getSubTotalCarrinho()); // No front tem a soma do frete
+
+		pedido.setCliente(cliente);
+
+		Calendar hoje = Calendar.getInstance();
+
+		mv.addObject("ano", hoje.get(Calendar.YEAR));
+		mv.addObject("meses", Meses.values());
+		mv.addObject("tiposPagamento", TipoPagamento.values());
+		mv.addObject("maximoParcelas", produtoService.getMaximoParcelas());
+		mv.addObject("pedido", pedido);
+
+		Map<String, ?> mensagem = attributes.getFlashAttributes();
+		if (mensagem.containsKey("msgErroRealizarPedido")) {
+			mv.addObject("msgErroRealizarPedido", mensagem.get("msgErroRealizarPedido"));
+		}
+
+		return mv;
+	}
+
+	@RequestMapping(value = "/finalizar-compra", method = RequestMethod.POST)
+	public ModelAndView finalizarCompra(
+			@RequestParam String cep,
+			@RequestParam(name = "valor-frete") BigDecimal valorFrete,
+			@RequestParam(name = "dias-entrega") Integer diasEntrega,
+			RedirectAttributes attributes,
+			HttpSession session,
+			HttpServletRequest request) {
+		
+		session.setAttribute("carrinhoCompras", this.getCarrinho().size());
+		
+		Cliente cliente = this.getUsuarioLogado(request);
+		
+		if (cliente == null) {
+			this.cep = cep;
+			this.valorFrete = valorFrete;
+			this.diasEntrega = diasEntrega;
+			
 			return new ModelAndView("redirect:/login/site");
 		}
 		
@@ -173,12 +232,12 @@ public class CarrinhoCompraController {
 	}
 
 	@RequestMapping(value = "/realizar-pedido", method = RequestMethod.POST)
-	public ModelAndView realizarPedido(@Valid Pedido pedido, BindingResult result, RedirectAttributes attributes, HttpServletRequest request) {
+	public ModelAndView realizarPedido(@Valid Pedido pedido, BindingResult result, RedirectAttributes attributes, HttpSession session, HttpServletRequest request) {
 		if (result.hasErrors()) {
 			attributes.addFlashAttribute("msgErroRealizarPedido", "Informe os dados de entrega e/ou pagamento");
 
 			return finalizarCompra(pedido.getCliente().getEnderecos().get(0).getCep(), pedido.getValorFrete(),
-					pedido.getDiasEntrega(), attributes, request);
+					pedido.getDiasEntrega(), attributes, session, request);
 		}
 
 		if (pedido.getTipoPagamento().toString().equalsIgnoreCase("CARTAO_CREDITO")) {
@@ -191,7 +250,7 @@ public class CarrinhoCompraController {
 				attributes.addFlashAttribute("msgErroRealizarPedido", "Informe os dados para o pagamento");
 				
 				return finalizarCompra(pedido.getCliente().getEnderecos().get(0).getCep(), pedido.getValorFrete(),
-						pedido.getDiasEntrega(), attributes, request);
+						pedido.getDiasEntrega(), attributes, session, request);
 			}
 		}
 		
@@ -211,6 +270,7 @@ public class CarrinhoCompraController {
 		this.mailer.enviarPedido(pedido);
 		this.carrinho.removeAll(carrinho);
 		this.cep = "";
+		session.removeAttribute("carrinhoCompras");
 
 		return new ModelAndView("redirect:/pedidos/pedido/" + id);
 	}

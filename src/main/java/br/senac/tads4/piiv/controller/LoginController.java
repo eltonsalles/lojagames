@@ -33,6 +33,9 @@ public class LoginController {
 			UsuarioSistema usuarioSistema = this.recuperarUsuario();
 			session.setAttribute("usuarioLogado", usuarioSistema);
 
+			if (session.getAttribute("carrinhoCompras") != null && (Integer) session.getAttribute("carrinhoCompras") > 0) {
+				return new ModelAndView("redirect:/carrinho-compra/finalizar-compra");
+			}
 			return new ModelAndView("redirect:/clientes/conta/index");
 		}
 
