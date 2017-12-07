@@ -1,5 +1,4 @@
 var interval = null;
-var lastScroll = 0;
 
 $(document).ready(function() {
 	// Navbar
@@ -47,20 +46,6 @@ $(document).ready(function() {
 
 	// Verifica o scroll da página para mostrar o botão voltar ao topo
 	$(window).scroll(function() {
-		var pos = $(this).scrollTop();
-
-		if (pos > lastScroll) {
-			$('.menu-desktop').slideUp(400, function() {
-				$('.ocultar-navbar').slideUp(200);
-			});
-		} else {
-			$('.ocultar-navbar').slideDown(400, function() {
-				$('.menu-desktop').slideDown(200);
-			});
-		}
-
-		lastScroll = pos;
-
 		if ($(this).scrollTop() > 300) {
 			$('.btn-voltar-topo').fadeIn();
 		} else {
