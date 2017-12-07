@@ -94,48 +94,48 @@
 				<div class="col s12 black white-text tc-forma-pagamento">
 					<h6>FORMA DE PAGAMENTO</h6>
 				</div>
-				<p>
-					<input class="with-gap tc-radio-site" type="radio" id="cartao" th:value="${tiposPagamento[0]}"
-						th:field="*{tipoPagamento}" />
-					<label for="cartao" th:text="${tiposPagamento[0].descricao}"></label>
-				</p>
-				<div class="tc-pagamento-cartao js-pagamento-cartao hide">
-					<div class="input-field tc-form-opcao-pagamento">
-						<select th:field="*{parcelas}" class="js-pagto-cartao-credito js-parcelas" th:attr="data-maximo-parcelas=${maximoParcelas}"></select>
-						<label>Nº de parcelas</label>
+				<div class="col s12">
+					<p>
+						<input class="with-gap tc-radio-site" type="radio" id="cartao" th:value="${tiposPagamento[0]}" th:field="*{tipoPagamento}" required />
+						<label for="cartao" th:text="${tiposPagamento[0].descricao}"></label>
+					</p>
+					<div class="tc-pagamento-cartao js-pagamento-cartao hide">
+						<div class="input-field tc-form-opcao-pagamento">
+							<select th:field="*{parcelas}" class="js-pagto-cartao-credito js-parcelas" th:attr="data-maximo-parcelas=${maximoParcelas}"></select>
+							<label>Nº de parcelas</label>
+						</div>
+						<div class="input-field tc-form-opcao-pagamento">
+							<input placeholder="Digite como no cartão" id="nome" type="text" maxlength="20" th:field="*{dadosPagamento.nomeTitular}" class="js-pagto-cartao-credito" pattern="^([a-zA-Zà-úÀ-Ú0-9])([a-zA-Zà-úÀ-Ú0-9]|\.|-|\s)+$" >
+							<label for="nome">Nome</label>
+						</div>
+						<div class="input-field tc-form-opcao-pagamento">
+							<input placeholder="0000 0000 0000 0000" id="numero-cartao" type="text" maxlength="20" class="js-pagto-cartao-credito" th:field="*{dadosPagamento.cartao}" pattern="^\d{4}.\d{4}.\d{4}.\d{4}$">
+							<label for="numero-cartao">Nº do Cartão</label>
+						</div>
+						<div class="input-field tc-form-opcao-pagamento">
+							<select id="mes" th:field="*{dadosPagamento.mesVencimento}" class="js-pagto-cartao-credito">
+								<option value="" disabled selected>Mês</option>
+								<option th:each="mes : ${meses}" th:value="${mes}" th:text="${mes.descricao}"></option>
+							</select>
+							<label>Mês de vencimento</label>
+						</div>
+						<div class="input-field tc-form-opcao-pagamento">
+							<select id="ano" th:field="*{dadosPagamento.anoVencimento}" class="js-pagto-cartao-credito">
+								<option value="" disabled selected>Ano</option>
+								<option th:each="i : ${#numbers.sequence(0, 10)}" th:value="${ano + i}" th:text="${ano + i}"></option>
+							</select>
+							<label>Ano de vencimento</label>
+						</div>
+						<div class="input-field tc-form-opcao-pagamento">
+							<input placeholder="000" id="codigo-seguranca" class="js-int js-pagto-cartao-credito" type="text" maxlength="3" th:field="*{dadosPagamento.codigoSeguranca}" pattern="^\d{3}$">
+							<label for="codigo-seguranca">Código de segurança</label>
+						</div>
 					</div>
-					<div class="input-field tc-form-opcao-pagamento">
-						<input placeholder="Digite como no cartão" id="nome" type="text" maxlength="20" th:field="*{dadosPagamento.nomeTitular}" class="js-pagto-cartao-credito" pattern="^([a-zA-Zà-úÀ-Ú0-9])([a-zA-Zà-úÀ-Ú0-9]|\.|-|\s)+$" >
-						<label for="nome">Nome</label>
-					</div>
-					<div class="input-field tc-form-opcao-pagamento">
-						<input placeholder="0000 0000 0000 0000" id="numero-cartao" type="text" maxlength="20" class="js-pagto-cartao-credito" th:field="*{dadosPagamento.cartao}" pattern="^\d{4}.\d{4}.\d{4}.\d{4}$">
-						<label for="numero-cartao">Nº do Cartão</label>
-					</div>
-					<div class="input-field tc-form-opcao-pagamento">
-						<select id="mes" th:field="*{dadosPagamento.mesVencimento}" class="js-pagto-cartao-credito">
-							<option value="" disabled selected>Mês</option>
-							<option th:each="mes : ${meses}" th:value="${mes}" th:text="${mes.descricao}"></option>
-						</select>
-						<label>Mês de vencimento</label>
-					</div>
-					<div class="input-field tc-form-opcao-pagamento">
-						<select id="ano" th:field="*{dadosPagamento.anoVencimento}" class="js-pagto-cartao-credito">
-							<option value="" disabled selected>Ano</option>
-							<option th:each="i : ${#numbers.sequence(0, 10)}" th:value="${ano + i}" th:text="${ano + i}"></option>
-						</select>
-						<label>Ano de vencimento</label>
-					</div>
-					<div class="input-field tc-form-opcao-pagamento">
-						<input placeholder="000" id="codigo-seguranca" class="js-int js-pagto-cartao-credito" type="text" maxlength="3" th:field="*{dadosPagamento.codigoSeguranca}" pattern="^\d{3}$">
-						<label for="codigo-seguranca">Código de segurança</label>
-					</div>
+					<p>
+						<input class="with-gap tc-radio-site" type="radio" id="boleto" th:value="${tiposPagamento[1]}" th:field="*{tipoPagamento}" required />
+						<label for="boleto" th:text="|${tiposPagamento[1].descricao} 10% de desconto|"></label>
+					</p>
 				</div>
-				<p>
-					<input class="with-gap tc-radio-site" type="radio" id="boleto" th:value="${tiposPagamento[1]}"
-						th:field="*{tipoPagamento}" />
-					<label for="boleto" th:text="|${tiposPagamento[1].descricao} 10% de desconto|"></label>
-				</p>
 			</div>
 			<div class="col m4 s12">
 				<div class="col s12 black white-text">
@@ -180,7 +180,7 @@
 	<div id="inserir-endereco-entrega" class="modal modal-fixed-footer" data:url="@{/carrinho-compra/cadastrar/endereco-adicional/entrega}">
 		<div class="modal-content">
 			<h5>Selecione o endereço de entrega</h5>
-			<th:block th:each="index : ${#numbers.sequence(0, #lists.size(pedido.cliente.enderecos) - 1)}" th:if="${#lists.size(pedido.cliente.enderecos) > 1}">
+			<th:block th:each="index : ${#numbers.sequence(0, #lists.size(pedido.cliente.enderecos) - 1)}" th:if="${#lists.size(pedido.cliente.enderecos) >= 1}">
 				<p>
 					<input th:id="|opcao-${index}|" type="radio" class="with-gap modal-action modal-close tc-radio-site js-opcoes-endereco-entrega" th:value="${index}" name="opcoes-endereco-entrega" th:checked="${index == 0}" />
 					<label th:for="|opcao-${index}|" th:text="|${pedido.cliente.enderecos[index].logradouro}, ${pedido.cliente.enderecos[index].numero}, ${pedido.cliente.enderecos[index].bairro}, ${pedido.cliente.enderecos[index].cidade}, ${pedido.cliente.enderecos[index].uf}, ${pedido.cliente.enderecos[index].cepFormatado}, ${pedido.cliente.enderecos[index].referencia}|" th:if="${#strings.isEmpty(pedido.cliente.enderecos[index].complemento)}"></label>
