@@ -95,7 +95,7 @@ public class EnderecoEntrega implements Serializable {
 	}
 
 	public void setCep(String cep) {
-		this.cep = cep;
+		this.cep = cep.replaceAll("\\D", "");
 	}
 
 	public String getReferencia() {

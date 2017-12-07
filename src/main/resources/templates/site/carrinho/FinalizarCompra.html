@@ -31,7 +31,7 @@
 					<h6>ENDEREÇOS</h6>
 				</div>
 				<div class="col s12 grey lighten-2">
-					<h6>Endereço Principal</h6>
+					<h6>Endereço Entrega</h6>
 				</div>
 				<br>
 				<br>
@@ -52,7 +52,7 @@
 					<input type="text" id="numero-endereco" maxlength="10" th:field=*{cliente.enderecos[0].numero} readonly>
 					<label for="numero-endereco">Número</label>
 				</div>
-				<div class="input-field tc-form-endereco-compra" th:if="*{!#strings.isEmpty(cliente.enderecos[0].complemento)}">
+				<div class="input-field tc-form-endereco-compra js-complemento" th:classappend="*{#strings.isEmpty(cliente.enderecos[0].complemento)} ? 'hide'">
 					<input type="text" id="complemento" maxlength="100" th:field=*{cliente.enderecos[0].complemento} readonly>
 					<label for="complemento">Complemento</label>
 				</div>
@@ -76,18 +76,11 @@
 				<br>
 				<br>
 				<br>
-				<!--
-				<div class="col s6">
-					<a href="#" class="left">Editar</a>
-				</div>
-				<br>
-				<br>
 				<div class="row">
 					<div class="col s12">
-						<button class="btn waves-effect waves-light orange col s12" type="button">Inserir novo endereço</button>
+						<a class="btn waves-effect waves-light orange col s12 modal-trigger" href="#inserir-endereco-entrega">Alterar Endereço</a>
 					</div>
 				</div>
-				-->
 			</div>
 			<div class="col m4 s12">
 				<div class="col s12 black white-text js-opcao-entrega">
@@ -108,19 +101,15 @@
 				</p>
 				<div class="tc-pagamento-cartao js-pagamento-cartao hide">
 					<div class="input-field tc-form-opcao-pagamento">
-						<select th:field="*{parcelas}" class="js-pagto-cartao-credito js-parcelas"
-							th:attr="data-maximo-parcelas=${maximoParcelas}">
-						</select>
+						<select th:field="*{parcelas}" class="js-pagto-cartao-credito js-parcelas" th:attr="data-maximo-parcelas=${maximoParcelas}"></select>
 						<label>Nº de parcelas</label>
 					</div>
 					<div class="input-field tc-form-opcao-pagamento">
-						<input placeholder="Digite como no cartão" id="nome" type="text" maxlength="20"
-							th:field="*{dadosPagamento.nomeTitular}" class="js-pagto-cartao-credito">
+						<input placeholder="Digite como no cartão" id="nome" type="text" maxlength="20" th:field="*{dadosPagamento.nomeTitular}" class="js-pagto-cartao-credito" pattern="^([a-zA-Zà-úÀ-Ú0-9])([a-zA-Zà-úÀ-Ú0-9]|\.|-|\s)+$" >
 						<label for="nome">Nome</label>
 					</div>
 					<div class="input-field tc-form-opcao-pagamento">
-						<input placeholder="0000 0000 0000 0000" id="numero-cartao" type="text" maxlength="20"
-							class="js-pagto-cartao-credito" th:field="*{dadosPagamento.cartao}">
+						<input placeholder="0000 0000 0000 0000" id="numero-cartao" type="text" maxlength="20" class="js-pagto-cartao-credito" th:field="*{dadosPagamento.cartao}" pattern="^\d{4}.\d{4}.\d{4}.\d{4}$">
 						<label for="numero-cartao">Nº do Cartão</label>
 					</div>
 					<div class="input-field tc-form-opcao-pagamento">
@@ -138,8 +127,7 @@
 						<label>Ano de vencimento</label>
 					</div>
 					<div class="input-field tc-form-opcao-pagamento">
-						<input placeholder="000" id="codigo-seguranca" class="js-int js-pagto-cartao-credito" type="text" maxlength="3"
-							th:field="*{dadosPagamento.codigoSeguranca}">
+						<input placeholder="000" id="codigo-seguranca" class="js-int js-pagto-cartao-credito" type="text" maxlength="3" th:field="*{dadosPagamento.codigoSeguranca}" pattern="^\d{3}$">
 						<label for="codigo-seguranca">Código de segurança</label>
 					</div>
 				</div>
@@ -189,6 +177,59 @@
 			</div>
 		</form>
 	</div>
+	<div id="inserir-endereco-entrega" class="modal modal-fixed-footer" data:url="@{/carrinho-compra/cadastrar/endereco-adicional/entrega}">
+		<div class="modal-content">
+			<h5>Selecione o endereço de entrega</h5>
+			<th:block th:each="index : ${#numbers.sequence(0, #lists.size(pedido.cliente.enderecos) - 1)}" th:if="${#lists.size(pedido.cliente.enderecos) > 1}">
+				<p>
+					<input th:id="|opcao-${index}|" type="radio" class="with-gap modal-action modal-close tc-radio-site js-opcoes-endereco-entrega" th:value="${index}" name="opcoes-endereco-entrega" th:checked="${index == 0}" />
+					<label th:for="|opcao-${index}|" th:text="|${pedido.cliente.enderecos[index].logradouro}, ${pedido.cliente.enderecos[index].numero}, ${pedido.cliente.enderecos[index].bairro}, ${pedido.cliente.enderecos[index].cidade}, ${pedido.cliente.enderecos[index].uf}, ${pedido.cliente.enderecos[index].cepFormatado}, ${pedido.cliente.enderecos[index].referencia}|" th:if="${#strings.isEmpty(pedido.cliente.enderecos[index].complemento)}"></label>
+					<label th:for="|opcao-${index}|" th:text="|${pedido.cliente.enderecos[index].logradouro}, ${pedido.cliente.enderecos[index].numero}, ${pedido.cliente.enderecos[index].complemento}, ${pedido.cliente.enderecos[index].bairro}, ${pedido.cliente.enderecos[index].cidade}, ${pedido.cliente.enderecos[index].uf}, ${pedido.cliente.enderecos[index].cepFormatado}, ${pedido.cliente.enderecos[index].referencia}|" th:if="${!#strings.isEmpty(pedido.cliente.enderecos[index].complemento)}"></label>
+				</p>
+			</th:block>
+			<div class="divider"></div>
+			<h5>Informe um novo endereço para entrega</h5>
+			<div class="row">
+				<input type="hidden" th:field="${pedido.cliente.id}" class="js-input-novo-endereco-cliente">
+				<div class="input-field col s12 m3 tc-required">
+					<input id="novo-end-cep" type="text" name="novo-end-cep" maxlength="9" class="js-input-novo-endereco" required pattern="\d{5}-\d{3}$" />
+					<label for="novo-end-cep">CEP</label>
+				</div>
+				<div class="input-field col s12 m7 tc-required">
+					<input id="novo-end-logradouro" type="text" name="novo-end-logradouro" maxlength="150" class="js-input-novo-endereco" required pattern="^([a-zA-Zà-úÀ-Ú0-9])([a-zA-Zà-úÀ-Ú0-9]|\.|-|\s)+$"/>
+					<label for="novo-end-logradouro">Logradouro</label>
+				</div>
+				<div class="input-field col s12 m2 tc-required">
+					<input id="novo-end-numero" type="text" name="novo-end-numero" maxlength="10" class="js-input-novo-endereco" required pattern="^\d+$" />
+					<label for="novo-end-numero">Número</label>
+				</div>
+				<div class="input-field col s12 m3">
+					<input id="novo-end-complemento" type="text" name="novo-end-complemento" maxlength="100" class="js-input-novo-endereco" pattern="^([a-zA-Zà-úÀ-Ú0-9]|\.|-|\s)+$" />
+					<label for="novo-end-complemento">Complemento</label>
+				</div>
+				<div class="input-field col s12 m4 tc-required">
+					<input id="novo-end-bairro" type="text" name="novo-end-bairro" maxlength="100" class="js-input-novo-endereco" required pattern="^([a-zA-Zà-úÀ-Ú0-9])([a-zA-Zà-úÀ-Ú0-9]|\.|-|\s)+$" />
+					<label for="novo-end-bairro">Bairro</label>
+				</div>
+				<div class="input-field col s12 m3 tc-required">
+					<input id="novo-end-cidade" type="text" name="novo-end-cidade" maxlength="100" class="js-input-novo-endereco" required pattern="^([a-zA-Zà-úÀ-Ú])([a-zA-Zà-úÀ-Ú]|\.|-|\s)+$" />
+					<label for="novo-end-cidade">Cidade</label>
+				</div>
+				<div class="input-field col s12 m2 tc-required">
+					<input id="novo-end-uf" type="text" name="novo-end-uf" maxlength="2" class="js-input-novo-endereco" required pattern="^[a-zA-Z]{2}" />
+					<label for="novo-end-uf">UF</label>
+				</div>
+				<div class="input-field col s12 m12 tc-required">
+					<textarea id="novo-end-referencia" class="materialize-textarea js-input-novo-endereco" rows="1" name="novo-end-referencia" required ></textarea>
+					<label for="novo-end-referencia">Referência</label>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="modal-action modal-close waves-effect waves-light btn blue darken-4 white-text">Cancelar</a>
+			<a href="#" class="modal-action modal-close waves-effect waves-light btn orange white-text js-salvar-endereco-entrega">Salvar</a>
+		</div>
+	</div>
 	</main>
 	<footer class="black">&nbsp;</footer>
 	<script th:src="@{/layout/site/vendors/jquery/jquery-3.2.1.min.js}"></script>
@@ -199,5 +240,7 @@
 	<script th:src="@{/javascripts/site-carrinho-compra.js}"></script>
 	<script th:src="@{/javascripts/site-calcular-frete.js}"></script>
 	<script th:src="@{/javascripts/site-finalizar-compra.js}"></script>
+	<script th:src="@{/javascripts/site-buscar-endereco-finalizar-compra.js}"></script>
+	<script th:src="@{/javascripts/site-novo-endereco-entrega.js}"></script>
 </body>
 </html>

@@ -9,8 +9,16 @@ $(function() {
 	// Coloca a máscara no campo CEP
 	cep.mask('00000-000');
 
-	// Atribui uma função ao campo e faz a requisição quando tiver 9 caracteres
+	// Atribui uma função ao campo e faz a requisição quando tiver 9 caracteres e o evento keyup acontecer
 	cep.on("keyup", function() {
+		textoFrete.html('');
+		if (cep.val().length == 9) {
+			calcularFrete($(this).val());
+		}
+	});
+	
+	// Atribui uma função ao campo e faz a requisição quando tiver 9 caracteres e o evento change acontecer
+	cep.on("change", function() {
 		textoFrete.html('');
 		if (cep.val().length == 9) {
 			calcularFrete($(this).val());

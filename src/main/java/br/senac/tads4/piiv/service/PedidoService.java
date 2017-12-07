@@ -8,11 +8,9 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import br.senac.tads4.piiv.dto.ItemProdutoDto;
 import br.senac.tads4.piiv.mail.Mailer;
-import br.senac.tads4.piiv.model.EnderecoEntrega;
 import br.senac.tads4.piiv.model.ItemPedido;
 import br.senac.tads4.piiv.model.Pedido;
 import br.senac.tads4.piiv.model.Produto;
@@ -70,21 +68,6 @@ public class PedidoService {
 			pedido.setFormaPagamento(FormaPagamento.PARCELADO);
 		}
 
-		// Endereço de entrega
-		EnderecoEntrega enderecoEntrega = new EnderecoEntrega();
-		enderecoEntrega.setCep(pedido.getCliente().getEnderecos().get(0).getCep());
-		enderecoEntrega.setLogradouro(pedido.getCliente().getEnderecos().get(0).getLogradouro());
-		enderecoEntrega.setNumero(pedido.getCliente().getEnderecos().get(0).getNumero());
-		enderecoEntrega.setBairro(pedido.getCliente().getEnderecos().get(0).getBairro());
-		enderecoEntrega.setCidade(pedido.getCliente().getEnderecos().get(0).getCidade());
-		enderecoEntrega.setUf(pedido.getCliente().getEnderecos().get(0).getUf());
-		if (!StringUtils.isEmpty(pedido.getCliente().getEnderecos().get(0).getComplemento())) {
-			enderecoEntrega.setComplemento(pedido.getCliente().getEnderecos().get(0).getComplemento());
-		}
-		if (!StringUtils.isEmpty(pedido.getCliente().getEnderecos().get(0).getReferencia())) {
-			enderecoEntrega.setReferencia(pedido.getCliente().getEnderecos().get(0).getReferencia());
-		}
-		pedido.setEnderecoEntrega(enderecoEntrega);
 		// Status do pedido
 		pedido.setStatus(StatusPedido.PENDENTE_PAGTO);
 
